@@ -53,16 +53,16 @@ namespace Blog.Web
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+               // app.UseDeveloperExceptionPage();
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
+               // app.UseExceptionHandler("/Error");
+               // app.UseHsts();
             }
 
             app.UseMiddleware(typeof(ErrorHandlingMiddleware));
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
