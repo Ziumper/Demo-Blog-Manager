@@ -5,14 +5,16 @@ $navhoverblack: #111;
 
 nav.topnav {
     line-height: 0.5;
+    display: flex;
+   
 }
 
 nav.topnav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     background-color: $navgrey;
+    width: 100%;
 }
 
 nav.topnav ul li {float: left;}
@@ -25,10 +27,6 @@ nav.topnav ul li a,
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-}
-
-nav.topnav ul li .navcollapser {
-    position: absolute;
 }
 
 nav.topnav ul li a:hover:not(.active),
@@ -73,3 +71,7 @@ nav.topnav ul li.right {float: right;}
     
     .navcollapser,.navcollapser  button { width: 100%;}
 }
+
+.burger-menu nav.topnav ul li.right, 
+.burger-menu nav.topnav ul  li {float: none;}
+.burger-menu .navcollapser,.navcollapser  button { width: 100%;}

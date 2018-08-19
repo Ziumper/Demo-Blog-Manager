@@ -20,6 +20,48 @@
             </div>
           </div>
       </li>
+      <li>
+        <div>
+            <button type="button" class="nav-button" (click)="isCollapsed = !isCollapsed"
+            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+                 Toggle
+           </button>
+          </div>
+      </li>
+      <li>
+          <a href="#">Link</a>
+        </li> 
     </ul>
 </nav>
+<div>
 
+</div>
+
+<!--
+<div id="collapseExample" [ngbCollapse]="isCollapsed" class="burger-menu">
+  <nav class="topnav">
+   
+    <ul>
+        <li>
+          <a  href="#">Link</a>
+        </li>
+        <li>
+          <a  href="#">Link</a>
+        </li>
+        <li>
+          <a href="#">Link</a>
+        </li> 
+        <li>
+            <div class="navcollapser" ngbDropdown>
+              <button class="nav-button"  id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <a href="#">Link</a>
+                <a href="#">Link</a>
+                <a href="#">Link</a>
+              </div>
+            </div>
+        </li>
+      </ul>
+  </nav>
+</div>
+-->
