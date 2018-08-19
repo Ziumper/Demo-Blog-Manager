@@ -35,6 +35,7 @@ namespace Blog.Dal.Repositories.Base
             return _context.Set<T>().Where(predicate);
             
         }
+
         public virtual T Add(T obj)
         { 
            return _table.Add(obj).Entity;
@@ -60,5 +61,9 @@ namespace Blog.Dal.Repositories.Base
             _context.SaveChanges();
         }
 
+        public T FindByFirst(Expression<Func<T, bool>> predicate)
+        {
+           return _context.Set<T>().Where(predicate).First();
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
 using Blog.Bll.Dto;
+using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Blogs;
 
@@ -29,6 +30,15 @@ namespace Blog.Bll.Services.Blogs
             }
 
             return blogDtos;
+        }
+
+        public BlogDto GetBlogById(int id)
+        {
+            var blog = _blogRepository.FindByFirst(x => x.BlogEntityId == id);
+            if(blog == null) throw new ResourceNotFoundException("Blog with id" + id + " not found");
+            var blogDto = _mapper.Map<BlogEntity,BlogDto>(blog);
+
+            return blogDto;
         }
     }
 }
