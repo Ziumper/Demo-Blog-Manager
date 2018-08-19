@@ -1,4 +1,4 @@
-<nav class="topnav">
+<nav id="normalMenu" class="topnav">
   <!-- Navbar links -->
     <ul>
       <li>
@@ -21,23 +21,28 @@
           </div>
       </li>
       <li>
-        <div>
-            <button type="button" class="nav-button" (click)="isCollapsed = !isCollapsed"
-            [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-                 Toggle
-           </button>
-          </div>
-      </li>
-      <li>
           <a href="#">Link</a>
         </li> 
     </ul>
 </nav>
-<div>
 
-</div>
+<nav id="phone-menu" class="topnav"> 
+    <!-- Navbar links -->
+      <ul>
+        <li class="right">
+          <div >
+              <button type="button"  class="nav-button burger-button " (click)="isCollapsed = !isCollapsed"
+              [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+              <div></div>
+              <div></div>
+              <div></div>
+             </button>
+            </div>
+        </li>
+       
+      </ul>
+  </nav>
 
-<!--
 <div id="collapseExample" [ngbCollapse]="isCollapsed" class="burger-menu">
   <nav class="topnav">
    
@@ -64,4 +69,3 @@
       </ul>
   </nav>
 </div>
--->

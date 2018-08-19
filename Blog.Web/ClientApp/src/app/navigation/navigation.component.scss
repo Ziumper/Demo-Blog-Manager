@@ -9,6 +9,16 @@ nav.topnav {
    
 }
 
+#phone-menu,
+.burger-menu .show
+ {
+    display: none;
+}
+
+nav.topnav ul li.right {
+    float: right;
+}
+
 nav.topnav ul {
     list-style-type: none;
     margin: 0;
@@ -30,7 +40,7 @@ nav.topnav ul li a,
 }
 
 nav.topnav ul li a:hover:not(.active),
-.navcollapser button:hover
+.nav-button:hover
  {background-color: $navhoverblack;}
 
 //ul.topnav li a.active {background-color: #4CAF50;}
@@ -47,31 +57,44 @@ nav.topnav ul li.right {float: right;}
 
 }
 
-.navcollapser button {
+.nav-button  {
     border:none;
     background-color: $navgrey;
 }
 
 .navcollapser,
-.navcollapser button:hover,
-.navcollapser button:focus,
-.navcollapser button:hover,
-.navcollapser button:active {
+.nav-button:hover, 
+.nav-button:focus,
+.nav-button:hover,
+.nav-button:active {
     border:  none;
     outline:  none;
 }
 
-.navcollapser .nav-button:hover {
+.nav-button:hover {
     cursor: pointer;
 }
 
 @media screen and (max-width: 600px){
-    nav.topnav ul li.right, 
-    nav.topnav ul  li {float: none;}
-    
-    .navcollapser,.navcollapser  button { width: 100%;}
+    #normalMenu{
+        display: none;
+    }
+    #phone-menu {
+        display: flex;
+    }
+
+    .burger-menu .show {
+        display: block;
+    }
 }
 
 .burger-menu nav.topnav ul li.right, 
 .burger-menu nav.topnav ul  li {float: none;}
 .burger-menu .navcollapser,.navcollapser  button { width: 100%;}
+
+.burger-button div {
+    width: 35px;
+    height: 3px;
+    background-color: white;
+    margin: 6px 0;
+}
