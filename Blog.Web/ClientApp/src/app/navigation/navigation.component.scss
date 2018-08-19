@@ -1,0 +1,75 @@
+
+$navgrey: #333;
+$navhoverblack: #111;
+
+
+nav.topnav {
+    line-height: 0.5;
+}
+
+nav.topnav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: $navgrey;
+}
+
+nav.topnav ul li {float: left;}
+
+nav.topnav ul li a,
+.navcollapser button
+ {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav.topnav ul li .navcollapser {
+    position: absolute;
+}
+
+nav.topnav ul li a:hover:not(.active),
+.navcollapser button:hover
+ {background-color: $navhoverblack;}
+
+//ul.topnav li a.active {background-color: #4CAF50;}
+
+nav.topnav ul li.right {float: right;}
+
+.navcollapser .dropdown-menu {
+    background: $navgrey;
+    width: 100%;
+    margin-top: 0;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+
+}
+
+.navcollapser button {
+    border:none;
+    background-color: $navgrey;
+}
+
+.navcollapser,
+.navcollapser button:hover,
+.navcollapser button:focus,
+.navcollapser button:hover,
+.navcollapser button:active {
+    border:  none;
+    outline:  none;
+}
+
+.navcollapser .nav-button:hover {
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px){
+    nav.topnav ul li.right, 
+    nav.topnav ul  li {float: none;}
+    
+    .navcollapser,.navcollapser  button { width: 100%;}
+}

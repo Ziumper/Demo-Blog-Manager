@@ -68,9 +68,18 @@ namespace Blog.Web
 
             app.UseMvc(routes =>
             {
+                  routes.MapRoute(
+                    "API",
+                    "api/{controller=*}/{action=*}/{id?}");
+
                 routes.MapRoute(
+                    "Default", // Route name
+                    "{*catchall}", // URL with parameters
+                    new { controller = "Home", action = "Index" });
+
+                /*routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    template: "{controller}/{action=Index}/{id?}"); * */
             });
 
             app.UseSpa(spa =>
