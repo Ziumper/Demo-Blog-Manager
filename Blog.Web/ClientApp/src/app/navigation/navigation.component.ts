@@ -7,13 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavigationComponent implements OnInit {
 
-  public isCollapsed =  false;
+  public isCollapsed : boolean;
 
   constructor() {
-    this.isCollapsed = false;
+    this.isCollapsed = true;
   }
 
   ngOnInit() {
+   
   }
 
 }
