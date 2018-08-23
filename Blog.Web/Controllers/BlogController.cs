@@ -20,9 +20,10 @@ namespace Blog.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> GetAsync()
         {
-            return Ok(_blogService.GetAllBlogs());
+            var result = await _blogService.GetAllBlogs();
+            return Ok(result);
         }
     }
 

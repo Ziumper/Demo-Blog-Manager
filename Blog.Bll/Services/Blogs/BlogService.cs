@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
 using Blog.Bll.Dto;
 using Blog.Bll.Exceptions;
@@ -20,7 +21,7 @@ namespace Blog.Bll.Services.Blogs
             _mapper = mapper;
         }
 
-        public List<BlogDto> GetAllBlogs()
+        public async Task<IEnumerable<BlogDto>> GetAllBlogs()
         {
             var blogs = _blogRepository.GetAll();
             List<BlogDto> blogDtos = new List<BlogDto>();
