@@ -3,11 +3,11 @@ import { CreateBlogModel } from '../models/create-blog.model';
 import { BlogService } from '../blog.service';
 
 @Component({
-    selector: 'app-blog-form',
-    templateUrl: './blog-form.component.html',
-    styleUrls: ['./blog-form.component.scss']
+    selector: 'app-add-blog',
+    templateUrl: './add-blog.component.html',
+    styleUrls: ['./add-blog.component.scss']
 })
-export class BlogFormComponent implements OnInit {
+export class AddBlogComponent implements OnInit {
 
     public model: CreateBlogModel;
 

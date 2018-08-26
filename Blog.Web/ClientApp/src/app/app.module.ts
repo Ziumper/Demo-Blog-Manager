@@ -13,8 +13,11 @@ import { CommentComponent } from './comment/comment.component';
 import { AppRoutingModule } from './/app-routing.module';
 import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
-import { BlogFormComponent } from './blog/blog-form/blog-form.component';
+
+
 import { BlogService } from './blog/blog.service';
+import { EditBlogComponent } from './blog/eidt-blog/edit-blog.component';
+import { AddBlogComponent } from './blog/add-blog/add-blog.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { BlogService } from './blog/blog.service';
     CommentComponent,
     HomeComponent,
     NavigationComponent,
-    BlogFormComponent
+    AddBlogComponent,
+    EditBlogComponent,
   ],
   imports: [
     NgbModule,
