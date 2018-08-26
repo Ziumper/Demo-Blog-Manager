@@ -20,6 +20,11 @@ namespace Blog.Web.Controllers
             _blogService = blogService;
         }
 
+        [HttpGet("test")]
+        public IActionResult GetTest(){
+            return Ok("asdadad");
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {

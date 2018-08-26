@@ -14,7 +14,7 @@ namespace Blog.Dal.Repositories.Blogs
 {
     public class BlogRepository : GenericRepository<BlogEntity, BloggingContext>, IBlogRepository
     {
-        protected BlogRepository(BloggingContext context) : base(context)
+        public BlogRepository(BloggingContext context) : base(context)
         {
         }
 

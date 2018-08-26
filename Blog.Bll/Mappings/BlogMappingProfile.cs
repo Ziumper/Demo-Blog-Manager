@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq.Expressions;
+using AutoMapper;
 using Blog.Bll.Dto;
 using Blog.Dal.Models;
 
@@ -16,7 +18,11 @@ namespace Blog.Bll.Mappings
             CreateMap<Comment, CommentDto>().ReverseMap();
 
             CreateMap<BlogEntity, BlogDto>().ReverseMap();
-            CreateMap<BlogCreateDto,BlogEntity>();
+            CreateMap<BlogCreateDto,BlogEntity>().ForMember(o => o.Posts,opt => opt.Ignore())
+            .ForMember(o => o.BlogEntityId,opt => opt.Ignore());
+
+              
         }
     }
+
 }
