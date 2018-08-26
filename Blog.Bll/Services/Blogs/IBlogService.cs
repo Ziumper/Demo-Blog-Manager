@@ -6,6 +6,10 @@ namespace Blog.Bll.Services.Blogs
 {
     public interface IBlogService
     {
-       Task<IEnumerable<BlogDto>> GetAllBlogs();
+        Task<IEnumerable<BlogDto>> GetAllAsync();
+        Task<BlogDto> GetBlogByIdAsync(int id);
+        Task<BlogDto> AddBlogAsync(BlogCreateDto blog);
+
+        Task<BlogDto> DeleteBlogAsyncById(int id);
     }
 }

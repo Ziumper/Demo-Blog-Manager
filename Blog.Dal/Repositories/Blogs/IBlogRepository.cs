@@ -7,6 +7,6 @@ namespace Blog.Dal.Repositories.Blogs
 {
     public interface IBlogRepository : IGenericRepository<BlogEntity>
     {
-        Task<IAsyncEnumerable<BlogEntity>> GetAllBlogsAsync();
+        Task<BlogEntity> GetBlogByIdWithPosts(int id);
     }
 }

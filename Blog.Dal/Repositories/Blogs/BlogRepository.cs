@@ -18,10 +18,10 @@ namespace Blog.Dal.Repositories.Blogs
         {
         }
 
-        public async Task<IAsyncEnumerable<BlogEntity>> GetAllBlogsAsync()
+        public async Task<BlogEntity> GetBlogByIdWithPosts(int id)
         {
-            var result = await _table.ToListAsync();
-            return result.ToAsyncEnumerable();
+            var blog = await _table.Where(b => b.BlogEntityId == id).Include(b => b.Posts).FirstAsync();
+            return blog;
         }
     }
 }

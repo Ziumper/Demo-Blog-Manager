@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Base
 {
@@ -32,17 +33,26 @@ namespace Blog.Dal.Repositories.Base
         }
         public virtual IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
-            return _context.Set<T>().Where(predicate);
+            return _table.Where(predicate);
             
         }
 
         public virtual T Add(T obj)
         { 
-           return _table.Add(obj).Entity;
+           
+            var entity =  _table.Add(obj).Entity;
+            
+            return entity;
         }
+
         public T Delete(T obj)
         {
             return _table.Remove(obj).Entity;
+        }
+
+        public void DeleteMany(IEnumerable<T> obj)
+        {
+            _table.RemoveRange(obj);
         }
         public T Delete(Expression<Func<T, bool>> predicate)
         {
@@ -63,7 +73,40 @@ namespace Blog.Dal.Repositories.Base
 
         public T FindByFirst(Expression<Func<T, bool>> predicate)
         {
-           return _context.Set<T>().Where(predicate).First();
+           return _table.Where(predicate).First();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null)
+        {
+            if (predicate != null)
+            {
+                return  await _table.Where(predicate).ToListAsync();
+            }
+            else
+            {
+                return await _table.ToListAsync();
+            }
+        }
+
+        public async Task<IEnumerable<T>> FindByAsync(Expression<Func<T, bool>> predicate = null)
+        {
+            return await _table.ToListAsync();
+        }
+
+        public async Task<T> FindByFirstAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _table.Where(predicate).FirstAsync();
+        }
+
+        public async Task<T> AddAsync(T obj)
+        {
+           var entity = await _table.AddAsync(obj);
+           return entity.Entity;
+        }
+
+        public async Task SaveAsync()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

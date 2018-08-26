@@ -13,7 +13,7 @@ namespace Blog.Dal.Repositories.Posts
     {
         public PostRepository(BloggingContext context) : base(context)
         {
-            _table.Include(post => post.Comments);
+            
         }
 
         public IEnumerable<Post> FindByWithComments(Expression<Func<Post, bool>> predicate)

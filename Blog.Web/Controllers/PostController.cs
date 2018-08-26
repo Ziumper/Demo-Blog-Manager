@@ -26,10 +26,6 @@ namespace Blog.Web.Controllers
             return Ok(_postService.GetAllPosts());
         }
 
-         [HttpGet("postsByBlogId/{id}")]
-        public IActionResult GetALlPostsByBlogId(){
-            return Ok();
-        }
 
         // GET: api/Post/5
         [HttpGet("{id}")]

@@ -16,6 +16,7 @@ namespace Blog.Bll.Mappings
             CreateMap<Comment, CommentDto>().ReverseMap();
 
             CreateMap<BlogEntity, BlogDto>().ReverseMap();
+            CreateMap<BlogCreateDto,BlogEntity>();
         }
     }
 }
