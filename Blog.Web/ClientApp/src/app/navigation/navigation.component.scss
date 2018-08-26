@@ -4,7 +4,6 @@ $navhoverblack: #111;
 
 
 .navigation {
-    line-height: 0.5;
     display: flex;
     flex-direction: column;
 }
@@ -118,4 +117,10 @@ nav.topnav ul li.right {float: right;}
         display: block;
     }
     
+}
+
+.nav-icon
+{
+    margin-left: 5px;
+    margin-right: 5px;
 }
