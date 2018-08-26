@@ -33,9 +33,11 @@ namespace Blog.Bll.Services.Blogs
             var blogEntity = _mapper.Map<BlogCreateDto,BlogEntity>(blog);
             var result = await _blogRepository.AddAsync(blogEntity);
             
+            await _blogRepository.SaveAsync();
+
             var resultDto = _mapper.Map<BlogEntity,BlogDto> (result);
 
-            await _blogRepository.SaveAsync();
+           
 
             return resultDto;
         }

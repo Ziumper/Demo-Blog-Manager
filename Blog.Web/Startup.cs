@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Blog.Bll.Mappings;
 
 namespace Blog.Web
 {
@@ -35,8 +36,7 @@ namespace Blog.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddAutoMapper();
-
+            services.AddAutoMapper(typeof(Startup).Assembly);
         
 
             // In production, the Angular files will be served from this directory
