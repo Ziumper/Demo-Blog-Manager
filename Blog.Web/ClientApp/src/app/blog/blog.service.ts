@@ -18,4 +18,8 @@ export class BlogService {
   public addBlog(blog: CreateBlogModel): Observable<BlogModel> {
     return this.http.post<BlogModel>(this.blogApiUrl, blog);
   }
+
+  public getBlogs(): Observable<Array<BlogModel>> {
+    return this.http.get<Array<BlogModel>>(this.blogApiUrl);
+  }
 }

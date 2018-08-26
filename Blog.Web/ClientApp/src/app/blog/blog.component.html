@@ -1,3 +1,6 @@
-<p>
-  blog works!
-</p>
+<h1>Blogs</h1>
+
+<div *ngFor="let blog of blogs">
+    <p>{{blog.blogEnitityId}}</p>
+    <p>{{blog.title}}</p>
+</div>
