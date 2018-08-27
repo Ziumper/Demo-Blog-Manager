@@ -22,4 +22,9 @@ export class BlogService {
   public getBlogs(): Observable<Array<BlogModel>> {
     return this.http.get<Array<BlogModel>>(this.blogApiUrl);
   }
+
+  public getBlogById(id: number): Observable<BlogModel>{
+    let url = this.blogApiUrl + '/' + id;
+    return this.http.get<BlogModel>(url);
+  }
 }

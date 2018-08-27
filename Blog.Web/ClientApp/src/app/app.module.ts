@@ -15,9 +15,9 @@ import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
 
-import { BlogService } from './blog/blog.service';
 import { EditBlogComponent } from './blog/eidt-blog/edit-blog.component';
 import { AddBlogComponent } from './blog/add-blog/add-blog.component';
+import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +29,7 @@ import { AddBlogComponent } from './blog/add-blog/add-blog.component';
     NavigationComponent,
     AddBlogComponent,
     EditBlogComponent,
+    BlogFormComponent,
   ],
   imports: [
     NgbModule,

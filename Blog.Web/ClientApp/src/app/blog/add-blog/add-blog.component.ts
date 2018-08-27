@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateBlogModel } from '../models/create-blog.model';
 import { BlogService } from '../blog.service';
+import { BlogModel } from '../models/blog.model';
 
 @Component({
     selector: 'app-add-blog',
@@ -9,18 +10,18 @@ import { BlogService } from '../blog.service';
 })
 export class AddBlogComponent implements OnInit {
 
-    public model: CreateBlogModel;
 
     constructor(private blogService: BlogService) {
-        this.model = new CreateBlogModel('');
+       
      }
 
     public ngOnInit(): void { }
 
-    public onSubmit() {
+    public onSubmit(model: BlogModel) {
         console.log('Adding new blog!');
-        console.log(this.model);
-        this.blogService.addBlog(this.model).subscribe( b => {
+        let createModel = new CreateBlogModel(model.title);
+        console.log(createModel);
+        this.blogService.addBlog(createModel).subscribe( b => {
             console.log(b);
         });
 
