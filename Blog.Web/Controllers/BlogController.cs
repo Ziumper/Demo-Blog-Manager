@@ -45,6 +45,12 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateBlog([FromBody]BlogDto blog){
+            var result = await _blogService.UpdateBlogAsync(blog);
+            return Ok(result);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBlog(int id){
             var result = await _blogService.DeleteBlogAsyncById(id);

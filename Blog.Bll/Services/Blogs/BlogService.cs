@@ -84,5 +84,20 @@ namespace Blog.Bll.Services.Blogs
             var blogDto = _mapper.Map<BlogEntity,BlogDto>(blog);
             return blogDto;
         }
+
+        public async Task<BlogDto> UpdateBlogAsync(BlogDto blog)
+        {
+            var result = await _blogRepository.FindByFirstAsync(b => b.BlogEntityId == blog.BlogEntityId);
+
+            if(result == null) throw new ResourceNotFoundException("Blog with Id " + blog.BlogEntityId + "not found");
+
+            result.Title = blog.Title;
+
+            result =  _blogRepository.Edit(result);
+
+            await _blogRepository.SaveAsync();
+
+            return _mapper.Map<BlogEntity,BlogDto>(result);
+        }
     }
 }

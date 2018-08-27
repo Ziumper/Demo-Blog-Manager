@@ -11,5 +11,6 @@ namespace Blog.Bll.Services.Blogs
         Task<BlogDto> AddBlogAsync(BlogCreateDto blog);
 
         Task<BlogDto> DeleteBlogAsyncById(int id);
+        Task<BlogDto> UpdateBlogAsync(BlogDto blog);
     }
 }

@@ -36,5 +36,6 @@ namespace Blog.Dal.Repositories.Base
         void Save();
 
         Task SaveAsync();
+
     }
 }

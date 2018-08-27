@@ -24,7 +24,9 @@ export class EditBlogComponent implements OnInit {
         this.getBlog();
     }
 
-    public onSubmit(): void {}
+    public onSubmit(model: BlogModel): void {
+        
+    }
 
     private getIdFromRoute(): void {
         this.id = this.route.snapshot.params['id'];
