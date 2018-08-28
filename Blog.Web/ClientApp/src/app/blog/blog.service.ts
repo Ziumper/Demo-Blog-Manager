@@ -27,4 +27,8 @@ export class BlogService {
     let url = this.blogApiUrl + '/' + id;
     return this.http.get<BlogModel>(url);
   }
+
+  public updateBlog(blog: BlogModel): Observable<BlogModel>{
+    return this.http.put<BlogModel>(this.blogApiUrl,blog);
+  }
 }

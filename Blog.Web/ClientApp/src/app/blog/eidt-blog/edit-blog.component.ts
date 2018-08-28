@@ -25,7 +25,7 @@ export class EditBlogComponent implements OnInit {
     }
 
     public onSubmit(model: BlogModel): void {
-        
+        this.updateBlog(model);
     }
 
     private getIdFromRoute(): void {
@@ -35,6 +35,13 @@ export class EditBlogComponent implements OnInit {
     private getBlog(): void {
         this.blogService.getBlogById(this.id).subscribe(response => {
             this.model = response;
+        })
+    }
+
+    private updateBlog(model: BlogModel) : void {
+        this.blogService.updateBlog(model).subscribe(response => {
+            this.model = response;
+            console.log("response:" + this.model);
         })
     }
 }
