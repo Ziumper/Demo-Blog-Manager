@@ -9,6 +9,10 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 //Modules
 import { AppRoutingModule } from './/app-routing.module';
 
+//Services
+import { HttpService } from './core/http.service';
+import { LoggerService } from './core/logger.service';
+
 //Components
 import { AppComponent } from './app.component';
 import { BlogComponent } from './blog/blog.component';
@@ -19,10 +23,9 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { EditBlogComponent } from './blog/eidt-blog/edit-blog.component';
 import { AddBlogComponent } from './blog/add-blog/add-blog.component';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
+import { LoaderComponent } from './core/loader/loader.component';
 
-//Services
-import { HttpService } from './core/http.service';
-import { LoggerService } from './core/logger.service';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import { LoggerService } from './core/logger.service';
     AddBlogComponent,
     EditBlogComponent,
     BlogFormComponent,
+    LoaderComponent
   ],
   imports: [
     NgbModule,

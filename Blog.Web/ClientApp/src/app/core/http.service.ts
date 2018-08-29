@@ -13,6 +13,10 @@ export class HttpService  {
         this.isLoading = new BehaviorSubject<boolean>(false);
     }
 
+    public getLoader(): Observable<boolean>{
+        return this.isLoading.asObservable();
+    }
+
     public get<T>(url: string): Observable<T>{
         this.isLoading.next(true);
 
