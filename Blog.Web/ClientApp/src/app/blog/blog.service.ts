@@ -3,15 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { BlogModel } from './models/blog.model';
 import { CreateBlogModel } from './models/create-blog.model';
 import { Observable } from 'rxjs';
+import { HttpService } from '../core/http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogService {
 
-  public blogApiUrl: string;
+  private blogApiUrl: string;
 
-  constructor(private http: HttpClient ) {
+  constructor(private http: HttpService ) {
     this.blogApiUrl = 'api/blog';
    }
 
