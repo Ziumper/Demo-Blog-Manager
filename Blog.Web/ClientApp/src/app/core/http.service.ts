@@ -19,7 +19,7 @@ export class HttpService  {
         let result =  this.http.get<T>(url);
         
         result.subscribe( response => {
-            this.log.info(new ResponseModel(url,response));
+            this.log.info(new ResponseModel('get',url,response));
         },error =>{
             this.log.error(error);
         },()=>{
@@ -35,7 +35,7 @@ export class HttpService  {
         let result = this.http.post<T>(url,body);
 
         result.subscribe(response  => {
-            this.log.info(new ResponseModel(url,response));
+            this.log.info(new ResponseModel('post',url,response));
         }, error => {
             this.log.error(error)        
         },() => {
@@ -49,7 +49,7 @@ export class HttpService  {
         let result = this.http.put<T>(url,body);
 
         result.subscribe(response => {
-            this.log.info(new ResponseModel(url,response));
+            this.log.info(new ResponseModel('put',url,response));
         },error => {
             this.log.error(error);
         },() => {
@@ -63,7 +63,7 @@ export class HttpService  {
         let result = this.http.delete<T>(url);
         
         result.subscribe( response => {
-            this.log.info(new ResponseModel(url,response));
+            this.log.info(new ResponseModel('delete',url,response));
         },error => {
             this.log.error(error);
         },()=>{
