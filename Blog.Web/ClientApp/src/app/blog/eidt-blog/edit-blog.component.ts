@@ -11,29 +11,28 @@ import { ActivatedRoute } from '@angular/router';
 export class EditBlogComponent implements OnInit {
 
     public model: BlogModel;
-
-    private id: number;
+    public action: string;
 
     constructor(private blogService: BlogService,private route:ActivatedRoute) {
         this.model = new BlogModel(0, '');
-        this.id = 0;
-     }
+        this.action = "Edit"
+    }
 
     public ngOnInit(): void {
-        this.getIdFromRoute();
-        this.getBlog();
+        let id = this.getIdFromRoute();
+        this.getBlog(id);
     }
 
     public onSubmit(model: BlogModel): void {
         this.updateBlog(model);
     }
 
-    private getIdFromRoute(): void {
-        this.id = this.route.snapshot.params['id'];
+    private getIdFromRoute(): number {
+        return this.route.snapshot.params['id'];
     }
 
-    private getBlog(): void {
-        this.blogService.getBlogById(this.id).subscribe(response => {
+    private getBlog(id: number): void {
+        this.blogService.getBlogById(id).subscribe(response => {
             this.model = response;
         })
     }
@@ -41,7 +40,8 @@ export class EditBlogComponent implements OnInit {
     private updateBlog(model: BlogModel) : void {
         this.blogService.updateBlog(model).subscribe(response => {
             this.model = response;
-            console.log("response:" + this.model);
         })
     }
+
+   
 }

@@ -31,4 +31,8 @@ export class BlogService {
   public updateBlog(blog: BlogModel): Observable<BlogModel>{
     return this.http.put<BlogModel>(this.blogApiUrl,blog);
   }
+
+  public deleteBlog(id: number): Observable<BlogModel>{
+    return this.http.delete<BlogModel>(this.blogApiUrl + '/' + id);
+  }
 }

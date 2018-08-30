@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { BlogModel } from '../models/blog.model';
 import { CreateBlogModel } from '../models/create-blog.model';
 
@@ -9,12 +9,17 @@ import { CreateBlogModel } from '../models/create-blog.model';
 })
 export class BlogFormComponent implements OnInit {
 
+    @Input()
     public model: BlogModel;
+
+    @Input()
+    public action: string;
 
     @Output()
     public submited: EventEmitter<BlogModel>
 
     public constructor() { 
+        this.action= '';
         this.model = new BlogModel(0,'');
         this.submited = new EventEmitter<BlogModel>();
     }
@@ -22,7 +27,6 @@ export class BlogFormComponent implements OnInit {
     public ngOnInit(): void { }
 
     public submit(model: BlogModel): void {
-        console.log('Submit clicked');
         this.submited.emit(model);
     }
 }

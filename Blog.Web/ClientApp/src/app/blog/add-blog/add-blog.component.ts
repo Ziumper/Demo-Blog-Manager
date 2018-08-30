@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CreateBlogModel } from '../models/create-blog.model';
 import { BlogService } from '../blog.service';
 import { BlogModel } from '../models/blog.model';
@@ -10,20 +10,19 @@ import { BlogModel } from '../models/blog.model';
 })
 export class AddBlogComponent implements OnInit {
 
+    @Input()
+    public action: string;
 
     constructor(private blogService: BlogService) {
-       
+       this.action = "Add";
      }
 
     public ngOnInit(): void { }
 
     public onSubmit(model: BlogModel) {
-        console.log('Adding new blog!');
         let createModel = new CreateBlogModel(model.title);
-        console.log(createModel);
-        this.blogService.addBlog(createModel).subscribe( b => {
-            console.log(b);
-        });
+        this.blogService.addBlog(createModel);
+          
 
     }
 }

@@ -14,7 +14,7 @@ export class HttpService  {
 
 
     public get<T>(url: string): Observable<T>{
-        this.loaderService.activateLoading();
+        //this.loaderService.activateLoading();
 
         let result =  this.http.get<T>(url);
         
@@ -26,7 +26,9 @@ export class HttpService  {
             this.loaderService.deactivateLoading();
         });
 
-        return result;
+        
+        let newObserwer = new Observable<T>(result.subscribe);
+        return newObserwer;
     }
 
     public post<T>(url: string,body: any): Observable<T>{
