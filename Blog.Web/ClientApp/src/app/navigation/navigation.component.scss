@@ -6,6 +6,9 @@ $navhoverblack: #111;
 .navigation {
     display: flex;
     flex-direction: column;
+    position: fixed;
+    z-index: 100;
+    width: 100%;
 }
 
 .navigation ul li.right {

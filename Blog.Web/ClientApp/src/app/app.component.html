@@ -1,4 +1,7 @@
 
 <app-navigation></app-navigation>
 <app-loader [hidden]="hideLoader"></app-loader>
-<router-outlet></router-outlet>
+<div class="app-container" [hidden]="!hideLoader">
+    <router-outlet></router-outlet>
+</div>
+
