@@ -8,15 +8,11 @@ import { BlogService } from './blog.service';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
-
-  blogs: Array<BlogModel>;
-
-  constructor(private blogService: BlogService) {
-    this.blogs = new Array<BlogModel>();
-  }
-
+  
   public ngOnInit(): void {
-    this.blogService.getBlogs().subscribe(blogs => this.blogs = blogs);
+    
   }
+
+  
 
 }

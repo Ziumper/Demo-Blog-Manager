@@ -25,6 +25,7 @@ import { AddBlogComponent } from './blog/add-blog/add-blog.component';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 import { LoaderComponent } from './core/loader/loader.component';
 import { LoaderService } from './core/loader/loader.service';
+import { BlogsListComponent } from './blog/blogs-list/blogs-list.component';
 
 
 
@@ -41,7 +42,8 @@ import { LoaderService } from './core/loader/loader.service';
     AddBlogComponent,
     EditBlogComponent,
     BlogFormComponent,
-    LoaderComponent
+    LoaderComponent,
+    BlogsListComponent
   ],
   imports: [
     NgbModule,
