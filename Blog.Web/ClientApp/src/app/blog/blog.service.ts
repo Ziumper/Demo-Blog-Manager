@@ -23,16 +23,16 @@ export class BlogService {
     return this.http.get<Array<BlogModel>>(this.blogApiUrl);
   }
 
-  public getBlogById(id: number): Observable<BlogModel>{
-    let url = this.blogApiUrl + '/' + id;
+  public getBlogById(id: number): Observable<BlogModel> {
+    const url = this.blogApiUrl + '/' + id;
     return this.http.get<BlogModel>(url);
   }
 
-  public updateBlog(blog: BlogModel): Observable<BlogModel>{
-    return this.http.put<BlogModel>(this.blogApiUrl,blog);
+  public updateBlog(blog: BlogModel): Observable<BlogModel> {
+    return this.http.put<BlogModel>(this.blogApiUrl, blog);
   }
 
-  public deleteBlog(id: number): Observable<BlogModel>{
+  public deleteBlog(id: number): Observable<BlogModel> {
     return this.http.delete<BlogModel>(this.blogApiUrl + '/' + id);
   }
 }

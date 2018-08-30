@@ -11,19 +11,18 @@ export class AppComponent implements OnInit {
 
   public hideLoader: boolean;
 
-  constructor(private loaderService: LoaderService){
+  constructor(private loaderService: LoaderService) {
     this.hideLoader = true;
 }
 
   ngOnInit(): void {
     this.subscribeToLoad();
-    
   }
 
   private subscribeToLoad(): void {
-    let loaderObservable = this.loaderService.getLoaderObservable();
+    const loaderObservable = this.loaderService.getLoaderObservable();
     loaderObservable.subscribe((isLoading: boolean) => {
       this.hideLoader = !isLoading;
-    })
+    });
   }
 }

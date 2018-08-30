@@ -8,11 +8,11 @@ import { BlogService } from './blog.service';
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit {
-  
+
   public ngOnInit(): void {
-    
+
   }
 
-  
+
 
 }

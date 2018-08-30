@@ -13,13 +13,13 @@ export class EditBlogComponent implements OnInit {
     public model: BlogModel;
     public action: string;
 
-    constructor(private blogService: BlogService,private route:ActivatedRoute) {
+    constructor(private blogService: BlogService, private route: ActivatedRoute) {
         this.model = new BlogModel(0, '');
-        this.action = "Edit"
+        this.action = 'Edit';
     }
 
     public ngOnInit(): void {
-        let id = this.getIdFromRoute();
+        const id = this.getIdFromRoute();
         this.getBlog(id);
     }
 
@@ -34,14 +34,14 @@ export class EditBlogComponent implements OnInit {
     private getBlog(id: number): void {
         this.blogService.getBlogById(id).subscribe(response => {
             this.model = response;
-        })
+        });
     }
 
-    private updateBlog(model: BlogModel) : void {
+    private updateBlog(model: BlogModel): void {
         this.blogService.updateBlog(model).subscribe(response => {
             this.model = response;
-        })
+        });
     }
 
-   
+
 }

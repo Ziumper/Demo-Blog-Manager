@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LoggerService {
 
-    public info(message : any): void{
+    public info(message: any): void {
+        // tslint:disable-next-line:no-console
         console.info(message);
     }
 
@@ -12,6 +13,5 @@ export class LoggerService {
         console.error(message);
     }
 
-    
 
 }

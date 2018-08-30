@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class BlogsListComponent implements OnInit {
     blogs: Array<BlogModel>;
 
-    constructor(private blogService: BlogService,private router: Router) {
+    constructor(private blogService: BlogService, private router: Router) {
         this.blogs = new Array<BlogModel>();
     }
 
@@ -20,20 +20,21 @@ export class BlogsListComponent implements OnInit {
        this.getBlogs();
     }
 
-    public editBlog(id: number){
-        this.router.navigateByUrl('/edit-blog/' + id)
+    public editBlog(id: number) {
+        this.router.navigateByUrl('/edit-blog/' + id);
     }
 
-    public deleteBlog(id:number){
-        this.blogService.deleteBlog(id).subscribe(()=>{
+    public deleteBlog(id: number) {
+        this.blogService.deleteBlog(id).subscribe(() => {
             this.getBlogs();
         });
-        
+
     }
 
-    private getBlogs(): void{
-        this.blogService.getBlogs().subscribe(blogs => this.blogs = blogs);
-    }
+    private getBlogs(): void {
+        this.blogService.getBlogs().subscribe((blogs: Array<BlogModel>) => {
+            this.blogs = blogs;
+        });
 
-    
+    }
 }

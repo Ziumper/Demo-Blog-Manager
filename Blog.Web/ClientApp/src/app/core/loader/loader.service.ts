@@ -1,13 +1,13 @@
-import { Subject, Observable } from "rxjs";
-import { Injectable } from "@angular/core";
+import { Subject, Observable } from 'rxjs';
+import { Injectable } from '@angular/core';
 
 
 @Injectable()
 export class LoaderService {
 
     private isLoading: Subject<boolean>;
-    
-    constructor(){
+
+    constructor() {
         this.isLoading = new Subject<boolean>();
     }
 
@@ -19,9 +19,8 @@ export class LoaderService {
         this.isLoading.next(false);
     }
 
-    public getLoaderObservable(): Observable<boolean>
-    {
-        let result = this.isLoading.asObservable();
+    public getLoaderObservable(): Observable<boolean> {
+        const result = this.isLoading.asObservable();
         return result;
     }
 }
