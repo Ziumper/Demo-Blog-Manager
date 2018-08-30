@@ -7,10 +7,7 @@
             </a>
         </li>
         <li class="hidden-sm-up">
-          <a  routerLink="add-blog">
-            <fa class="nav-icon" size="lg" name="plus-square"></fa>
-            <span>Add Blog</span> 
-          </a>
+        
         </li >
         
         <li class="hidden-sm-up">
@@ -18,11 +15,13 @@
         </li> 
         <li class="hidden-sm-up">
             <div class="navcollapser" ngbDropdown>
-              <button class="nav-button"  id="dropdownBasic2" ngbDropdownToggle>Toggle dropdown</button>
+              <button class="nav-button"  id="dropdownBasic2" ngbDropdownToggle>Menu</button>
               <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
-                <a href="#">Link</a>
-                <a href="#">Link</a>
-                <a href="#">Link</a>
+                  <a routerLink="blogs">Blog Manager</a>
+                  <a  routerLink="add-blog">
+                      <fa class="nav-icon" size="lg" name="plus-square"></fa>
+                      <span>Add Blog</span> 
+                  </a>
               </div>
             </div>
         </li>

@@ -1,6 +1,22 @@
-<h1>Blog List Component</h1>
+<div class="container-fluid">
+        <h1>Blogs Manager</h1>
 
-<div *ngFor="let blog of blogs">
-        <p>{{blog.blogEnitityId}}</p>
-        <p>{{blog.title}}</p>
-    </div>
+        <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title Blog</th>
+                        <th colspan="2" scope="colgroup">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <tr *ngFor="let blog of blogs">
+                                <th scope="row">{{blog.blogEntityId}}</th>
+                                <td>{{blog.title}}</td> 
+                                <td><button class="btn btn-danger" type="button">Delete</button><button class="btn btn-primary" type="button">Edit</button></td> 
+                            </tr>
+                    </tbody>
+                </table>
+        </div>
+</div>
