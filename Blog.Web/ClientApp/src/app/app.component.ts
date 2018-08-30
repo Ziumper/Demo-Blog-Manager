@@ -8,17 +8,11 @@ import { HttpService } from './core/http.service';
 })
 export class AppComponent implements OnInit {
 
-  public showLoader: boolean;
+  public hideLoader: boolean;
 
-  constructor(private http: HttpService){
-    this.showLoader = true;
-
-    
-    this.http.getLoader().subscribe(isLoading => {
-      this.showLoader = isLoading;
-  })
-  
-  }
+  constructor(){
+    this.hideLoader = false;
+}
 
   ngOnInit(): void {
      

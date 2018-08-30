@@ -7,6 +7,4 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class LoaderComponent{
   
-  @Input() 
-  public show: boolean;
 }

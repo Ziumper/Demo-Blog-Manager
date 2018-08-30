@@ -3,22 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { LoggerService } from './logger.service';
 import { ResponseModel } from './models/ResponsModel';
+import { LoaderService } from './loader/loader.service';
 
 @Injectable()
 export class HttpService  {
 
-    private isLoading: BehaviorSubject<boolean>;
-
-    constructor(private http: HttpClient,private log: LoggerService){
-        this.isLoading = new BehaviorSubject<boolean>(false);
+    constructor(private http: HttpClient,private log: LoggerService,private loaderService: LoaderService){
+        
     }
 
-    public getLoader(): Observable<boolean>{
-        return this.isLoading.asObservable();
-    }
 
     public get<T>(url: string): Observable<T>{
-        this.isLoading.next(true);
+        this.loaderService.activateLoading();
 
         let result =  this.http.get<T>(url);
         
@@ -27,14 +23,14 @@ export class HttpService  {
         },error =>{
             this.log.error(error);
         },()=>{
-            this.isLoading.next(false);
+            this.loaderService.deactivateLoading();
         });
 
         return result;
     }
 
     public post<T>(url: string,body: any): Observable<T>{
-        this.isLoading.next(true);
+        this.loaderService.activateLoading();
 
         let result = this.http.post<T>(url,body);
 
@@ -43,13 +39,16 @@ export class HttpService  {
         }, error => {
             this.log.error(error)        
         },() => {
-            this.isLoading.next(false);
+            this.loaderService.deactivateLoading();
         })
 
         return result;
     }
 
     public put<T>(url: string, body: any): Observable<T> {
+
+        this.loaderService.activateLoading();
+
         let result = this.http.put<T>(url,body);
 
         result.subscribe(response => {
@@ -57,13 +56,16 @@ export class HttpService  {
         },error => {
             this.log.error(error);
         },() => {
-            this.isLoading.next(false);
+            this.loaderService.deactivateLoading();
         })
 
         return result;
     }
 
     public delete<T>(url: string): Observable<T>{
+
+        this.loaderService.activateLoading();
+
         let result = this.http.delete<T>(url);
         
         result.subscribe( response => {
@@ -71,7 +73,7 @@ export class HttpService  {
         },error => {
             this.log.error(error);
         },()=>{
-            this.isLoading.next(false);
+            this.loaderService.deactivateLoading()
         })
 
         return result;

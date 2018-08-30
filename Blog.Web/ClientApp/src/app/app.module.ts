@@ -24,6 +24,9 @@ import { EditBlogComponent } from './blog/eidt-blog/edit-blog.component';
 import { AddBlogComponent } from './blog/add-blog/add-blog.component';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 import { LoaderComponent } from './core/loader/loader.component';
+import { LoaderService } from './core/loader/loader.service';
+
+
 
 
 
@@ -50,7 +53,8 @@ import { LoaderComponent } from './core/loader/loader.component';
   ],
   providers: [
     HttpService,
-    LoggerService
+    LoggerService,
+    LoaderService
   ],
   bootstrap: [AppComponent]
 })
