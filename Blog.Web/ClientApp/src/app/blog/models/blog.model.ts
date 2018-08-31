@@ -1,9 +1,9 @@
 export class BlogModel {
-    public blogEnitityId: number;
+    public blogEntityId: number;
     public title: string;
 
     constructor(blogEntityId: number, title: string ) {
-        this.blogEnitityId = blogEntityId;
+        this.blogEntityId = blogEntityId;
         this.title = title;
     }
 }

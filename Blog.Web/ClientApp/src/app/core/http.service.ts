@@ -53,7 +53,7 @@ export class HttpService  {
     private holdRequest(request: Observable<any>, url: string, requestType: string): Observable<any> {
         const result = request.pipe<any>(
             tap( (response: any) => {
-              this.tapResponse(response, url, 'get');
+              this.tapResponse(response, url, requestType);
             }),
             catchError( error => of(() => {
                 this.catchErrorResponse(error);

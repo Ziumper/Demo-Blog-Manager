@@ -58,11 +58,10 @@ namespace Blog.Bll.Services.Blogs
             
             var result = _blogRepository.Delete(blog);
 
-             _blogRepository.Save();
+             await _blogRepository.SaveAsync();
 
-            var resultDto = new BlogDto();// _mapper.Map<BlogEntity,BlogDto> (result);
+            var resultDto = _mapper.Map<BlogEntity,BlogDto> (result);
 
-           
 
             return resultDto;
         }

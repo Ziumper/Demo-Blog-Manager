@@ -12,9 +12,9 @@
                     </thead>
                     <tbody>
                             <tr *ngFor="let blog of blogs">
-                                <th scope="row">{{ blog.blogEnitityId }}</th>
+                                <th scope="row">{{ blog.blogEntityId }}</th>
                                 <td>{{blog.title}}</td> 
-                                <td><button class="btn btn-danger" (click)="deleteBlog(blog.blogEnitityId)"  type="button">Delete</button><button class="btn btn-primary" (click)="editBlog(blog.blogEnitityId)" type="button">Edit</button></td> 
+                                <td><button class="btn btn-danger" (click)="deleteBlog(blog.blogEntityId)"  type="button">Delete</button><button class="btn btn-primary" (click)="editBlog(blog.blogEntityId)" type="button">Edit</button></td> 
                             </tr>
                     </tbody>
                 </table>
