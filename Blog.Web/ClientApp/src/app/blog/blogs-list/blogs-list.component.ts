@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BlogModel } from '../models/blog.model';
 import { BlogService } from '../blog.service';
 import { Router } from '@angular/router';
+import { CreateBlogModel } from '../models/create-blog.model';
 
 
 @Component({
@@ -11,9 +12,11 @@ import { Router } from '@angular/router';
 })
 export class BlogsListComponent implements OnInit {
     blogs: Array<BlogModel>;
+    searchQuery: string;
 
     constructor(private blogService: BlogService, private router: Router) {
         this.blogs = new Array<BlogModel>();
+        this.searchQuery = '';
     }
 
     public ngOnInit(): void {
@@ -24,9 +27,9 @@ export class BlogsListComponent implements OnInit {
         this.router.navigateByUrl('/edit-blog/' + id);
     }
 
-    public deleteBlog(id: number) {
-        this.blogService.deleteBlog(id).subscribe(() => {
-            this.getBlogs();
+    public deleteBlog(blog: BlogModel) {
+        this.blogService.deleteBlog(blog.blogEntityId).subscribe(() => {
+            this.removeBlog(blog);
         });
 
     }
@@ -36,5 +39,12 @@ export class BlogsListComponent implements OnInit {
             this.blogs = blogs;
         });
 
+    }
+
+    private removeBlog(blog: BlogModel){
+        const blogArrayIndex = this.blogs.indexOf(blog,0);
+            if(blogArrayIndex > - 1){
+                this.blogs.splice(blogArrayIndex,1);
+            }
     }
 }

@@ -15,7 +15,6 @@ export class EditBlogComponent implements OnInit {
 
     constructor(private blogService: BlogService, private route: ActivatedRoute) {
         this.model = new BlogModel(0, '');
-        this.action = 'Edit';
     }
 
     public ngOnInit(): void {

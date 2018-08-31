@@ -1,6 +1,11 @@
 <div class="container-fluid">
-        <h1>Blogs Manager</h1>
-
+        <h1>Blogs Manager</h1>        
+        <form name="blog-form" (ngSubmit)="submit(model)">
+                <div class="form-group">
+                        <label for="searchQuery">Search blog</label>
+                        <input type="text" class="form-control" name="searchQuery" [(ngModel)]="searchQuery" #title="ngModel" />        
+                </div>
+        </form>
         <div>
                 <table class="table">
                     <thead>
@@ -11,10 +16,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                            <tr *ngFor="let blog of blogs">
-                                <th scope="row">{{ blog.blogEntityId }}</th>
+                            <tr *ngFor="let blog of blogs;index as i">
+                                <th scope="row">{{ i + 1 }}</th>
                                 <td>{{blog.title}}</td> 
-                                <td><button class="btn btn-danger" (click)="deleteBlog(blog.blogEntityId)"  type="button">Delete</button><button class="btn btn-primary" (click)="editBlog(blog.blogEntityId)" type="button">Edit</button></td> 
+                                <td><button class="btn btn-danger action-button" (click)="deleteBlog(blog)"  type="button">Delete</button><button class="btn btn-primary action-button" (click)="editBlog(blog.blogEntityId)" type="button">Edit</button></td> 
                             </tr>
                     </tbody>
                 </table>

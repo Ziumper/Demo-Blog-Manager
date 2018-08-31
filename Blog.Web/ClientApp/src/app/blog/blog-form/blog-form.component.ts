@@ -12,14 +12,10 @@ export class BlogFormComponent implements OnInit {
     @Input()
     public model: BlogModel;
 
-    @Input()
-    public action: string;
-
     @Output()
     public submited: EventEmitter<BlogModel>
 
     public constructor() { 
-        this.action= '';
         this.model = new BlogModel(0,'');
         this.submited = new EventEmitter<BlogModel>();
     }
