@@ -32,6 +32,12 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
+        [HttpGet("search/{title}")]
+        public async Task<IActionResult> GetBlogsByTitle(string title){
+            var result = await _blogService.GetBlogByTitleAsync(title);
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBlogById(int id)
         {

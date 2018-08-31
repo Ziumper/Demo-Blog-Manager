@@ -12,5 +12,6 @@ namespace Blog.Bll.Services.Blogs
 
         Task<BlogDto> DeleteBlogAsyncById(int id);
         Task<BlogDto> UpdateBlogAsync(BlogDto blog);
+        Task<IEnumerable<BlogDto>> GetBlogByTitleAsync(string title);
     }
 }

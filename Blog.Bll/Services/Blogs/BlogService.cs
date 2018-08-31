@@ -87,6 +87,20 @@ namespace Blog.Bll.Services.Blogs
             return blogDto;
         }
 
+        public async Task<IEnumerable<BlogDto>> GetBlogByTitleAsync(string title)
+        {
+            var blogs = await _blogRepository.FindByAsync(b => b.Title.Contains(title));
+            var blogsDto = new List<BlogDto>();
+            
+            foreach (var item in blogs)
+            {
+                var blogDto = _mapper.Map<BlogEntity,BlogDto>(item);
+                blogsDto.Add(blogDto);
+            }
+            
+            return blogsDto;
+        }
+
         public async Task<BlogDto> UpdateBlogAsync(BlogDto blog)
         {
             var result = await _blogRepository.FindByFirstAsync(b => b.BlogEntityId == blog.BlogEntityId);

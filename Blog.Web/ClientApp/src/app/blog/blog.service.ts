@@ -23,6 +23,11 @@ export class BlogService {
     return this.http.get<Array<BlogModel>>(this.blogApiUrl);
   }
 
+  public searchBlogs(query : String): Observable<Array<BlogModel>> {
+    const url = this.blogApiUrl + '/search/' + query 
+    return this.http.getSmall<Array<BlogModel>>(url);
+  }
+
   public getBlogById(id: number): Observable<BlogModel> {
     const url = this.blogApiUrl + '/' + id;
     return this.http.get<BlogModel>(url);
