@@ -3,6 +3,8 @@ import { BlogModel } from '../models/blog.model';
 import { BlogService } from '../blog.service';
 import { Router } from '@angular/router';
 import { LoaderService } from '../../core/loader/loader.service';
+import { Subject, Observable } from 'rxjs';
+import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 
 
 @Component({
@@ -12,7 +14,7 @@ import { LoaderService } from '../../core/loader/loader.service';
 })
 export class BlogsListComponent implements OnInit {
     blogs: Array<BlogModel>;
-    searchQuery: string;
+    searchTerm: Subject<string>;
     isLoading: boolean;
 
     constructor(
@@ -21,13 +23,18 @@ export class BlogsListComponent implements OnInit {
         private loaderService: LoaderService
     ) {
         this.blogs = new Array<BlogModel>();
-        this.searchQuery = '';
         this.isLoading = false;
+        
     }
 
     public ngOnInit(): void {
-       this.getBlogs();
-       this.subscribeToLoad();
+        this.searchTerm = new Subject<string>();
+        this.getBlogs();
+        this.subscribeToLoad();
+
+        this.search(this.searchTerm).subscribe( (results: Array<BlogModel>) =>{
+            this.blogs = results;
+        })
     }
 
     public editBlog(id: number) {
@@ -40,6 +47,16 @@ export class BlogsListComponent implements OnInit {
         });
 
     }
+
+    public search(searchTerm :Observable<string>) : Observable<Array<BlogModel>> {
+        return searchTerm.pipe(
+            debounceTime(400),
+            distinctUntilChanged(),
+            switchMap((query: string)=> this.blogService.searchBlogs(query))
+        );
+        
+    }
+
 
     private getBlogs(): void {
         this.blogService.getBlogs().subscribe((blogs: Array<BlogModel>) => {

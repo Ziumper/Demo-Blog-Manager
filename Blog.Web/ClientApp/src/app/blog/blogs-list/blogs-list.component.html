@@ -3,7 +3,7 @@
         <form name="blog-form" (ngSubmit)="submit(model)">
                 <div class="form-group">
                         <label for="searchQuery">Search blog</label>
-                        <input type="text" class="form-control" name="searchQuery" [(ngModel)]="searchQuery" #title="ngModel" />        
+                        <input (keyup)="searchTerm.next($event.target.value)" type="text" class="form-control" name="searchQuery"  />        
                 </div>
         </form>
         <div>
@@ -20,7 +20,7 @@
                     <tbody>
                             <tr *ngFor="let blog of blogs;index as i">
                                 <th scope="row">{{ i + 1 }}</th>
-                                <td>{{blog.title}}</td> 
+                                <td>{{blog?.title}}</td> 
                                 <td><button class="btn btn-danger action-button" (click)="deleteBlog(blog)"  type="button">Delete</button><button class="btn btn-primary action-button" (click)="editBlog(blog.blogEntityId)" type="button">Edit</button></td> 
                             </tr>
                     </tbody>
