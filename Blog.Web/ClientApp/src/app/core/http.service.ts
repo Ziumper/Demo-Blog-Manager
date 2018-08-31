@@ -6,10 +6,15 @@ import { ResponseModel } from './models/ResponsModel';
 import { LoaderService } from './loader/loader.service';
 import { tap, catchError } from 'rxjs/operators';
 
+
 @Injectable()
 export class HttpService  {
 
-    constructor(private http: HttpClient, private log: LoggerService, private loaderService: LoaderService) {
+    constructor(
+        private http: HttpClient, 
+        private log: LoggerService, 
+        private loaderService: LoaderService
+    ) {
 
     }
 
@@ -18,6 +23,15 @@ export class HttpService  {
 
         let result =  this.http.get<T>(url);
         result = this.holdRequest(result, url, 'get');
+
+        return result;
+    }
+
+    public getSmall<T>(url: string): Observable<T>{
+        this.loaderService.acitvateSmallLoading();
+
+        let result =  this.http.get<T>(url);
+        result = this.holdSmallRequest(result,url,'get');
 
         return result;
     }
@@ -31,6 +45,15 @@ export class HttpService  {
         return result;
     }
 
+    public postSmall<T>(url: string, body: any): Observable<T> {
+        this.loaderService.acitvateSmallLoading();
+
+        let result = this.http.post<T>(url, body);
+        result = this.holdSmallRequest(result, url, 'post');
+
+        return result;
+    }
+
     public put<T>(url: string, body: any): Observable<T> {
 
         this.loaderService.activateLoading();
@@ -40,12 +63,31 @@ export class HttpService  {
         return result;
     }
 
+    public putSmall<T>(url: string, body: any): Observable<T> {
+
+        this.loaderService.acitvateSmallLoading();
+
+        let result = this.http.put<T>(url, body);
+        result = this.holdSmallRequest(result, url, 'put');
+        return result;
+    }
+
     public delete<T>(url: string): Observable<T> {
 
         this.loaderService.activateLoading();
 
         let result = this.http.delete<T>(url);
         result = this.holdRequest(result, url, 'delete');
+
+        return result;
+    }
+
+    public deleteSmall<T>(url: string): Observable<T> {
+
+        this.loaderService.acitvateSmallLoading();
+
+        let result = this.http.delete<T>(url);
+        result = this.holdSmallRequest(result, url, 'delete');
 
         return result;
     }
@@ -63,13 +105,37 @@ export class HttpService  {
         return result;
     }
 
+    private holdSmallRequest(request: Observable<any>,url:string, requestType:string): Observable<any> {
+        const result = request.pipe<any>(
+            tap( (response: any) => {
+              this.tapSmallResponse(response, url, requestType);
+            }),
+            catchError( error => of(() => {
+                this.catchSmallErrorResponse(error);
+            }))
+        );
+
+        return result;
+    }
+
     private tapResponse(model: any, url: string, requestType: string): void {
         const result = new ResponseModel(requestType, url, model);
         this.log.info(result);
         this.loaderService.deactivateLoading();
     }
 
+    private tapSmallResponse(model:any,url:string, requestType: string) : void {
+        const result = new ResponseModel(requestType,url,model);
+        this.log.info(result);
+        this.loaderService.deactivateSmallLoading();
+    }
+
     private catchErrorResponse(error: any) {
+        this.log.error(error);
+        this.loaderService.deactivateLoading();
+    }
+
+    private catchSmallErrorResponse(error:any){
         this.log.error(error);
         this.loaderService.deactivateLoading();
     }
