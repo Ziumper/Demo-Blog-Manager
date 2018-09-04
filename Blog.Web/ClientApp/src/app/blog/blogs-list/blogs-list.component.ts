@@ -13,9 +13,11 @@ import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
     styleUrls: ['./blogs-list.component.scss'],
 })
 export class BlogsListComponent implements OnInit {
-    blogs: Array<BlogModel>;
-    searchTerm: Subject<string>;
-    isLoading: boolean;
+    public blogs: Array<BlogModel>;
+    public searchTerm: Subject<string>;
+    public isLoading: boolean;
+    public page: number;
+
 
     constructor(
         private blogService: BlogService, 
@@ -24,6 +26,7 @@ export class BlogsListComponent implements OnInit {
     ) {
         this.blogs = new Array<BlogModel>();
         this.isLoading = false;
+        this.page=1;
         
     }
 
@@ -48,7 +51,7 @@ export class BlogsListComponent implements OnInit {
 
     }
 
-    public search(searchTerm :Observable<string>) : Observable<Array<BlogModel>> {
+    private search(searchTerm :Observable<string>) : Observable<Array<BlogModel>> {
         return searchTerm.pipe(
             debounceTime(400),
             distinctUntilChanged(),

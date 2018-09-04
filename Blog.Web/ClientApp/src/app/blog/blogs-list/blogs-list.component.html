@@ -26,5 +26,6 @@
                     </tbody>
                 </table>
                 <app-small-loader [hidden]="!isLoading"></app-small-loader>
+                <ngb-pagination class="d-flex justify-content-center" [hidden]='isLoading' [collectionSize]="blogs.length" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
         </div>
 </div>

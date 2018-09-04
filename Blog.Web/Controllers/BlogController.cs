@@ -62,6 +62,7 @@ namespace Blog.Web.Controllers
             var result = await _blogService.DeleteBlogAsyncById(id);
             return Ok(result);
         }
+
     }
 
 }
