@@ -3,6 +3,7 @@ import { BlogModel } from './models/blog.model';
 import { CreateBlogModel } from './models/create-blog.model';
 import { Observable } from 'rxjs';
 import { HttpService } from '../core/http.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class BlogService {
 
   private blogApiUrl: string;
 
-  constructor(private http: HttpService ) {
+  constructor(private http: HttpService,private httpClient: HttpClient ) {
     this.blogApiUrl = 'api/blog';
    }
 
@@ -24,7 +25,7 @@ export class BlogService {
   }
 
   public searchBlogs(query : String): Observable<Array<BlogModel>> {
-    const url = this.blogApiUrl + '/search/' + query 
+    const url = this.blogApiUrl + '/' + query 
     return this.http.getSmall<Array<BlogModel>>(url);
   }
 

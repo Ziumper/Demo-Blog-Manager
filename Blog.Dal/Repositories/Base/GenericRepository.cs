@@ -90,12 +90,12 @@ namespace Blog.Dal.Repositories.Base
 
         public async Task<IEnumerable<T>> FindByAsync(Expression<Func<T, bool>> predicate = null)
         {
-            return await _table.ToListAsync();
+            return await _table.Where(predicate).ToListAsync();
         }
 
         public async Task<T> FindByFirstAsync(Expression<Func<T, bool>> predicate)
         {
-            return await _table.Where(predicate).FirstAsync();
+            return await _table.Where(predicate).FirstOrDefaultAsync();
         }
 
         public async Task<T> AddAsync(T obj)

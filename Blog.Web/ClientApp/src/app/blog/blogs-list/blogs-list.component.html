@@ -18,7 +18,7 @@
                     </thead>
            
                     <tbody>
-                            <tr *ngFor="let blog of blogs;index as i">
+                            <tr [hidden]="isLoading" *ngFor="let blog of blogs;index as i">
                                 <th scope="row">{{ i + 1 }}</th>
                                 <td>{{blog?.title}}</td> 
                                 <td><button class="btn btn-danger action-button" (click)="deleteBlog(blog)"  type="button">Delete</button><button class="btn btn-primary action-button" (click)="editBlog(blog.blogEntityId)" type="button">Edit</button></td> 

@@ -32,17 +32,13 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("search/{title}")]
+        [HttpGet("{title}")]
         public async Task<IActionResult> GetBlogsByTitle(string title){
-            IEnumerable<BlogDto> blogs = null; 
-            if(title.Length> 0){
-               blogs = await _blogService.GetBlogByTitleAsync(title);
-            }
-            else blogs = await _blogService.GetAllAsync();
-            return Ok(blogs);
+            var result = await _blogService.GetBlogByTitleAsync(title);
+            return Ok(result);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetBlogById(int id)
         {
             var result = await _blogService.GetBlogByIdAsync(id);
@@ -61,7 +57,7 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteBlog(int id){
             var result = await _blogService.DeleteBlogAsyncById(id);
             return Ok(result);
