@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Blog.Bll.Dto;
 using Blog.Bll.Services.Blogs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Web.Controllers
@@ -22,7 +18,19 @@ namespace Blog.Web.Controllers
 
         [HttpGet("test")]
         public IActionResult GetTest(){
-            return Ok("asdadad");
+            return Ok("Test controller");
+        }
+
+        [HttpGet("paged/{page:int}/{size:int}")]
+        public async Task<IActionResult> GetAllBlogsPaged(int page,int size){
+            var result = await _blogService.GetAllBlogsPaged(page,size);
+            return Ok(result);
+        }
+
+        [HttpGet("paged/{title}/{page:int}/{size:int}")]
+        public async Task<IActionResult> GetBlogsPagedByTitle(string title,int page,int size){
+            var result = await _blogService.GetAllBlogsPagedByTitle(title,page,size);
+            return Ok(result);
         }
 
         [HttpGet]

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Base
 {
-    public interface IGenericRepository<T> 
+    public interface IGenericRepository<T> where T: BaseEntity
     {
         Task<IEnumerable<T>> GetAllAsync (Expression<Func<T, bool>> predicate = null);
 
@@ -34,8 +34,8 @@ namespace Blog.Dal.Repositories.Base
         void DeleteMany(IEnumerable<T> obj);
 
         void Save();
-
         Task SaveAsync();
+        Task<PagedEntity<T>> GetAllPaged(int page,int size,Expression<Func<T,bool>> predicate = null);
 
     }
 }

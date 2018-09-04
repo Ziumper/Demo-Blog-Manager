@@ -109,5 +109,32 @@ namespace Blog.Dal.Repositories.Base
             await _context.SaveChangesAsync();
         }
 
+        public async Task<PagedEntity<T>> GetAllPaged(int page,int size,Expression<Func<T,bool>> predicate = null){
+            
+            var pagesToSkip = page - 1;
+            var skipCount = pagesToSkip * size;
+
+             PagedEntity<T> pagedEntity = new PagedEntity<T>();
+
+            if(predicate != null){
+            
+                var result = _table.Where(predicate).AsQueryable();
+
+                pagedEntity.Count = result.Count();
+
+                var modelList = await result.Skip(skipCount).Take(size).ToListAsync();
+                
+                pagedEntity.Entities = modelList;
+                return pagedEntity;
+            }
+            
+            pagedEntity.Count = await _table.CountAsync();
+            pagedEntity.Entities = await _table.Skip(skipCount).Take(size).ToListAsync();
+
+            return pagedEntity;
+        }
+
+        
+
     }
 }

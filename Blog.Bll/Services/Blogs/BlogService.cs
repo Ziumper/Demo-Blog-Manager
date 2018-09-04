@@ -79,6 +79,53 @@ namespace Blog.Bll.Services.Blogs
             return blogsDto;
         }
 
+        public async Task<BlogDtoPaged> GetAllBlogsPaged(int page, int size)
+        {
+            var result = await _blogRepository.GetAllPaged(page,size);
+            var blogs = result.Entities;
+
+            var pagedResult = new BlogDtoPaged();
+           
+            pagedResult.Page = page;
+            pagedResult.Size = size;
+            pagedResult.Count = result.Count;
+            
+            var blogsDto = new List<BlogDto>();
+
+            foreach(var blog in blogs){
+                blogsDto.Add(_mapper.Map<BlogEntity,BlogDto>(blog));
+            }
+
+            pagedResult.Blogs = blogsDto;
+
+            return pagedResult;
+        }
+
+        public async Task<BlogDtoPaged> GetAllBlogsPagedByTitle(string title, int page, int size)
+        {
+             var result = await _blogRepository.GetAllPaged(page,size,b =>   
+                 b.Title.Contains(title)
+             );
+
+            var blogs = result.Entities;
+
+            var pagedResult = new BlogDtoPaged();
+           
+            pagedResult.Page = page;
+            pagedResult.Size = size;
+            pagedResult.Count = result.Count;
+            
+            var blogsDto = new List<BlogDto>();
+
+            foreach(var blog in blogs){
+                blogsDto.Add(_mapper.Map<BlogEntity,BlogDto>(blog));
+            }
+
+            pagedResult.Blogs = blogsDto;
+
+            return pagedResult;
+        }
+
         public async Task<BlogDto> GetBlogByIdAsync(int id)
         {
             var blog = await _blogRepository.FindByFirstAsync(b => b.BlogEntityId == id);

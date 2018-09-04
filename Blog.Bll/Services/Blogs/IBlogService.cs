@@ -9,9 +9,10 @@ namespace Blog.Bll.Services.Blogs
         Task<IEnumerable<BlogDto>> GetAllAsync();
         Task<BlogDto> GetBlogByIdAsync(int id);
         Task<BlogDto> AddBlogAsync(BlogCreateDto blog);
-
         Task<BlogDto> DeleteBlogAsyncById(int id);
         Task<BlogDto> UpdateBlogAsync(BlogDto blog);
         Task<IEnumerable<BlogDto>> GetBlogByTitleAsync(string title);
+        Task<BlogDtoPaged> GetAllBlogsPaged(int page, int size);
+        Task<BlogDtoPaged> GetAllBlogsPagedByTitle(string title,int page,int size);
     }
 }
