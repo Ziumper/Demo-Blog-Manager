@@ -21,15 +21,15 @@ namespace Blog.Web.Controllers
             return Ok("Test controller");
         }
 
-        [HttpGet("paged/{page:int}/{size:int}")]
-        public async Task<IActionResult> GetAllBlogsPaged(int page,int size){
-            var result = await _blogService.GetAllBlogsPaged(page,size);
+        [HttpGet("paged/{ac:int}/{size:int}")]
+        public async Task<IActionResult> GetAllBlogsPaged(int ac,int size){
+            var result = await _blogService.GetAllBlogsPaged(ac,size);
             return Ok(result);
         }
 
-        [HttpGet("paged/{title}/{page:int}/{size:int}")]
-        public async Task<IActionResult> GetBlogsPagedByTitle(string title,int page,int size){
-            var result = await _blogService.GetAllBlogsPagedByTitle(title,page,size);
+        [HttpGet("paged/{ac:int}/{size:int}/{title}")]
+        public async Task<IActionResult> GetBlogsPagedByTitle(string title,int ac,int size){
+            var result = await _blogService.GetAllBlogsPagedByTitle(title,ac,size);
             return Ok(result);
         }
 

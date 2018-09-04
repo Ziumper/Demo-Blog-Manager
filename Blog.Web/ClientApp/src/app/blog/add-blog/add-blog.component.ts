@@ -14,7 +14,7 @@ export class AddBlogComponent implements OnInit {
     @Input()
     public action: string;
 
-    constructor(private blogService: BlogService,private http : HttpClient) {
+    constructor(private blogService: BlogService) {
        this.action = "Add";
      }
 

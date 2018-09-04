@@ -4,6 +4,7 @@ import { CreateBlogModel } from './models/create-blog.model';
 import { Observable } from 'rxjs';
 import { HttpService } from '../core/http.service';
 import { HttpClient } from '@angular/common/http';
+import { BlogPagedModel } from './models/blogs-paged-model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class BlogService {
 
   private blogApiUrl: string;
 
-  constructor(private http: HttpService,private httpClient: HttpClient ) {
+  constructor(private http: HttpService ) {
     this.blogApiUrl = 'api/blog';
    }
 
@@ -22,6 +23,10 @@ export class BlogService {
 
   public getBlogs(): Observable<Array<BlogModel>> {
     return this.http.get<Array<BlogModel>>(this.blogApiUrl);
+  }
+
+  public searchBlogsByTitlePaged(page: number, size: number,title: string) : Observable<BlogPagedModel>{
+    return this.http.getSmall(this.blogApiUrl + '/paged/' + page + '/' + size + '/' + title);
   }
 
   public searchBlogs(query : String): Observable<Array<BlogModel>> {
