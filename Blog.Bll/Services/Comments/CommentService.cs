@@ -26,7 +26,7 @@ namespace Blog.Bll.Services.Comments
         public CommentDto DeleteComment(int commentId)
         {
            
-            var result = _commentRepository.FindBy(c => c.CommentId == commentId).FirstOrDefault();
+            var result = _commentRepository.FindBy(c => c.Id == commentId).FirstOrDefault();
             if(result == null)
             {
                 throw new ResourceNotFoundException("Comment not found");
@@ -42,7 +42,7 @@ namespace Blog.Bll.Services.Comments
 
         public CommentDto EditComment(CommentDto commentDto)
         {
-            var result = _commentRepository.FindBy(c => c.CommentId == commentDto.CommentId).FirstOrDefault();
+            var result = _commentRepository.FindBy(c => c.Id == commentDto.CommentId).FirstOrDefault();
             if(result == null)
             {
                 throw new ResourceNotFoundException("Comment not found");
@@ -75,7 +75,7 @@ namespace Blog.Bll.Services.Comments
         public CommentDto GetCommentById(int id)
         {
             
-            var result = _commentRepository.FindBy(c => c.CommentId == id).FirstOrDefault();
+            var result = _commentRepository.FindBy(c => c.Id == id).FirstOrDefault();
             if(result == null)
             {
                 throw new ResourceNotFoundException("Comment not found");
@@ -90,7 +90,7 @@ namespace Blog.Bll.Services.Comments
         {
             var comment = _mapper.Map<CommentCreateDto, Comment>(commentDto);
 
-            var postResult = _postRepository.FindByWithComments(x => x.PostId == commentDto.PostId).FirstOrDefault();
+            var postResult = _postRepository.FindByWithComments(x => x.Id == commentDto.PostId).FirstOrDefault();
             if (postResult == null)
             {
                 throw new ResourceNotFoundException("Comment not found");

@@ -1,9 +1,10 @@
 export class BlogModel {
-    public blogEntityId: number;
+
+    public id: number;
     public title: string;
 
-    constructor(blogEntityId: number, title: string ) {
-        this.blogEntityId = blogEntityId;
+    constructor(id: number, title: string ) {
+        this.id = id;
         this.title = title;
     }
 }

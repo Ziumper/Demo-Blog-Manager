@@ -1,6 +1,6 @@
 <div class="container-fluid">
         <h1>Blogs Manager</h1>        
-        <form name="blog-form" (ngSubmit)="submit(model)">
+        <form name="blog-form">
                 <div class="form-group">
                         <label for="searchQuery">Search blog</label>
                         <input (keyup)="searchTerm.next($event.target.value)"  [(ngModel)]="searchQuery" type="text" class="form-control" name="searchQuery"  />        
@@ -23,7 +23,7 @@
                                 <td>{{blog?.title}}</td> 
                                 <td>
                                         <button class="btn btn-danger action-button" (click)="deleteBlog(blog)"  type="button">Delete</button>
-                                        <button class="btn btn-primary action-button" (click)="editBlog(blog.blogEntityId)" type="button">Edit</button>
+                                        <button class="btn btn-primary action-button" (click)="editBlog(blog.id)" type="button">Edit</button>
                                         <button class="btn btn-success action-button"  type="button">Go to blog</button>
                                         <button type="button" class="btn btn-info action-button">Details</button>
 
@@ -32,6 +32,6 @@
                     </tbody>
                 </table>
                 <app-small-loader [hidden]="!isLoading"></app-small-loader>
-                <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" [hidden]='isLoading' [collectionSize]="collectionSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+                <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" [ngClass]="{'hide-pagination': isLoading }" [collectionSize]="collectionSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
         </div>
 </div>

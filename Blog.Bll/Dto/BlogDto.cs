@@ -4,7 +4,7 @@ namespace Blog.Bll.Dto
 {
     public class BlogDto
     {
-        public int BlogEntityId {get;set;}
+        public int Id {get;set;}
         public string Title { get; set; }
     }
 }

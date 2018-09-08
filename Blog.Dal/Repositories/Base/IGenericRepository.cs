@@ -1,4 +1,4 @@
-﻿using Blog.Dal.Models;
+﻿using Blog.Dal.Models.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

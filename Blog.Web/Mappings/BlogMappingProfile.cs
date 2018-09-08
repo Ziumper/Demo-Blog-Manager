@@ -10,7 +10,7 @@ namespace Blog.Web.Mappings
     {
         public BlogMappingProfile()
         {
-            CreateMap<BlogCreateDto,BlogEntity>().ForMember(destination => destination.BlogEntityId,options => options.Ignore()).ForMember(destination => destination.Posts,options => options.Ignore());
+            CreateMap<BlogCreateDto,BlogEntity>().ForMember(destination => destination.Id,options => options.Ignore()).ForMember(destination => destination.Posts,options => options.Ignore());
             CreateMap<BlogEntity,BlogDto>().ReverseMap();
         }
     }

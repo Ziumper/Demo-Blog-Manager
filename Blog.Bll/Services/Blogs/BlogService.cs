@@ -49,7 +49,7 @@ namespace Blog.Bll.Services.Blogs
             
             foreach(var post in blog.Posts)
             {
-                var postWithComments = _postRepository.FindByWithComments(p => p.PostId == post.PostId).FirstOrDefault();
+                var postWithComments = _postRepository.FindByWithComments(p => p.Id == post.Id).FirstOrDefault();
                 var isComments = postWithComments.Comments.Count > 0;
                 if(isComments) _commentRepository.DeleteMany(postWithComments.Comments);
                 _postRepository.Delete(post);
@@ -128,7 +128,7 @@ namespace Blog.Bll.Services.Blogs
 
         public async Task<BlogDto> GetBlogByIdAsync(int id)
         {
-            var blog = await _blogRepository.FindByFirstAsync(b => b.BlogEntityId == id);
+            var blog = await _blogRepository.FindByFirstAsync(b => b.Id == id);
             if(blog == null) throw new ResourceNotFoundException("Blog with Id " + id + " not found");
             var blogDto = _mapper.Map<BlogEntity,BlogDto>(blog);
             return blogDto;
@@ -150,9 +150,9 @@ namespace Blog.Bll.Services.Blogs
 
         public async Task<BlogDto> UpdateBlogAsync(BlogDto blog)
         {
-            var result = await _blogRepository.FindByFirstAsync(b => b.BlogEntityId == blog.BlogEntityId);
+            var result = await _blogRepository.FindByFirstAsync(b => b.Id == blog.Id);
 
-            if(result == null) throw new ResourceNotFoundException("Blog with Id " + blog.BlogEntityId + "not found");
+            if(result == null) throw new ResourceNotFoundException("Blog with Id " + blog.Id + "not found");
 
             result.Title = blog.Title;
 

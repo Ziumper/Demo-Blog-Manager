@@ -53,7 +53,7 @@ namespace Blog.Bll.Services.Posts
         public PostDto DeletePost(int postId)
         {
            
-            var result = _postRepository.FindBy(p => p.PostId == postId).FirstOrDefault();
+            var result = _postRepository.FindBy(p => p.Id == postId).FirstOrDefault();
             if (result == null)
             {
                 throw new ResourceNotFoundException("Post not found");
@@ -62,7 +62,7 @@ namespace Blog.Bll.Services.Posts
             _commentRepository.DeleteManyCommentsByPostId(postId);
             _commentRepository.Save();
 
-            _postRepository.Delete(p => p.PostId == postId);
+            _postRepository.Delete(p => p.Id == postId);
             _postRepository.Save();
 
             var resultDto = _mapper.Map<Post, PostDto>(result);
@@ -72,7 +72,7 @@ namespace Blog.Bll.Services.Posts
         public PostDto EditPost(PostDto postDto)
         {
            
-            var result = _postRepository.FindBy(post => post.PostId == postDto.PostId).FirstOrDefault();
+            var result = _postRepository.FindBy(post => post.Id == postDto.Id).FirstOrDefault();
             if(result == null)
             {
                 throw new ResourceNotFoundException("Post not found");
@@ -88,7 +88,7 @@ namespace Blog.Bll.Services.Posts
             
         public PostDto GetPostById(int postId)
         {
-            var result = _postRepository.FindBy(p => p.PostId == postId).FirstOrDefault();
+            var result = _postRepository.FindBy(p => p.Id == postId).FirstOrDefault();
             if (result == null)
             {
                 throw new ResourceNotFoundException("Post not found");
@@ -99,7 +99,7 @@ namespace Blog.Bll.Services.Posts
 
         public PostDtoWithComments GetPostWithCommentsById(int postId)
         {
-            var result = _postRepository.FindByWithComments(p => p.PostId == postId).FirstOrDefault();
+            var result = _postRepository.FindByWithComments(p => p.Id == postId).FirstOrDefault();
             if (result == null)
             {
                 throw new ResourceNotFoundException("Post not found");

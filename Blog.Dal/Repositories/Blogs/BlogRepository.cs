@@ -20,7 +20,7 @@ namespace Blog.Dal.Repositories.Blogs
 
         public async Task<BlogEntity> GetBlogByIdWithPosts(int id)
         {
-            var blog = await _table.Where(b => b.BlogEntityId == id).Include(b => b.Posts).FirstAsync();
+            var blog = await _table.Where(b => b.Id == id).Include(b => b.Posts).FirstAsync();
             return blog;
         }
     }

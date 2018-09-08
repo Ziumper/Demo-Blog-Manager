@@ -21,20 +21,22 @@ namespace Blog.Dal.Migrations
 
             modelBuilder.Entity("Blog.Dal.Models.BlogEntity", b =>
                 {
-                    b.Property<int>("BlogEntityId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("TechDate");
+
                     b.Property<string>("Title");
 
-                    b.HasKey("BlogEntityId");
+                    b.HasKey("Id");
 
                     b.ToTable("Blogs");
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -42,14 +44,16 @@ namespace Blog.Dal.Migrations
 
                     b.Property<int>("PostId");
 
-                    b.HasKey("CategoryId");
+                    b.Property<DateTime>("TechDate");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Comment", b =>
                 {
-                    b.Property<int>("CommentId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -59,7 +63,9 @@ namespace Blog.Dal.Migrations
 
                     b.Property<int>("PostId");
 
-                    b.HasKey("CommentId");
+                    b.Property<DateTime>("TechDate");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("PostId");
 
@@ -68,7 +74,7 @@ namespace Blog.Dal.Migrations
 
             modelBuilder.Entity("Blog.Dal.Models.Post", b =>
                 {
-                    b.Property<int>("PostId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -78,20 +84,24 @@ namespace Blog.Dal.Migrations
 
                     b.Property<string>("Content");
 
+                    b.Property<int>("PostId");
+
+                    b.Property<DateTime>("TechDate");
+
                     b.Property<string>("Title");
 
-                    b.HasKey("PostId");
+                    b.HasKey("Id");
 
                     b.HasIndex("BlogId");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("PostId");
 
                     b.ToTable("Posts");
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Tag", b =>
                 {
-                    b.Property<int>("TagId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -99,7 +109,9 @@ namespace Blog.Dal.Migrations
 
                     b.Property<int>("PostId");
 
-                    b.HasKey("TagId");
+                    b.Property<DateTime>("TechDate");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("PostId");
 
@@ -123,7 +135,7 @@ namespace Blog.Dal.Migrations
 
                     b.HasOne("Blog.Dal.Models.Category", "Category")
                         .WithMany("Posts")
-                        .HasForeignKey("CategoryId")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -7,7 +7,7 @@ namespace Blog.Bll.Dto
 {
     public class PostDto
     {
-        public int PostId { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
     }
