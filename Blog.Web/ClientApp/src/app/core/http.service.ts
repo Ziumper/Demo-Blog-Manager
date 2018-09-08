@@ -11,8 +11,8 @@ import { tap, catchError } from 'rxjs/operators';
 export class HttpService  {
 
     constructor(
-        private http: HttpClient, 
-        private log: LoggerService, 
+        private http: HttpClient,
+        private log: LoggerService,
         private loaderService: LoaderService
     ) {
 
@@ -27,11 +27,11 @@ export class HttpService  {
         return result;
     }
 
-    public getSmall<T>(url: string): Observable<T>{
+    public getSmall<T>(url: string): Observable<T> {
         this.loaderService.acitvateSmallLoading();
 
         let result =  this.http.get<T>(url);
-        result = this.holdSmallRequest(result,url,'get');
+        result = this.holdSmallRequest(result, url, 'get');
 
         return result;
     }
@@ -105,7 +105,7 @@ export class HttpService  {
         return result;
     }
 
-    private holdSmallRequest(request: Observable<any>,url:string, requestType:string): Observable<any> {
+    private holdSmallRequest(request: Observable<any>, url: string, requestType: string): Observable<any> {
         const result = request.pipe<any>(
             tap( (response: any) => {
               this.tapSmallResponse(response, url, requestType);
@@ -124,8 +124,8 @@ export class HttpService  {
         this.loaderService.deactivateLoading();
     }
 
-    private tapSmallResponse(model:any,url:string, requestType: string) : void {
-        const result = new ResponseModel(requestType,url,model);
+    private tapSmallResponse(model: any, url: string, requestType: string): void {
+        const result = new ResponseModel(requestType, url, model);
         this.log.info(result);
         this.loaderService.deactivateSmallLoading();
     }
@@ -135,7 +135,7 @@ export class HttpService  {
         this.loaderService.deactivateLoading();
     }
 
-    private catchSmallErrorResponse(error:any){
+    private catchSmallErrorResponse(error: any) {
         this.log.error(error);
         this.loaderService.deactivateLoading();
     }
