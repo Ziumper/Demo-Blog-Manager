@@ -21,15 +21,29 @@ namespace Blog.Web.Controllers
             return Ok("Test controller");
         }
 
-        [HttpGet("paged/{ac:int}/{size:int}")]
-        public async Task<IActionResult> GetAllBlogsPaged(int ac,int size){
-            var result = await _blogService.GetAllBlogsPaged(ac,size);
+        [HttpGet("paged/{p:int}/{size:int}")]
+        public async Task<IActionResult> GetAllBlogsPaged(int p,int size){
+            var result = await _blogService.GetAllBlogsPaged(p,size);
             return Ok(result);
         }
 
-        [HttpGet("paged/{ac:int}/{size:int}/{title}")]
-        public async Task<IActionResult> GetBlogsPagedByTitle(string title,int ac,int size){
-            var result = await _blogService.GetAllBlogsPagedByTitle(title,ac,size);
+        
+        [HttpGet("paged/{p:int}/{size:int}/{filter:int}/{order:bool}")]
+        public async Task<IActionResult> GetAllBlogsPagedAndFiltered(int p,int size,int filter, bool order){
+            var result = await _blogService.GetAllBlogsPagedAndFiltered(p,size,filter,order);
+            return Ok(result);
+        }
+
+         [HttpGet("paged/{p:int}/{size:int}/{filter:int}/{order:bool}/{title}")]
+        public async Task<IActionResult> GetAllBlogsPagedAndFilteredByTitle(int p,int size,int filter, bool order,string title){
+            var result = await _blogService.GetAllBlogsPagedAndFilteredByTitle(p,size,filter,order,title);
+            return Ok(result);
+        }
+
+
+        [HttpGet("paged/{p:int}/{size:int}/{title}")]
+        public async Task<IActionResult> GetBlogsPagedByTitle(int p,int size,string title){
+            var result = await _blogService.GetAllBlogsPagedByTitle(title,p,size);
             return Ok(result);
         }
 

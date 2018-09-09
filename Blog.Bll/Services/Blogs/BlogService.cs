@@ -7,6 +7,7 @@ using AutoMapper;
 using Blog.Bll.Dto;
 using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
+using Blog.Dal.Models.Base;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Posts;
@@ -83,46 +84,28 @@ namespace Blog.Bll.Services.Blogs
         {
             var result = await _blogRepository.GetAllPaged(page,size);
             var blogs = result.Entities;
+            return GetPagedDtoResult(result,page,size);
+        }
 
-            var pagedResult = new BlogDtoPaged();
-           
-            pagedResult.Page = page;
-            pagedResult.Size = size;
-            pagedResult.Count = result.Count;
-            
-            var blogsDto = new List<BlogDto>();
+        public async Task<BlogDtoPaged> GetAllBlogsPagedAndFiltered(int page, int size, int filter, bool order)
+        {
+            var result = await _blogRepository.GetAllBlogsPagedAndFilteredByOrder(page,size,filter,order);
+            return GetPagedDtoResult(result,page,size);
+        }
 
-            foreach(var blog in blogs){
-                blogsDto.Add(_mapper.Map<BlogEntity,BlogDto>(blog));
-            }
-
-            pagedResult.Blogs = blogsDto;
-
-            return pagedResult;
+        public async Task<BlogDtoPaged> GetAllBlogsPagedAndFilteredByTitle(int page, int size, int filter, bool order,string title)
+        {
+            var result = await _blogRepository.GetAllBlogsPagedAndFilteredByOrder(page,size,filter,order, b => b.Title.Contains(title));
+            return GetPagedDtoResult(result,page,size);
         }
 
         public async Task<BlogDtoPaged> GetAllBlogsPagedByTitle(string title, int page, int size)
         {
-             var result = await _blogRepository.GetAllPaged(page,size,b =>   
-                 b.Title.Contains(title)
-             );
+            var result = await _blogRepository.GetAllPaged(page,size,b =>   
+                b.Title.Contains(title)
+            );
 
-            var blogs = result.Entities;
-
-            var pagedResult = new BlogDtoPaged();
-           
-            pagedResult.Page = page;
-            pagedResult.Size = size;
-            pagedResult.Count = result.Count;
-            
-            var blogsDto = new List<BlogDto>();
-
-            foreach(var blog in blogs){
-                blogsDto.Add(_mapper.Map<BlogEntity,BlogDto>(blog));
-            }
-
-            pagedResult.Blogs = blogsDto;
-
+            var pagedResult = GetPagedDtoResult(result,page,size);
             return pagedResult;
         }
 
@@ -161,6 +144,27 @@ namespace Blog.Bll.Services.Blogs
             await _blogRepository.SaveAsync();
 
             return _mapper.Map<BlogEntity,BlogDto>(result);
+        }
+
+        private BlogDtoPaged GetPagedDtoResult(PagedEntity<BlogEntity> result,int page,int size)
+        {
+
+            var blogs = result.Entities;
+            var pagedResult = new BlogDtoPaged();
+           
+            pagedResult.Page = page;
+            pagedResult.Size = size;
+            pagedResult.Count = result.Count;
+            
+            var blogsDto = new List<BlogDto>();
+
+            foreach(var blog in blogs){
+                blogsDto.Add(_mapper.Map<BlogEntity,BlogDto>(blog));
+            }
+
+            pagedResult.Blogs = blogsDto;
+
+            return pagedResult;
         }
     }
 }

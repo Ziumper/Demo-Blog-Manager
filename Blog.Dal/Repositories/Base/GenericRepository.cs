@@ -111,10 +111,9 @@ namespace Blog.Dal.Repositories.Base
 
         public async Task<PagedEntity<T>> GetAllPaged(int page,int size,Expression<Func<T,bool>> predicate = null){
             
-            var pagesToSkip = page - 1;
-            var skipCount = pagesToSkip * size;
+            var skipCount = getSkipCount(page,size);
 
-             PagedEntity<T> pagedEntity = new PagedEntity<T>();
+            PagedEntity<T> pagedEntity = new PagedEntity<T>();
 
             if(predicate != null){
             
@@ -134,7 +133,11 @@ namespace Blog.Dal.Repositories.Base
             return pagedEntity;
         }
 
-        
 
+        public int getSkipCount(int page,int size){
+            var skipCount = (page - 1) * size;
+            return skipCount;
+
+        }
     }
 }
