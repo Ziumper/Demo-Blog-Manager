@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { LoggerService } from './logger.service';
 import { ResponseModel } from './models/ResponsModel';
@@ -27,10 +27,10 @@ export class HttpService  {
         return result;
     }
 
-    public getSmall<T>(url: string): Observable<T> {
+    public getSmall<T>(url: string, requestParams?: HttpParams): Observable<T> {
         this.loaderService.acitvateSmallLoading();
 
-        let result =  this.http.get<T>(url);
+        let result =  this.http.get<T>(url, {params: requestParams});
         result = this.holdSmallRequest(result, url, 'get');
 
         return result;

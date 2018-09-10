@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Blog.Bll.Dto;
+using Blog.Bll.QueryModels;
 using Blog.Bll.Services.Blogs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,9 +35,9 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-         [HttpGet("paged/{p:int}/{size:int}/{filter:int}/{order:bool}/{title}")]
-        public async Task<IActionResult> GetAllBlogsPagedAndFilteredByTitle(int p,int size,int filter, bool order,string title){
-            var result = await _blogService.GetAllBlogsPagedAndFilteredByTitle(p,size,filter,order,title);
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetAllBlogsPagedAndFilteredByTitle( [FromQuery] SearchBlogQuery searchQuery){
+            var result = await _blogService.GetAllBlogsPagedAndFilteredByTitle(searchQuery);
             return Ok(result);
         }
 

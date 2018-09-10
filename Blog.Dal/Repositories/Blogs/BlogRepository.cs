@@ -26,6 +26,7 @@ namespace Blog.Dal.Repositories.Blogs
             if(predicate != null){
             
                 var result = _table.Where(predicate);
+                var resultList = result.ToArray();
                 result = SortBlogs(result,filter,order);
 
                 pagedEntity.Count = result.Count();
