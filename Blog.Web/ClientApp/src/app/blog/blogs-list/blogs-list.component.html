@@ -32,6 +32,6 @@
                     </tbody>
                 </table>
                 <app-small-loader [hidden]="!isLoading"></app-small-loader>
-                <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" [ngClass]="{'hide-pagination': isLoading || blogs.length == 0 }" [collectionSize]="collectionSize" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+                <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" [ngClass]="{'hide-pagination': isLoading || blogs.length == 0 }" [collectionSize]="collectionSize" [(page)]="blogQueryModel.page" aria-label="Default pagination"></ngb-pagination>
         </div>
 </div>

@@ -6,6 +6,8 @@ import { LoaderService } from '../../core/loader/loader.service';
 import { Subject, Observable } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { BlogPagedModel } from '../models/blogs-paged-model';
+import { BlogQueryModel } from '../models/blog-query.model';
+
 
 
 @Component({
@@ -17,13 +19,9 @@ export class BlogsListComponent implements OnInit {
     public blogs: Array<BlogModel>;
     public searchTerm: Subject<string>;
     public isLoading: boolean;
-    public page: number;
-    public pageSize: number;
+    public blogQueryModel: BlogQueryModel;
     public collectionSize: number;
     public iterationIndex: number;
-    public searchQuery: string;
-    public order: boolean;
-    public filter: number;
 
     constructor(
         private blogService: BlogService,
@@ -32,27 +30,18 @@ export class BlogsListComponent implements OnInit {
     ) {
         this.blogs = new Array<BlogModel>();
         this.isLoading = false;
-
-        this.page = 1;
-        this.pageSize = 10;
         this.collectionSize = 0;
         this.iterationIndex = 0;
-        this.searchQuery = '';
 
+        this.initalizeBlogQueryModel();
     }
 
     public ngOnInit(): void {
         this.searchTerm = new Subject<string>();
-
         this.getBlogs();
-
         this.subscribeToLoad();
-
         this.search(this.searchTerm).subscribe( (result: BlogPagedModel) => {
-            this.blogs = result.blogs;
-            this.page = result.page;
-            this.collectionSize = result.count;
-            this.pageSize = result.size;
+            this.updateResult(result);
         });
     }
 
@@ -69,9 +58,9 @@ export class BlogsListComponent implements OnInit {
     }
 
     public onPageChange(page): void {
-        this.page = page;
+        this.blogQueryModel.page = page;
 
-        if (this.page > 1) {
+        if (page > 1) {
             this.iterationIndex = 10 * page - 1;
         } else {
             this.iterationIndex = 0;
@@ -82,32 +71,31 @@ export class BlogsListComponent implements OnInit {
 
     public sortById(): void {
         console.log('Sorting by Id');
-        this.filter = 0;
-        this.order = !this.order;
+        this.blogQueryModel.filter = 0;
+        this.blogQueryModel.order = !this.blogQueryModel.order;
     }
 
     public sortByTitle(): void {
         console.log('Sorting by Title');
-        this.filter  = 3;
-        this.order = !this.order;
+        this.blogQueryModel.filter  = 3;
+        this.blogQueryModel.order = !this.blogQueryModel.order;
     }
 
     private search(searchTerm: Observable<string>): Observable<BlogPagedModel> {
         return searchTerm.pipe(
             debounceTime(400),
             distinctUntilChanged(),
-            switchMap((query: string) => this.blogService.searchBlogsByTitlePaged(this.page, this.pageSize, query))
+            switchMap((query: string) => {
+                this.blogQueryModel.title = query;
+                return this.blogService.getBlogsPagedFilteredByTitle(this.blogQueryModel);
+            })
         );
 
     }
 
-
     private getBlogs(): void {
-        this.blogService.searchBlogsByTitlePaged(this.page, this.pageSize, this.searchQuery).subscribe((result: BlogPagedModel) => {
-            this.blogs = result.blogs;
-            this.page = result.page;
-            this.collectionSize = result.count;
-            this.pageSize = result.size;
+        this.blogService.getBlogsPagedFilteredByTitle(this.blogQueryModel).subscribe((result: BlogPagedModel) => {
+            this.updateResult(result);
         });
 
     }
@@ -125,5 +113,21 @@ export class BlogsListComponent implements OnInit {
             this.isLoading = isLoading;
         });
 
+    }
+
+    private updateResult(result: BlogPagedModel): void {
+        this.blogs = result.blogs;
+        this.blogQueryModel.page = result.page;
+        this.collectionSize = result.count;
+        this.blogQueryModel.size = result.size;
+    }
+
+    private initalizeBlogQueryModel(): void {
+        this.blogQueryModel = new BlogQueryModel();
+        this.blogQueryModel.page = 1;
+        this.blogQueryModel.size = 10;
+        this.blogQueryModel.title = '';
+        this.blogQueryModel.filter = 0;
+        this.blogQueryModel.order = false;
     }
 }

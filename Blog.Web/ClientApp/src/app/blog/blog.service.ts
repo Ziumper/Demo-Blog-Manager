@@ -31,7 +31,7 @@ export class BlogService {
   }
 
   public getBlogsPagedFilteredByTitle( query: BlogQueryModel): Observable<BlogPagedModel> {
-    return this.http.getSmall<BlogPagedModel>(this.blogApiUrl + '/paged?' );
+    return this.http.getSmall<BlogPagedModel>(this.blogApiUrl + '/paged?', query.getParams());
   }
 
   public getBlogById(id: number): Observable<BlogModel> {
