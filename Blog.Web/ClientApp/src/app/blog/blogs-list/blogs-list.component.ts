@@ -22,6 +22,8 @@ export class BlogsListComponent implements OnInit {
     public collectionSize: number;
     public iterationIndex: number;
     public searchQuery: string;
+    public order: boolean;
+    public filter: number;
 
     constructor(
         private blogService: BlogService,
@@ -76,6 +78,18 @@ export class BlogsListComponent implements OnInit {
         }
 
         this.getBlogs();
+    }
+
+    public sortById(): void {
+        console.log('Sorting by Id');
+        this.filter = 0;
+        this.order = !this.order;
+    }
+
+    public sortByTitle(): void {
+        console.log('Sorting by Title');
+        this.filter  = 3;
+        this.order = !this.order;
     }
 
     private search(searchTerm: Observable<string>): Observable<BlogPagedModel> {
