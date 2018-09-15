@@ -69,16 +69,20 @@ export class BlogsListComponent implements OnInit {
         this.getBlogs();
     }
 
-    public sortById(): void {
-        console.log('Sorting by Id');
-        this.blogQueryModel.filter = 0;
-        this.blogQueryModel.order = !this.blogQueryModel.order;
+
+    public sort(filter: number) {
+        console.log('Sorting by ' + filter);
+        this.checkOrder(filter);
+        this.blogQueryModel.filter = filter;
+        this.getBlogs();
     }
 
-    public sortByTitle(): void {
-        console.log('Sorting by Title');
-        this.blogQueryModel.filter  = 3;
-        this.blogQueryModel.order = !this.blogQueryModel.order;
+    private checkOrder(filter: number): void {
+        if (this.blogQueryModel.filter === filter) {
+            this.blogQueryModel.order = !this.blogQueryModel.order;
+        } else {
+            this.blogQueryModel.order = false;
+        }
     }
 
     private search(searchTerm: Observable<string>): Observable<BlogPagedModel> {

@@ -74,7 +74,7 @@ namespace Blog.Dal.Repositories.Blogs
             }else {
                 switch (filter)
                 {
-                  case 0 : {
+                    case 0 : {
                          return blogs.OrderBy(x=> x.Id);
                     }                    
                     case 1 : {   

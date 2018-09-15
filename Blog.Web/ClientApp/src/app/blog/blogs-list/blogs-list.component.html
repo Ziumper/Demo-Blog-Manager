@@ -3,7 +3,7 @@
         <form name="blog-form">
                 <div class="form-group">
                         <label for="searchQuery">Search blog</label>
-                        <input (keyup)="searchTerm.next($event.target.value)"  [(ngModel)]="searchQuery" type="text" class="form-control" name="searchQuery"  />        
+                        <input (keyup)="searchTerm.next($event.target.value)" type="text" class="form-control" name="searchQuery"  />        
                 </div>
         </form>
         <div>
@@ -11,15 +11,23 @@
                 <table class="table">
                     <thead>
                         <tr>
-                        <th (click)="sortById()" scope="col">#</th>
-                        <th (click)="sortByTitle()" scope="col">Title Blog</th>
+                        <th  class="clickable" (click)="sort(0)" scope="col">
+                                <fa [hidden]="!blogQueryModel.order || blogQueryModel.filter != 0 " name="arrow-up"></fa>
+                                <fa [hidden]="blogQueryModel.order || blogQueryModel.filter != 0" name="arrow-down"></fa>
+                                <span>Id</span>   
+                        </th>
+                        <th class="clickable" (click)="sort(2)" scope="col">
+                                <fa [hidden]="!blogQueryModel.order || blogQueryModel.filter != 2" name="arrow-up"></fa>
+                                <fa [hidden]="blogQueryModel.order || blogQueryModel.filter != 2" name="arrow-down"></fa>
+                                <span>Title</span>
+                        </th>
                         <th colspan="2" scope="colgroup">Actions</th>
                         </tr>
                     </thead>
            
                     <tbody>
-                            <tr [hidden]="isLoading" *ngFor="let blog of blogs;index as i">
-                                <th scope="row">{{ i + 1 + iterationIndex }}</th>
+                            <tr [hidden]="isLoading" *ngFor="let blog of blogs;">
+                                <th scope="row">{{ blog?.id }}</th>
                                 <td>{{blog?.title}}</td> 
                                 <td>
                                         <button class="btn btn-danger action-button" (click)="deleteBlog(blog)"  type="button">Delete</button>
