@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Blog.Bll.Dto.Blogs;
 using Blog.Bll.Exceptions;
-using Blog.Bll.QueryModels;
+using Blog.Bll.Dto.QueryModels;
 using Blog.Dal.Models;
 using Blog.Dal.Models.Base;
 using Blog.Dal.Repositories.Blogs;
@@ -92,7 +92,7 @@ namespace Blog.Bll.Services.Blogs
             return new BlogDtoPaged(_mapper,result,page,size);
         }
 
-        public async Task<BlogDtoPaged> GetAllBlogsPagedAndFilteredByTitle(SearchBlogQuery query)
+        public async Task<BlogDtoPaged> GetAllBlogsPagedAndFilteredByTitle(BlogQuery query)
         {
             if(query.Title == null) {
                 var blogs = await _blogRepository.GetAllBlogsPagedAndFilteredByOrder(query.Page,query.Size,query.Filter,query.Order);

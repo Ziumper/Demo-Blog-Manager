@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Blog.Bll.Dto.Blogs;
-using Blog.Bll.QueryModels;
+using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.Services.Blogs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,7 +36,7 @@ namespace Blog.Web.Controllers
         }
 
         [HttpGet("paged")]
-        public async Task<IActionResult> GetAllBlogsPagedAndFilteredByTitle( [FromQuery] SearchBlogQuery searchQuery){
+        public async Task<IActionResult> GetAllBlogsPagedAndFilteredByTitle( [FromQuery] BlogQuery searchQuery){
             var result = await _blogService.GetAllBlogsPagedAndFilteredByTitle(searchQuery);
             return Ok(result);
         }

@@ -1,4 +1,5 @@
 ﻿using Blog.Bll.Dto.Posts;
+using Blog.Bll.Dto.QueryModels;
 using Blog.Dal.Models;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,6 @@ namespace Blog.Bll.Services.Posts
         PostDto DeletePost(int postId);
         PostDto EditPost(PostDto postDto);
         PostDtoWithComments GetPostWithCommentsById(int postId);
-        Task<List<PostDto>> GetAllPostsPaged(SearchPostQuery searchQuery);
+        Task<List<PostDto>> GetAllPostsPaged(PostQuery searchQuery);
     }
 }

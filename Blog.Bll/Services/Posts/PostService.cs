@@ -109,7 +109,7 @@ namespace Blog.Bll.Services.Posts
             return _mapper.Map<Post, PostDtoWithComments>(result);
         }
 
-        public Task<List<PostDto>> GetAllPostsPaged(SearchPostQuery searchQuery)
+        public Task<List<PostDto>> GetAllPostsPaged(PostQuery searchQuery)
         {
             throw new NotImplementedException();
         }
