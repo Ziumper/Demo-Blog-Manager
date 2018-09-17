@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Blog.Bll.Dto.Posts;
+using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Comments;
