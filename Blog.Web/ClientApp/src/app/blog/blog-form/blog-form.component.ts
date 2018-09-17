@@ -16,7 +16,7 @@ export class BlogFormComponent implements OnInit {
     public submited: EventEmitter<BlogModel>
 
     public constructor() { 
-        this.model = new BlogModel(0,'');
+        this.model = new BlogModel();
         this.submited = new EventEmitter<BlogModel>();
     }
 

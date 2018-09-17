@@ -3,7 +3,7 @@ using AutoMapper;
 using Blog.Dal.Models;
 using Blog.Dal.Models.Base;
 
-namespace Blog.Bll.Dto
+namespace Blog.Bll.Dto.Blogs
 {
     public class BlogDtoPaged
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Blog.Bll.Dto;
+using Blog.Bll.Dto.Blogs;
 using Blog.Bll.Exceptions;
 using Blog.Bll.QueryModels;
 using Blog.Dal.Models;
@@ -38,8 +38,6 @@ namespace Blog.Bll.Services.Blogs
             await _blogRepository.SaveAsync();
 
             var resultDto = _mapper.Map<BlogEntity,BlogDto> (result);
-
-           
 
             return resultDto;
         }

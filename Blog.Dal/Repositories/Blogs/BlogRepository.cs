@@ -60,10 +60,13 @@ namespace Blog.Dal.Repositories.Blogs
                          return blogs.OrderByDescending(x=> x.Id);
                     }                    
                     case 1 : {   
-                        return blogs.OrderByDescending(x => x.TechDate);
+                        return blogs.OrderByDescending(x => x.CreationDate);
                     }
                     case 2 :{
                         return blogs.OrderByDescending(x=> x.Title);
+                    }
+                    case 3: {
+                        return blogs.OrderByDescending(x => x.ModificationDate);
                     }
                     
                     default: {
@@ -78,10 +81,13 @@ namespace Blog.Dal.Repositories.Blogs
                          return blogs.OrderBy(x=> x.Id);
                     }                    
                     case 1 : {   
-                        return blogs.OrderBy(x => x.TechDate);
+                        return blogs.OrderBy(x => x.CreationDate);
                     }
                     case 2 :{
                         return blogs.OrderBy(x=> x.Title);
+                    }
+                    case 3 : {
+                        return blogs.OrderBy( x => x.ModificationDate);
                     }
                     
                     default: {

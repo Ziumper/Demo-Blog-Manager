@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Bll.Services.Comments;
 using Blog.Bll.Dto;
+using Blog.Bll.Dto.Comments;
 
 namespace Blog.Web.Controllers
 {

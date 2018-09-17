@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Blog.Bll.Dto;
+using Blog.Bll.Dto.Comments;
 using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Comments;

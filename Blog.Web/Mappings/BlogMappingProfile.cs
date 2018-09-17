@@ -2,6 +2,7 @@
 using System.Linq.Expressions;
 using AutoMapper;
 using Blog.Bll.Dto;
+using Blog.Bll.Dto.Blogs;
 using Blog.Dal.Models;
 
 namespace Blog.Web.Mappings

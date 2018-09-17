@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Blog.Bll.Dto
+namespace Blog.Bll.Dto.Blogs
 {
     public class BlogCreateDto
     {

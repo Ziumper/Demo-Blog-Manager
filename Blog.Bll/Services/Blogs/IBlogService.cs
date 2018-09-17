@@ -1,4 +1,4 @@
-﻿using Blog.Bll.Dto;
+﻿using Blog.Bll.Dto.Blogs;
 using Blog.Bll.QueryModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;

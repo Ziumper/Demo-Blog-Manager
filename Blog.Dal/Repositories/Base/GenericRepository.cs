@@ -39,7 +39,8 @@ namespace Blog.Dal.Repositories.Base
 
         public virtual T Add(T obj)
         { 
-           
+            obj.CreationDate = new DateTime();
+            obj.ModificationDate = new DateTime();
             var entity =  _table.Add(obj).Entity;
             
             return entity;
@@ -62,7 +63,7 @@ namespace Blog.Dal.Repositories.Base
 
         public virtual T Edit(T obj)
         {
-
+            obj.ModificationDate = new DateTime();
             return _table.Update(obj).Entity;
         }
 
@@ -100,8 +101,10 @@ namespace Blog.Dal.Repositories.Base
 
         public async Task<T> AddAsync(T obj)
         {
-           var entity = await _table.AddAsync(obj);
-           return entity.Entity;
+            obj.CreationDate = new DateTime();
+            obj.ModificationDate = new DateTime();
+            var entity = await _table.AddAsync(obj);
+            return entity.Entity;
         }
 
         public async Task SaveAsync()

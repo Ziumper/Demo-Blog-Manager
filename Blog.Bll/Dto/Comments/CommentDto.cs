@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Blog.Bll.Dto
+namespace Blog.Bll.Dto.Comments
 {
-    public class PostDto
+    public class CommentDto
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
+        public int CommentId { get; set; }
         public string Content { get; set; }
+        public DateTime Date { get; set; }
+
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
+using Blog.Bll.Dto.Posts;
 
-namespace Blog.Bll.Dto
+namespace Blog.Bll.Dto.Blogs
 {
     public class BlogDtoWithPosts
     {

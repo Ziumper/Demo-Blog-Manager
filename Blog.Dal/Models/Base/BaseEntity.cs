@@ -9,6 +9,7 @@ namespace Blog.Dal.Models.Base
     {
         [Key]
         public int Id {get; set;}
-        public DateTime TechDate { get; set;}
+        public DateTime CreationDate { get; set; }
+        public DateTime ModificationDate { get; set; }
     }
 }

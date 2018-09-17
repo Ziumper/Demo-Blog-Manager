@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using AutoMapper;
-using Blog.Bll.Dto;
+using Blog.Bll.Dto.Posts;
 using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Comments;
@@ -106,6 +107,11 @@ namespace Blog.Bll.Services.Posts
             }
 
             return _mapper.Map<Post, PostDtoWithComments>(result);
+        }
+
+        public Task<List<PostDto>> GetAllPostsPaged(SearchPostQuery searchQuery)
+        {
+            throw new NotImplementedException();
         }
     }
 }

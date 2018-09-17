@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Blog.Bll.Dto;
+using System.Threading.Tasks;
+using Blog.Bll;
+using Blog.Bll.Dto.Posts;
 using Blog.Bll.Exceptions;
 using Blog.Bll.Services.Comments;
 using Blog.Bll.Services.Posts;
@@ -24,6 +26,12 @@ namespace Blog.Web.Controllers
         public IActionResult Get()
         {
             return Ok(_postService.GetAllPosts());
+        }
+
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetAllPostsPaged([FromQuery] SearchPostQuery searchQuery){
+            var result = await _postService.GetAllPostsPaged(searchQuery);
+            return Ok(result);
         }
 
 

@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Blog.Bll.Dto;
+using Blog.Bll.Dto.Blogs;
 using Blog.Bll.QueryModels;
 using Blog.Bll.Services.Blogs;
 using Microsoft.AspNetCore.Mvc;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Blog.Bll.Dto
+namespace Blog.Bll.Dto.Posts
 {
     public class PostCreateDto
     {

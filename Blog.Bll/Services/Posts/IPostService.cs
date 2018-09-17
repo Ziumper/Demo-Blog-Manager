@@ -1,8 +1,9 @@
-﻿using Blog.Bll.Dto;
+﻿using Blog.Bll.Dto.Posts;
 using Blog.Dal.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Blog.Bll.Services.Posts
 {
@@ -14,5 +15,6 @@ namespace Blog.Bll.Services.Posts
         PostDto DeletePost(int postId);
         PostDto EditPost(PostDto postDto);
         PostDtoWithComments GetPostWithCommentsById(int postId);
+        Task<List<PostDto>> GetAllPostsPaged(SearchPostQuery searchQuery);
     }
 }
