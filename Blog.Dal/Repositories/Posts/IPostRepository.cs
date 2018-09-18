@@ -12,6 +12,6 @@ namespace Blog.Dal.Repositories.Posts
     public interface IPostRepository : IGenericRepository<Post> 
     {
         IEnumerable<Post> FindByWithComments(Expression<Func<Post, bool>> predicate); 
-        Task<IEnumerable<PagedEntity<Post>>>  GetAllPostPaged(Expression<Func<Post,bool>> predicate = null);
+        Task<IEnumerable<PagedEntity<Post>>>  GetAllPostPaged(int page, int size, int filter, bool order, Expression<Func<Post,bool>> predicate = null);
     }
 }

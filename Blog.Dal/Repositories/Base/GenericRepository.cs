@@ -137,10 +137,78 @@ namespace Blog.Dal.Repositories.Base
         }
 
 
+
+
         public int getSkipCount(int page,int size){
             var skipCount = (page - 1) * size;
             return skipCount;
 
+        }
+
+        public async Task<PagedEntity<T>> GetAllPagedAndFiltered(int page, int size, int filter, bool order, Expression<Func<T, bool>> predicate = null)
+        {
+            var skipCount = getSkipCount(page,size);
+
+            PagedEntity<T> pagedEntity = new PagedEntity<T>();
+
+            if(predicate != null){
+                var result =_table.Where(predicate);
+                
+                result = Sort(result,filter,order);
+                pagedEntity.Count = result.Count();
+
+                var modelList = await result.Skip(skipCount).Take(size).ToListAsync();
+                pagedEntity.Entities = modelList;
+                return pagedEntity;
+            }
+
+            pagedEntity.Count = await _table.CountAsync();
+            IQueryable<T> query = _table;
+            query = Sort(query,filter,order);
+
+            pagedEntity.Entities = await query.Skip(skipCount).Take(size).ToListAsync();
+            return pagedEntity;
+        }
+
+        public virtual IQueryable<T> Sort(IQueryable<T> entites, int filter, bool order)
+        {
+            if(order)
+            {
+                switch (filter)
+                {
+                    case 0 : {
+                         return entites.OrderByDescending(x=> x.Id);
+                    }                    
+                    case 1 : {   
+                        return entites.OrderByDescending(x => x.CreationDate);
+                    }
+                    case 2: {
+                        return entites.OrderByDescending(x => x.ModificationDate);
+                    }
+                    
+                    default: {
+                        return entites;
+                    }
+                }
+               
+            }else {
+                switch (filter)
+                {
+                    case 0 : {
+                         return entites.OrderBy(x=> x.Id);
+                    }                    
+                    case 1 : {   
+                        return entites.OrderBy(x => x.CreationDate);
+                    }
+                    case 2 : {
+                        return entites.OrderBy( x => x.ModificationDate);
+                    }
+                    
+                    default: {
+                        return entites;
+                    }
+                }
+            }
         }
     }
 }

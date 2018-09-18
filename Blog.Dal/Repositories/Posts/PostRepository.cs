@@ -23,8 +23,11 @@ namespace Blog.Dal.Repositories.Posts
             return _table.Where(predicate).Include(s => s.Comments);
         }
 
-        public Task<IEnumerable<PagedEntity<Post>>> GetAllPostPaged(Expression<Func<Post, bool>> predicate = null)
+        public Task<IEnumerable<PagedEntity<Post>>> GetAllPostPaged(int page, int size, int filter, bool order, Expression<Func<Post, bool>> predicate = null)
         {
+            var skipCount = getSkipCount(page,size);
+
+        
             throw new NotImplementedException();
         }
     }

@@ -1,7 +1,9 @@
-﻿using Blog.Dal.Models.Base;
+﻿using Blog.Dal.Models;
+using Blog.Dal.Models.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,5 +28,9 @@ namespace Blog.Dal.Repositories.Base
         Task SaveAsync();
         Task<PagedEntity<T>> GetAllPaged(int page,int size,Expression<Func<T,bool>> predicate = null);
         int getSkipCount(int page, int size);
+
+        Task<PagedEntity<T>> GetAllPagedAndFiltered(int page, int size, int filter, bool order, Expression<Func<T, bool>> predicate = null);
+
+        IQueryable<T> Sort(IQueryable<T> entites , int filter,bool order);
     }
 }
