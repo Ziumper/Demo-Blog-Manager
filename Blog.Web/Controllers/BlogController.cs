@@ -28,25 +28,13 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-        
-        [HttpGet("paged/{p:int}/{size:int}/{filter:int}/{order:bool}")]
-        public async Task<IActionResult> GetAllBlogsPagedAndFiltered(int p,int size,int filter, bool order){
-            var result = await _blogService.GetAllBlogsPagedAndFiltered(p,size,filter,order);
-            return Ok(result);
-        }
-
+    
         [HttpGet("paged")]
-        public async Task<IActionResult> GetAllBlogsPagedAndFilteredByTitle( [FromQuery] BlogQuery searchQuery){
-            var result = await _blogService.GetAllBlogsPagedAndFiltered(searchQuery);
+        public async Task<IActionResult> GetAllBlogsPaged( [FromQuery] BlogQuery searchQuery){
+            var result = await _blogService.GetAllBlogsPaged(searchQuery);
             return Ok(result);
         }
 
-
-        [HttpGet("paged/{p:int}/{size:int}/{title}")]
-        public async Task<IActionResult> GetBlogsPagedByTitle(int p,int size,string title){
-            var result = await _blogService.GetAllBlogsPagedByTitle(title,p,size);
-            return Ok(result);
-        }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()

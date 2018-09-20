@@ -23,6 +23,7 @@ namespace Blog.Dal.Repositories.Posts
             return _table.Where(predicate).Include(s => s.Comments);
         }
 
+      
         public override IQueryable<Post> Sort(IQueryable<Post> entites, int filter, bool order)
         {
             entites = base.Sort(entites, filter, order);

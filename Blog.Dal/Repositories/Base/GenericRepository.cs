@@ -112,61 +112,29 @@ namespace Blog.Dal.Repositories.Base
             await _context.SaveChangesAsync();
         }
 
-        public async Task<PagedEntity<T>> GetAllPaged(int page,int size,Expression<Func<T,bool>> predicate = null){
-            
-            var skipCount = getSkipCount(page,size);
-
-            PagedEntity<T> pagedEntity = new PagedEntity<T>();
-
-            if(predicate != null){
-            
-                var result = _table.Where(predicate).AsQueryable();
-
-                pagedEntity.Count = result.Count();
-
-                var modelList = await result.Skip(skipCount).Take(size).ToListAsync();
-                
-                pagedEntity.Entities = modelList;
-                return pagedEntity;
-            }
-            
-            pagedEntity.Count = await _table.CountAsync();
-            pagedEntity.Entities = await _table.Skip(skipCount).Take(size).ToListAsync();
-
-            return pagedEntity;
-        }
-
-
-
-
         public int getSkipCount(int page,int size){
             var skipCount = (page - 1) * size;
             return skipCount;
 
         }
 
-        public async Task<PagedEntity<T>> GetAllPagedAndFiltered(int page, int size, int filter, bool order, Expression<Func<T, bool>> predicate = null)
-        {
+        public async Task<PagedEntity<T>> GetAllPagedAsync(int page,int size){
             var skipCount = getSkipCount(page,size);
-
             PagedEntity<T> pagedEntity = new PagedEntity<T>();
-
-            if(predicate != null){
-                var result =_table.Where(predicate);
-                
-                result = Sort(result,filter,order);
-                pagedEntity.Count = result.Count();
-
-                var modelList = await result.Skip(skipCount).Take(size).ToListAsync();
-                pagedEntity.Entities = modelList;
-                return pagedEntity;
-            }
-
             pagedEntity.Count = await _table.CountAsync();
-            IQueryable<T> query = _table;
-            query = Sort(query,filter,order);
 
-            pagedEntity.Entities = await query.Skip(skipCount).Take(size).ToListAsync();
+            pagedEntity.Entities = await _table.Skip(skipCount).Take(size).ToListAsync();
+            return pagedEntity;
+        }
+
+        public async Task<PagedEntity<T>> GetAllPagedAsync(int page, int size, Expression<Func<T,bool>> predicate){
+            var skipCount = getSkipCount(page,size);
+            PagedEntity<T> pagedEntity = new PagedEntity<T>();
+            var result = _table.Where(predicate);
+            
+            pagedEntity.Count = await result.CountAsync(); 
+            pagedEntity.Entities = await  result.Skip(skipCount).Take(size).ToListAsync();
+           
             return pagedEntity;
         }
 

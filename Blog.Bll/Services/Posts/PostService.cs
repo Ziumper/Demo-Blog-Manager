@@ -112,10 +112,16 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDtoPaged> GetAllPostsPaged(PostQuery searchQuery)
         {
-            var result = await _postRepository.GetAllPagedAndFiltered(searchQuery.Page,searchQuery.Size,searchQuery.Filter
-            ,searchQuery.Order, x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));
+            var result = await _postRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,
+            x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));
+    
+            result.Entities = _postRepository
+            .Sort(result.Entities
+            .AsQueryable(),searchQuery.Filter,searchQuery.Order)
+            .ToList();
 
             return new PostDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
         }
+
     }
 }
