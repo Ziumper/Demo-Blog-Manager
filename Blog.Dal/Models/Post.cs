@@ -14,8 +14,6 @@ namespace Blog.Dal.Models
         public List<Comment> Comments { get; set; }
         public List<Tag> Tags { get; set; }
 
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
 
         public int BlogId { get; set; }
         [ForeignKey("BlogId")]

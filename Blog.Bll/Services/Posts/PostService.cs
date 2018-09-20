@@ -110,8 +110,12 @@ namespace Blog.Bll.Services.Posts
             return _mapper.Map<Post, PostDtoWithComments>(result);
         }
 
-        public Task<List<PostDto>> GetAllPostsPaged(PostQuery searchQuery)
+        public async Task<List<PostDto>> GetAllPostsPaged(PostQuery searchQuery)
         {
+            var result = await _postRepository.GetAllPagedAndFiltered(searchQuery.Page,searchQuery.Size,searchQuery.Filter
+            ,searchQuery.Order, x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));
+
+            
             throw new NotImplementedException();
         }
     }

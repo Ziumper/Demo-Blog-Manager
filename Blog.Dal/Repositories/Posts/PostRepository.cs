@@ -15,7 +15,7 @@ namespace Blog.Dal.Repositories.Posts
     {
         public PostRepository(BloggingContext context) : base(context)
         {
-            
+
         }
 
         public IEnumerable<Post> FindByWithComments(Expression<Func<Post, bool>> predicate)
@@ -23,12 +23,49 @@ namespace Blog.Dal.Repositories.Posts
             return _table.Where(predicate).Include(s => s.Comments);
         }
 
-        public Task<IEnumerable<PagedEntity<Post>>> GetAllPostPaged(int page, int size, int filter, bool order, Expression<Func<Post, bool>> predicate = null)
+        public override IQueryable<Post> Sort(IQueryable<Post> entites, int filter, bool order)
         {
-            var skipCount = getSkipCount(page,size);
+            entites = base.Sort(entites, filter, order);
+            if (order)
+            {
+                switch (filter)
+                {
+                    case 3:
+                        {
+                            return entites.OrderByDescending(x => x.Title);
+                        }
+                    case 4:
+                        {
+                            return entites.OrderByDescending(x => x.Content);
+                        }
+                    default:
+                        {
+                            return entites;
+                        }
+                }
+            }
+            else
+            {
+                switch (filter)
+                {
+                    case 3:
+                        {
+                            return entites.OrderBy(x => x.Title);
+                        }
 
-        
-            throw new NotImplementedException();
+                    case 4:
+                        {
+                            return entites.OrderBy(x => x.Content);
+                        }
+
+                    default:
+                        {
+                            return entites;
+                        }
+                }
+            }
+
         }
+
     }
 }
