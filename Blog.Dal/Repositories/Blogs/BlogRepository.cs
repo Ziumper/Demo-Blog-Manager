@@ -55,20 +55,12 @@ namespace Blog.Dal.Repositories.Blogs
             if(order)
             {
                 switch (filter)
-                {
-                    case 0 : {
-                         return blogs.OrderByDescending(x=> x.Id);
-                    }                    
-                    case 1 : {   
-                        return blogs.OrderByDescending(x => x.CreationDate);
-                    }
-                    case 2 :{
+                {           
+                  
+                    case 3 :{
                         return blogs.OrderByDescending(x=> x.Title);
                     }
-                    case 3: {
-                        return blogs.OrderByDescending(x => x.ModificationDate);
-                    }
-                    
+              
                     default: {
                         return blogs;
                     }
@@ -77,19 +69,9 @@ namespace Blog.Dal.Repositories.Blogs
             }else {
                 switch (filter)
                 {
-                    case 0 : {
-                         return blogs.OrderBy(x=> x.Id);
-                    }                    
-                    case 1 : {   
-                        return blogs.OrderBy(x => x.CreationDate);
-                    }
-                    case 2 :{
+                    case 3 :{
                         return blogs.OrderBy(x=> x.Title);
                     }
-                    case 3 : {
-                        return blogs.OrderBy( x => x.ModificationDate);
-                    }
-                    
                     default: {
                         return blogs;
                     }
