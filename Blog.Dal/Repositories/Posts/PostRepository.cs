@@ -23,7 +23,27 @@ namespace Blog.Dal.Repositories.Posts
             return _table.Where(predicate).Include(s => s.Comments);
         }
 
-      
+
+        public async Task<PagedEntity<Post>> GetPostsPagedByTags(int page, int size, IEnumerable<Tag> tags, Expression<Func<Post, bool>> predicate)
+        {
+            var skipCount = getSkipCount(page,size);
+            
+            PagedEntity<Post> pagedEntity = new PagedEntity<Post>();
+            IQueryable<Post> result = null;
+            
+            foreach(var tag in tags){
+                result = _table.Where(x=> x.Tags.Contains(tag));
+            }
+
+            result = _table.Where(predicate);
+
+            pagedEntity.Count = await result.CountAsync();
+
+            pagedEntity.Entities = await result.Skip(skipCount).Take(size).ToListAsync();
+
+            return pagedEntity;
+        }
+
         public override IQueryable<Post> Sort(IQueryable<Post> entites, int filter, bool order)
         {
             entites = base.Sort(entites, filter, order);

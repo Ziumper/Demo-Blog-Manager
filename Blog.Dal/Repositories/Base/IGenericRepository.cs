@@ -26,12 +26,9 @@ namespace Blog.Dal.Repositories.Base
         void DeleteMany(IEnumerable<T> obj);
         void Save();
         Task SaveAsync();
-
         int getSkipCount(int page, int size);
-        
         Task<PagedEntity<T>> GetAllPagedAsync(int page,int size);
         Task<PagedEntity<T>> GetAllPagedAsync(int page,int size,Expression<Func<T,bool>> predicate);
-
         IQueryable<T> Sort(IQueryable<T> entites , int filter,bool order);
     }
 }

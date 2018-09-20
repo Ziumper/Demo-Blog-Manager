@@ -116,8 +116,7 @@ namespace Blog.Bll.Services.Posts
             x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));
     
             result.Entities = _postRepository
-            .Sort(result.Entities
-            .AsQueryable(),searchQuery.Filter,searchQuery.Order)
+            .Sort(result.Entities.AsQueryable(),searchQuery.Filter,searchQuery.Order)
             .ToList();
 
             return new PostDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
