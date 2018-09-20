@@ -9,10 +9,7 @@ namespace Blog.Dal.Models
     public class Tag : BaseEntity
     {
         public string Name { get; set; }
-
-        public int PostId { get; set; }
-        [ForeignKey("PostId")]
-        public Post Post { get; set; }
+        public List<BlogEntity> Blogs { get; set; }
 
     }
 }

@@ -11,8 +11,9 @@ namespace Blog.Dal.Models
         public string Title { get; set; }
         public List<Post> Posts { get; set; }
         public int CategoryId { get; set; }
-        
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
+        public List<Tag> Tags {get; set;}
+        public Boolean IsActive {get; set;}
     }
 }

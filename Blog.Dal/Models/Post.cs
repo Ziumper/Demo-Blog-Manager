@@ -10,13 +10,11 @@ namespace Blog.Dal.Models
     {
         public string Title { get; set; }
         public string Content { get; set; }
-
         public List<Comment> Comments { get; set; }
-        public List<Tag> Tags { get; set; }
-
-
         public int BlogId { get; set; }
         [ForeignKey("BlogId")]
         public BlogEntity Blog { get; set; }
+
+        public Boolean IsPublished {get; set;}
     }
 }
