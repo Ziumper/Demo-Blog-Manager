@@ -13,7 +13,7 @@ namespace Blog.Dal.Models
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-        public List<Tag> Tags {get; set;}
+        
         public Boolean IsActive {get; set;}
     }
 }

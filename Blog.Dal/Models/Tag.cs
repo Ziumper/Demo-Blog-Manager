@@ -9,7 +9,7 @@ namespace Blog.Dal.Models
     public class Tag : BaseEntity
     {
         public string Name { get; set; }
-        public List<BlogEntity> Blogs { get; set; }
+        public List<Post> Posts { get; set; }
 
     }
 }
