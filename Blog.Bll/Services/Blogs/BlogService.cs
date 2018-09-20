@@ -92,13 +92,12 @@ namespace Blog.Bll.Services.Blogs
             return new BlogDtoPaged(_mapper,result,page,size);
         }
 
-        public async Task<BlogDtoPaged> GetAllBlogsPagedAndFilteredByTitle(BlogQuery query)
+        public async Task<BlogDtoPaged> GetAllBlogsPagedAndFiltered(BlogQuery query)
         {
-            if(query.Title == null) {
-                var blogs = await _blogRepository.GetAllPagedAndFiltered(query.Page,query.Size,query.Filter,query.Order);
-                return new BlogDtoPaged(_mapper,blogs,query.Page,query.Size);
-            }
-            var result = await _blogRepository.GetAllPagedAndFiltered(query.Page,query.Size,query.Filter,query.Order, b => b.Title.Contains(query.Title));
+            var result = await _blogRepository.GetAllPagedAndFiltered(
+                query.Page,query.Size,query.Filter,
+                query.Order, b => b.Title.Contains(query.searchQuery) 
+                || b.Category.Name.Contains(query.searchQuery));
             return new BlogDtoPaged(_mapper,result,query.Page,query.Size);
         }
 

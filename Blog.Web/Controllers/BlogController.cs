@@ -37,7 +37,7 @@ namespace Blog.Web.Controllers
 
         [HttpGet("paged")]
         public async Task<IActionResult> GetAllBlogsPagedAndFilteredByTitle( [FromQuery] BlogQuery searchQuery){
-            var result = await _blogService.GetAllBlogsPagedAndFilteredByTitle(searchQuery);
+            var result = await _blogService.GetAllBlogsPagedAndFiltered(searchQuery);
             return Ok(result);
         }
 

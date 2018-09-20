@@ -16,7 +16,7 @@ namespace Blog.Bll.Services.Blogs
         Task<BlogDtoPaged> GetAllBlogsPaged(int page, int size);
         Task<BlogDtoPaged> GetAllBlogsPagedByTitle(string title,int page,int size);
         Task<BlogDtoPaged> GetAllBlogsPagedAndFiltered(int page,int size,int filter,bool order);
-        Task<BlogDtoPaged> GetAllBlogsPagedAndFilteredByTitle(BlogQuery query);
+        Task<BlogDtoPaged> GetAllBlogsPagedAndFiltered(BlogQuery query);
         
     }
 }

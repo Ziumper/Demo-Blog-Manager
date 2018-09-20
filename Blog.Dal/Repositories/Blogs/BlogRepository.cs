@@ -26,14 +26,20 @@ namespace Blog.Dal.Repositories.Blogs
 
         public override IQueryable<BlogEntity> Sort (IQueryable<BlogEntity> blogs,int filter,bool order){
             blogs = base.Sort(blogs,filter,order);
+            blogs = blogs.Include(x=>x.Category);
 
             if(order)
             {
                 switch (filter)
                 {           
-                  
                     case 3 :{
                         return blogs.OrderByDescending(x=> x.Title);
+                    }
+                    case 4: {
+                        return blogs.OrderByDescending( x => x.Category.Name);
+                    }
+                    case 5: {
+                        return blogs.OrderByDescending (x => x.IsActive);
                     }
               
                     default: {
@@ -46,6 +52,12 @@ namespace Blog.Dal.Repositories.Blogs
                 {
                     case 3 :{
                         return blogs.OrderBy(x=> x.Title);
+                    }
+                    case 4 : {
+                        return blogs.OrderBy( x => x.Category.Name);
+                    }
+                    case 5: {
+                        return blogs.OrderBy( x=> x.IsActive);
                     }
                     default: {
                         return blogs;
