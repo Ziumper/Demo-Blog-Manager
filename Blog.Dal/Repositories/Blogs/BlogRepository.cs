@@ -17,33 +17,6 @@ namespace Blog.Dal.Repositories.Blogs
         {
         }
 
-        public async Task<PagedEntity<BlogEntity>> GetAllBlogsPagedAndFilteredByOrder(int page, int size, int filter, bool order, Expression<Func<BlogEntity, bool>> predicate = null)
-        {
-            var skipCount = getSkipCount(page,size);
-
-            PagedEntity<BlogEntity> pagedEntity = new PagedEntity<BlogEntity>();
-
-            if(predicate != null){
-            
-                var result = _table.Where(predicate);
-                var resultList = result.ToArray();
-                result = SortBlogs(result,filter,order);
-
-                pagedEntity.Count = result.Count();
-
-                var modelList = await result.Skip(skipCount).Take(size).ToListAsync();
-                
-                pagedEntity.Entities = modelList;
-                return pagedEntity;
-            }
-            
-            pagedEntity.Count = await _table.CountAsync();
-            IQueryable<BlogEntity> query = _table;
-            query = SortBlogs(query,filter,order);
-            pagedEntity.Entities = await query.Skip(skipCount).Take(size).ToListAsync();
-
-            return pagedEntity;
-        }
 
         public async Task<BlogEntity> GetBlogByIdWithPosts(int id)
         {
@@ -51,7 +24,9 @@ namespace Blog.Dal.Repositories.Blogs
             return blog;
         }
 
-        private IQueryable<BlogEntity> SortBlogs(IQueryable<BlogEntity> blogs,int filter,bool order){
+        public override IQueryable<BlogEntity> Sort (IQueryable<BlogEntity> blogs,int filter,bool order){
+            blogs = base.Sort(blogs,filter,order);
+
             if(order)
             {
                 switch (filter)

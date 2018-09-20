@@ -11,6 +11,5 @@ namespace Blog.Dal.Repositories.Blogs
     public interface IBlogRepository : IGenericRepository<BlogEntity>
     {
         Task<BlogEntity> GetBlogByIdWithPosts(int id);
-        Task<PagedEntity<BlogEntity>> GetAllBlogsPagedAndFilteredByOrder(int page,int size,int filter,bool order,Expression<Func<BlogEntity,bool>> predicate = null);
     }
 }
