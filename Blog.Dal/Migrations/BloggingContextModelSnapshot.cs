@@ -25,11 +25,19 @@ namespace Blog.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("TechDate");
+                    b.Property<int>("CategoryId");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<DateTime>("ModificationDate");
 
                     b.Property<string>("Title");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Blogs");
                 });
@@ -40,11 +48,11 @@ namespace Blog.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("ModificationDate");
+
                     b.Property<string>("Name");
-
-                    b.Property<int>("PostId");
-
-                    b.Property<DateTime>("TechDate");
 
                     b.HasKey("Id");
 
@@ -59,11 +67,13 @@ namespace Blog.Dal.Migrations
 
                     b.Property<string>("Content");
 
+                    b.Property<DateTime>("CreationDate");
+
                     b.Property<DateTime>("Date");
 
-                    b.Property<int>("PostId");
+                    b.Property<DateTime>("ModificationDate");
 
-                    b.Property<DateTime>("TechDate");
+                    b.Property<int>("PostId");
 
                     b.HasKey("Id");
 
@@ -80,13 +90,13 @@ namespace Blog.Dal.Migrations
 
                     b.Property<int>("BlogId");
 
-                    b.Property<int>("CategoryId");
-
                     b.Property<string>("Content");
 
-                    b.Property<int>("PostId");
+                    b.Property<DateTime>("CreationDate");
 
-                    b.Property<DateTime>("TechDate");
+                    b.Property<bool>("IsPublished");
+
+                    b.Property<DateTime>("ModificationDate");
 
                     b.Property<string>("Title");
 
@@ -94,9 +104,20 @@ namespace Blog.Dal.Migrations
 
                     b.HasIndex("BlogId");
 
-                    b.HasIndex("PostId");
-
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("Blog.Dal.Models.PostTag", b =>
+                {
+                    b.Property<int>("PostId");
+
+                    b.Property<int>("TagId");
+
+                    b.HasKey("PostId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("PostTag");
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Tag", b =>
@@ -105,17 +126,23 @@ namespace Blog.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("ModificationDate");
+
                     b.Property<string>("Name");
-
-                    b.Property<int>("PostId");
-
-                    b.Property<DateTime>("TechDate");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PostId");
-
                     b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("Blog.Dal.Models.BlogEntity", b =>
+                {
+                    b.HasOne("Blog.Dal.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Comment", b =>
@@ -132,18 +159,18 @@ namespace Blog.Dal.Migrations
                         .WithMany("Posts")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Blog.Dal.Models.Category", "Category")
-                        .WithMany("Posts")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Blog.Dal.Models.Tag", b =>
+            modelBuilder.Entity("Blog.Dal.Models.PostTag", b =>
                 {
                     b.HasOne("Blog.Dal.Models.Post", "Post")
-                        .WithMany("Tags")
+                        .WithMany("PostTags")
                         .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Blog.Dal.Models.Tag", "Tag")
+                        .WithMany("PostTags")
+                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

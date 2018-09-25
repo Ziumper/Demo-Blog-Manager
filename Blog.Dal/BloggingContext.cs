@@ -1,8 +1,5 @@
 ﻿using Blog.Dal.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Blog.Dal
 {
@@ -10,7 +7,14 @@ namespace Blog.Dal
     {
         public BloggingContext(DbContextOptions<BloggingContext> options)
         : base(options)
-        { }
+        { 
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBulider)
+        {
+            modelBulider.Entity<PostTag>().HasKey( postTag => new {postTag.PostId, postTag.TagId});
+        }
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }

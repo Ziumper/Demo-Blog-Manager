@@ -31,10 +31,12 @@ namespace Blog.Dal.Repositories.Posts
             PagedEntity<Post> pagedEntity = new PagedEntity<Post>();
             IQueryable<Post> result = null;
             
+            //TO DO check if tag is a existing one
+            /*
             foreach(var tag in tags){
-                result = _table.Where(x=> x.Tags.Contains(tag));
+                result = _table.Where(x=> x.PostTags.Contains(tag));
             }
-
+            */
             result = _table.Where(predicate);
 
             pagedEntity.Count = await result.CountAsync();
