@@ -27,7 +27,11 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-
+        [HttpGet("paged/{blogId:int}")]
+        public async Task<IActionResult> GetAllPostsPaged([FromQuery] PostQuery searchQuery,int blogId){
+            var result = await _postService.GetAllPostPagedAsyncByBlogId(searchQuery,blogId);
+            return Ok(result);
+        }
 
         [HttpGet("postWithCommentsById/{id}")]
         public async Task<IActionResult> GetPostWithCommentsById(int id)
