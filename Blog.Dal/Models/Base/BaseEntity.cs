@@ -11,5 +11,18 @@ namespace Blog.Dal.Models.Base
         public int Id {get; set;}
         public DateTime CreationDate { get; set; }
         public DateTime ModificationDate { get; set; }
+
+        public void SetModificationAndCreationTime(){
+            this.ModificationDate = DateTime.Now;
+            this.CreationDate = DateTime.Now;
+        }
+
+        public void SetModificationTime(){
+            this.ModificationDate = DateTime.Now;
+        }
+
+        public void SetCreationTime(){
+            this.CreationDate = DateTime.Now;
+        }
     }
 }

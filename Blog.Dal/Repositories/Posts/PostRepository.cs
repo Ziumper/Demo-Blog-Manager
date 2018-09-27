@@ -18,9 +18,9 @@ namespace Blog.Dal.Repositories.Posts
 
         }
 
-        public IEnumerable<Post> FindByWithComments(Expression<Func<Post, bool>> predicate)
+        public async Task<List<Post>> FindByWithCommentsAsync(Expression<Func<Post, bool>> predicate)
         {
-            return _table.Where(predicate).Include(s => s.Comments);
+            return await _table.Where(predicate).Include(s => s.Comments).ToListAsync();
         }
 
 

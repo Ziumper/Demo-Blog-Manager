@@ -21,33 +21,19 @@ namespace Blog.Web.Controllers
             _postService = postService;
         }
 
-        // GET: api/Post
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok(_postService.GetAllPosts());
-        }
-
         [HttpGet("paged")]
         public async Task<IActionResult> GetAllPostsPaged([FromQuery] PostQuery searchQuery){
-            var result = await _postService.GetAllPostsPaged(searchQuery);
+            var result = await _postService.GetAllPostsPagedAsync(searchQuery);
             return Ok(result);
         }
 
 
-        // GET: api/Post/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            var result = _postService.GetPostById(id);
-            return Ok(result);
-        }
 
         [HttpGet("postWithCommentsById/{id}")]
-        public IActionResult GetPostWithCommentsById(int id)
+        public async Task<IActionResult> GetPostWithCommentsById(int id)
         {
             PostDto result = null;
-            result = _postService.GetPostWithCommentsById(id);
+            result = await _postService.GetPostWithCommentsByIdAsync(id);
             return Ok(result);
         }
 

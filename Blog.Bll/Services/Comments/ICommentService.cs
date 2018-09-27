@@ -3,6 +3,7 @@ using Blog.Bll.Dto.Comments;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Blog.Bll.Services.Comments
 {
@@ -10,8 +11,8 @@ namespace Blog.Bll.Services.Comments
     {
         CommentDto DeleteComment(int commentId);
         CommentDto EditComment(CommentDto commentDto);
-        List<CommentDto> GetAllCommentsByPostId(int postId);
+        Task<List<CommentDto>> GetAllCommentsByPostIdAsync(int postId);
         CommentDto GetCommentById(int id);
-        List<CommentDto> AddCommentToPost(CommentCreateDto commentDto);
+        Task<List<CommentDto>> AddCommentToPostAsync(CommentCreateDto commentDto);
     }
 }

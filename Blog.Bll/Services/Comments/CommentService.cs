@@ -8,6 +8,7 @@ using Blog.Dal.Repositories.Posts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Blog.Bll.Services.Comments
 {
@@ -50,7 +51,8 @@ namespace Blog.Bll.Services.Comments
             }
             
             result.Content = commentDto.Content;
-            result.Date = DateTime.Now;
+
+            result.SetModificationAndCreationTime();
 
             _commentRepository.Save();
 
@@ -59,19 +61,6 @@ namespace Blog.Bll.Services.Comments
             return resutlDto;
         }
 
-        public List<CommentDto> GetAllCommentsByPostId(int postId)
-        {
-            var result = _commentRepository.FindBy(c => c.PostId == postId);
-
-            var commentsDtoList = new List<CommentDto>();
-            foreach(var c in result)
-            {
-                commentsDtoList.Add(_mapper.Map<Comment, CommentDto>(c));
-            }
-
-            var resultDtoList = commentsDtoList;
-            return resultDtoList;
-        }
 
         public CommentDto GetCommentById(int id)
         {
@@ -87,23 +76,24 @@ namespace Blog.Bll.Services.Comments
             return resultDto;
         }
 
-        public List<CommentDto> AddCommentToPost(CommentCreateDto commentDto)
+        public async Task<List<CommentDto>> AddCommentToPostAsync(CommentCreateDto commentDto)
         {
             var comment = _mapper.Map<CommentCreateDto, Comment>(commentDto);
-
-            var postResult = _postRepository.FindByWithComments(x => x.Id == commentDto.PostId).FirstOrDefault();
+            var queryResult = await _postRepository.FindByWithCommentsAsync(x => x.Id == commentDto.PostId);
+            var postResult = queryResult.FirstOrDefault();
             if (postResult == null)
             {
                 throw new ResourceNotFoundException("Comment not found");
             }
 
-            comment.Date = DateTime.Now;
+            postResult.SetModificationTime();
 
             if (postResult.Comments == null)
             {
                 postResult.Comments = new List<Comment>();
             }
 
+            comment.SetModificationAndCreationTime();
             postResult.Comments.Add(comment);
             _postRepository.Save();
 
@@ -117,6 +107,21 @@ namespace Blog.Bll.Services.Comments
             }
 
             return commentsDto;
+        }
+
+        public async Task<List<CommentDto>> GetAllCommentsByPostIdAsync(int postId)
+        {
+            var postQueryResult = await _postRepository.FindByWithCommentsAsync(p => p.Id == postId);
+            var post = postQueryResult.FirstOrDefault();
+            if(post == null) throw new ResourceNotFoundException("Post with id:" + postId+ " not found");
+
+            List<CommentDto> result = new List<CommentDto>();
+            foreach(var comment in  post.Comments)
+            {
+                result.Add(_mapper.Map<Comment,CommentDto>(comment));
+            }
+
+            return result;
         }
     }
 }

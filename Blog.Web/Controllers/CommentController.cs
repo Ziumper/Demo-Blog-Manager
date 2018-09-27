@@ -31,16 +31,17 @@ namespace Blog.Web.Controllers
 
         [HttpPost]
         [Route("addComment")]
-        public IActionResult AddComment([FromBody]CommentCreateDto value)
+        public async Task<IActionResult> AddComment([FromBody]CommentCreateDto value)
         {
-            var result = _commentService.AddCommentToPost(value);
+            var result = await _commentService.AddCommentToPostAsync(value);
             return Ok(result);
         }
 
         [HttpGet("commentsByPostId/{postId}")]
-        public IActionResult GetAllByPostId(int postId)
+        public async Task<IActionResult> GetAllByPostId(int postId)
         {
-            return Ok(_commentService.GetAllCommentsByPostId(postId));
+            var result = await _commentService.GetAllCommentsByPostIdAsync(postId);
+            return Ok(result);
         }
         // PUT: api/Comment/5
         [HttpPut("{id}")]

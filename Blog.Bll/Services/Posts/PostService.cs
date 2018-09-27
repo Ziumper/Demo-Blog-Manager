@@ -99,9 +99,10 @@ namespace Blog.Bll.Services.Posts
             return _mapper.Map<Post, PostDto>(result);
         }
 
-        public PostDtoWithComments GetPostWithCommentsById(int postId)
+        public async Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId)
         {
-            var result = _postRepository.FindByWithComments(p => p.Id == postId).FirstOrDefault();
+            var awaitResult = await _postRepository.FindByWithCommentsAsync(p => p.Id == postId);
+            var result = awaitResult.FirstOrDefault();
             if (result == null)
             {
                 throw new ResourceNotFoundException("Post not found");
@@ -110,7 +111,7 @@ namespace Blog.Bll.Services.Posts
             return _mapper.Map<Post, PostDtoWithComments>(result);
         }
 
-        public async Task<PostDtoPaged> GetAllPostsPaged(PostQuery searchQuery)
+        public async Task<PostDtoPaged> GetAllPostsPagedAsync(PostQuery searchQuery)
         {
             var result = await _postRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,
             x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));

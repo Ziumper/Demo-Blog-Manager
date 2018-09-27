@@ -15,7 +15,7 @@ namespace Blog.Bll.Services.Posts
         List<PostDto> GetAllPosts();
         PostDto DeletePost(int postId);
         PostDto EditPost(PostDto postDto);
-        PostDtoWithComments GetPostWithCommentsById(int postId);
-        Task<PostDtoPaged> GetAllPostsPaged(PostQuery searchQuery);
+        Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId);
+        Task<PostDtoPaged> GetAllPostsPagedAsync(PostQuery searchQuery);
     }
 }

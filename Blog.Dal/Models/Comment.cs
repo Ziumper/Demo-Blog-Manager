@@ -10,7 +10,6 @@ namespace Blog.Dal.Models
     public class Comment : BaseEntity
     {
         public String Content { get; set; }
-        public DateTime Date { get; set; }
         public int PostId { get; set; }
         
         [ForeignKey("PostId")]

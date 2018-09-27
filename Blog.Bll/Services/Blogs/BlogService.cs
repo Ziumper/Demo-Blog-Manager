@@ -49,8 +49,10 @@ namespace Blog.Bll.Services.Blogs
             
             foreach(var post in blog.Posts)
             {
-                var postWithComments = _postRepository.FindByWithComments(p => p.Id == post.Id).FirstOrDefault();
-                var isComments = postWithComments.Comments.Count > 0;
+                var awaitResult = await _postRepository.FindByWithCommentsAsync(p => p.Id == post.Id);
+                
+                var postWithComments = awaitResult.FirstOrDefault();
+                var isComments = postWithComments?.Comments.Count > 0 && postWithComments != null;
                 if(isComments) _commentRepository.DeleteMany(postWithComments.Comments);
                 _postRepository.Delete(post);
             }
