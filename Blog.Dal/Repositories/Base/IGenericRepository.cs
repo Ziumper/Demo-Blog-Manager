@@ -12,10 +12,10 @@ namespace Blog.Dal.Repositories.Base
 {
     public interface IGenericRepository<T> where T: BaseEntity
     {
-        Task<IEnumerable<T>> GetAllAsync (Expression<Func<T, bool>> predicate = null);
-        Task<IEnumerable<T>> FindByAsync(Expression<Func<T,bool>> predicate = null);
-        IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate = null);
-        IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate);
+        Task<List<T>> GetAllAsync (Expression<Func<T, bool>> predicate = null);
+        Task<List<T>> FindByAsync(Expression<Func<T,bool>> predicate = null);
+        List<T> GetAll(Expression<Func<T, bool>> predicate = null);
+        List<T> FindBy(Expression<Func<T, bool>> predicate);
         T FindByFirst(Expression<Func<T,bool>> predicate);
         Task<T> FindByFirstAsync(Expression<Func<T,bool>> predicate);
         T Add(T obj);
@@ -23,7 +23,7 @@ namespace Blog.Dal.Repositories.Base
         T Delete(T obj);
         T Delete(Expression<Func<T, bool>> predicate);
         T Edit(T obj);
-        void DeleteMany(IEnumerable<T> obj);
+        void DeleteMany(List<T> obj);
         void Save();
         Task SaveAsync();
         int getSkipCount(int page, int size);

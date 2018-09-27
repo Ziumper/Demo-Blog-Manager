@@ -20,20 +20,20 @@ namespace Blog.Dal.Repositories.Base
             _table = context.Set<T>();
         }
 
-        public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> predicate = null)
+        public virtual List<T> GetAll(Expression<Func<T, bool>> predicate = null)
         {
             if (predicate != null)
             {
-                return _table.Where(predicate);
+                return _table.Where(predicate).ToList();
             }
             else
             {
-                return _table.AsEnumerable();
+                return _table.ToList();
             }
         }
-        public virtual IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
+        public virtual List<T> FindBy(Expression<Func<T, bool>> predicate)
         {
-            return _table.Where(predicate);
+            return _table.Where(predicate).ToList();
             
         }
 
@@ -51,7 +51,7 @@ namespace Blog.Dal.Repositories.Base
             return _table.Remove(obj).Entity;
         }
 
-        public void DeleteMany(IEnumerable<T> obj)
+        public void DeleteMany(List<T> obj)
         {
             _table.RemoveRange(obj);
         }
@@ -77,7 +77,7 @@ namespace Blog.Dal.Repositories.Base
            return _table.Where(predicate).First();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null)
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null)
         {
             if (predicate != null)
             {
@@ -89,7 +89,7 @@ namespace Blog.Dal.Repositories.Base
             }
         }
 
-        public async Task<IEnumerable<T>> FindByAsync(Expression<Func<T, bool>> predicate = null)
+        public async Task<List<T>> FindByAsync(Expression<Func<T, bool>> predicate = null)
         {
             return await _table.Where(predicate).ToListAsync();
         }
