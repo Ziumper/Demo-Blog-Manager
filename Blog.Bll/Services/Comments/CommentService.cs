@@ -25,10 +25,11 @@ namespace Blog.Bll.Services.Comments
             _mapper = mapper;
         }
 
-        public CommentDto DeleteComment(int commentId)
+        public async Task<CommentDto> DeleteComment(int commentId)
         {
-           
-            var result = _commentRepository.FindBy(c => c.Id == commentId).FirstOrDefault();
+            var resultQuery = await _commentRepository.FindByAsync(c => c.Id == commentId);
+            var result = resultQuery.FirstOrDefault();
+
             if(result == null)
             {
                 throw new ResourceNotFoundException("Comment not found");
@@ -52,7 +53,7 @@ namespace Blog.Bll.Services.Comments
             
             result.Content = commentDto.Content;
 
-            result.SetModificationAndCreationTime();
+            result.SetModificationTime();
 
             _commentRepository.Save();
 
@@ -86,8 +87,6 @@ namespace Blog.Bll.Services.Comments
                 throw new ResourceNotFoundException("Comment not found");
             }
 
-            postResult.SetModificationTime();
-
             if (postResult.Comments == null)
             {
                 postResult.Comments = new List<Comment>();
@@ -95,6 +94,7 @@ namespace Blog.Bll.Services.Comments
 
             comment.SetModificationAndCreationTime();
             postResult.Comments.Add(comment);
+            postResult.SetModificationTime();
             _postRepository.Save();
 
             var comments = postResult.Comments;

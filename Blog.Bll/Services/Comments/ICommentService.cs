@@ -9,7 +9,7 @@ namespace Blog.Bll.Services.Comments
 {
     public interface ICommentService
     {
-        CommentDto DeleteComment(int commentId);
+        Task<CommentDto> DeleteComment(int commentId);
         CommentDto EditComment(CommentDto commentDto);
         Task<List<CommentDto>> GetAllCommentsByPostIdAsync(int postId);
         CommentDto GetCommentById(int id);

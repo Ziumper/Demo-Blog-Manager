@@ -116,12 +116,27 @@ namespace Blog.Bll.Services.Posts
             var result = await _postRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,
             x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));
     
-            result.Entities = _postRepository
-            .Sort(result.Entities.AsQueryable(),searchQuery.Filter,searchQuery.Order)
-            .ToList();
+            result.Entities = SortEntites(result.Entities.AsQueryable(),searchQuery.Filter,searchQuery.Order);
 
             return new PostDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
         }
 
+        public async Task<PostDtoPaged> GetAllPostPagedAsyncByBlogId(PostQuery postQuery, int blogId)
+        {
+            var result = await _postRepository.GetAllPagedAsync(postQuery.Page,postQuery.Size, 
+            p => p.BlogId == blogId && (p.Title.Contains(postQuery.SearchQuery) || p.Content.Contains(postQuery.SearchQuery))
+            );
+
+            result.Entities = SortEntites(result.Entities.AsQueryable(),postQuery.Filter,postQuery.Order);
+            return new PostDtoPaged(_mapper,result,postQuery.Page,postQuery.Size);;
+           
+        }
+
+        private List<Post> SortEntites(IQueryable<Post> entities,int filter, bool order)
+        {
+            return _postRepository
+            .Sort(entities,filter,order)
+            .ToList();
+        }
     }
 }
