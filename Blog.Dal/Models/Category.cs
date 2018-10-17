@@ -9,6 +9,6 @@ namespace Blog.Dal.Models
     public class Category : BaseEntity
     {
         public string Name { get; set; }
-        List<BlogEntity> Blogs {get; set;}
+        public List<BlogEntity> Blogs {get; set;}
     }
 }
