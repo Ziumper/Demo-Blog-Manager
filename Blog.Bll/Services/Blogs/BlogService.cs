@@ -91,7 +91,7 @@ namespace Blog.Bll.Services.Blogs
 
         public async Task<BlogDtoPaged> GetAllBlogsPagedByCategoryId(BlogCategoryQuery searchQuery)
         {
-            var result = await _blogRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,b => b.CategoryId == searchQuery.CategoryId);
+            var result = await _blogRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,b => b.CategoryId == searchQuery.CategoryId && b.Title.Contains(searchQuery.searchQuery));
             return new BlogDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
         }
 
