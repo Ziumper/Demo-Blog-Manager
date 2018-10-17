@@ -44,26 +44,14 @@ namespace Blog.Bll.Services.Blogs
 
         public async Task<BlogDto> DeleteBlogAsyncById(int id)
         {
-            var blog = await _blogRepository.GetBlogByIdWithPosts(id);
-            if(blog == null) throw new ResourceNotFoundException("Blog with this Id is not found");
-            
-            foreach(var post in blog.Posts)
-            {
-                var awaitResult = await _postRepository.FindByWithCommentsAsync(p => p.Id == post.Id);
-                
-                var postWithComments = awaitResult.FirstOrDefault();
-                var isComments = postWithComments?.Comments.Count > 0 && postWithComments != null;
-                if(isComments) _commentRepository.DeleteMany(postWithComments.Comments);
-                _postRepository.Delete(post);
-            }
-            
-            
+            var blog = await _blogRepository.GetBlogByIdWithPostsAndComments(id);
+            if(blog == null) throw new ResourceNotFoundException("Blog with Id" + id + " is not found");
+
             var result = _blogRepository.Delete(blog);
 
              await _blogRepository.SaveAsync();
 
             var resultDto = _mapper.Map<BlogEntity,BlogDto> (result);
-
 
             return resultDto;
         }

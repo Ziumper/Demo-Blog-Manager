@@ -15,7 +15,7 @@ namespace Blog.Dal.Repositories.Categories
         {
         }
 
-        public async Task<Category> FindCategoryByIdFirstWithBlogsAsync(int id)
+        public async Task<Category> FindCategoryByIdWithBlogsPostsAndCommentsAsync(int id)
         {
             var category = await _table.Where(cat => cat.Id == id)
             .Include(cat => cat.Blogs

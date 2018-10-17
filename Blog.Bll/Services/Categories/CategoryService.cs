@@ -38,7 +38,7 @@ namespace Blog.Bll.Services.Categories
 
         public async Task<CategoryDto> DeleteCategoryAsync(int id)
         {
-            Category category = await _categoryRepository.FindCategoryByIdFirstWithBlogsAsync(id);
+            Category category = await _categoryRepository.FindCategoryByIdWithBlogsPostsAndCommentsAsync(id);
             
             if(category == null){
                 throw new ResourceNotFoundException("Category wtih id: "+ id + " not found");
@@ -55,7 +55,7 @@ namespace Blog.Bll.Services.Categories
 
         public async Task<CategoryDtoWithBlogs> GetCategoryWithBlogsAsync(int id)
         {
-           Category category = await _categoryRepository.FindCategoryByIdFirstWithBlogsAsync(id);
+           Category category = await _categoryRepository.FindCategoryByIdWithBlogsPostsAndCommentsAsync(id);
             
             if(category == null){
                 throw new ResourceNotFoundException("Category wtih id: "+ id + " not found");
