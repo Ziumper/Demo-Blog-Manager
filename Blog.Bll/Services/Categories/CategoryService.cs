@@ -53,15 +53,15 @@ namespace Blog.Bll.Services.Categories
             return deleted;
         }
 
-        public async Task<CategoryDtoWithBlogs> GetCategoryWithBlogsAsync(int id)
+        public async Task<CategoryDto> GetCategory(int id)
         {
-           Category category = await _categoryRepository.FindCategoryByIdWithBlogsPostsAndCommentsAsync(id);
+           Category category = await _categoryRepository.FindByFirstAsync(cat => cat.Id == id);
             
             if(category == null){
                 throw new ResourceNotFoundException("Category wtih id: "+ id + " not found");
             }
 
-            CategoryDtoWithBlogs catDto = _mapper.Map<Category,CategoryDtoWithBlogs>(category);
+            var catDto = _mapper.Map<Category,CategoryDto>(category);
 
             return catDto;
         }

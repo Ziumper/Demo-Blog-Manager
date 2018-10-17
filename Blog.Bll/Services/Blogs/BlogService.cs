@@ -12,6 +12,7 @@ using Blog.Dal.Models.Base;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Posts;
+using Blog.Bll.QueryModels;
 
 namespace Blog.Bll.Services.Blogs
 {
@@ -78,7 +79,6 @@ namespace Blog.Bll.Services.Blogs
 
         public async Task<BlogDtoPaged> GetAllBlogsPaged(BlogQuery query)
         {
-            //could include categories before
             var result = await _blogRepository.GetAllPagedAsync(
                 query.Page,query.Size, b => b.Title.Contains(query.searchQuery) 
                 || b.Category.Name.Contains(query.searchQuery));
@@ -87,6 +87,12 @@ namespace Blog.Bll.Services.Blogs
             result.Entities =_blogRepository.Sort(entities,query.Filter,query.Order).ToList();
 
             return new BlogDtoPaged(_mapper,result,query.Page,query.Size);
+        }
+
+        public async Task<BlogDtoPaged> GetAllBlogsPagedByCategoryId(BlogCategoryQuery searchQuery)
+        {
+            var result = await _blogRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,b => b.CategoryId == searchQuery.CategoryId);
+            return new BlogDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
         }
 
         public async Task<BlogDto> GetBlogByIdAsync(int id)
