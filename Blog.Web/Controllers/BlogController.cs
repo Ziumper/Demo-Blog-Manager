@@ -37,8 +37,8 @@ namespace Blog.Web.Controllers
         }
 
         [HttpGet("paged/category")]
-        public async Task<IActionResult> GetAllBlogsPagedByCategoryId( [FromQuery] BlogCategoryQuery searchQuery){
-            var result = await _blogService.GetAllBlogsPagedByCategoryId(searchQuery);
+        public async Task<IActionResult> GetAllBlogsPagedByCategory( [FromQuery] BlogCategoryQuery searchQuery){
+            var result = await _blogService.GetAllBlogsPagedByCategory(searchQuery);
             return Ok(result);
         }
 

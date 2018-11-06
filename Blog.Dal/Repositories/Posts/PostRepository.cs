@@ -24,20 +24,16 @@ namespace Blog.Dal.Repositories.Posts
         }
 
 
-        public async Task<PagedEntity<Post>> GetPostsPagedByTags(int page, int size, IEnumerable<Tag> tags, Expression<Func<Post, bool>> predicate)
+        public async Task<PagedEntity<Post>> GetPostsPagedByTags(int page, int size,int[] tagsId, Expression<Func<Post, bool>> predicate)
         {
             var skipCount = getSkipCount(page,size);
             
             PagedEntity<Post> pagedEntity = new PagedEntity<Post>();
             IQueryable<Post> result = null;
-            
-            //TO DO check if tag is a existing one
-            /*
-            foreach(var tag in tags){
-                result = _table.Where(x=> x.PostTags.Contains(tag));
-            }
-            */
-            result = _table.Where(predicate);
+
+            result = _table.Include(post => post.PostTags).ThenInclude(postTag => postTag.TagId)
+            .Where(post => post.PostTags.Where( postTag => tagsId.Contains(postTag.TagId)).FirstOrDefault() != null)
+            .Where(predicate);
 
             pagedEntity.Count = await result.CountAsync();
 

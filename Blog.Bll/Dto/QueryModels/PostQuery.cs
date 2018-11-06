@@ -6,6 +6,6 @@ namespace Blog.Bll.Dto.QueryModels
 {
     public class PostQuery : PagedQuery {
         public string SearchQuery {get; set;}
-        public string[] TagNames {get; set;}
+        public int[] TagsId {get; set;}
     }
 }
