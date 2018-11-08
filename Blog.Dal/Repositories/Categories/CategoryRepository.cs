@@ -18,11 +18,18 @@ namespace Blog.Dal.Repositories.Categories
         public async Task<Category> FindCategoryByIdWithBlogsPostsAndCommentsAsync(int id)
         {
             var category = await _table.Where(cat => cat.Id == id)
-            .Include(cat => cat.Blogs
-                .Select(posts => posts.Posts
-                    .Select(comment => comment.Comments)))
+            .Include(cat => cat.Blogs)
+            .ThenInclude(blog => blog.Posts)
+            .ThenInclude(post => post.Comments)
             .FirstOrDefaultAsync();
             return category;
+        }
+
+        public Task<List<Category>> GetCategoriesWithPostsAsync()
+        {
+            var category = _table.Include(cat => cat.Blogs).ThenInclude(blog => blog.Posts);
+            
+            throw new NotImplementedException();
         }
     }
 }

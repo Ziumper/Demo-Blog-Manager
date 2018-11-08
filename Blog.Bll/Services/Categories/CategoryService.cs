@@ -53,6 +53,12 @@ namespace Blog.Bll.Services.Categories
             return deleted;
         }
 
+        public async Task<List<CategoryDtoWithPosts>> GetCategoriesWithPostsAsync()
+        {
+            var categories = await _categoryRepository.GetCategoriesWithPostsAsync();
+            throw new NotImplementedException();
+        }
+
         public async Task<CategoryDto> GetCategory(int id)
         {
            Category category = await _categoryRepository.FindByFirstAsync(cat => cat.Id == id);
