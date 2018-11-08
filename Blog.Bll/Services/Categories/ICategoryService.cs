@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Blog.Bll.Dto.Categories;
 
 namespace Blog.Bll.Services.Categories
@@ -7,6 +8,7 @@ namespace Blog.Bll.Services.Categories
     {
         Task<CategoryDto> AddCategoryAsync(string name);
         Task<CategoryDto> DeleteCategoryAsync(int id);
-        Task<CategoryDto> GetCategory(int id); 
+        Task<CategoryDto> GetCategory(int id);
+        Task<List<CategoryDtoWithPosts>> GetCategoriesWithPostsAsync();
     }
 }
