@@ -1,4 +1,4 @@
-import { BaseQueryModel } from '../../models/base-query.model';
+import { BaseQueryModel } from '../../core/models/base-query.model';
 import { HttpParams } from '@angular/common/http';
 
 export class PostQueryModel extends BaseQueryModel {

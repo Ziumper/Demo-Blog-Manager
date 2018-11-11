@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { BaseQueryModel } from '../../models/base-query.model';
+import { BaseQueryModel } from '../../core/models/base-query.model';
 
 export class BlogQueryModel extends BaseQueryModel {
     public title: string;
