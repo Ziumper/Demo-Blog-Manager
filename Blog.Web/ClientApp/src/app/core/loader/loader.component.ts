@@ -5,9 +5,9 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './loader.component.html',
   styleUrls: ['./loader.component.scss']
 })
-export class LoaderComponent{
-  
-  constructor(){
-    
+export class LoaderComponent {
+
+  constructor() {
+
   }
 }
