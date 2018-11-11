@@ -18,10 +18,6 @@ namespace Blog.Web.Controllers
             _categoryService = categoryService;
         }
 
-        [HttpGet("paged/category/posts")]
-        public async Task<IActionResult> GetCategoriesWithPosts(){
-            var result = await _categoryService.GetCategoriesWithPostsAsync();
-            return Ok(result);
-        }
+      
     }
 }

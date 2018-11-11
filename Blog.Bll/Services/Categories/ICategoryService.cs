@@ -9,6 +9,6 @@ namespace Blog.Bll.Services.Categories
         Task<CategoryDto> AddCategoryAsync(string name);
         Task<CategoryDto> DeleteCategoryAsync(int id);
         Task<CategoryDto> GetCategory(int id);
-        Task<List<CategoryDtoWithPosts>> GetCategoriesWithPostsAsync();
+        
     }
 }

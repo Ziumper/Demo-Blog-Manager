@@ -15,9 +15,9 @@ export class LoaderService {
 
     public activateLoading(): void {
         this.isLoading.next(true);
-      
+
     }
-    
+
     public acitvateSmallLoading(): void {
         this.isSmallLoading.next(true);
     }

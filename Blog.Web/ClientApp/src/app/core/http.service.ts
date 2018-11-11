@@ -18,13 +18,20 @@ export class HttpService  {
 
     }
 
-    public get<T>(url: string): Observable<T> {
+    public get<T>(url: string): Observable<T>;
+    public get<T>(url: string, requestParams: HttpParams);
+
+    public get<T>(url: string, requestParams?: HttpParams): Observable<T> {
         this.loaderService.activateLoading();
-
-        let result =  this.http.get<T>(url);
-        result = this.holdRequest(result, url, 'get');
-
-        return result;
+        if (!requestParams) {
+            let result = this.http.get<T>(url, {params: requestParams});
+            result = this.holdRequest(result, url, 'get');
+            return result;
+        } else {
+            let result =  this.http.get<T>(url);
+            result = this.holdRequest(result, url, 'get');
+            return result;
+        }
     }
 
     public getSmall<T>(url: string, requestParams?: HttpParams): Observable<T> {

@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { HttpService } from '../core/http.service';
 import { BlogPagedModel } from './models/blogs-paged-model';
 import { BlogQueryModel } from './models/blog-query.model';
-import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

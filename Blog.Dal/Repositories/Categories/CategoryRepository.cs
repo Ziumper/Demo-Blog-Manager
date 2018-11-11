@@ -25,11 +25,6 @@ namespace Blog.Dal.Repositories.Categories
             return category;
         }
 
-        public Task<List<Category>> GetCategoriesWithPostsAsync()
-        {
-            var category = _table.Include(cat => cat.Blogs).ThenInclude(blog => blog.Posts);
-            
-            throw new NotImplementedException();
-        }
+      
     }
 }

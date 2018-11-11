@@ -14,10 +14,10 @@ namespace Blog.Bll.Services.Categories
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-        private readonly IBlogRepository _blogRepository;
+      
         private readonly IMapper _mapper;
 
-        public CategoryService(ICategoryRepository categoryRepository,IBlogRepository _blogRepository, IMapper mapper){
+        public CategoryService(ICategoryRepository categoryRepository,IMapper mapper){
             _categoryRepository = categoryRepository;
             _mapper = mapper;
         }
@@ -53,12 +53,7 @@ namespace Blog.Bll.Services.Categories
             return deleted;
         }
 
-        public async Task<List<CategoryDtoWithPosts>> GetCategoriesWithPostsAsync()
-        {
-            var categories = await _categoryRepository.GetCategoriesWithPostsAsync();
-            throw new NotImplementedException();
-        }
-
+  
         public async Task<CategoryDto> GetCategory(int id)
         {
            Category category = await _categoryRepository.FindByFirstAsync(cat => cat.Id == id);
