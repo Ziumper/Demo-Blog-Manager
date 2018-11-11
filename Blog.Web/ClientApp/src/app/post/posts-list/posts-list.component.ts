@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PostQueryModel } from '../models/post-query.model';
 import { PostService } from '../post.service';
 import { PostModel } from '../models/post.model';
@@ -10,15 +10,20 @@ import { PostModel } from '../models/post.model';
 })
 export class PostsListsComponent implements OnInit {
 
-    private postQuery: PostQueryModel;
+    @Input()
+    public postQuery: PostQueryModel;
+
     public posts: Array<PostModel>;
 
     constructor(private postService: PostService) {
         this.posts = new Array<PostModel>();
+        this.postQuery = new PostQueryModel();
     }
 
     public ngOnInit(): void {
         this.getTestPosts();
+        console.log('Hello from post list component');
+        console.log('post title ' + this.postQuery.title);
     }
 
     public getPosts(): void {
