@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { PostsListsComponent } from './posts-list/posts-list.component';
 import { PostComponent } from './post.component';
 import { CoreModule } from '../core/core.module';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -13,7 +14,8 @@ import { CoreModule } from '../core/core.module';
         PostComponent
     ],
     imports: [
-        CoreModule
+        CoreModule,
+        CommonModule,
     ]
 })
 export class PostModule {}
