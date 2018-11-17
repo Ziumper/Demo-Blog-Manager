@@ -18,19 +18,13 @@ import { LoaderService } from './loader/loader.service';
     ],
     imports: [
         AngularFontAwesomeModule,
+    ],
+    providers: [
+        HttpService,
+        LoggerService,
+        ToastService,
+        LoaderService,
     ]
 })
 export class CoreModule {
-
-    static forRoot(): ModuleWithProviders {
-        return {
-          ngModule: CoreModule,
-          providers: [
-                HttpService,
-                LoggerService,
-                ToastService,
-                LoaderService,
-            ]
-        };
-    }
 }
