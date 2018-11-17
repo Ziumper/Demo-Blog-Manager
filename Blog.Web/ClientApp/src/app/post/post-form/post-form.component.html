@@ -1,0 +1,14 @@
+<div class="container">
+        <h1>Post Form</h1>
+        <form name="post-form" (ngSubmit)="submit(model)">
+            <div class="form-group">
+                    <label for="title">Post Title</label>
+                    <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel" />        
+            </div>
+            <div class="form-group">
+                    <label for="content">Post Content</label>
+                    <input type="text" class="form-control" name="content" [(ngModel)]="model.content" #content="ngModel" />        
+            </div>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>

@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
     this.postQueryModel.title = 'Tytuł z home komponentu';
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
   }
 
 }
