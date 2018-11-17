@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { BlogModel } from '../models/blog.model';
 import { CreateBlogModel } from '../models/create-blog.model';
+import { ActivatedRoute } from '@angular/router';
+import { BlogService } from '../blog.service';
 
 @Component({
     selector: 'app-blog-form',
@@ -9,20 +11,25 @@ import { CreateBlogModel } from '../models/create-blog.model';
 })
 export class BlogFormComponent implements OnInit {
 
-    @Input()
     public model: BlogModel;
 
-    @Output()
-    public submited: EventEmitter<BlogModel>;
-
-    public constructor() {
+    public constructor(private routed: ActivatedRoute, private blogService: BlogService) {
         this.model = new BlogModel();
-        this.submited = new EventEmitter<BlogModel>();
     }
 
     public ngOnInit(): void { }
 
     public submit(model: BlogModel): void {
-        this.submited.emit(model);
+        const id = this.routed.snapshot.params['id'];
+        if (id) {
+            this.model.id = id;
+            this.blogService.updateBlog(model).subscribe(response => {
+                this.model = response;
+            });
+        } else {
+            this.blogService.addBlog(model).subscribe(response => {
+                this.model = response;
+            });
+        }
     }
 }

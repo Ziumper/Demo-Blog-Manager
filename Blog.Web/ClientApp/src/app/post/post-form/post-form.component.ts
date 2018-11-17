@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { PostModel } from '../models/post.model';
+import { ActivatedRoute } from '@angular/router';
+import { PostService } from '../post.service';
 
 @Component({
     selector: 'app-post-form',
@@ -7,19 +9,25 @@ import { PostModel } from '../models/post.model';
     styleUrls: ['./post-form.component.scss']
 })
 export class PostFormComponent implements OnInit {
-    @Input()
     public model: PostModel;
-    @Output()
-    public submited: EventEmitter<PostModel>;
 
-    constructor() {
+    constructor(private postService: PostService, private route: ActivatedRoute) {
         this.model = new PostModel();
-        this.submited = new EventEmitter<PostModel>();
      }
 
     public ngOnInit(): void { }
 
     public submit(model: PostModel): void {
-        this.submited.emit(model);
+        const id = this.route.snapshot.params['id'];
+        if (id) {
+            this.model.id = id;
+            this.postService.updatePost(model).subscribe( response => {
+                this.model = response;
+            });
+        } else {
+            this.postService.addPost(model).subscribe(response => {
+                this.model = response;
+            });
+        }
     }
 }
