@@ -7,10 +7,17 @@ export class PostQueryModel extends BaseQueryModel {
     public blogId: number;
 
     public getParams(): HttpParams {
-        return super.getParams()
-        .set('title', this.title)
-        .set('content', this.content)
-        .set('blogId', this.blogId.toString());
+        const params = super.getParams();
+        if (this.blogId) {
+            params.set('blogId', this.blogId.toString());
+        }
+        if (this.title) {
+           params.set('title', this.title.toString());
+        }
+        if (this.content) {
+            params.set('content', this.content.toString());
+        }
+        return params;
     }
 
 

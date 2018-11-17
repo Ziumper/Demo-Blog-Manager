@@ -22,7 +22,7 @@ export class PostsListsComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-       this.getPosts();
+      // this.getPosts();
     }
 
     private getPosts(): void {

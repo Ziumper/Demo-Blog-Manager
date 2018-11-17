@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of, empty } from 'rxjs';
 import { LoggerService } from './logger.service';
 import { ResponseModel } from './models/response.model';
 import { LoaderService } from './loader/loader.service';
@@ -104,10 +104,13 @@ export class HttpService  {
             tap( (response: any) => {
               this.tapResponse(response, url, requestType);
             }),
-            catchError( error => of(() => {
+            catchError( (error) => {
                 this.catchErrorResponse(error);
-            }))
+                return empty();
+            })
         );
+
+
 
         return result;
     }
