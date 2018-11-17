@@ -39,6 +39,15 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
 
+        public async Task<PostDto> AddPostAsync(PostCreateDto post){
+            var mappedPost = _mapper.Map<PostCreateDto,Post>(post);
+            var result = await _postRepository.AddAsync(mappedPost);
+        
+            await _postRepository.SaveAsync();
+            var resultDto = _mapper.Map<Post,PostDto>(result);
+            return resultDto;
+        }
+
         public List<PostDto> GetAllPosts()
         {
            
@@ -84,6 +93,23 @@ namespace Blog.Bll.Services.Posts
 
             result = _postRepository.Edit(result);
             _postRepository.Save();
+            var resultDto = _mapper.Map<Post, PostDto>(result);
+            return resultDto;
+        }
+
+        public async Task<PostDto> EditPostAsync(PostDto postDto)
+        {
+            var query = await _postRepository.FindByAsync(post => post.Id == postDto.Id);
+            var result = query.FirstOrDefault();
+            if(result == null)
+            {
+                throw new ResourceNotFoundException("Post not found");
+            }
+            result.Content = postDto.Content;
+            result.Title = postDto.Title;
+
+            result = _postRepository.Edit(result);
+            await _postRepository.SaveAsync();
             var resultDto = _mapper.Map<Post, PostDto>(result);
             return resultDto;
         }

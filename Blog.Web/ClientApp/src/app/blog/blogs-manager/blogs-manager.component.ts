@@ -19,7 +19,6 @@ export class BlogsManagerComponent implements OnInit {
     public isLoading: boolean;
     public blogQueryModel: BlogQueryModel;
     public collectionSize: number;
-    public iterationIndex: number;
 
     constructor(
         private blogService: BlogService,
@@ -29,7 +28,6 @@ export class BlogsManagerComponent implements OnInit {
         this.blogs = new Array<BlogModel>();
         this.isLoading = false;
         this.collectionSize = 0;
-        this.iterationIndex = 0;
         this.initalizeBlogQueryModel();
     }
 
@@ -56,16 +54,8 @@ export class BlogsManagerComponent implements OnInit {
 
     public onPageChange(page): void {
         this.blogQueryModel.page = page;
-
-        if (page > 1) {
-            this.iterationIndex = 10 * page - 1;
-        } else {
-            this.iterationIndex = 0;
-        }
-
         this.getBlogs();
     }
-
 
     public sort(filter: number) {
         console.log('Sorting by ' + filter);
@@ -98,7 +88,6 @@ export class BlogsManagerComponent implements OnInit {
         this.blogService.getBlogsPagedFilteredByTitle(this.blogQueryModel).subscribe((result: BlogPagedModel) => {
             this.updateResult(result);
         });
-
     }
 
     private removeBlog(blog: BlogModel) {
@@ -113,7 +102,6 @@ export class BlogsManagerComponent implements OnInit {
         smallLoader.subscribe((isLoading: boolean) => {
             this.isLoading = isLoading;
         });
-
     }
 
     private updateResult(result: BlogPagedModel): void {

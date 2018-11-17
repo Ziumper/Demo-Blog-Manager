@@ -44,9 +44,9 @@ namespace Blog.Web.Controllers
 
         // POST: api/Post
         [HttpPost]
-        public IActionResult Post([FromBody]PostCreateDto value)
+        public async Task<IActionResult> Post([FromBody]PostCreateDto value)
         {
-            var result = _postService.AddPost(value);
+            var result = await _postService.AddPostAsync(value);
             return Ok(result);
         }
 
@@ -54,11 +54,13 @@ namespace Blog.Web.Controllers
         
         // PUT: api/Post/5
         [HttpPut("{id}")]
-        public IActionResult Put([FromBody] PostDto value)
+        public async Task<IActionResult> Put([FromBody] PostDto value)
         {
-            var result = _postService.EditPost(value);
+            var result = await _postService.EditPostAsync(value);
             return Ok(result);
         }
+
+
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]

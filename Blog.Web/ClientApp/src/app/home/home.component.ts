@@ -12,7 +12,10 @@ export class HomeComponent implements OnInit {
 
   constructor() {
     this.postQueryModel = new PostQueryModel();
-    this.postQueryModel.title = 'Tytuł z home komponentu';
+    this.postQueryModel.filter = 1; // sort by date
+    this.postQueryModel.order = true; // sort descending;
+    this.postQueryModel.page = 1;
+    this.postQueryModel.size = 10;
   }
 
   public ngOnInit(): void {
