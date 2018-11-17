@@ -3,6 +3,7 @@ import { PostsListsComponent } from './posts-list/posts-list.component';
 import { PostComponent } from './post.component';
 import { CoreModule } from '../core/core.module';
 import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import { CommonModule } from '@angular/common';
     imports: [
         CoreModule,
         CommonModule,
+        NgbModule
     ]
 })
 export class PostModule {}

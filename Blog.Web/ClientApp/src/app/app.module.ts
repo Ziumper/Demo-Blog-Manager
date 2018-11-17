@@ -16,6 +16,7 @@ import { AppComponent } from './app.component';
 import { CommentComponent } from './comment/comment.component';
 import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { TagModule } from './tag/tag.module';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { NavigationComponent } from './navigation/navigation.component';
     AngularFontAwesomeModule,
     BlogMoudle,
     PostModule,
-    CoreModule.forRoot()
+    CoreModule.forRoot(),
+    TagModule
   ],
   bootstrap: [AppComponent]
 })
