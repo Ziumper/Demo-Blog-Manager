@@ -5,5 +5,6 @@ namespace Blog.Bll.Dto.QueryModels.Base
         public int Size { get; set;}
         public int Filter {get; set;}
         public bool Order {get; set;}
+        public string SearchQuery {get;set;}
     }
 }
