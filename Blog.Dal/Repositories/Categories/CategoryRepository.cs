@@ -11,7 +11,7 @@ namespace Blog.Dal.Repositories.Categories
 {
     public class CategoryRepository : GenericRepository<Category, BloggingContext>, ICategoryRepository
     {
-        protected CategoryRepository(BloggingContext context) : base(context)
+        public CategoryRepository(BloggingContext context) : base(context)
         {
         }
 

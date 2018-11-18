@@ -30,9 +30,13 @@ export class CategoryFormComponent implements OnInit {
         const id = this.route.snapshot.params['id'];
         if (id) {
             this.model.id = id;
-            this.categoryService.updateCategory(model);
+            this.categoryService.updateCategory(model).subscribe(response => {
+                this.model = response;
+            });
         } else {
-            this.categoryService.addCategory(model);
+            this.categoryService.addCategory(model).subscribe(response => {
+                this.model = response;
+            });
         }
     }
 
