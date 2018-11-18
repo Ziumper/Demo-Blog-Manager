@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
+import { BlogService } from './blog.service';
 
 @NgModule({
     declarations : [
@@ -25,6 +26,9 @@ import { CommonModule } from '@angular/common';
         FormsModule,
         AngularFontAwesomeModule,
         NgbModule,
+    ],
+    providers: [
+        BlogService
     ]
 })
 export class BlogMoudle {}

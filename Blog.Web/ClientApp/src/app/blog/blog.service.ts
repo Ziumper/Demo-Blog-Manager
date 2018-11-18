@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BlogModel } from './models/blog.model';
-import { CreateBlogModel } from './models/create-blog.model';
 import { Observable } from 'rxjs';
 import { HttpService } from '../core/http.service';
 import { BlogPagedModel } from './models/blogs-paged-model';
 import { BlogQueryModel } from './models/blog-query.model';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class BlogService {
 
   private blogApiUrl: string;
@@ -17,7 +14,7 @@ export class BlogService {
     this.blogApiUrl = 'api/blog';
    }
 
-  public addBlog(blog: CreateBlogModel): Observable<BlogModel> {
+  public addBlog(blog: BlogModel): Observable<BlogModel> {
     return this.http.post<BlogModel>(this.blogApiUrl, blog);
   }
 

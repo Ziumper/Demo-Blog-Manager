@@ -8,7 +8,7 @@
         <div class="form-group">
             <label for="category">Category</label>
             <select class="form-control" id="category" name="category" [(ngModel)]="model.category" required>
-                <option *ngFor="let category of categories" [value]="category" >{{category.name}}</option>
+                <option *ngFor="let category of categories" [ngValue]="category" >{{category.name}}</option>
             </select>
         </div>
         <button class="btn btn-primary" type="submit">Submit</button>

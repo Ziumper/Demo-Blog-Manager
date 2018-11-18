@@ -24,29 +24,15 @@ export class BlogFormComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.categories = this.getTestCategories();
-        /*
         this.categoryService.getAllCategories().subscribe(response => {
             this.categories = response;
         });
-        */
         const id = this.routed.snapshot.params['id'];
         if (id) {
             this.blogService.getBlogById(id).subscribe(response => {
                 this.model = response;
             });
         }
-    }
-
-    private getTestCategories(): Array<CategoryModel> {
-        const result = new Array<CategoryModel>();
-        for (let i = 0; i < 10; i++) {
-            const categoryModel = new CategoryModel();
-            categoryModel.id = i;
-            categoryModel.name = 'Category ' + i.toString();
-            result.push(categoryModel);
-        }
-        return result;
     }
 
     public submit(model: BlogModel): void {
