@@ -12,6 +12,7 @@ using Blog.Dal.Models.Base;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Posts;
+using Blog.Dal.Repositories.Categories;
 using Blog.Bll.QueryModels;
 
 namespace Blog.Bll.Services.Blogs
@@ -21,19 +22,33 @@ namespace Blog.Bll.Services.Blogs
         private readonly IBlogRepository _blogRepository;
         private readonly IPostRepository _postRepository;
         private readonly ICommentRepository _commentRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;
 
-        public BlogService(IBlogRepository blogRepository, IMapper mapper,ICommentRepository commentRepositry, IPostRepository postRepository)
+        public BlogService(IBlogRepository blogRepository, 
+        IMapper mapper,
+        ICommentRepository commentRepositry, 
+        IPostRepository postRepository,
+        ICategoryRepository categoryRepositoy)
         {
             _blogRepository = blogRepository;
             _mapper = mapper;
             _commentRepository = commentRepositry;
             _postRepository = postRepository;
+            _categoryRepository = categoryRepositoy;
         }
 
         public async Task<BlogDto> AddBlogAsync(BlogDto blog)
         {
+            var category = await _categoryRepository.FindByFirstAsync(cat => cat.Id == blog.Category.Id);
+            if(category == null)
+            {
+                throw new ResourceNotFoundException("Category with id " + blog.Category.Id + " not found" );
+            }
+
             var blogEntity = _mapper.Map<BlogDto,BlogEntity>(blog);
+            blogEntity.Category = category;
+            
             var result = await _blogRepository.AddAsync(blogEntity);
             
             await _blogRepository.SaveAsync();

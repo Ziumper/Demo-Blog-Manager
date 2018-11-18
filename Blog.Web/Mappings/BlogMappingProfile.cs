@@ -14,7 +14,8 @@ namespace Blog.Web.Mappings
         public BlogMappingProfile()
         {
             CreateMap<Category,CategoryDto>().ReverseMap();
-            CreateMap<BlogEntity,BlogDto>().ReverseMap();
+            CreateMap<BlogEntity,BlogDto>();
+            CreateMap<BlogDto,BlogEntity>().ForMember( x => x.Category, opt => opt.Ignore());
             CreateMap<Post,PostCreateDto>().ReverseMap();
             CreateMap<Post,PostDto>().ReverseMap();
         }

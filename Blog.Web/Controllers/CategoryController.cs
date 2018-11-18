@@ -38,5 +38,12 @@ namespace Blog.Web.Controllers
             var result = await _categoryService.UpdateCategoryAsync(category);
             return Ok(result);
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetCategoryById(int id)
+        {
+            var result = await _categoryService.GetCategory(id);
+            return Ok(result);
+        }
     }
 }
