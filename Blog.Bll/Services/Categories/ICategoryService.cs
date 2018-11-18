@@ -6,7 +6,8 @@ namespace Blog.Bll.Services.Categories
 {
     public interface ICategoryService
     {
-        Task<CategoryDto> AddCategoryAsync(string name);
+        Task<CategoryDto> AddCategoryAsync(CategoryDto category);
+        Task<CategoryDto> UpdateCategoryAsync(CategoryDto category);
         Task<CategoryDto> DeleteCategoryAsync(int id);
         Task<CategoryDto> GetCategory(int id);
         Task<List<CategoryDto>> GetCategoriesAsync();

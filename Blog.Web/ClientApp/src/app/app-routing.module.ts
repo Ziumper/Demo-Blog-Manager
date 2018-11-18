@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { BlogsManagerComponent } from './blog/blogs-manager/blogs-manager.component';
 import { PostFormComponent } from './post/post-form/post-form.component';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
+import { CategoryFormComponent } from './category/category-form/category-form.component';
 
 
 const routes = [
@@ -11,6 +12,8 @@ const routes = [
   { path: 'home', component: HomeComponent },
   { path: 'blogs-manager', component: BlogsManagerComponent},
   { path: 'add-blog', component: BlogFormComponent },
+  { path: 'add-category', component: CategoryFormComponent},
+  { path: 'edit-category/:id', component: CategoryFormComponent},
   { path: 'add-post', component: PostFormComponent},
   { path: 'edit-post/:id', component: PostFormComponent},
   { path: 'edit-blog/:id', component: BlogFormComponent },

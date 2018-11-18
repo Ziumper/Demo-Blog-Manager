@@ -22,18 +22,15 @@ namespace Blog.Bll.Services.Categories
             _mapper = mapper;
         }
 
-        public async Task<CategoryDto> AddCategoryAsync(string name)
+        public async Task<CategoryDto> AddCategoryAsync(CategoryDto categoryDto)
         {
-            Category category = new Category();
-
-            category.SetModificationAndCreationTime();
-            category.Name = name;
+            Category category = _mapper.Map<CategoryDto,Category>(categoryDto);
 
             category = await _categoryRepository.AddAsync(category);
             await _categoryRepository.SaveAsync();
-            var categoryDto = _mapper.Map<Category,CategoryDto>(category);
+            CategoryDto result = _mapper.Map<Category,CategoryDto>(category);
 
-            return categoryDto;
+            return result;
         }
 
         public async Task<CategoryDto> DeleteCategoryAsync(int id)
@@ -78,6 +75,22 @@ namespace Blog.Bll.Services.Categories
             var catDto = _mapper.Map<Category,CategoryDto>(category);
 
             return catDto;
+        }
+
+        public async Task<CategoryDto> UpdateCategoryAsync(CategoryDto category)
+        {
+            var categoryEntity = await _categoryRepository.FindByFirstAsync(cat => cat.Id == category.Id);
+            if(categoryEntity == null)
+            {
+                var message = "Category with id " + category.Id + "not found";
+                throw new ResourceNotFoundException(message);
+            }
+            
+            categoryEntity = _categoryRepository.Edit(categoryEntity);
+            await _categoryRepository.SaveAsync();
+
+            var result = _mapper.Map<Category,CategoryDto>(categoryEntity);
+            return result;
         }
     }
 }
