@@ -14,4 +14,16 @@ export class CategoryService {
     public getAllCategories(): Observable<Array<CategoryModel>> {
        return this.http.get<Array<CategoryModel>>(this.categoryApiUrl);
     }
+
+    public getCategoryById(id: number): Observable<CategoryModel> {
+        return this.http.get<CategoryModel>(this.categoryApiUrl + '/' + id.toString());
+    }
+
+    public updateCategory(category: CategoryModel): Observable<CategoryModel> {
+        return this.http.put<CategoryModel>(this.categoryApiUrl, category);
+    }
+
+    public addCategory(category: CategoryModel): Observable<CategoryModel> {
+        return this.http.post<CategoryModel>(this.categoryApiUrl, category);
+    }
 }
