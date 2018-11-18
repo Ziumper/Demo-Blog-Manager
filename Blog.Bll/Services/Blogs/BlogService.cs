@@ -31,9 +31,9 @@ namespace Blog.Bll.Services.Blogs
             _postRepository = postRepository;
         }
 
-        public async Task<BlogDto> AddBlogAsync(BlogCreateDto blog)
+        public async Task<BlogDto> AddBlogAsync(BlogDto blog)
         {
-            var blogEntity = _mapper.Map<BlogCreateDto,BlogEntity>(blog);
+            var blogEntity = _mapper.Map<BlogDto,BlogEntity>(blog);
             var result = await _blogRepository.AddAsync(blogEntity);
             
             await _blogRepository.SaveAsync();

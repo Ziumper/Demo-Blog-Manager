@@ -63,7 +63,7 @@ namespace Blog.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddBlog([FromBody]BlogCreateDto blog){
+        public async Task<IActionResult> AddBlog([FromBody]BlogDto blog){
             var result = await _blogService.AddBlogAsync(blog);
             return Ok(result);
         }

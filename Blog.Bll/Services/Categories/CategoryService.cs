@@ -53,7 +53,20 @@ namespace Blog.Bll.Services.Categories
             return deleted;
         }
 
-  
+        public async Task<List<CategoryDto>> GetCategoriesAsync()
+        {
+            List<Category> categories = await _categoryRepository.GetAllAsync();
+            
+            List<CategoryDto> categoryDtos = new List<CategoryDto>();
+            foreach (var category in categories)
+            {
+                var categoryDto = _mapper.Map<Category,CategoryDto> (category);
+                categoryDtos.Add(categoryDto);
+            }
+
+            return categoryDtos;
+        }
+
         public async Task<CategoryDto> GetCategory(int id)
         {
            Category category = await _categoryRepository.FindByFirstAsync(cat => cat.Id == id);

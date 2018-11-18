@@ -18,6 +18,11 @@ namespace Blog.Web.Controllers
             _categoryService = categoryService;
         }
 
-      
+        [HttpGet]
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var result = await _categoryService.GetCategoriesAsync();
+            return Ok(result);
+        }
     }
 }

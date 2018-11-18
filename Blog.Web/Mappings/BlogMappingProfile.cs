@@ -5,6 +5,7 @@ using Blog.Bll.Dto;
 using Blog.Bll.Dto.Blogs;
 using Blog.Dal.Models;
 using Blog.Bll.Dto.Posts;
+using Blog.Bll.Dto.Categories;
 
 namespace Blog.Web.Mappings
 {
@@ -12,7 +13,7 @@ namespace Blog.Web.Mappings
     {
         public BlogMappingProfile()
         {
-            CreateMap<BlogCreateDto,BlogEntity>().ForMember(destination => destination.Id,options => options.Ignore()).ForMember(destination => destination.Posts,options => options.Ignore());
+            CreateMap<Category,CategoryDto>().ReverseMap();
             CreateMap<BlogEntity,BlogDto>().ReverseMap();
             CreateMap<Post,PostCreateDto>().ReverseMap();
             CreateMap<Post,PostDto>().ReverseMap();
