@@ -7,7 +7,7 @@ namespace Blog.Dal.Repositories.Categories
 {
     public interface ICategoryRepository : IGenericRepository<Category>
     {
-        Task<Category> FindCategoryByIdWithBlogsPostsAndCommentsAsync(int id);
-        
+        Task<Category> FindCategoryByIdWithBlogsAsync(int id);
+        Task<Category> FindCategoryByNameWithBlogsAsync(string name);
     }
 }

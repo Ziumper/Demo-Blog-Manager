@@ -15,13 +15,17 @@ namespace Blog.Dal.Repositories.Categories
         {
         }
 
-        public async Task<Category> FindCategoryByIdWithBlogsPostsAndCommentsAsync(int id)
+        public async Task<Category> FindCategoryByIdWithBlogsAsync(int id)
         {
             var category = await _table.Where(cat => cat.Id == id)
             .Include(cat => cat.Blogs)
-            .ThenInclude(blog => blog.Posts)
-            .ThenInclude(post => post.Comments)
             .FirstOrDefaultAsync();
+            return category;
+        }
+
+        public async Task<Category> FindCategoryByNameWithBlogsAsync(string name)
+        {
+            var category = await _table.Where(cat => cat.Name.Equals(name)).Include(cat => cat.Blogs).FirstOrDefaultAsync();
             return category;
         }
 

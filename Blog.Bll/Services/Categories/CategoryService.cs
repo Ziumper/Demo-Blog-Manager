@@ -25,6 +25,7 @@ namespace Blog.Bll.Services.Categories
         public async Task<CategoryDto> AddCategoryAsync(CategoryDto categoryDto)
         {
             Category category = _mapper.Map<CategoryDto,Category>(categoryDto);
+            category.Blogs = new List<BlogEntity>();
 
             category = await _categoryRepository.AddAsync(category);
             await _categoryRepository.SaveAsync();
@@ -35,7 +36,7 @@ namespace Blog.Bll.Services.Categories
 
         public async Task<CategoryDto> DeleteCategoryAsync(int id)
         {
-            Category category = await _categoryRepository.FindCategoryByIdWithBlogsPostsAndCommentsAsync(id);
+            Category category = await _categoryRepository.FindByFirstAsync( cat => cat.Id == id);
             
             if(category == null){
                 throw new ResourceNotFoundException("Category wtih id: "+ id + " not found");

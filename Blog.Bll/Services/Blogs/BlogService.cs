@@ -40,17 +40,23 @@ namespace Blog.Bll.Services.Blogs
 
         public async Task<BlogDto> AddBlogAsync(BlogDto blog)
         {
-            var category = await _categoryRepository.FindByFirstAsync(cat => cat.Id == blog.Category.Id);
+            var category = await _categoryRepository.FindCategoryByNameWithBlogsAsync(blog.Category.Name);
             if(category == null)
             {
-                throw new ResourceNotFoundException("Category with id " + blog.Category.Id + " not found" );
-            }
+                throw new ResourceNotFoundException("Category with id " + blog.Category.Name + " not found" );
+            }  
 
             var blogEntity = _mapper.Map<BlogDto,BlogEntity>(blog);
             blogEntity.Category = category;
-            
+            if(category.Blogs == null)
+            {
+                category.Blogs = new List<BlogEntity>();
+            }
+
+            category.Blogs.Add(blogEntity);
+            _categoryRepository.Edit(category);
             var result = await _blogRepository.AddAsync(blogEntity);
-            
+
             await _blogRepository.SaveAsync();
 
             var resultDto = _mapper.Map<BlogEntity,BlogDto> (result);
