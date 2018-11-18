@@ -31,5 +31,12 @@ namespace Blog.Web.Controllers
             var result = await _categoryService.AddCategoryAsync(category);
             return Ok(result);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateCategory([FromBody] CategoryDto category)
+        {
+            var result = await _categoryService.UpdateCategoryAsync(category);
+            return Ok(result);
+        }
     }
 }
