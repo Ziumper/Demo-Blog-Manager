@@ -120,9 +120,10 @@ export class HttpService  {
             tap( (response: any) => {
               this.tapSmallResponse(response, url, requestType);
             }),
-            catchError( error => of(() => {
+            catchError( error => {
                 this.catchSmallErrorResponse(error);
-            }))
+                return empty();
+            })
         );
 
         return result;
