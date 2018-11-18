@@ -39,13 +39,9 @@ export class BlogFormComponent implements OnInit {
         const id = this.routed.snapshot.params['id'];
         if (id) {
             this.model.id = id;
-            this.blogService.updateBlog(model).subscribe(response => {
-                this.model = response;
-            });
+            this.blogService.updateBlog(model).subscribe();
         } else {
-            this.blogService.addBlog(model).subscribe(response => {
-                this.model = response;
-            });
+            this.blogService.addBlog(model).subscribe();
         }
     }
 }

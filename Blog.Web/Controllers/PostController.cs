@@ -44,7 +44,7 @@ namespace Blog.Web.Controllers
 
         // POST: api/Post
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]PostCreateDto value)
+        public async Task<IActionResult> Post([FromBody]PostDto value)
         {
             var result = await _postService.AddPostAsync(value);
             return Ok(result);

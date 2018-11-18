@@ -7,4 +7,5 @@ export class PostModel {
     public modificationDate: Date;
     public content: string;
     public postTags: Array<Tag>;
+    public blogId: number;
 }

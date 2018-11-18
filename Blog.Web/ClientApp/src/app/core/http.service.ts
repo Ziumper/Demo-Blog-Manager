@@ -23,7 +23,7 @@ export class HttpService  {
 
     public get<T>(url: string, requestParams?: HttpParams): Observable<T> {
         this.loaderService.activateLoading();
-        if (!requestParams) {
+        if (requestParams) {
             let result = this.http.get<T>(url, {params: requestParams});
             result = this.holdRequest(result, url, 'get');
             return result;

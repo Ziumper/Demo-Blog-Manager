@@ -10,8 +10,8 @@ namespace Blog.Bll.Services.Posts
 {
     public interface IPostService
     {
-        PostDto AddPost(PostCreateDto post);
-        Task<PostDto> AddPostAsync(PostCreateDto post);
+        PostDto AddPost(PostDto post);
+        Task<PostDto> AddPostAsync(PostDto post);
         PostDto GetPostById(int postId);
         List<PostDto> GetAllPosts();
         PostDto DeletePost(int postId);

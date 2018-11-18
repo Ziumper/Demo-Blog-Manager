@@ -15,19 +15,17 @@ export class PostFormComponent implements OnInit {
         this.model = new PostModel();
      }
 
-    public ngOnInit(): void { }
+    public ngOnInit(): void {
+        this.model.blogId = this.route.snapshot.params['blogId'];
+    }
 
     public submit(model: PostModel): void {
         const id = this.route.snapshot.params['id'];
         if (id) {
             this.model.id = id;
-            this.postService.updatePost(model).subscribe( response => {
-                this.model = response;
-            });
+            this.postService.updatePost(model).subscribe();
         } else {
-            this.postService.addPost(model).subscribe(response => {
-                this.model = response;
-            });
+            this.postService.addPost(model).subscribe();
         }
     }
 }

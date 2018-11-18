@@ -11,12 +11,12 @@ const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'blogs-manager', component: BlogsManagerComponent},
-  { path: 'add-blog', component: BlogFormComponent },
-  { path: 'add-category', component: CategoryFormComponent},
-  { path: 'edit-category/:id', component: CategoryFormComponent},
-  { path: 'add-post', component: PostFormComponent},
-  { path: 'edit-post/:id', component: PostFormComponent},
-  { path: 'edit-blog/:id', component: BlogFormComponent },
+  { path: 'blog-editor', component: BlogFormComponent },
+  { path: 'category-editor', component: CategoryFormComponent},
+  { path: 'category-editor/:id', component: CategoryFormComponent},
+  { path: 'post-editor/:blogId', component: PostFormComponent},
+  { path: 'post-editor/:blogId/:id', component: PostFormComponent},
+  { path: 'blog-editor/:id', component: BlogFormComponent },
   { path: '**', redirectTo: 'home' }
 ];
 

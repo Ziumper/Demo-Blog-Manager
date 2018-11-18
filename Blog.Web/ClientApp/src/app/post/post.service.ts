@@ -17,7 +17,8 @@ export class PostService {
    }
 
    public getPostsPaged(query: PostQueryModel): Observable<PostPagedModel> {
-      return this.http.get<PostPagedModel>(this.postApiUrl + '/paged?', query.getParams());
+      const params = query.getParams();
+      return this.http.get<PostPagedModel>(this.postApiUrl + '/paged?', params);
    }
 
    public getPostById(id: number): Observable<PostModel> {

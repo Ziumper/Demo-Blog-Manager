@@ -16,6 +16,7 @@ export class HomeComponent implements OnInit {
     this.postQueryModel.order = true; // sort descending;
     this.postQueryModel.page = 1;
     this.postQueryModel.size = 10;
+    this.postQueryModel.searchQuery = '';
   }
 
   public ngOnInit(): void {

@@ -8,6 +8,7 @@ using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
+using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Posts;
 
@@ -18,17 +19,20 @@ namespace Blog.Bll.Services.Posts
         private readonly IMapper _mapper;
         private readonly IPostRepository _postRepository;
         private readonly ICommentRepository _commentRepository;
+        private readonly IBlogRepository _blogRepository;
 
-        public PostService(IPostRepository postRepository,ICommentRepository commentRepository,IMapper mapper)
+        public PostService(IPostRepository postRepository,
+        IBlogRepository blogRepository, ICommentRepository commentRepository,IMapper mapper)
         {
             _commentRepository = commentRepository;
             _postRepository = postRepository;
             _mapper = mapper;
+            _blogRepository = blogRepository;
         }
 
-        public PostDto AddPost(PostCreateDto post)
+        public PostDto AddPost(PostDto post)
         {
-            var mappedPost = _mapper.Map<PostCreateDto, Post>(post);
+            var mappedPost = _mapper.Map<PostDto, Post>(post);
 
             mappedPost.Comments = new List<Comment>();
             var result = _postRepository.Add(mappedPost);
@@ -39,12 +43,22 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
 
-        public async Task<PostDto> AddPostAsync(PostCreateDto post){
-            var mappedPost = _mapper.Map<PostCreateDto,Post>(post);
-            var result = await _postRepository.AddAsync(mappedPost);
+        public async Task<PostDto> AddPostAsync(PostDto post){
+
+            /* var blog = await _blogRepository.FindByFirstAsync(b => b.Id == post.BlogId);
+            if(blog == null)
+            {
+                throw new ResourceNotFoundException("Blog with id " + post.BlogId + " not found");
+            }
+            */
+            var mappedPost = _mapper.Map<PostDto,Post>(post);
+            //mappedPost.Blog = blog;
         
+            var result = await _postRepository.AddAsync(mappedPost);
             await _postRepository.SaveAsync();
+
             var resultDto = _mapper.Map<Post,PostDto>(result);
+
             return resultDto;
         }
 
@@ -82,7 +96,6 @@ namespace Blog.Bll.Services.Posts
 
         public PostDto EditPost(PostDto postDto)
         {
-           
             var result = _postRepository.FindBy(post => post.Id == postDto.Id).FirstOrDefault();
             if(result == null)
             {
