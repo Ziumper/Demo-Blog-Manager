@@ -14,5 +14,5 @@
         </div>
     </div>
 </div>
-<ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" [ngClass]="{'hide-pagination': isLoading || posts.length == 0 }"
+<ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" [ngClass]="{'hide-pagination': isLoading || posts?.length == 0 }"
 [collectionSize]="postQuery.size" [(page)]="postQuery.page" aria-label="Default pagination"></ngb-pagination>

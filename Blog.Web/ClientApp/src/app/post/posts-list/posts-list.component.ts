@@ -27,7 +27,7 @@ export class PostsListsComponent implements OnInit {
 
     private getPosts(): void {
         this.postService.getPostsPaged(this.postQuery).subscribe(response => {
-            this.posts = response.entites;
+            this.posts = response.entities;
             this.postQuery.size = response.size;
             this.postQuery.page = response.page;
             this.collectionCount = response.count;

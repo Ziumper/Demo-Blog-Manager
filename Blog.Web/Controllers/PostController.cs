@@ -22,8 +22,8 @@ namespace Blog.Web.Controllers
         }
 
         [HttpGet("paged")]
-        public async Task<IActionResult> GetAllPostsPaged([FromQuery] PostQuery searchQuery){
-            var result = await _postService.GetAllPostsPagedAsync(searchQuery);
+        public async Task<IActionResult> GetAllPostsPaged([FromQuery] PostQuery query){
+            var result = await _postService.GetAllPostsPagedAsync(query);
             return Ok(result);
         }
 

@@ -152,6 +152,10 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDtoPaged> GetAllPostsPagedAsync(PostQuery searchQuery)
         {
+            if(searchQuery.SearchQuery == null) {
+                searchQuery.SearchQuery = string.Empty;
+            }
+            
             var result = await _postRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,
             x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));
     
