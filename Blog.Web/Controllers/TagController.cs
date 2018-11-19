@@ -23,7 +23,13 @@ namespace Blog.Web.Controllers
         public async Task<IActionResult> AddNewTag(string name){
             var result = await _tagService.AddNewTagAsync(name);
             return Ok(result);
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> GetAllTags()
+        {
+            var result = await _tagService.GetAllTagsAsync();
+            return Ok(result);
         }
     }
 }

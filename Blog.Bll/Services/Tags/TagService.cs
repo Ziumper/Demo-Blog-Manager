@@ -65,5 +65,17 @@ namespace Blog.Bll.Services.Tags
     
         }
 
+        public async Task<List<TagDto>> GetAllTagsAsync(){
+            var result = await _tagRepository.GetAllAsync();
+            List<TagDto> resultDto = new List<TagDto>();
+            foreach (var item in result)
+            {
+                var tagDto = _mapper.Map<Tag,TagDto>(item);
+                resultDto.Add(tagDto);
+            }
+
+            return resultDto;
+        }
+
     }
 }

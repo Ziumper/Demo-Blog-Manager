@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Tag } from '../models/tag.model';
+import { TagModel } from '../models/tag.model';
+import { TagService } from '../tag.service';
 
 @Component({
     selector: 'app-tags-list',
@@ -7,13 +8,17 @@ import { Tag } from '../models/tag.model';
     styleUrls: ['./tags-list.component.scss']
 })
 export class TagsListComponent implements OnInit {
-    public tags: Array<Tag>;
+    public tags: Array<TagModel>;
 
-    constructor() {
-        this.tags = new Array<Tag>();
+    constructor(private tagService: TagService) {
+        this.tags = new Array<TagModel>();
     }
 
-    public ngOnInit(): void { }
+    public ngOnInit(): void {
+        this.tagService.getAllTags().subscribe(response => {
+            this.tags = response;
+        });
+     }
 }
 
 
