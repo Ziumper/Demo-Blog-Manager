@@ -14,5 +14,22 @@ export class TagFormComponent implements OnInit {
 
     constructor(private route: ActivatedRoute, private tagService: TagService) { }
 
-    ngOnInit(): void { }
+    public ngOnInit(): void {
+        const id = this.route.snapshot.params['id'];
+        if (id) {
+            this.tagService.getTagById(id).subscribe(response =>{
+                this.model = response;
+            });
+        }
+    }
+
+    public submit(model: TagModel): void {
+        const id = this.route.snapshot.params['id'];
+        if (id) {
+            model.id = id;
+            this.tagService.updateTag(model).subscribe();
+        } else {
+            this.tagService.addTag(model).subscribe();
+        }
+    }
 }

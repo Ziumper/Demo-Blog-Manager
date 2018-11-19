@@ -1,0 +1,10 @@
+<div class="container">
+    <h1>Tag Form</h1>
+    <form name="blog-form" (ngSubmit)="submit(model)">
+        <div class="form-group">
+            <label for="name">Tag Name</label>
+            <input type="text" class="form-control" id="name" name="name" [(ngModel)]="model.name" required/>        
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>
