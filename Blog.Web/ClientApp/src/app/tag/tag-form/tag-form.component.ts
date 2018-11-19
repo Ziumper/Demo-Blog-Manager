@@ -17,7 +17,7 @@ export class TagFormComponent implements OnInit {
     public ngOnInit(): void {
         const id = this.route.snapshot.params['id'];
         if (id) {
-            this.tagService.getTagById(id).subscribe(response =>{
+            this.tagService.getTagById(id).subscribe(response => {
                 this.model = response;
             });
         }
