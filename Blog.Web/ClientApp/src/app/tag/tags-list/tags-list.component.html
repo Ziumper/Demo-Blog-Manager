@@ -4,19 +4,7 @@
                         <h1>Tags</h1>
                 </div>
                 <div class="card-body">
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
-                    <a href="#"> #Tag1</a>
+                    <a *ngFor="let tag of tags" hrouterLink="tag/{{tag.id}}"> #{{tag?.name}}</a>
                 </div>
             </div>
 </div>
