@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PostQueryModel } from 'src/app/post/models/post-query.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-tag',
@@ -6,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./tag.component.scss']
 })
 export class TagComponent implements OnInit {
-    constructor() { }
 
-    ngOnInit(): void { }
+    constructor(private route: ActivatedRoute) { 
+
+    }
+
+    public ngOnInit(): void {
+
+     }
 }

@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { PostPagedModel } from './models/post-paged.model';
 import { PostQueryModel } from './models/post-query.model';
 import { PostModel } from './models/post.model';
+import { BaseQueryModel } from '../core/models/base-query.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,19 @@ export class PostService {
     this.postApiUrl = 'api/post';
    }
 
-   public getPostsPaged(query: PostQueryModel): Observable<PostPagedModel> {
+   public getPostsPaged(query: BaseQueryModel): Observable<PostPagedModel> {
       const params = query.getParams();
       return this.http.get<PostPagedModel>(this.postApiUrl + '/paged?', params);
+   }
+
+   public getPostsPagedByTagId(query: BaseQueryModel, tagId: number): Observable<PostPagedModel> {
+      const params = query.getParams();
+      return this.http.get<PostPagedModel>(this.postApiUrl + '/paged/tag/' + tagId + '?', params);
+   }
+
+   public getPostsPagedByBlogId(query: BaseQueryModel, blogId: number): Observable<PostPagedModel> {
+      const params = query.getParams();
+      return this.http.get<PostPagedModel>(this.postApiUrl + 'paged/blog/' + blogId + '?', params);
    }
 
    public getPostById(id: number): Observable<PostModel> {
