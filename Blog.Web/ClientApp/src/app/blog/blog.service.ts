@@ -3,7 +3,8 @@ import { BlogModel } from './models/blog.model';
 import { Observable } from 'rxjs';
 import { HttpService } from '../core/http.service';
 import { BlogPagedModel } from './models/blogs-paged-model';
-import { BlogQueryModel } from './models/blog-query.model';
+import { BaseQueryModel } from '../core/models/base-query.model';
+
 
 @Injectable()
 export class BlogService {
@@ -26,7 +27,7 @@ export class BlogService {
     return this.http.getSmall(this.blogApiUrl + '/paged/' + page + '/' + size + '/' + title);
   }
 
-  public getBlogsPagedFilteredByTitle( query: BlogQueryModel): Observable<BlogPagedModel> {
+  public getBlogsPagedFilteredByTitle( query: BaseQueryModel): Observable<BlogPagedModel> {
     return this.http.getSmall<BlogPagedModel>(this.blogApiUrl + '/paged?', query.getParams());
   }
 

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PostQueryModel } from 'src/app/post/models/post-query.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -9,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TagComponent implements OnInit {
 
-    constructor(private route: ActivatedRoute) { 
+    constructor(private route: ActivatedRoute) {
 
     }
 

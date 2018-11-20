@@ -6,7 +6,7 @@ import { LoaderService } from '../../core/loader/loader.service';
 import { Subject, Observable } from 'rxjs';
 import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import { BlogPagedModel } from '../models/blogs-paged-model';
-import { BlogQueryModel } from '../models/blog-query.model';
+import { BaseQueryModel } from 'src/app/core/models/base-query.model';
 
 @Component({
     selector: 'app-blogs-manager',
@@ -17,7 +17,7 @@ export class BlogsManagerComponent implements OnInit {
     public blogs: Array<BlogModel>;
     public searchTerm: Subject<string>;
     public isLoading: boolean;
-    public blogQueryModel: BlogQueryModel;
+    public blogQueryModel: BaseQueryModel;
     public collectionSize: number;
 
     constructor(
@@ -77,7 +77,7 @@ export class BlogsManagerComponent implements OnInit {
             debounceTime(400),
             distinctUntilChanged(),
             switchMap((query: string) => {
-                this.blogQueryModel.title = query;
+                this.blogQueryModel.searchQuery = query;
                 return this.blogService.getBlogsPagedFilteredByTitle(this.blogQueryModel);
             })
         );
@@ -105,18 +105,13 @@ export class BlogsManagerComponent implements OnInit {
     }
 
     private updateResult(result: BlogPagedModel): void {
-        this.blogs = result.entites;
+        this.blogs = result.entities;
         this.blogQueryModel.page = result.page;
         this.collectionSize = result.count;
         this.blogQueryModel.size = result.size;
     }
 
     private initalizeBlogQueryModel(): void {
-        this.blogQueryModel = new BlogQueryModel();
-        this.blogQueryModel.page = 1;
-        this.blogQueryModel.size = 10;
-        this.blogQueryModel.title = '';
-        this.blogQueryModel.filter = 0;
-        this.blogQueryModel.order = false;
+        this.blogQueryModel = new BaseQueryModel(1, 10, 0, false, '');
     }
 }

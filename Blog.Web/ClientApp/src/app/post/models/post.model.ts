@@ -1,4 +1,4 @@
-import { Tag } from '../../tag/models/tag.model';
+import { TagModel } from '../../tag/models/tag.model';
 
 export class PostModel {
     public id: number;
@@ -6,6 +6,6 @@ export class PostModel {
     public creationDate: Date;
     public modificationDate: Date;
     public content: string;
-    public postTags: Array<Tag>;
+    public postTags: Array<TagModel>;
     public blogId: number;
 }

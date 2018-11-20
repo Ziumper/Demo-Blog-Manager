@@ -5,21 +5,26 @@ import { TagsListComponent } from './tags-list/tags-list.component';
 import { TagService } from './tag.service';
 import { FormsModule } from '@angular/forms';
 import { TagFormComponent } from './tag-form/tag-form.component';
+import { TagComponent } from './tag/tag.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
         TagsListComponent,
         TagFormComponent,
+        TagComponent,
     ],
     exports: [
         TagsListComponent,
-        TagFormComponent
+        TagFormComponent,
+        TagComponent
     ],
 
     imports: [
         CoreModule,
         CommonModule,
         FormsModule,
+        RouterModule,
     ],
     providers: [
         TagService

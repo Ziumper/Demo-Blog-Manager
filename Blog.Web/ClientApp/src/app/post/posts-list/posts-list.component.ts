@@ -17,11 +17,12 @@ export class PostsListsComponent implements OnInit {
 
     constructor(private postService: PostService) {
         this.posts = new Array<PostModel>();
-        this.postQuery = new BaseQueryModel(1,10,1,true,'');
+        this.postQuery = new BaseQueryModel(1, 10, 1, true, 'post');
         this.collectionCount = 0;
     }
 
     public ngOnInit(): void {
+        console.log(this.postQuery);
         this.getPosts();
     }
 

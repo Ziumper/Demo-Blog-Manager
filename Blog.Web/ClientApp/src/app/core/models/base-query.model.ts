@@ -7,7 +7,7 @@ export class BaseQueryModel {
     public order: boolean;
     public searchQuery: string;
 
-    constructor(page :number,size: number, filter: number, order: boolean, searchQuery: string){
+    constructor(page: number, size: number, filter: number, order: boolean, searchQuery: string) {
         this.page = page;
         this.size = size;
         this.filter = filter;

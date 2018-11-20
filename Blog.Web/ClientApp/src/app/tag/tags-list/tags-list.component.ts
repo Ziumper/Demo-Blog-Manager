@@ -15,9 +15,11 @@ export class TagsListComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        /*
         this.tagService.getAllTags().subscribe(response => {
             this.tags = response;
         });
+        */
      }
 }
 
