@@ -1,1 +1,15 @@
-<h1>Tag Component works</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+         <app-posts-list [postQuery]="postQuery"></app-posts-list>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <div class="row">
+                <app-categories-list class="col-md-12"></app-categories-list>
+            </div>
+            <div class="row">
+                <app-tags-list class="col-md-12"></app-tags-list>
+            </div>
+        </div>
+    </div>
+</div>

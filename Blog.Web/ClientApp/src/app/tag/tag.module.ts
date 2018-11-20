@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { TagComponent } from './tag/tag.component';
 import { RouterModule } from '@angular/router';
+import { PostModule } from '../post/post.module';
+import { CategoryModule } from '../category/category.module';
 
 @NgModule({
     declarations: [
@@ -25,6 +27,8 @@ import { RouterModule } from '@angular/router';
         CommonModule,
         FormsModule,
         RouterModule,
+        PostModule,
+        CategoryModule
     ],
     providers: [
         TagService
