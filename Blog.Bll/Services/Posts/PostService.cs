@@ -44,15 +44,7 @@ namespace Blog.Bll.Services.Posts
         }
 
         public async Task<PostDto> AddPostAsync(PostDto post){
-
-            /* var blog = await _blogRepository.FindByFirstAsync(b => b.Id == post.BlogId);
-            if(blog == null)
-            {
-                throw new ResourceNotFoundException("Blog with id " + post.BlogId + " not found");
-            }
-            */
             var mappedPost = _mapper.Map<PostDto,Post>(post);
-            //mappedPost.Blog = blog;
         
             var result = await _postRepository.AddAsync(mappedPost);
             await _postRepository.SaveAsync();
@@ -155,7 +147,7 @@ namespace Blog.Bll.Services.Posts
             if(searchQuery.SearchQuery == null) {
                 searchQuery.SearchQuery = string.Empty;
             }
-            
+
             var result = await _postRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,
             x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));
     
@@ -164,10 +156,10 @@ namespace Blog.Bll.Services.Posts
             return new PostDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
         }
 
-        public async Task<PostDtoPaged> GetAllPostPagedAsyncByBlogId(PostQuery postQuery, int blogId)
+        public async Task<PostDtoPaged> GetAllPostPagedAsyncByBlogId(PostQuery postQuery)
         {
             var result = await _postRepository.GetAllPagedAsync(postQuery.Page,postQuery.Size, 
-            p => p.BlogId == blogId && (p.Title.Contains(postQuery.SearchQuery) || p.Content.Contains(postQuery.SearchQuery))
+            p => p.BlogId == postQuery.BlogId && (p.Title.Contains(postQuery.SearchQuery) || p.Content.Contains(postQuery.SearchQuery))
             );
 
             result.Entities = SortEntites(result.Entities.AsQueryable(),postQuery.Filter,postQuery.Order);
@@ -182,5 +174,22 @@ namespace Blog.Bll.Services.Posts
             .ToList();
         }
 
+        public async Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query)
+        {
+            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsId, 
+            p => (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
+
+            result.Entities = SortEntites(result.Entities.AsQueryable(),query.Filter,query.Order);
+            return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
+        }
+
+        public async Task<PostDtoPaged> GetAllPostPagedAsyncByBlogIdAndTagsId(PostQuery query)
+        {
+            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsId, 
+            p => p.BlogId == query.BlogId && (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
+
+            result.Entities = SortEntites(result.Entities.AsQueryable(),query.Filter,query.Order);
+            return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
+        }
     }
 }

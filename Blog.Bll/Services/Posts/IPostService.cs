@@ -19,6 +19,8 @@ namespace Blog.Bll.Services.Posts
         Task<PostDto> EditPostAsync(PostDto postDto);
         Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId);
         Task<PostDtoPaged> GetAllPostsPagedAsync(PostQuery searchQuery);
-        Task<PostDtoPaged> GetAllPostPagedAsyncByBlogId(PostQuery searchQuery,int blogId);
+        Task<PostDtoPaged> GetAllPostPagedAsyncByBlogId(PostQuery searchQuery);
+        Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query);
+        Task<PostDtoPaged> GetAllPostPagedAsyncByBlogIdAndTagsId(PostQuery query);
     }
 }

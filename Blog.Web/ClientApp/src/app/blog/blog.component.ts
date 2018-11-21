@@ -21,9 +21,9 @@ export class BlogComponent implements OnInit {
     const tagId = this.route.snapshot.params['tagId'];
 
     if (tagId) {
-      this.postQueryModel = new PostQueryModel(1, 10, 1, true, '', tagId, blogId);
+      this.postQueryModel = new PostQueryModel(1, 10, 1, true, '', [tagId], blogId);
     } else {
-      this.postQueryModel = new PostQueryModel(1, 10, 1, true, '', 0, blogId);
+      this.postQueryModel = new PostQueryModel(1, 10, 1, true, '', [], blogId);
     }
 
   }
