@@ -17,8 +17,15 @@ export class BlogComponent implements OnInit {
   
   constructor(private blogService: BlogService, private route: ActivatedRoute){
     this.blogModel = new BlogModel(0,'',new Date(),new Date(),new CategoryModel(0,''));  
-    const id = this.route.snapshot.params['blogId'];
-    this.postQueryModel = new PostQueryModel(1,10,1,true,'',0,id);
+    const blogId = this.route.snapshot.params['blogId'];
+    const tagId = this.route.snapshot.params['tagId'];
+    
+    if (tagId) {
+      this.postQueryModel = new PostQueryModel(1,10,1,true,'',tagId,blogId);  
+    }else {
+      this.postQueryModel = new PostQueryModel(1,10,1,true,'',0,blogId);
+    }
+    
   }
 
   public ngOnInit(): void {
