@@ -5,7 +5,7 @@ import { BlogsManagerComponent } from './blog/blogs-manager/blogs-manager.compon
 import { PostFormComponent } from './post/post-form/post-form.component';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 import { CategoryFormComponent } from './category/category-form/category-form.component';
-import { TagComponent } from './tag/tag/tag.component';
+import { TagComponent } from './tag/tag.component';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },

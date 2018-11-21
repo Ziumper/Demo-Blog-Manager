@@ -6,4 +6,19 @@ export class BlogModel {
     public creationDate: Date;
     public modificationDate: Date;
     public category: CategoryModel;
+
+    constructor
+    (
+        id: number,
+        title: string, 
+        creationDate: Date,
+        modificationDate: Date,
+        category: CategoryModel
+    ){
+        this.id = id;
+        this.title = title;
+        this.creationDate = creationDate;
+        this.modificationDate = modificationDate;
+        this.category = category;
+    }
 }
