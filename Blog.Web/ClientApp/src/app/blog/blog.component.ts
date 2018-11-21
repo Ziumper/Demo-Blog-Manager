@@ -12,32 +12,32 @@ import { PostQueryModel } from '../post/models/post-query.model';
 })
 export class BlogComponent implements OnInit {
 
-  public blogModel: BlogModel;
-  public postQueryModel : PostQueryModel;
-  
-  constructor(private blogService: BlogService, private route: ActivatedRoute){
-    this.blogModel = new BlogModel(0,'',new Date(),new Date(),new CategoryModel(0,''));  
+  public blog: BlogModel;
+  public postQueryModel: PostQueryModel;
+
+  constructor(private blogService: BlogService, private route: ActivatedRoute) {
+    this.blog = new BlogModel(0, '', new Date(), new Date(), new CategoryModel(0, ''));
     const blogId = this.route.snapshot.params['blogId'];
     const tagId = this.route.snapshot.params['tagId'];
-    
+
     if (tagId) {
-      this.postQueryModel = new PostQueryModel(1,10,1,true,'',tagId,blogId);  
-    }else {
-      this.postQueryModel = new PostQueryModel(1,10,1,true,'',0,blogId);
+      this.postQueryModel = new PostQueryModel(1, 10, 1, true, '', tagId, blogId);
+    } else {
+      this.postQueryModel = new PostQueryModel(1, 10, 1, true, '', 0, blogId);
     }
-    
+
   }
 
   public ngOnInit(): void {
     const id = this.route.snapshot.params['blogId'];
     if (id) {
       this.blogService.getBlogById(id).subscribe(response => {
-        this.blogModel = response;
-      })
+        this.blog = response;
+      });
     }
   }
 
-  
+
 
 
 

@@ -8,6 +8,9 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { BlogService } from './blog.service';
+import { CategoryModule } from '../category/category.module';
+import { PostModule } from '../post/post.module';
+import { TagModule } from '../tag/tag.module';
 
 @NgModule({
     declarations : [
@@ -26,6 +29,9 @@ import { BlogService } from './blog.service';
         FormsModule,
         AngularFontAwesomeModule,
         NgbModule,
+        CategoryModule,
+        PostModule,
+        TagModule,
     ],
     providers: [
         BlogService
