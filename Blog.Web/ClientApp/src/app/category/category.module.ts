@@ -5,11 +5,13 @@ import { CategoriesListComponent } from './categories-list/categories-list.compo
 import { CategoryService } from './category.service';
 import { CategoryFormComponent } from './category-form/category-form.component';
 import { FormsModule } from '@angular/forms';
+import { CategoryComponent } from './category.component';
 
 @NgModule({
     declarations: [
         CategoriesListComponent,
-        CategoryFormComponent
+        CategoryFormComponent,
+        CategoryComponent
     ],
     imports: [
         CommonModule,
@@ -18,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     ],
     exports: [
         CategoriesListComponent,
-        CategoryFormComponent
+        CategoryFormComponent,
+        CategoryComponent
     ],
     providers: [CategoryService],
 })

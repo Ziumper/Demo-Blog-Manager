@@ -7,23 +7,23 @@ export class PostQueryModel extends BaseQueryModel {
     public blogId: number;
 
     constructor(
-        page: number, 
+        page: number,
         size: number,
         filter: number,
-        order: boolean, 
+        order: boolean,
         searchQuery: string,
         tagId: number,
         blogId: number
     ) {
-        super(page,size,filter,order,searchQuery);
+        super(page, size, filter, order, searchQuery);
         this.blogId = blogId;
         this.tagId = tagId;
     }
 
     public getParams(): HttpParams {
         return super.getParams()
-        .set('tagId',this.tagId.toString())
-        .set('blogId',this.blogId.toString());
+        .set('tagId', this.tagId.toString())
+        .set('blogId', this.blogId.toString());
     }
 
 }
