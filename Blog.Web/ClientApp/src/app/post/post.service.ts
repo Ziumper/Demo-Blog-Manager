@@ -22,6 +22,21 @@ export class PostService {
       return this.http.get<PostPagedModel>(this.postApiUrl + '/paged?', params);
    }
 
+   public getPostsPagedByBlogId(query: PostQueryModel): Observable<PostPagedModel> {
+      const params = query.getParams();
+      return this.http.get<PostPagedModel>(this.postApiUrl + '/blog/paged?', params);
+   }
+
+   public getPostsPagedByBlogIdAndTags(query: PostQueryModel): Observable<PostPagedModel> {
+      const params = query.getParams();
+      return this.http.get<PostPagedModel>(this.postApiUrl + 'blog/tags/paged?', params);
+   }
+
+   public getPostsPagedByTags(query: PostQueryModel): Observable<PostPagedModel> {
+      const params = query.getParams();
+      return this.http.get<PostPagedModel>(this.postApiUrl + 'tags/paged?', params);
+   }
+
    public getPostById(id: number): Observable<PostModel> {
       return this.http.get<PostModel>(this.postApiUrl + id.toString());
    }

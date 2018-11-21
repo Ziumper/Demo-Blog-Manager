@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseQueryModel } from 'src/app/core/models/base-query.model';
 import { PostQueryModel } from 'src/app/post/models/post-query.model';
 
 @Component({
@@ -20,8 +19,8 @@ export class TagComponent implements OnInit {
 
     }
 
-    private initializePostQueryModel(): void{
+    private initializePostQueryModel(): void {
         const tagId = this.route.snapshot.params['id'];
-        this.postQuery = new PostQueryModel(1, 10, 1, true, '',tagId,0);
+        this.postQuery = new PostQueryModel(1, 10, 1, true, '', [tagId], 0);
     }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PostService } from '../post.service';
 import { PostModel } from '../models/post.model';
-import { BaseQueryModel } from 'src/app/core/models/base-query.model';
 import { PostQueryModel } from '../models/post-query.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-posts-list',
@@ -18,7 +18,7 @@ export class PostsListsComponent implements OnInit {
 
     constructor(private postService: PostService) {
         this.posts = new Array<PostModel>();
-        this.postQuery = new PostQueryModel(1, 10, 1, true, 'post',0,0);
+        this.postQuery = new PostQueryModel(1, 10, 1, true, '', [], 0);
         this.collectionCount = 0;
     }
 
