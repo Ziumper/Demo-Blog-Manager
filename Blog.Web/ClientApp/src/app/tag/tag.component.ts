@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BaseQueryModel } from 'src/app/core/models/base-query.model';
+import { PostQueryModel } from 'src/app/post/models/post-query.model';
 
 @Component({
     selector: 'app-tag',
@@ -9,13 +10,18 @@ import { BaseQueryModel } from 'src/app/core/models/base-query.model';
 })
 export class TagComponent implements OnInit {
 
-    public postQuery: BaseQueryModel;
+    public postQuery: PostQueryModel;
 
     constructor(private route: ActivatedRoute) {
-        this.postQuery = new BaseQueryModel(1, 10, 1, true, '');
+        this.initializePostQueryModel();
     }
 
     public ngOnInit(): void {
 
-     }
+    }
+
+    private initializePostQueryModel(): void{
+        const tagId = this.route.snapshot.params['id'];
+        this.postQuery = new PostQueryModel(1, 10, 1, true, '',tagId,0);
+    }
 }

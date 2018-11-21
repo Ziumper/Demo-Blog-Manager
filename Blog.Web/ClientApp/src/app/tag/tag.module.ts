@@ -5,10 +5,10 @@ import { TagsListComponent } from './tags-list/tags-list.component';
 import { TagService } from './tag.service';
 import { FormsModule } from '@angular/forms';
 import { TagFormComponent } from './tag-form/tag-form.component';
-import { TagComponent } from './tag/tag.component';
 import { RouterModule } from '@angular/router';
 import { PostModule } from '../post/post.module';
 import { CategoryModule } from '../category/category.module';
+import { TagComponent } from './tag.component'; 
 
 @NgModule({
     declarations: [

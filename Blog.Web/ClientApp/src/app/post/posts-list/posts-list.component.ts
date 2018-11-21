@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { PostService } from '../post.service';
 import { PostModel } from '../models/post.model';
 import { BaseQueryModel } from 'src/app/core/models/base-query.model';
+import { PostQueryModel } from '../models/post-query.model';
 
 @Component({
     selector: 'app-posts-list',
@@ -11,13 +12,13 @@ import { BaseQueryModel } from 'src/app/core/models/base-query.model';
 export class PostsListsComponent implements OnInit {
 
     @Input()
-    public postQuery: BaseQueryModel;
+    public postQuery: PostQueryModel;
     public posts: Array<PostModel>;
     public collectionCount: number;
 
     constructor(private postService: PostService) {
         this.posts = new Array<PostModel>();
-        this.postQuery = new BaseQueryModel(1, 10, 1, true, 'post');
+        this.postQuery = new PostQueryModel(1, 10, 1, true, 'post',0,0);
         this.collectionCount = 0;
     }
 

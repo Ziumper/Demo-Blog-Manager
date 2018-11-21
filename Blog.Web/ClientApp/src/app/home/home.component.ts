@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseQueryModel } from '../core/models/base-query.model';
+import { PostQueryModel } from '../post/models/post-query.model';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,10 @@ import { BaseQueryModel } from '../core/models/base-query.model';
 })
 export class HomeComponent implements OnInit {
 
-  public postQuery: BaseQueryModel;
+  public postQuery: PostQueryModel;
 
   constructor() {
-    this.postQuery = new BaseQueryModel(1, 10, 1, true, '');
+    this.postQuery = new PostQueryModel(1, 10, 1, true, '',0,0);
   }
 
   public ngOnInit(): void {
