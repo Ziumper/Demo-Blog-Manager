@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { CommentComponent } from './comment/comment.component';
 import { HomeComponent } from './home/home.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { NavigationComponent } from './navigation/navigation.component';
     CommentComponent,
     HomeComponent,
     NavigationComponent,
+    SearchComponent,
   ],
   imports: [
     NgbModule,
