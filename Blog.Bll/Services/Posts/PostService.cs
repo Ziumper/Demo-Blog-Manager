@@ -176,7 +176,7 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query)
         {
-            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsId, 
+            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsIds, 
             p => (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
 
             result.Entities = SortEntites(result.Entities.AsQueryable(),query.Filter,query.Order);
@@ -185,7 +185,7 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDtoPaged> GetAllPostPagedAsyncByBlogIdAndTagsId(PostQuery query)
         {
-            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsId, 
+            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsIds, 
             p => p.BlogId == query.BlogId && (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
 
             result.Entities = SortEntites(result.Entities.AsQueryable(),query.Filter,query.Order);
