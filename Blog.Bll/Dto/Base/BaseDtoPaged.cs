@@ -6,7 +6,9 @@ namespace Blog.Bll.Dto.Base{
 
     public abstract class BaseDtoPaged<T,W> {
         public int Page {get; set;}
+        //Amount of in one page
         public int Size {get; set;}
+        //Amount of all 
         public int Count {get; set;}
         public List<T> Entities {get; set;}
 

@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 
 
 export class PostQueryModel extends BaseQueryModel {
-    public tagId: Array<number>;
+    public tagsIds: Array<number>;
     public blogId: number;
 
     constructor(
@@ -12,17 +12,17 @@ export class PostQueryModel extends BaseQueryModel {
         filter: number,
         order: boolean,
         searchQuery: string,
-        tagId: Array<number>,
+        tagsId: Array<number>,
         blogId: number
     ) {
         super(page, size, filter, order, searchQuery);
         this.blogId = blogId;
-        this.tagId = tagId;
+        this.tagsIds = tagsId;
     }
 
     public getParams(): HttpParams {
         return super.getParams()
-        .set('tagId', this.tagId.toString())
+        .set('tagsIds', this.tagsIds.toString())
         .set('blogId', this.blogId.toString());
     }
 

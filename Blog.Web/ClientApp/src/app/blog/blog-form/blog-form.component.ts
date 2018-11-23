@@ -19,7 +19,7 @@ export class BlogFormComponent implements OnInit {
         private routed: ActivatedRoute,
         private blogService: BlogService,
         private categoryService: CategoryService) {
-        this.model = new BlogModel(0,'',new Date(),new Date(),new CategoryModel(0,''));
+        this.model = new BlogModel(0, '', new Date(), new Date(), new CategoryModel(0, ''));
         this.categories = new Array<CategoryModel>();
     }
 
