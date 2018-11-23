@@ -29,7 +29,7 @@ export class PostListConfig implements OnInit  {
     public getPosts(): void {
         this.postSerivce.getPostsPaged(this.postQueryModel).subscribe(response => {
             this.posts = response.entities;
-            this.collectionSize = response.count;
+            this.collectionSize = response.size;
             this.page = response.page;
         });
     }

@@ -7,22 +7,18 @@ import { ActivatedRoute } from '@angular/router';
     templateUrl: './tag.component.html',
     styleUrls: ['./tag.component.scss']
 })
-export class TagComponent extends PostListConfig implements OnInit {
+export class TagComponent extends PostListConfig {
 
     constructor(private route: ActivatedRoute) {
         super();
     }
 
-    public ngOnInit(): void {
+    public getPosts(): void {
         const id = this.route.snapshot.params['id'];
         this.postQueryModel.tagsIds = [id];
-        this.getPosts();
-    }
-
-    public getPosts(): void {
         this.postSerivce.getPostsPagedByTags(this.postQueryModel).subscribe(response => {
             this.posts = response.entities;
-            this.collectionSize = response.count;
+            this.collectionSize = response.size;
             this.page = response.page;
         });
     }
