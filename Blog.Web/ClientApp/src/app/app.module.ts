@@ -2,7 +2,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 // Modules
@@ -15,7 +14,6 @@ import { CategoryModule } from './category/category.module';
 
 // Components
 import { AppComponent } from './app.component';
-import { CommentComponent } from './comment/comment.component';
 import { HomeComponent } from './home/home.component';
 import { AppInjector } from './core/app-injector.service';
 
@@ -23,7 +21,6 @@ import { AppInjector } from './core/app-injector.service';
 @NgModule({
   declarations: [
     AppComponent,
-    CommentComponent,
     HomeComponent
   ],
   imports: [

@@ -1,22 +1,28 @@
 import { NgModule } from '@angular/core';
-import { PostsListsComponent } from './posts-list/posts-list.component';
+import { PostsListComponent } from './posts-list/posts-list.component';
 import { PostComponent } from './post.component';
 import { CoreModule } from '../core/core.module';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostFormComponent } from './post-form/post-form.component';
 import { FormsModule } from '@angular/forms';
+import { CommentComponent } from './comment/comment.component';
+import { CommentsListComponent } from './comments-list/comments-list.component';
 
 @NgModule({
     declarations: [
-        PostsListsComponent,
+        PostsListComponent,
         PostComponent,
         PostFormComponent,
+        CommentComponent,
+        CommentsListComponent
     ],
     exports: [
-        PostsListsComponent,
+        PostsListComponent,
         PostComponent,
-        PostFormComponent
+        PostFormComponent,
+        CommentComponent,
+        CommentsListComponent
     ],
     imports: [
         CoreModule,

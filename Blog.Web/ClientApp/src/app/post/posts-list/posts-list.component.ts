@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
     templateUrl: './posts-list.component.html',
     styleUrls: ['./posts-list.component.scss']
 })
-export class PostsListsComponent implements OnInit {
+export class PostsListComponent implements OnInit {
 
     @Input()
     public posts: Array<PostModel>;
