@@ -16,6 +16,7 @@ import { CategoryModule } from './category/category.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AppInjector } from './core/app-injector.service';
+import { CommentModule } from './post/comment/comment.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { AppInjector } from './core/app-injector.service';
     PostModule,
     CoreModule,
     TagModule,
-    CategoryModule
+    CategoryModule,
+    CommentModule
   ],
   bootstrap: [AppComponent]
 })
