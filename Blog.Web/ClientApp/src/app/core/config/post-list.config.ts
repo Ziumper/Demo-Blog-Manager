@@ -9,6 +9,7 @@ export class PostListConfig implements OnInit  {
     public posts: Array<PostModel>;
     public collectionSize: number;
     public page: number;
+    public pageSize: number;
 
     protected postQueryModel: PostQueryModel;
     protected postSerivce: PostService;
@@ -19,7 +20,8 @@ export class PostListConfig implements OnInit  {
         this.posts = new Array<PostModel>();
         this.collectionSize = 0;
         this.page = 1;
-        this.postQueryModel = new PostQueryModel(this.page, 10, 1, true, '', [0], 0);
+        this.pageSize = 5;
+        this.postQueryModel = new PostQueryModel(this.page, 5, 1, true, '', [0], 0);
     }
 
     public ngOnInit(): void {
@@ -29,8 +31,9 @@ export class PostListConfig implements OnInit  {
     public getPosts(): void {
         this.postSerivce.getPostsPaged(this.postQueryModel).subscribe(response => {
             this.posts = response.entities;
-            this.collectionSize = response.size;
+            this.collectionSize = response.count;
             this.page = response.page;
+            this.pageSize = response.size;
         });
     }
 

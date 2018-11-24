@@ -4,8 +4,8 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-search',
-    templateUrl: './app-search.component.html',
-    styleUrls: ['./app-search.component.scss']
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
     public searchTerm: Subject<string>;

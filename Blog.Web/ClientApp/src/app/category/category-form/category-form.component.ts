@@ -13,7 +13,7 @@ export class CategoryFormComponent implements OnInit {
     public model: CategoryModel;
 
     constructor(private categoryService: CategoryService, private route: ActivatedRoute) {
-        this.model = new CategoryModel();
+        this.model = new CategoryModel(0, '');
     }
 
     public ngOnInit(): void {

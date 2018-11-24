@@ -1,6 +1,6 @@
 // Library modules
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Injector } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -17,20 +17,16 @@ import { CategoryModule } from './category/category.module';
 import { AppComponent } from './app.component';
 import { CommentComponent } from './comment/comment.component';
 import { HomeComponent } from './home/home.component';
-import { NavigationComponent } from './navigation/navigation.component';
-import { SearchComponent } from './search/search.component';
+import { AppInjector } from './core/app-injector.service';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CommentComponent,
-    HomeComponent,
-    NavigationComponent,
-    SearchComponent,
+    HomeComponent
   ],
   imports: [
-    NgbModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
@@ -43,4 +39,10 @@ import { SearchComponent } from './search/search.component';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {
+      // Store module's injector in the AppInjector class
+      console.log('Expected #1: storing app injector');
+      AppInjector.setInjector(injector);
+    }
+ }

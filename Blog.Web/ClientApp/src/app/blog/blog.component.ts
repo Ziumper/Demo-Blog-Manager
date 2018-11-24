@@ -33,7 +33,8 @@ export class BlogComponent extends PostListConfig implements OnInit {
       this.postQueryModel.blogId = blogId;
       this.postSerivce.getPostsPagedByBlogId(this.postQueryModel).subscribe(response => {
         this.posts = response.entities;
-        this.collectionSize = response.size;
+        this.collectionSize = response.count;
+        this.pageSize = response.size;
         this.page = response.page;
       });
      }
@@ -45,7 +46,8 @@ export class BlogComponent extends PostListConfig implements OnInit {
       this.postSerivce.getPostsPagedByBlogIdAndTags(this.postQueryModel).subscribe(response => {
         this.posts = response.entities;
         this.page = response.page;
-        this.collectionSize = response.size;
+        this.collectionSize = response.count;
+        this.pageSize = response.size;
       });
     }
   }

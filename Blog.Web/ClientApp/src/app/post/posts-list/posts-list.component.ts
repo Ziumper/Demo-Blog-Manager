@@ -17,13 +17,17 @@ export class PostsListsComponent implements OnInit {
     public collectionSize: Number;
     @Input()
     public page: Number;
+    @Input()
+    public pageSize: Number;
     @Output() pageChange: EventEmitter<Number>;
+
 
     constructor() {
         this.posts = new Array<PostModel>();
         this.pageChange = new EventEmitter<Number>();
         this.collectionSize = 0;
         this.page = 0;
+        this.pageSize = 0;
     }
 
     public ngOnInit(): void {

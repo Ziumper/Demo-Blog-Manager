@@ -18,8 +18,9 @@ export class TagComponent extends PostListConfig {
         this.postQueryModel.tagsIds = [id];
         this.postSerivce.getPostsPagedByTags(this.postQueryModel).subscribe(response => {
             this.posts = response.entities;
-            this.collectionSize = response.size;
+            this.collectionSize = response.count;
             this.page = response.page;
+            this.pageSize = response.size;
         });
     }
 }
