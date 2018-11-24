@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row">
-        <h1>Search posts on this blog</h1>
+        <app-search  (search)="onSearch($event)"></app-search>
     </div>
     <div class="row">
         <h1>{{blog?.title}}</h1>

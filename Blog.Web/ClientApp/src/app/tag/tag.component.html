@@ -1,5 +1,8 @@
 <div class="container-fluid">
     <div class="row">
+        <app-search (search)="onSearch($event)"></app-search>
+    </div>
+    <div class="row">
         <div class="col-xs-12 col-md-8">
          <app-posts-list [pageSize]="pageSize" (pageChange)="onPageChanged($event)" [collectionSize]="collectionSize" [page]="page" [posts]="posts"></app-posts-list>
         </div>

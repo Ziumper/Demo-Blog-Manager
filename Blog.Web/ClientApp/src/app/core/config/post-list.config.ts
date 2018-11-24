@@ -42,4 +42,9 @@ export class PostListConfig implements OnInit  {
         this.getPosts();
     }
 
+    public onSearch(searchQuery: string): void {
+        this.postQueryModel.searchQuery = searchQuery;
+        this.getPosts();
+    }
+
 }
