@@ -7,5 +7,9 @@ import { PostListConfig } from '../core/config/post-list.config';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends PostListConfig {
-
+  public onSearch(searchQuery: string): void {
+      console.log('Im searching for posts');
+      this.postQueryModel.searchQuery = searchQuery;
+      this.getPosts();
+  }
 }
