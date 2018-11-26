@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostFormComponent } from './post-form/post-form.component';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
         CoreModule,
         FormsModule,
         CommonModule,
-        NgbModule
+        NgbModule,
+        RouterModule
     ]
 })
 export class PostModule {}

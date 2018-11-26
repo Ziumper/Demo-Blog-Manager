@@ -6,6 +6,7 @@ import { PostFormComponent } from './post/post-form/post-form.component';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 import { CategoryFormComponent } from './category/category-form/category-form.component';
 import { TagComponent } from './tag/tag.component';
+import { PostComponent } from './post/post.component';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes = [
   { path: 'post-editor/:blogId', component: PostFormComponent},
   { path: 'post-editor/:blogId/:id', component: PostFormComponent},
   { path: 'blog-editor/:id', component: BlogFormComponent },
+  { path: 'blog/:blogId/post/:id', component: PostComponent},
   { path: 'tag/:tagId', component: TagComponent},
   { path: '**', redirectTo: 'home' }
 ];

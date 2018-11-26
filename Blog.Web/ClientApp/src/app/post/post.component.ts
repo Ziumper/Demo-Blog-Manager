@@ -13,7 +13,9 @@ export class PostComponent implements OnInit {
   public post: PostModel;
 
   constructor(private postService: PostService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute) {
+      this.post = new PostModel();
+  }
 
   public ngOnInit(): void {
     const id = this.route.snapshot.params['id'];

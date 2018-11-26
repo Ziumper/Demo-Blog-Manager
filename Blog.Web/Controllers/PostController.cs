@@ -46,7 +46,7 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("postWithCommentsById/{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetPostWithCommentsById(int id)
         {
             PostDto result = null;

@@ -38,7 +38,7 @@ export class PostService {
    }
 
    public getPostById(id: number): Observable<PostModel> {
-      return this.http.get<PostModel>(this.postApiUrl + id.toString());
+      return this.http.get<PostModel>(this.postApiUrl + '/' + id.toString());
    }
 
    public updatePost(post: PostModel): Observable<PostModel> {

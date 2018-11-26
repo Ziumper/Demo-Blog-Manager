@@ -6,6 +6,7 @@ using Blog.Bll.Dto.Blogs;
 using Blog.Dal.Models;
 using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.Categories;
+using Blog.Bll.Dto.Comments;
 
 namespace Blog.Web.Mappings
 {
@@ -17,6 +18,8 @@ namespace Blog.Web.Mappings
             CreateMap<BlogEntity,BlogDto>();
             CreateMap<BlogDto,BlogEntity>().ForMember( x => x.Category, opt => opt.Ignore());
             CreateMap<Post,PostDto>().ReverseMap();
+            CreateMap<Post,PostDtoWithComments>().ReverseMap();
+            CreateMap<Comment,CommentDto>().ReverseMap();
         }
     }
 
