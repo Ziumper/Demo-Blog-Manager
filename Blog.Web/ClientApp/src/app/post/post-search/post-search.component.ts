@@ -11,7 +11,7 @@ import { PostSearchService } from './post-search.service';
 export class PostSearchComponent implements OnInit {
     public searchTerm: Subject<string>;
 
-    constructor(private postSearchService: PostSearchService) {
+    constructor() {
         this.searchTerm = new Subject<string>();
      }
 
@@ -24,7 +24,6 @@ export class PostSearchComponent implements OnInit {
             debounceTime(400),
             distinctUntilChanged(),
             switchMap((query: string) => {
-                this.postSearchService.sendMessage(query);
                 return new Observable<any>();
             })
         );
