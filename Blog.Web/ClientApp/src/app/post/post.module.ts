@@ -7,6 +7,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostFormComponent } from './post-form/post-form.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { PostSearchService } from './post-search.service';
 
 
 @NgModule({
@@ -26,6 +27,9 @@ import { RouterModule } from '@angular/router';
         CommonModule,
         NgbModule,
         RouterModule
+    ],
+    providers: [
+        PostSearchService
     ]
 })
 export class PostModule {}
