@@ -7,4 +7,5 @@ import { PostListConfig } from '../core/config/post-list.config';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent extends PostListConfig {
+
 }
