@@ -1,11 +1,12 @@
 import { PostModel } from 'src/app/post/models/post.model';
 import { PostQueryModel } from 'src/app/post/models/post-query.model';
 import { PostService } from 'src/app/post/post.service';
-import { OnInit } from '@angular/core';
+import { OnInit, OnDestroy } from '@angular/core';
 import { AppInjector } from '../app-injector.service';
+import { PostSearchService } from 'src/app/post/post-search/post-search.service';
+import { Subscription } from 'rxjs';
 
-export class PostListConfig implements OnInit  {
-
+export class PostListConfig implements OnInit, OnDestroy  {
     public posts: Array<PostModel>;
     public collectionSize: number;
     public page: number;
@@ -13,20 +14,32 @@ export class PostListConfig implements OnInit  {
 
     protected postQueryModel: PostQueryModel;
     protected postSerivce: PostService;
+    protected postSearchService: PostSearchService;
+    protected subscription: Subscription;
 
     constructor() {
         const injector = AppInjector.getInjector();
         this.postSerivce = injector.get(PostService);
+        this.postSearchService = injector.get(PostSearchService);
         this.posts = new Array<PostModel>();
         this.collectionSize = 0;
         this.page = 1;
         this.pageSize = 5;
         this.postQueryModel = new PostQueryModel(this.page, 5, 1, true, '', [0], 0);
+
+        this.subscription = this.postSearchService.getMessage().subscribe(message => {
+            this.onSearch(message);
+        });
     }
 
     public ngOnInit(): void {
         this.getPosts();
     }
+
+    public ngOnDestroy(): void {
+        this.subscription.unsubscribe();
+    }
+
 
     public getPosts(): void {
         this.postSerivce.getPostsPaged(this.postQueryModel).subscribe(response => {

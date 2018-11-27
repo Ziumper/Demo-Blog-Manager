@@ -7,7 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostFormComponent } from './post-form/post-form.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { PostSearchService } from './post-search.service';
+import { PostSearchService } from './post-search/post-search.service';
+import { PostSearchComponent } from './post-search/post-search.component';
 
 
 @NgModule({
@@ -15,11 +16,13 @@ import { PostSearchService } from './post-search.service';
         PostsListComponent,
         PostComponent,
         PostFormComponent,
+        PostSearchComponent
     ],
     exports: [
         PostsListComponent,
         PostComponent,
         PostFormComponent,
+        PostSearchComponent
     ],
     imports: [
         CoreModule,
