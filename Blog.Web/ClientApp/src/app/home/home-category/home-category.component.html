@@ -1,6 +1,6 @@
 <div *ngFor="let category of categories" class="col-md-12 category-container ">
 <div>
-        <a href="#"><h1>{{category?.name}}</h1></a>
+        <a routerLink="category/{{category.id}}"><h1>{{category?.name}}</h1></a>
 </div>
 <div class="card-deck">
     <div class="card" *ngFor="let post of category.posts">
@@ -11,7 +11,7 @@
         <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
         <div class="card-footer">
-        <small class="text-muted">Last updated 3 mins ago</small>
+        <small class="text-muted">{{post?.creationDate | date: 'short'}}</small>
         </div>
     </div>
    
