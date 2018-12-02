@@ -158,6 +158,10 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDtoPaged> GetAllPostPagedAsyncByBlogId(PostQuery postQuery)
         {
+             if(postQuery.SearchQuery == null) {
+                postQuery.SearchQuery = string.Empty;
+            }
+
             var result = await _postRepository.GetAllPagedAsync(postQuery.Page,postQuery.Size, 
             p => p.BlogId == postQuery.BlogId && (p.Title.Contains(postQuery.SearchQuery) || p.Content.Contains(postQuery.SearchQuery))
             );
@@ -176,6 +180,9 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query)
         {
+            if(query.SearchQuery == null) {
+                query.SearchQuery = string.Empty;
+            }
             var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsIds, 
             p => (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
 
@@ -185,6 +192,10 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDtoPaged> GetAllPostPagedAsyncByBlogIdAndTagsId(PostQuery query)
         {
+             if(query.SearchQuery == null) {
+                query.SearchQuery = string.Empty;
+            }
+
             var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsIds, 
             p => p.BlogId == query.BlogId && (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
 
