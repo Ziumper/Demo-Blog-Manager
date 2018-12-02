@@ -17,12 +17,14 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AppInjector } from './core/app-injector.service';
 import { CommentModule } from './post/comment/comment.module';
+import { HomeCategoryComponent } from './home/home-category/home-category.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    HomeCategoryComponent,
   ],
   imports: [
     BrowserModule,

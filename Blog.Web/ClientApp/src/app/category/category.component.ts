@@ -8,8 +8,6 @@ import { BaseQueryModel } from '../core/models/base-query.model';
 })
 export class CategoryComponent implements OnInit {
 
-    public blogQuery: BaseQueryModel;
-
     constructor() { }
 
     public ngOnInit(): void { }
