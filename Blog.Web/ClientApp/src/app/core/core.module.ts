@@ -7,25 +7,26 @@ import { ToastService } from './toast.service';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LoaderService } from './loader/loader.service';
 import { NavigationComponent } from './navigation/navigation.component';
-import { SearchComponent } from './search/search.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PostModule } from '../post/post.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
         LoaderComponent,
         SmallLoaderComponent,
         NavigationComponent,
-        SearchComponent,
     ],
     exports: [
         LoaderComponent,
         SmallLoaderComponent,
         NavigationComponent,
-        SearchComponent
     ],
     imports: [
         AngularFontAwesomeModule,
         NgbModule,
+        PostModule,
+        RouterModule
     ],
     providers: [
         HttpService,

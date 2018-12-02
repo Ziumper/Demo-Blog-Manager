@@ -2,19 +2,5 @@
 <app-navigation></app-navigation>
 <app-loader [hidden]="hideLoader"></app-loader>
 <div class="app-container" [hidden]="!hideLoader">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-8 col-xs-12">
-                <router-outlet></router-outlet>
-            </div>
-            <div class="col-xs-12 col-md-4">
-                <div class="row">
-                    <app-categories-list class="col-md-12"></app-categories-list>
-                </div>
-                <div class="row">
-                    <app-tags-list class="col-md-12"></app-tags-list>
-                </div>
-            </div>
-        </div>
-    </div>
+    <router-outlet></router-outlet>
 </div>

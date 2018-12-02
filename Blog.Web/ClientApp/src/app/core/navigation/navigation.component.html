@@ -1,4 +1,27 @@
-<nav class="navigation"> 
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> 
+  
+    <button class="navbar-toggler right" (click)="isCollapsed = !isCollapsed"
+    type="button" data-toggle="collapse" 
+    aria-expanded="false" 
+    aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div [ngbCollapse]="isCollapsed" class="navbar-collapse">
+      <a class="navbar-brand" routerLink="home">Blog System</a>
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active"   routerLink="home"> <fa class="nav-icon" name="home"  size="lg"></fa> Home </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"   routerLinkActive="active"  routerLink="add-blog" href="#">Blog</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"  routerLinkActive="active" routerLink="blogs-manager">Blog Manager</a>
+        </li>
+      </ul>
+      <app-post-search></app-post-search>
+    </div>
+    <!--
     <ul>
         <li class="hidden-sm-up">
             <a  routerLink="/home">
@@ -26,6 +49,9 @@
               </div>
             </div>
         </li>
+        <li class="hidden-sm-up">
+     
+        </li>
         <li class="right">
             <button type="button"  class="nav-button burger-button " (click)="isCollapsed = !isCollapsed"
             [attr.aria-expanded]="!isCollapsed" aria-controls="navigationCollapse">
@@ -35,28 +61,5 @@
            </button>
         </li>
   </ul>
- <div id="navigationCollapse" [ngbCollapse]="isCollapsed">
-    <ul>
-        <li>
-          <a  href="#">Link</a>
-        </li>
-        <li>
-          <a  href="#">Link</a>
-        </li>
-        <li>
-          <a href="#">Link</a>
-        </li> 
-        <li>
-            <div class="navcollapser" ngbDropdown>
-              <button class="nav-button"  id="dropdownBasic" ngbDropdownToggle>Toggle dropdown</button>
-              <div ngbDropdownMenu aria-labelledby="dropdownBasic">
-                <a href="#">Link</a>
-                <a href="#">Link</a>
-                <a href="#">Link</a>
-              </div>
-            </div>
-        </li>
-      </ul>
-  
-  </div>
+-->
 </nav>

@@ -6,6 +6,6 @@ import { PostListConfig } from '../core/config/post-list.config';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent extends PostListConfig {
+export class HomeComponent {
 
 }
