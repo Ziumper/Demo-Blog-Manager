@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpService } from '../core/http.service';
 import { CategoryModel } from './models/category.model';
 import { Observable } from 'rxjs';
+import { CategoryWithPostModel } from './models/categoryWithPosts.model';
 
 @Injectable()
 export class CategoryService {
@@ -26,4 +27,9 @@ export class CategoryService {
     public addCategory(category: CategoryModel): Observable<CategoryModel> {
         return this.http.post<CategoryModel>(this.categoryApiUrl, category);
     }
+
+    public getCategoriesWithPosts(takeCount: number): Observable<Array<CategoryWithPostModel>> {
+        return this.http.get<Array<CategoryWithPostModel>>(this.categoryApiUrl + '/posts/' + takeCount.toString());
+    }
+
 }

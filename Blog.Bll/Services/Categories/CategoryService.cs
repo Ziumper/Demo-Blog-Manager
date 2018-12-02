@@ -4,21 +4,25 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Blog.Bll.Dto.Categories;
+using Blog.Bll.Dto.Posts;
 using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Categories;
+using Blog.Dal.Repositories.Posts;
 
 namespace Blog.Bll.Services.Categories
 {
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IPostRepository _postRepository;
       
         private readonly IMapper _mapper;
 
-        public CategoryService(ICategoryRepository categoryRepository,IMapper mapper){
+        public CategoryService(ICategoryRepository categoryRepository,IPostRepository postRepository,IMapper mapper){
             _categoryRepository = categoryRepository;
+            _postRepository = postRepository;
             _mapper = mapper;
         }
 
@@ -65,6 +69,29 @@ namespace Blog.Bll.Services.Categories
             return categoryDtos;
         }
 
+        public async Task<List<CategoryDtoWithPosts>> GetCategoriesWithPostsAsync(int takeCount)
+        {
+            //TO DO Add sort orderd!
+            var categories = await _categoryRepository.GetAllAsync();
+            var resultDto = new List<CategoryDtoWithPosts>();
+            foreach( var category in categories)
+            {
+                var posts = await _postRepository.GetAllPostsAsyncByCategoryId(category.Id,takeCount);
+                List<PostDto> postDtos = new List<PostDto>();
+                foreach(var post in posts)
+                {
+                    var postDto = _mapper.Map<Post,PostDto>(post);
+                    postDtos.Add(postDto); 
+                }
+
+                var categoryDto = _mapper.Map<Category,CategoryDtoWithPosts>(category);
+                categoryDto.Posts = postDtos;
+                resultDto.Add(categoryDto);
+            }
+
+            return resultDto;
+        }
+
         public async Task<CategoryDto> GetCategory(int id)
         {
            Category category = await _categoryRepository.FindByFirstAsync(cat => cat.Id == id);
@@ -93,5 +120,6 @@ namespace Blog.Bll.Services.Categories
             var result = _mapper.Map<Category,CategoryDto>(categoryEntity);
             return result;
         }
+
     }
 }

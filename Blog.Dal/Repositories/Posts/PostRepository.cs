@@ -18,6 +18,13 @@ namespace Blog.Dal.Repositories.Posts
 
         }
 
+        public async Task<List<Post>> GetAllPostsAsyncByCategoryId(int categoryId,int takeCount)
+        {
+            var posts =  _table.Where(post => post.Blog.CategoryId == categoryId).Include(post => post.Blog).Take(takeCount);
+            posts = Sort(posts,1,true);
+            return await posts.ToListAsync();
+        }
+
         public async Task<List<Post>> FindByWithCommentsAsync(Expression<Func<Post, bool>> predicate)
         {
             return await _table.Where(predicate).Include(s => s.Comments).ToListAsync();

@@ -45,5 +45,11 @@ namespace Blog.Web.Controllers
             var result = await _categoryService.GetCategory(id);
             return Ok(result);
         }
+
+        [HttpGet("posts/{takeCount:int}")]
+        public async Task<IActionResult> GetCategoriesWithPosts(int takeCount){
+            var result = await _categoryService.GetCategoriesWithPostsAsync(takeCount);
+            return Ok( result);
+        }
     }
 }

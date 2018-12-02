@@ -13,5 +13,6 @@ namespace Blog.Dal.Repositories.Posts
     {
         Task<List<Post>> FindByWithCommentsAsync(Expression<Func<Post, bool>> predicate); 
         Task<PagedEntity<Post>> GetPostsPagedByTags(int page,int size,int[] tagsId,Expression<Func<Post,bool>> predicate);
+        Task<List<Post>> GetAllPostsAsyncByCategoryId(int categoryId,int takeCount);
     }
 }
