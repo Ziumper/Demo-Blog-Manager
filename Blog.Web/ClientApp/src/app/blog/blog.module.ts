@@ -11,6 +11,7 @@ import { BlogService } from './blog.service';
 import { CategoryModule } from '../category/category.module';
 import { PostModule } from '../post/post.module';
 import { TagModule } from '../tag/tag.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations : [
@@ -32,6 +33,7 @@ import { TagModule } from '../tag/tag.module';
         CategoryModule,
         PostModule,
         TagModule,
+        RouterModule,
     ],
     providers: [
         BlogService

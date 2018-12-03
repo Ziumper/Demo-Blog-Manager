@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PostListConfig } from '../core/config/post-list.config';
 import { BlogService } from './blog.service';
 import { BlogModel } from './models/blog.model';
+import { CategoryModel } from '../category/models/category.model';
+import { TagModel } from '../tag/models/tag.model';
 
 @Component({
   selector: 'app-blog',
@@ -12,9 +14,14 @@ import { BlogModel } from './models/blog.model';
 export class BlogComponent extends PostListConfig implements OnInit {
 
   public blog: BlogModel;
+  public categories: Array<CategoryModel>;
+  public tags: Array<TagModel>;
 
   constructor(private route: ActivatedRoute, private blogService: BlogService) {
     super();
+    this.blog = new BlogModel(0, '', new Date(), new Date(), new CategoryModel(0, ''));
+    this.categories = new Array<CategoryModel>();
+    this.tags = new Array<TagModel>();
   }
 
   public ngOnInit(): void {
