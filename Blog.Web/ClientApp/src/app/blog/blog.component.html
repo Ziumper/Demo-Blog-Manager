@@ -1,8 +1,23 @@
-<app-posts-list 
-    (pageChange)="onPageChanged($event)" 
-    [pageSize]="pageSize" 
-    [collectionSize]="collectionSize" 
-    [page]="page" 
-    [posts]="posts">
-</app-posts-list>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-xs-12">
+            <app-posts-list 
+                (pageChange)="onPageChanged($event)" 
+                [pageSize]="pageSize" 
+                [collectionSize]="collectionSize" 
+                [page]="page" 
+                [posts]="posts">
+            </app-posts-list>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div class="row">
+                <app-categories-list></app-categories-list>
+            </div>
+            <div class="row">
+                <app-tags-list></app-tags-list>
+            </div>
+        </div>
+    </div>
+ 
+</div>
 
