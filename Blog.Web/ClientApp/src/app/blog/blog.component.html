@@ -1,5 +1,10 @@
 <div class="container">
     <div class="row">
+        <div class="col-xs-12">
+            <h1>{{blog?.title}}</h1>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-8 col-xs-12">
             <router-outlet></router-outlet>
         </div>
@@ -8,7 +13,7 @@
                 <div class="categories-list-container">
                     <div class="card">
                         <div class="card-body">
-                            <app-post-search (searched)="onSearch($event)"></app-post-search>
+                            <app-post-search></app-post-search>
                         </div>
                     </div>
                 </div>
