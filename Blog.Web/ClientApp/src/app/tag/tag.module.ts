@@ -8,13 +8,16 @@ import { RouterModule } from '@angular/router';
 import { PostModule } from '../post/post.module';
 import { CategoryModule } from '../category/category.module';
 import { TagComponent } from './tag.component';
+import { TagsListComponent } from './tags-list/tags-list.component';
 
 @NgModule({
     declarations: [
+        TagsListComponent,
         TagFormComponent,
         TagComponent,
     ],
     exports: [
+        TagsListComponent,
         TagFormComponent,
         TagComponent
     ],

@@ -7,15 +7,18 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PostSearchService } from './post-search/post-search.service';
 import { PostSearchComponent } from './post-search/post-search.component';
+import { PostsListComponent } from './posts-list/posts-list.component';
 
 
 @NgModule({
     declarations: [
+        PostsListComponent,
         PostComponent,
         PostFormComponent,
         PostSearchComponent
     ],
     exports: [
+        PostsListComponent,
         PostComponent,
         PostFormComponent,
         PostSearchComponent
