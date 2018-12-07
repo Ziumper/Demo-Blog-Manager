@@ -9,17 +9,21 @@ import { PostModule } from '../post/post.module';
 import { CategoryModule } from '../category/category.module';
 import { TagComponent } from './tag.component';
 import { TagsListComponent } from './tags-list/tags-list.component';
+import { TagPostsListComponent } from './tag-posts-list/tag-posts-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
         TagsListComponent,
         TagFormComponent,
         TagComponent,
+        TagPostsListComponent,
     ],
     exports: [
         TagsListComponent,
         TagFormComponent,
-        TagComponent
+        TagComponent,
+        TagPostsListComponent
     ],
 
     imports: [
@@ -27,8 +31,7 @@ import { TagsListComponent } from './tags-list/tags-list.component';
         CommonModule,
         FormsModule,
         RouterModule,
-        PostModule,
-        CategoryModule
+        NgbModule,
     ],
     providers: [
         TagService
