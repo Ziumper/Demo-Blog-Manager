@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { PostsListComponent } from './posts-list/posts-list.component';
 import { PostComponent } from './post.component';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -12,13 +11,11 @@ import { PostSearchComponent } from './post-search/post-search.component';
 
 @NgModule({
     declarations: [
-        PostsListComponent,
         PostComponent,
         PostFormComponent,
         PostSearchComponent
     ],
     exports: [
-        PostsListComponent,
         PostComponent,
         PostFormComponent,
         PostSearchComponent

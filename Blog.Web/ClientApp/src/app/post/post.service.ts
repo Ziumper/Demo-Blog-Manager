@@ -3,8 +3,8 @@ import { HttpService } from '../core/http.service';
 import { Observable, throwError } from 'rxjs';
 import { PostPagedModel } from './models/post-paged.model';
 import { PostModel } from './models/post.model';
-import { BaseQueryModel } from '../core/models/base-query.model';
 import { PostQueryModel } from './models/post-query.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,28 +13,28 @@ export class PostService {
 
   private postApiUrl: string;
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpClient) {
     this.postApiUrl = 'api/post';
    }
 
    public getPostsPaged(query: PostQueryModel): Observable<PostPagedModel> {
       const params = query.getParams();
-      return this.http.get<PostPagedModel>(this.postApiUrl + '/paged?', params);
+      return this.http.get<PostPagedModel>(this.postApiUrl + '/paged?', {params: params});
    }
 
    public getPostsPagedByBlogId(query: PostQueryModel): Observable<PostPagedModel> {
       const params = query.getParams();
-      return this.http.get<PostPagedModel>(this.postApiUrl + '/blog/paged?', params);
+      return this.http.get<PostPagedModel>(this.postApiUrl + '/blog/paged?', {params: params});
    }
 
    public getPostsPagedByBlogIdAndTags(query: PostQueryModel): Observable<PostPagedModel> {
       const params = query.getParams();
-      return this.http.get<PostPagedModel>(this.postApiUrl + 'blog/tags/paged?', params);
+      return this.http.get<PostPagedModel>(this.postApiUrl + 'blog/tags/paged?', {params: params});
    }
 
    public getPostsPagedByTags(query: PostQueryModel): Observable<PostPagedModel> {
       const params = query.getParams();
-      return this.http.get<PostPagedModel>(this.postApiUrl + 'tags/paged?', params);
+      return this.http.get<PostPagedModel>(this.postApiUrl + 'tags/paged?', {params: params});
    }
 
    public getPostById(id: number): Observable<PostModel> {
