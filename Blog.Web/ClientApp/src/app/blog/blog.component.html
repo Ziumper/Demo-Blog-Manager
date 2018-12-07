@@ -23,6 +23,15 @@
         <div class="col-md-4 col-xs-12">
             <div class="row">
                 <div class="categories-list-container">
+                    <div class="card">
+                        <div class="card-body">
+                            <app-post-search (searched)="onSearch($event)"></app-post-search>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="categories-list-container">
                         <div class="card">
                             <div class="card-header">
                                     <h1>Categories</h1>

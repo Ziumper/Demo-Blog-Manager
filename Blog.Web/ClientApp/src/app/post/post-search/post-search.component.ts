@@ -1,7 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { PostSearchService } from './post-search.service';
 
 @Component({
     selector: 'app-post-search',
@@ -9,10 +8,14 @@ import { PostSearchService } from './post-search.service';
     styleUrls: ['./post-search.component.scss']
 })
 export class PostSearchComponent implements OnInit {
+
+    @Output()
+    public searched: EventEmitter<string>;
     public searchTerm: Subject<string>;
 
     constructor() {
         this.searchTerm = new Subject<string>();
+        this.searched = new EventEmitter<string>();
      }
 
     public ngOnInit(): void {
@@ -24,6 +27,7 @@ export class PostSearchComponent implements OnInit {
             debounceTime(400),
             distinctUntilChanged(),
             switchMap((query: string) => {
+                this.searched.emit(query);
                 return new Observable<any>();
             })
         );

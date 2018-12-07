@@ -7,8 +7,10 @@ import { CategoryModel } from '../category/models/category.model';
 import { TagModel } from '../tag/models/tag.model';
 import { tap, catchError } from 'rxjs/operators';
 import { LoaderService } from '../core/loader/loader.service';
-import { empty } from 'rxjs';
+import { empty, forkJoin } from 'rxjs';
 import { LoggerService } from '../core/logger.service';
+import { CategoryService } from '../category/category.service';
+import { TagService } from '../tag/tag.service';
 
 @Component({
   selector: 'app-blog',
@@ -21,57 +23,88 @@ export class BlogComponent extends PostListConfig implements OnInit {
   public categories: Array<CategoryModel>;
   public tags: Array<TagModel>;
 
+  private blogId: number;
+  private tagId: number;
+
   constructor(private route: ActivatedRoute,
     private blogService: BlogService,
     private loaderService: LoaderService,
-    private loggerService: LoggerService) {
+    private loggerService: LoggerService,
+    private categoryService: CategoryService,
+    private tagService: TagService) {
     super();
-    this.blog = new BlogModel(0, '', new Date(), new Date(), new CategoryModel(0, ''));
-    this.categories = new Array<CategoryModel>();
-    this.tags = new Array<TagModel>();
-  }
 
-  public ngOnInit(): void {
-    const blogId = this.route.snapshot.params['blogId'];
-    if (blogId) {
-      this.loaderService.activateLoading();
-      this.blogService.getBlogById(blogId).pipe(
-        catchError((error) => {
-          this.loaderService.deactivateLoading();
-          this.loggerService.error(error);
-          return empty();
-        })
-      )
-      .subscribe(response => {
-        this.loggerService.info(response);
-        this.getPosts();
-        this.blog = response;
-      });
+    this.blogId = this.route.snapshot.params['blogId'];
+    this.tagId = this.route.snapshot.params['tagId'];
+
+    this.postQueryModel.blogId = this.blogId;
+
+    if (this.tagId) {
+      this.postQueryModel.tagsIds = new Array<number>();
+      this.postQueryModel.tagsIds.push(this.tagId);
     }
   }
 
+  public ngOnInit(): void {
+    if (this.tagId) {
+      forkJoin(
+        this.blogService.getBlogById(this.blogId),
+        this.postSerivce.getPostsPagedByBlogIdAndTags(this.postQueryModel),
+        this.tagService.getAllTags(),
+        this.categoryService.getAllCategories()
+      ).pipe(catchError((error) => {
+        this.loaderService.deactivateLoading();
+        this.loggerService.error(error);
+        return empty();
+      })).subscribe(([blog, postsPagedModel, tags, categories]) => {
+        this.loggerService.info([blog, postsPagedModel, tags, categories]);
+        this.loaderService.deactivateLoading();
+        this.blog = blog;
+        this.posts = postsPagedModel.entities;
+        this.tags = tags;
+        this.categories = categories;
+      });
+    } else {
+      forkJoin(
+        this.blogService.getBlogById(this.blogId),
+        this.postSerivce.getPostsPagedByBlogId(this.postQueryModel),
+        this.tagService.getAllTags(),
+        this.categoryService.getAllCategories()
+      ).pipe(catchError((error) => {
+        this.loaderService.deactivateLoading();
+        this.loggerService.error(error);
+        return empty();
+      })).subscribe(([blog, postsPagedModel, tags, categories]) => {
+        this.blog = blog;
+        this.posts = postsPagedModel.entities;
+        this.tags = tags;
+        this.categories = categories;
+      });
+    }
+
+  }
+
+  public onSearch(searchQuery) {
+    this.postQueryModel.searchQuery = searchQuery;
+    this.getPosts();
+  }
 
   public getPosts(): void {
-    const blogId = this.route.snapshot.params['blogId'];
-    if (blogId) {
-      this.postQueryModel.blogId = blogId;
-      const tagId = this.route.snapshot.params['tagId'];
-      if (tagId) {
-        this.getPostsPagedByBlogIdAndTagId(blogId, tagId);
+    if (this.blogId) {
+      if (this.tagId) {
+        this.getPostsPagedByBlogIdAndTagId(this.blogId, this.tagId);
       } else {
-        this.getPostsPagedByBlogId(blogId);
+        this.getPostsPagedByBlogId(this.blogId);
       }
     }
   }
 
   private getPostsPagedByBlogIdAndTagId(blogId: number, tagId: number) {
-    const newTags = new Array<number>();
-    newTags.push(tagId);
-    this.postQueryModel.tagsIds = newTags;
+    this.loaderService.deactivateSmallLoading();
     this.postSerivce.getPostsPagedByBlogIdAndTags(this.postQueryModel)
     .pipe(catchError((error) => {
-      this.loaderService.deactivateLoading();
       this.loggerService.error(error);
+      this.loaderService.deactivateSmallLoading();
       return empty();
     }))
     .subscribe(response => {
@@ -85,9 +118,10 @@ export class BlogComponent extends PostListConfig implements OnInit {
   }
 
   private getPostsPagedByBlogId(blogId: number): void {
+    this.loaderService.acitvateSmallLoading();
     this.postSerivce.getPostsPagedByBlogId(this.postQueryModel)
         .pipe(catchError((error) => {
-          this.loaderService.deactivateLoading();
+          this.loaderService.deactivateSmallLoading();
           this.loggerService.error(error);
           return empty();
         }))
