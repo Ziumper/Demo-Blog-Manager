@@ -10,11 +10,11 @@ export class BlogModel {
     constructor
     (
         id: number,
-        title: string, 
+        title: string,
         creationDate: Date,
         modificationDate: Date,
         category: CategoryModel
-    ){
+    ) {
         this.id = id;
         this.title = title;
         this.creationDate = creationDate;
