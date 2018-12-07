@@ -3,6 +3,7 @@ import { PostService } from '../post.service';
 import { PostModel } from '../models/post.model';
 import { PostQueryModel } from '../models/post-query.model';
 import { ActivatedRoute } from '@angular/router';
+import { AppInjector } from 'src/app/core/app-injector.service';
 
 @Component({
     selector: 'app-posts-list',
@@ -11,21 +12,25 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class PostsListComponent implements OnInit {
-
-
     public posts: Array<PostModel>;
     public collectionSize: number;
     public page: number;
     public pageSize: number;
     public postQueryModel: PostQueryModel;
 
-    constructor(private postService: PostService,
-        private activatedRoute: ActivatedRoute) {
+    protected postService: PostService;
+    protected activatedRoute: ActivatedRoute;
+
+    constructor() {
+        const injector = AppInjector.getInjector();
+        this.postService = injector.get(PostService);
+        this.activatedRoute = injector.get(ActivatedRoute);
+
         this.posts = new Array<PostModel>();
         this.collectionSize = 0;
         this.page = 1;
         this.pageSize = 5;
-        this.postQueryModel = new PostQueryModel(this.page, 5, 1, true, '', [0], 0);
+        this.postQueryModel = new PostQueryModel(this.page, 5, 1, true, '', [0], 0, 0);
     }
 
     public ngOnInit(): void {

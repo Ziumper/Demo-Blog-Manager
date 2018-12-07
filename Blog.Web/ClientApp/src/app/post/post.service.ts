@@ -48,4 +48,8 @@ export class PostService {
    public addPost(post: PostModel): Observable<PostModel> {
       return this.http.post<PostModel>(this.postApiUrl, post);
    }
+
+   public getPostsPagedByCategoryId(postQuery: PostQueryModel) {
+      return this.http.get<PostPagedModel>(this.postApiUrl + 'category/paged?' , {params: postQuery.getParams()});
+   }
 }
