@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -9,7 +10,7 @@ export class NavigationComponent implements OnInit {
 
   public isCollapsed: boolean;
 
-  constructor() {
+  constructor(private route: Router) {
     this.isCollapsed = true;
 
   }
@@ -17,5 +18,6 @@ export class NavigationComponent implements OnInit {
   public ngOnInit(): void {
 
   }
+
 
 }
