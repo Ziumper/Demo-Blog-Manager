@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AppInjector } from 'src/app/core/app-injector.service';
 import { PostSearchService } from '../post-search/post-search.service';
 import { Observable, Subscription } from 'rxjs';
+import { PostListConfig } from 'src/app/core/config/post-list.config';
 
 @Component({
     selector: 'app-posts-list',
@@ -21,18 +22,10 @@ export class PostsListComponent implements OnInit, OnDestroy {
     public pageSize: number;
     public postQueryModel: PostQueryModel;
 
-    protected postService: PostService;
-    protected activatedRoute: ActivatedRoute;
-    protected postSearchService: PostSearchService;
-
     private postSearch: Subscription;
 
-    constructor() {
-        const injector = AppInjector.getInjector();
-        this.postService = injector.get(PostService);
-        this.activatedRoute = injector.get(ActivatedRoute);
-        this.postSearchService = injector.get(PostSearchService);
-
+    constructor(private postService: PostService, private postSearchService: PostSearchService,
+        private activatedRoute: ActivatedRoute) {
         this.posts = new Array<PostModel>();
         this.collectionSize = 0;
         this.page = 1;
