@@ -12,7 +12,11 @@
             </div>
             <div class="card-footer">
                 <div>
-                        <a href="#">#Tag1</a>,  <a href="#">#Tag1</a>, <a href="#">#Tag1</a>,  <a href="#">#Tag1</a>, <a href="#">#Tag1</a>,  <a href="#">#Tag1</a>,
+                    <ul>
+                        <li *ngFor="let tag of post.postTags;" >
+                            <a [routerLink]="['/tag/', tag.id]">#{{tag.name}}</a>
+                        </li>
+                    </ul>  
                 </div>
             </div>
         </div>
