@@ -12,11 +12,9 @@ import { CategoryModule } from '../category/category.module';
 import { PostModule } from '../post/post.module';
 import { TagModule } from '../tag/tag.module';
 import { RouterModule } from '@angular/router';
-import { BlogTagPostsListComponent } from './blog-tag-posts-list/blog-tag-posts-list.component';
 
 @NgModule({
     declarations : [
-        BlogTagPostsListComponent,
         BlogFormComponent,
         BlogComponent,
         BlogsManagerComponent
@@ -25,7 +23,6 @@ import { BlogTagPostsListComponent } from './blog-tag-posts-list/blog-tag-posts-
         BlogFormComponent,
         BlogComponent,
         BlogsManagerComponent,
-        BlogTagPostsListComponent
     ],
     imports: [
         CommonModule,

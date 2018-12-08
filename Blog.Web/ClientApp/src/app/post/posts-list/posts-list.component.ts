@@ -34,7 +34,7 @@ export class PostsListComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-
+        this.getPosts();
     }
 
     public onPageChange(page: number): void {
@@ -44,6 +44,18 @@ export class PostsListComponent implements OnInit {
 
     public getPosts(): void {
         const blogId = this.activatedRoute.snapshot.params['blogId'];
+        const tagId = this.activatedRoute.snapshot.params['tagId'];
+        if (blogId && tagId) {
+            this.postQueryModel.blogId = blogId;
+            this.postQueryModel.tagsIds = new Array<number>();
+            this.postQueryModel.tagsIds.push(tagId);
+            this.postService.getPostsPagedByBlogIdAndTags(this.postQueryModel).subscribe(response => {
+                this.posts = response.entities;
+                this.page = response.page;
+                this.collectionSize = response.count;
+                this.pageSize = response.size;
+            });
+        }
         if (blogId) {
             this.postQueryModel.blogId = blogId;
             this.postService.getPostsPagedByBlogId(this.postQueryModel)
