@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { BlogsManagerComponent } from './blog/blogs-manager/blogs-manager.component';
 import { PostFormComponent } from './post/post-form/post-form.component';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 import { CategoryFormComponent } from './category/category-form/category-form.component';
 import { TagComponent } from './tag/tag.component';
 import { PostComponent } from './post/post.component';
 import { BlogComponent } from './blog/blog.component';
+import { BlogManagerComponent } from './blog/blogs-manager/blog-manager.component';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'blogs-manager', component: BlogsManagerComponent},
+  { path: 'blogs-manager', component: BlogManagerComponent},
   { path: 'blog-editor', component: BlogFormComponent },
   { path: 'category-editor', component: CategoryFormComponent},
   { path: 'category-editor/:id', component: CategoryFormComponent},

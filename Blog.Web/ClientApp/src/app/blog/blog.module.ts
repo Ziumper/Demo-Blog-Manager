@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import { BlogComponent } from './blog.component';
-import { BlogsManagerComponent } from './blogs-manager/blogs-manager.component';
 import { CoreModule } from '../core/core.module';
 import { FormsModule } from '@angular/forms';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
@@ -12,17 +11,18 @@ import { CategoryModule } from '../category/category.module';
 import { PostModule } from '../post/post.module';
 import { TagModule } from '../tag/tag.module';
 import { RouterModule } from '@angular/router';
+import { BlogManagerComponent } from './blogs-manager/blog-manager.component';
 
 @NgModule({
     declarations : [
         BlogFormComponent,
         BlogComponent,
-        BlogsManagerComponent
+        BlogManagerComponent
     ],
     exports: [
         BlogFormComponent,
         BlogComponent,
-        BlogsManagerComponent,
+        BlogManagerComponent,
     ],
     imports: [
         CommonModule,

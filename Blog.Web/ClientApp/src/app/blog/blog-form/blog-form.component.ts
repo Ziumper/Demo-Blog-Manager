@@ -27,7 +27,7 @@ export class BlogFormComponent implements OnInit {
         this.categoryService.getAllCategories().subscribe(response => {
             this.categories = response;
         });
-        const id = this.routed.snapshot.params['id'];
+        const id = this.routed.snapshot.params['blogId'];
         if (id) {
             this.blogService.getBlogById(id).subscribe(response => {
                 this.model = response;
@@ -36,7 +36,7 @@ export class BlogFormComponent implements OnInit {
     }
 
     public submit(model: BlogModel): void {
-        const id = this.routed.snapshot.params['id'];
+        const id = this.routed.snapshot.params['blogId'];
         if (id) {
             this.model.id = id;
             this.blogService.updateBlog(model).subscribe();
