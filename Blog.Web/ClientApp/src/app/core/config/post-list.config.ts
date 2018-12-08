@@ -20,7 +20,6 @@ export class PostListConfig implements OnInit  {
         this.collectionSize = 0;
         this.page = 1;
         this.pageSize = 5;
-        this.postQueryModel = new PostQueryModel(this.page, 5, 1, true, '', [0], 0);
 
     }
 

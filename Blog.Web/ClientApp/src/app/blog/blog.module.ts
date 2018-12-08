@@ -39,4 +39,4 @@ import { RouterModule } from '@angular/router';
         BlogService
     ]
 })
-export class BlogMoudle {}
+export class BlogModule {}

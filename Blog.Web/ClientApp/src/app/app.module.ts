@@ -12,6 +12,9 @@ import { HomeCategoryComponent } from './home/home-category/home-category.compon
 
 // Services
 import { AppInjector } from './core/app-injector.service';
+import { BlogModule } from './blog/blog.module';
+import { CoreModule } from './core/core.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { AppInjector } from './core/app-injector.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    BlogModule,
+    CoreModule
   ],
   bootstrap: [AppComponent]
 })

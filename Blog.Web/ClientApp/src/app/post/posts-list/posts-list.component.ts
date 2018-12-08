@@ -1,9 +1,11 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { PostService } from '../post.service';
 import { PostModel } from '../models/post.model';
 import { PostQueryModel } from '../models/post-query.model';
 import { ActivatedRoute } from '@angular/router';
 import { AppInjector } from 'src/app/core/app-injector.service';
+import { PostSearchService } from '../post-search/post-search.service';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-posts-list',
@@ -11,7 +13,8 @@ import { AppInjector } from 'src/app/core/app-injector.service';
     styleUrls: ['./posts-list.component.scss']
 })
 
-export class PostsListComponent implements OnInit {
+export class PostsListComponent implements OnInit, OnDestroy {
+
     public posts: Array<PostModel>;
     public collectionSize: number;
     public page: number;
@@ -20,11 +23,15 @@ export class PostsListComponent implements OnInit {
 
     protected postService: PostService;
     protected activatedRoute: ActivatedRoute;
+    protected postSearchService: PostSearchService;
+
+    private postSearch: Subscription;
 
     constructor() {
         const injector = AppInjector.getInjector();
         this.postService = injector.get(PostService);
         this.activatedRoute = injector.get(ActivatedRoute);
+        this.postSearchService = injector.get(PostSearchService);
 
         this.posts = new Array<PostModel>();
         this.collectionSize = 0;
@@ -33,7 +40,15 @@ export class PostsListComponent implements OnInit {
         this.postQueryModel = new PostQueryModel(this.page, 5, 1, true, '', [0], 0, 0);
     }
 
+    public ngOnDestroy(): void {
+       this.postSearch.unsubscribe();
+    }
+
     public ngOnInit(): void {
+        this.postSearch = this.postSearchService.getMessage().subscribe(query => {
+            this.postQueryModel.searchQuery = query;
+            this.getPosts();
+        });
         this.getPosts();
     }
 
