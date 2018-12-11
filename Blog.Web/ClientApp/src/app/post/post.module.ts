@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { PostSearchService } from './post-search/post-search.service';
 import { PostSearchComponent } from './post-search/post-search.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
+import { PostsManagerComponent } from './posts-manager/posts-manager.component';
+import { PostsListManagerComponent } from './posts-manager/posts-list-manager/posts-list-manager.component';
 
 
 @NgModule({
@@ -15,13 +17,17 @@ import { PostsListComponent } from './posts-list/posts-list.component';
         PostsListComponent,
         PostComponent,
         PostFormComponent,
-        PostSearchComponent
+        PostSearchComponent,
+        PostsManagerComponent,
+        PostsListManagerComponent,
     ],
     exports: [
         PostsListComponent,
         PostComponent,
         PostFormComponent,
-        PostSearchComponent
+        PostSearchComponent,
+        PostsManagerComponent,
+        PostsListManagerComponent
     ],
     imports: [
         FormsModule,
