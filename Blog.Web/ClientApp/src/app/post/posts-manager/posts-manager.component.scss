@@ -3,6 +3,13 @@
     margin-top:10px;
 }
 
-.post-manager-table-head {
+.post-manager-table-head,
+.action-icon {
     cursor: pointer;
+}
+
+.action-icon {
+    color: black;
+    margin-right: 5px;
+    margin-left: 5px;
 }

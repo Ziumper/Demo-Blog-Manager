@@ -29,13 +29,17 @@
                 <tr *ngFor="let post of posts">
                     <th>{{post.id}}</th>
                     <td>{{post.title}}</td>
-                    <td>{{post.creationDate}}</td>
-                    <td>{{post.modificationDate}}</td>
+                    <td>{{post.creationDate | date:'medium'}}</td>
+                    <td>{{post.modificationDate | date:'medium'}}</td>
                     <td>
-                        <button type="button" class="btn btn-success">Edit post</button>
-                        <button type="button" class="btn btn-primary">Go to post</button>
-                        <button type="button" class="btn btn-danger">Delete</button>
-                        <button type="button" class="btn btn-secondary">Deactivate</button>
+                        <ng-template #tipEditContent>Edit</ng-template>
+                        <a class="action-icon" [routerLink]="['/post-editor/',post.id]" [ngbTooltip]="tipEditContent"><fa name="edit"></fa></a>
+                        <ng-template #tipViewContent>Go to post</ng-template>
+                        <a class="action-icon" [routerLink]="['/blog/',blogId,'post', post.id]"  [ngbTooltip]="tipViewContent"><fa name="eye"></fa></a>
+                        <ng-template #tipDeleteContent>Delete</ng-template>
+                        <fa  class="action-icon" (click)="deletePost(post.id)" [ngbTooltip]="tipDeleteContent" name="trash"></fa>
+                        <ng-template #tipPublishContent>Publish</ng-template>
+                        <fa class="action-icon" (click)="publishPost()" [ngbTooltip]="tipPublishContent" name="bullhorn"></fa>
                     </td>
                 </tr>
             </tbody>

@@ -10,10 +10,14 @@ import { PostSearchService } from '../post-search/post-search.service';
     styleUrls: ['./posts-manager.component.scss']
 })
 export class PostsManagerComponent extends PostsListComponent implements OnInit {
+
+    public blogId;
+
     constructor(private managerPostService: PostService,
         private managerPostSearchService: PostSearchService,
         private managerActivatedRoute: ActivatedRoute) {
         super(managerPostService, managerPostSearchService, managerActivatedRoute);
+        this.blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
     }
 
     public getPosts() {
@@ -27,6 +31,15 @@ export class PostsManagerComponent extends PostsListComponent implements OnInit 
                 this.pageSize = response.size;
             });
         }
+    }
+
+    public publishPost() {
+        console.log('Pusblish post');
+    }
+
+    public deletePost(id: number) {
+        this.managerPostService.deletePostById(id).subscribe();
+        this.getPosts();
     }
 
     public sort(filter: number) {

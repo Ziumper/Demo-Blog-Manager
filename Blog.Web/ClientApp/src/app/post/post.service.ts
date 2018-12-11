@@ -52,4 +52,8 @@ export class PostService {
    public getPostsPagedByCategoryId(postQuery: PostQueryModel) {
       return this.http.get<PostPagedModel>(this.postApiUrl + 'category/paged?' , {params: postQuery.getParams()});
    }
+
+   public deletePostById(id: number): Observable<PostModel> {
+      return this.http.delete<PostModel>(this.postApiUrl + '/' + id.toString());
+   }
 }
