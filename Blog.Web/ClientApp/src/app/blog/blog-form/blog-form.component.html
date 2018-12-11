@@ -1,14 +1,14 @@
 <div class="container blog-form-container">
     <form name="blog-form" (ngSubmit)="submit(model)">
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="title">Blog Title</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 col-form-label" for="title">Blog Title</label>
+            <div class="col-sm-8">
                 <input type="text" class="form-control" id="title" name="title" [(ngModel)]="model.title" required/>        
             </div>
         </div>
         <div class="form-group row">
-            <label class="col-sm-3 col-form-label" for="category">Category</label>
-            <div class="col-sm-9">
+            <label class="col-sm-4 col-form-label" for="category">Category</label>
+            <div class="col-sm-8">
                     <select class="form-control" id="category" name="category" [(ngModel)]="model.category" required>
                         <option *ngFor="let category of categories" [ngValue]="category" >{{category.name}}</option>
                     </select>

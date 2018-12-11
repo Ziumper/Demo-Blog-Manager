@@ -9,7 +9,6 @@ import { PostSearchService } from './post-search/post-search.service';
 import { PostSearchComponent } from './post-search/post-search.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { PostsManagerComponent } from './posts-manager/posts-manager.component';
-import { PostsListManagerComponent } from './posts-manager/posts-list-manager/posts-list-manager.component';
 
 
 @NgModule({
@@ -18,8 +17,7 @@ import { PostsListManagerComponent } from './posts-manager/posts-list-manager/po
         PostComponent,
         PostFormComponent,
         PostSearchComponent,
-        PostsManagerComponent,
-        PostsListManagerComponent,
+        PostsManagerComponent
     ],
     exports: [
         PostsListComponent,
@@ -27,7 +25,6 @@ import { PostsListManagerComponent } from './posts-manager/posts-list-manager/po
         PostFormComponent,
         PostSearchComponent,
         PostsManagerComponent,
-        PostsListManagerComponent
     ],
     imports: [
         FormsModule,
