@@ -9,6 +9,7 @@ import { PostSearchService } from './post-search/post-search.service';
 import { PostSearchComponent } from './post-search/post-search.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { PostsManagerComponent } from './posts-manager/posts-manager.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { PostsManagerComponent } from './posts-manager/posts-manager.component';
         FormsModule,
         CommonModule,
         NgbModule,
-        RouterModule
+        RouterModule,
+        AngularFontAwesomeModule,
     ],
     providers: [
         PostSearchService

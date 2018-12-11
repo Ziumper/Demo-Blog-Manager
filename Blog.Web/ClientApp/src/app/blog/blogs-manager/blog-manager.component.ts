@@ -23,4 +23,5 @@ export class BlogManagerComponent implements OnInit {
             this.blog = response;
         });
     }
+
 }

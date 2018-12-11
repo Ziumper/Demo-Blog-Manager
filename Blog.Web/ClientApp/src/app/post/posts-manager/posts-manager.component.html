@@ -1,5 +1,45 @@
-<div class="conatainer">
-    <div class="row">
-        
-    </div>
+<div class="conatainer post-manager-container">
+    <app-post-search></app-post-search>
+    <table class="table post-list-table">
+        <thead>
+            <tr>
+                <th class="post-manager-table-head" (click)="sort(0)" scope="col">
+                    <fa [hidden]="!postQueryModel.order || postQueryModel.filter != 0" name="arrow-up"></fa>
+                    <fa [hidden]="postQueryModel.order || postQueryModel.filter != 0" name="arrow-down"></fa>
+                    <span>Id</span></th>
+                <th class="post-manager-table-head" (click)="sort(3)" scope="col">
+                    <fa [hidden]="!postQueryModel.order || postQueryModel.filter != 3" name="arrow-up"></fa>
+                    <fa [hidden]="postQueryModel.order || postQueryModel.filter != 3" name="arrow-down"></fa>
+                    <span>Title</span>
+                </th>
+                <th class="post-manager-table-head" (click)="sort(1)" scope="col">
+                    <fa [hidden]="!postQueryModel.order || postQueryModel.filter != 1" name="arrow-up"></fa>
+                    <fa [hidden]="postQueryModel.order || postQueryModel.filter != 1" name="arrow-down"></fa>
+                    <span>Creation Date</span></th>
+                <th class="post-manager-table-head" (click)="sort(2)" scope="col">
+                    <fa [hidden]="!postQueryModel.order || postQueryModel.filter != 2" name="arrow-up"></fa>
+                    <fa [hidden]="postQueryModel.order || postQueryModel.filter != 2" name="arrow-down"></fa>
+                    <span>Modification Date</span>
+
+                    </th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+            <tbody>
+                <tr *ngFor="let post of posts">
+                    <th>{{post.id}}</th>
+                    <td>{{post.title}}</td>
+                    <td>{{post.creationDate}}</td>
+                    <td>{{post.modificationDate}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success">Edit post</button>
+                        <button type="button" class="btn btn-primary">Go to post</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary">Deactivate</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" *ngIf="posts.length > 0"
+                [collectionSize]="collectionSize"  [pageSize]="pageSize" [(page)]="this.page" aria-label="Default pagination"></ngb-pagination>
 </div>
