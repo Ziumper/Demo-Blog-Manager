@@ -10,7 +10,7 @@ import { PostSearchComponent } from './post-search/post-search.component';
 import { PostsListComponent } from './posts-list/posts-list.component';
 import { PostsManagerComponent } from './posts-manager/posts-manager.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
+import { NgxEditorModule } from 'ngx-editor';
 
 @NgModule({
     declarations: [
@@ -33,6 +33,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
         NgbModule,
         RouterModule,
         AngularFontAwesomeModule,
+        NgxEditorModule
     ],
     providers: [
         PostSearchService
