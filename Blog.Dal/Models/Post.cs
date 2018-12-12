@@ -10,6 +10,7 @@ namespace Blog.Dal.Models
     {
         public string Title { get; set; }
         public string Content { get; set; }
+        public string ShortDescription { get; set; }
         public List<Comment> Comments { get; set; }
         public int BlogId { get; set; }
         [ForeignKey("BlogId")]

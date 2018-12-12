@@ -6,6 +6,7 @@ export class PostModel {
     public creationDate: Date;
     public modificationDate: Date;
     public content: string;
+    public shortDescription: string;
     public postTags: Array<TagModel>;
     public blogId: number;
 }

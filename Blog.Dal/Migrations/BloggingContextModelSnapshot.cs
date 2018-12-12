@@ -69,8 +69,6 @@ namespace Blog.Dal.Migrations
 
                     b.Property<DateTime>("CreationDate");
 
-                    b.Property<DateTime>("Date");
-
                     b.Property<DateTime>("ModificationDate");
 
                     b.Property<int>("PostId");
@@ -97,6 +95,8 @@ namespace Blog.Dal.Migrations
                     b.Property<bool>("IsPublished");
 
                     b.Property<DateTime>("ModificationDate");
+
+                    b.Property<string>("ShortDescription");
 
                     b.Property<string>("Title");
 
@@ -140,7 +140,7 @@ namespace Blog.Dal.Migrations
             modelBuilder.Entity("Blog.Dal.Models.BlogEntity", b =>
                 {
                     b.HasOne("Blog.Dal.Models.Category", "Category")
-                        .WithMany()
+                        .WithMany("Blogs")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

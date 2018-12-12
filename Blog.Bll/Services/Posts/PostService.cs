@@ -150,7 +150,9 @@ namespace Blog.Bll.Services.Posts
 
             var result = await _postRepository.GetAllPagedAsync(
                 searchQuery.Page,searchQuery.Size,searchQuery.Filter,searchQuery.Order,
-            x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));
+            x=> x.Title.Contains(searchQuery.SearchQuery) 
+            || x.Content.Contains(searchQuery.SearchQuery) 
+            || x.ShortDescription.Contains(searchQuery.SearchQuery));
 
             return new PostDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
         }
@@ -163,7 +165,9 @@ namespace Blog.Bll.Services.Posts
 
             var result = await _postRepository.GetAllPagedAsync(
                 postQuery.Page,postQuery.Size,postQuery.Filter,postQuery.Order, 
-            p => p.BlogId == postQuery.BlogId && (p.Title.Contains(postQuery.SearchQuery) || p.Content.Contains(postQuery.SearchQuery))
+            p => p.BlogId == postQuery.BlogId && (p.Title.Contains(postQuery.SearchQuery) 
+            || p.Content.Contains(postQuery.SearchQuery)
+            || p.ShortDescription.Contains(postQuery.SearchQuery))
             );
 
             return new PostDtoPaged(_mapper,result,postQuery.Page,postQuery.Size);;
@@ -177,7 +181,9 @@ namespace Blog.Bll.Services.Posts
                 query.SearchQuery = string.Empty;
             }
             var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.Filter,query.Order,query.TagsIds, 
-            p => (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
+            p => (p.Title.Contains(query.SearchQuery) 
+            || p.Content.Contains(query.SearchQuery)
+            || p.ShortDescription.Contains(query.SearchQuery)));
 
             return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
         }
@@ -189,7 +195,9 @@ namespace Blog.Bll.Services.Posts
             }
 
             var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.Filter,query.Order,query.TagsIds, 
-            p => p.BlogId == query.BlogId && (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
+            p => p.BlogId == query.BlogId && (p.Title.Contains(query.SearchQuery) 
+            || p.Content.Contains(query.SearchQuery)
+            || p.ShortDescription.Contains(query.SearchQuery)));
 
             return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
         }
