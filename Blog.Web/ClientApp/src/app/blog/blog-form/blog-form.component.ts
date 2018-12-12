@@ -12,6 +12,7 @@ import { CategoryModel } from 'src/app/category/models/category.model';
 })
 export class BlogFormComponent implements OnInit {
 
+    public category: CategoryModel;
     public model: BlogModel;
     public categories: Array<CategoryModel>;
 

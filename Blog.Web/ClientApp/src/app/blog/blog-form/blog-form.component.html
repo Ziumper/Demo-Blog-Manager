@@ -10,7 +10,7 @@
             <label for="category">Category</label>
             <div>
                     <select class="form-control form-control-sm" id="category" name="category" [(ngModel)]="model.category" required>
-                        <option *ngFor="let category of categories" [ngValue]="category" >{{category.name}}</option>
+                        <option *ngFor="let category of categories" [ngValue]="model.category">{{category.name}}</option>
                     </select>
             </div>
             
