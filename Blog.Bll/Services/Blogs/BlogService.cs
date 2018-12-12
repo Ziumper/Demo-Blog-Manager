@@ -96,7 +96,7 @@ namespace Blog.Bll.Services.Blogs
         public async Task<BlogDtoPaged> GetAllBlogsPaged(BlogQuery query)
         {
             var result = await _blogRepository.GetAllPagedAsync(
-                query.Page,query.Size, b => b.Title.Contains(query.SearchQuery) 
+                query.Page,query.Size,query.Filter,query.Order, b => b.Title.Contains(query.SearchQuery) 
                 || b.Category.Name.Contains(query.SearchQuery));
             
             var entities = result.Entities.AsQueryable();
@@ -107,7 +107,7 @@ namespace Blog.Bll.Services.Blogs
         
         public async Task<BlogDtoPaged> GetAllBlogsPagedByCategory(BlogCategoryQuery searchQuery)
         {
-            var result = await _blogRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,b => b.CategoryId == searchQuery.CategoryId && b.Title.Contains(searchQuery.SearchQuery));
+            var result = await _blogRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,searchQuery.Filter,searchQuery.Order,b => b.CategoryId == searchQuery.CategoryId && b.Title.Contains(searchQuery.SearchQuery));
             return new BlogDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
         }
 

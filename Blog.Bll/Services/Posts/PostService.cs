@@ -148,10 +148,9 @@ namespace Blog.Bll.Services.Posts
                 searchQuery.SearchQuery = string.Empty;
             }
 
-            var result = await _postRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,
+            var result = await _postRepository.GetAllPagedAsync(
+                searchQuery.Page,searchQuery.Size,searchQuery.Filter,searchQuery.Order,
             x=> x.Title.Contains(searchQuery.SearchQuery) || x.Content.Contains(searchQuery.SearchQuery));
-    
-            result.Entities = SortEntites(result.Entities.AsQueryable(),searchQuery.Filter,searchQuery.Order);
 
             return new PostDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
         }
@@ -162,31 +161,24 @@ namespace Blog.Bll.Services.Posts
                 postQuery.SearchQuery = string.Empty;
             }
 
-            var result = await _postRepository.GetAllPagedAsync(postQuery.Page,postQuery.Size, 
+            var result = await _postRepository.GetAllPagedAsync(
+                postQuery.Page,postQuery.Size,postQuery.Filter,postQuery.Order, 
             p => p.BlogId == postQuery.BlogId && (p.Title.Contains(postQuery.SearchQuery) || p.Content.Contains(postQuery.SearchQuery))
             );
 
-            result.Entities = SortEntites(result.Entities.AsQueryable(),postQuery.Filter,postQuery.Order);
             return new PostDtoPaged(_mapper,result,postQuery.Page,postQuery.Size);;
            
         }
 
-        private List<Post> SortEntites(IQueryable<Post> entities,int filter, bool order)
-        {
-            return _postRepository
-            .Sort(entities,filter,order)
-            .ToList();
-        }
 
         public async Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query)
         {
             if(query.SearchQuery == null) {
                 query.SearchQuery = string.Empty;
             }
-            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsIds, 
+            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.Filter,query.Order,query.TagsIds, 
             p => (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
 
-            result.Entities = SortEntites(result.Entities.AsQueryable(),query.Filter,query.Order);
             return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
         }
 
@@ -196,10 +188,9 @@ namespace Blog.Bll.Services.Posts
                 query.SearchQuery = string.Empty;
             }
 
-            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.TagsIds, 
+            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.Filter,query.Order,query.TagsIds, 
             p => p.BlogId == query.BlogId && (p.Title.Contains(query.SearchQuery) || p.Content.Contains(query.SearchQuery)));
 
-            result.Entities = SortEntites(result.Entities.AsQueryable(),query.Filter,query.Order);
             return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
         }
     }

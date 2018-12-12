@@ -20,8 +20,9 @@ namespace Blog.Dal.Repositories.Posts
 
         public async Task<List<Post>> GetAllPostsAsyncByCategoryId(int categoryId,int takeCount)
         {
-            var posts =  _table.Where(post => post.Blog.CategoryId == categoryId).Include(post => post.Blog).Take(takeCount);
-            posts = Sort(posts,1,true);
+            var posts =  _table.Where(post => post.Blog.CategoryId == categoryId);
+            posts = Sort(posts,1,true).Include(post => post.Blog);
+            posts = posts.Take(takeCount);
             return await posts.ToListAsync();
         }
 
@@ -31,7 +32,7 @@ namespace Blog.Dal.Repositories.Posts
         }
 
 
-        public async Task<PagedEntity<Post>> GetPostsPagedByTags(int page, int size,int[] tagsId, Expression<Func<Post, bool>> predicate)
+        public async Task<PagedEntity<Post>> GetPostsPagedByTags(int page, int size,int filter, bool order,int[] tagsId, Expression<Func<Post, bool>> predicate)
         {
             var skipCount = getSkipCount(page,size);
             
@@ -41,6 +42,8 @@ namespace Blog.Dal.Repositories.Posts
             result = _table.Include(post => post.PostTags).ThenInclude(postTag => postTag.TagId)
             .Where(post => post.PostTags.Where( postTag => tagsId.Contains(postTag.TagId)).FirstOrDefault() != null)
             .Where(predicate);
+
+            result = Sort(result,filter,order);
 
             pagedEntity.Count = await result.CountAsync();
 
