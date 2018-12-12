@@ -10,6 +10,7 @@ namespace Blog.Dal.Repositories.Blogs
 {
     public interface IBlogRepository : IGenericRepository<BlogEntity>
     {
+        Task<BlogEntity> GetBlogByIdWithCategory(int id);
         Task<BlogEntity> GetBlogByIdWithPostsAndComments(int id);
     }
 }

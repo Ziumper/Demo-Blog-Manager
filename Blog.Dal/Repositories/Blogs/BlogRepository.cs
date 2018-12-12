@@ -17,6 +17,11 @@ namespace Blog.Dal.Repositories.Blogs
         {
         }
 
+        public async Task<BlogEntity> GetBlogByIdWithCategory(int id) {
+            var blog = await _table.Where(b => b.Id == id).Include(b => b.Category).FirstOrDefaultAsync();
+            return blog;
+        }
+
         public async Task<BlogEntity> GetBlogByIdWithPostsAndComments(int id)
         {
             var blog = await _table.Where(b => b.Id == id).Include(b => b.Posts.Select(post => post.Comments)).FirstOrDefaultAsync();
