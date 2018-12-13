@@ -6,7 +6,7 @@ import { CategoryFormComponent } from './category/category-form/category-form.co
 import { TagComponent } from './tag/tag.component';
 import { PostComponent } from './post/post.component';
 import { BlogComponent } from './blog/blog.component';
-import { BlogManagerComponent } from './blog/blogs-manager/blog-manager.component';
+import { BlogManagerComponent } from './blog/blog-manager/blog-manager.component';
 import { PostsManagerComponent } from './post/posts-manager/posts-manager.component';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 

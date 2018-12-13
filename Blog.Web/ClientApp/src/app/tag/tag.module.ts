@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { RouterModule } from '@angular/router';
 import { PostModule } from '../post/post.module';
-import { CategoryModule } from '../category/category.module';
 import { TagComponent } from './tag.component';
 import { TagsListComponent } from './tags-list/tags-list.component';
 import { TagPostsListComponent } from './tag-posts-list/tag-posts-list.component';
@@ -23,11 +22,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         TagsListComponent,
         TagFormComponent,
         TagComponent,
-        TagPostsListComponent
+        TagPostsListComponent,
     ],
 
     imports: [
-        CoreModule,
         CommonModule,
         FormsModule,
         RouterModule,

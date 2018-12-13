@@ -14,7 +14,9 @@
                         <label for="content">Content</label>
                         <app-ngx-editor name="content" minHeight="300px" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="model.content"></app-ngx-editor>
                 </div>
-                
+                <div class="form-group">
+                        <app-tag-autocomplete></app-tag-autocomplete>
+                </div>
                 <button class="btn btn-primary" type="submit">Save</button>
         </form>
 </div>

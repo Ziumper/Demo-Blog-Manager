@@ -11,7 +11,7 @@ import { CategoryModule } from '../category/category.module';
 import { PostModule } from '../post/post.module';
 import { TagModule } from '../tag/tag.module';
 import { RouterModule } from '@angular/router';
-import { BlogManagerComponent } from './blogs-manager/blog-manager.component';
+import { BlogManagerComponent } from './blog-manager/blog-manager.component';
 
 @NgModule({
     declarations : [

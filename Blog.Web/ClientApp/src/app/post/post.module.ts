@@ -11,6 +11,8 @@ import { PostsListComponent } from './posts-list/posts-list.component';
 import { PostsManagerComponent } from './posts-manager/posts-manager.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgxEditorModule } from 'ngx-editor';
+import { TagAutocompleteComponent } from './post-form/tag-autocomplete/tag-autocomplete.component';
+
 
 @NgModule({
     declarations: [
@@ -18,7 +20,8 @@ import { NgxEditorModule } from 'ngx-editor';
         PostComponent,
         PostFormComponent,
         PostSearchComponent,
-        PostsManagerComponent
+        PostsManagerComponent,
+        TagAutocompleteComponent,
     ],
     exports: [
         PostsListComponent,
@@ -33,7 +36,7 @@ import { NgxEditorModule } from 'ngx-editor';
         NgbModule,
         RouterModule,
         AngularFontAwesomeModule,
-        NgxEditorModule
+        NgxEditorModule,
     ],
     providers: [
         PostSearchService

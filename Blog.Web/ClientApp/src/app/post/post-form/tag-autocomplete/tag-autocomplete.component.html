@@ -1,0 +1,14 @@
+<div [hidden]="!(selectedTags?.length >0)" class="card">
+  <div class="card-header">Selected tags list</div>
+  <div class="card-body">
+     <span class="tag" *ngFor="let tag of selectedTags">#{{tag.name}} <fa class="tag-delete-icon" (click)="removeTag(tag)" name="times"></fa></span>
+   </div>
+ </div>
+ <label class="tag-search-label" for="tagSearchQuery">Tag search:</label>
+<input type="text" (keyup.enter)="addNewTag(tagSearchQuery)" class="form-control tag-search" name="tagSearchQuery" placeholder="eg. tag name" [(ngModel)]="tagSearchQuery"/>
+<div [hidden]="!((tagResults?.length > 0) || tagSearchQuery.length > 0)" class="card">
+  <div class="card-body tag-search-body">
+    <p [hidden]="tagResults?.length > 0" class="tag-search-info">No results</p>
+     <p class="tag-search-result"  (click)="addTag(tag)" *ngFor="let tag of tagResults">#{{tag.name}}</p>
+   </div>
+ </div>
