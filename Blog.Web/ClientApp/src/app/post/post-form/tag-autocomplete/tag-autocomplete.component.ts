@@ -34,9 +34,9 @@ export class TagAutocompleteComponent implements OnInit {
         this.selectedTags = newArray;
     }
 
-    public addNewTag(name: string) {
+    public addNewTag() {
         const newTagModel = new TagModel();
-        newTagModel.name = name;
+        newTagModel.name = this.tagSearchQuery;
         this.selectedTags.push(newTagModel);
     }
 

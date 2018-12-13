@@ -5,10 +5,19 @@
    </div>
  </div>
  <label class="tag-search-label" for="tagSearchQuery">Tag search:</label>
-<input type="text" (keyup.enter)="addNewTag(tagSearchQuery)" class="form-control tag-search" name="tagSearchQuery" placeholder="eg. tag name" [(ngModel)]="tagSearchQuery"/>
+ <div class="input-group mb-3 tag-search">
+    <div class="input-group-prepend">
+      <button class="btn btn-outline-secondary" (click)="addNewTag()"
+      [disabled]="tagSearchQuery?.length ==  0" type="button">Add tag</button>
+    </div>
+   <input type="text"  class="form-control " name="tagSearchQuery" placeholder="eg. tag name" [(ngModel)]="tagSearchQuery"
+   aria-describedby="basic-addon1"/>
+  </div>
+ 
 <div [hidden]="!((tagResults?.length > 0) || tagSearchQuery.length > 0)" class="card">
   <div class="card-body tag-search-body">
-    <p [hidden]="tagResults?.length > 0" class="tag-search-info">No results</p>
+    <p [hidden]="tagResults?.length > 0" class="tag-search-info">No results, use add tag button to create new one and put it in select list or type more to find specific one</p>
      <p class="tag-search-result"  (click)="addTag(tag)" *ngFor="let tag of tagResults">#{{tag.name}}</p>
    </div>
  </div>
+  
