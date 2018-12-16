@@ -14,6 +14,9 @@ namespace Blog.Dal
         protected override void OnModelCreating(ModelBuilder modelBulider)
         {
             modelBulider.Entity<PostTag>().HasKey( postTag => new {postTag.PostId, postTag.TagId});
+            modelBulider.Entity<Tag>( tag => {
+                tag.HasIndex(t => t.Name).IsUnique();
+            });
         }
 
         public DbSet<Post> Posts { get; set; }

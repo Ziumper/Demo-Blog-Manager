@@ -134,6 +134,10 @@ namespace Blog.Dal.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
                     b.ToTable("Tags");
                 });
 

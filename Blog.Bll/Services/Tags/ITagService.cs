@@ -10,6 +10,6 @@ namespace Blog.Bll.Services.Tags
         Task<TagDto> DeleteTagAsync(int id);
         Task<TagDto> EditTagAsync(TagDto tagDto);
         Task<List<TagDto>> GetAllTagsAsync();
-        
+        Task<List<TagDto>> GetAllTagsAsyncByName(string tagName);
     }
 }

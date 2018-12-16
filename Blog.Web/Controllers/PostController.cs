@@ -66,7 +66,7 @@ namespace Blog.Web.Controllers
     
         
         // PUT: api/Post/5
-        [HttpPut("{id}")]
+        [HttpPut]
         public async Task<IActionResult> Put([FromBody] PostDto value)
         {
             var result = await _postService.EditPostAsync(value);

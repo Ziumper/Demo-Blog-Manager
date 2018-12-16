@@ -27,4 +27,8 @@ export class TagService {
     public getTagById(id: number): Observable<TagModel> {
         return this.http.get<TagModel>(this.tagApiUrl + '/' + id.toString());
     }
+
+    public getTagsByName(name: string): Observable<Array<TagModel>> {
+        return this.http.get<Array<TagModel>>(this.tagApiUrl + '/' + name);
+    }
 }

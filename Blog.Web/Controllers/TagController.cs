@@ -32,5 +32,12 @@ namespace Blog.Web.Controllers
             var result = await _tagService.GetAllTagsAsync();
             return Ok(result);
         }
+
+        [HttpGet("{tagName}")]
+        public async Task<IActionResult> GetAllTagsByName(string tagName)
+        {
+            var result = await _tagService.GetAllTagsAsyncByName(tagName);
+            return Ok(result);
+        }
     }
 }
