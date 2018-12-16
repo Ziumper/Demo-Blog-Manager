@@ -6,9 +6,9 @@ namespace Blog.Bll.Services.Tags
 {
     public interface ITagService
     {
-        Task<TagDto> AddNewTagAsync(string name);
+        Task<TagDto> AddNewTagAsync(TagDto tagDto);
         Task<TagDto> DeleteTagAsync(int id);
-        Task<TagDto> EditTagAsync(int id, string name);
+        Task<TagDto> EditTagAsync(TagDto tagDto);
         Task<List<TagDto>> GetAllTagsAsync();
         
     }

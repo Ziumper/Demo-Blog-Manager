@@ -23,8 +23,14 @@ export class TagAutocompleteComponent implements OnInit {
 
     public ngOnInit(): void { }
 
-    public addTag(tag: TagModel) {
-        this.selectedTags.push(tag);
+    public addTag(tag: TagModel): void {
+        // this.tagService.addTag(tag).subscribe();
+        const isThereIsSuchTagInSelectedTagsArray = this.selectedTags.filter( t => t.equal(tag)).length > 0;
+        if (isThereIsSuchTagInSelectedTagsArray) {
+            return;
+        } else {
+            this.selectedTags.push(tag);
+        }
     }
 
     public removeTag(tag: TagModel) {
@@ -35,9 +41,18 @@ export class TagAutocompleteComponent implements OnInit {
     }
 
     public addNewTag() {
-        const newTagModel = new TagModel();
+        let newTagModel = new TagModel();
         newTagModel.name = this.tagSearchQuery;
-        this.selectedTags.push(newTagModel);
+
+        this.tagService.addTag(newTagModel).subscribe(response => {
+            newTagModel = response;
+            const isThereIsSuchTagInSelectedTagsArray = this.selectedTags.filter( t => t.equal(newTagModel)).length > 0;
+            if (isThereIsSuchTagInSelectedTagsArray) {
+                return;
+            } else {
+                this.selectedTags.push(newTagModel);
+            }
+        });
     }
 
 }

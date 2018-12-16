@@ -9,7 +9,7 @@ namespace Blog.Dal.Repositories.Tags
 {
     public class TagRepository : GenericRepository<Tag, BloggingContext>, ITagRepository
     {
-        protected TagRepository(BloggingContext context) : base(context)
+        public TagRepository(BloggingContext context) : base(context)
         {
             
         }

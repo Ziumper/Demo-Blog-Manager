@@ -21,12 +21,9 @@ namespace Blog.Bll.Services.Tags
             _mapper = mapper;
         }
 
-        public async Task<TagDto> AddNewTagAsync(string name)
+        public async Task<TagDto> AddNewTagAsync(TagDto tagDto)
         {
-            Tag myTag = new Tag();
-            
-            myTag.SetModificationAndCreationTime();
-            myTag.Name = name;
+            Tag myTag = _mapper.Map<TagDto,Tag>(tagDto);
             
             var result = await _tagRepository.AddAsync(myTag);
             var mappedResult = _mapper.Map<Tag,TagDto>(myTag);
@@ -50,10 +47,10 @@ namespace Blog.Bll.Services.Tags
             return mappedTag;
         }
 
-        public async Task<TagDto> EditTagAsync(int id, string name)
+        public async Task<TagDto> EditTagAsync(TagDto tagDto)
         {
-             Tag tagToEdit = await _tagRepository.FindByFirstAsync(tag => tag.Id == id);
-            if(tagToEdit == null) throw new ResourceNotFoundException("Tag with id: " + id +" not found");
+            Tag tagToEdit = await _tagRepository.FindByFirstAsync(tag => tag.Id == tagDto.Id);
+            if(tagToEdit == null) throw new ResourceNotFoundException("Tag with id: " + tagDto.Id +" not found");
             
             tagToEdit.SetModificationTime();
             tagToEdit = _tagRepository.Edit(tagToEdit);
@@ -62,7 +59,6 @@ namespace Blog.Bll.Services.Tags
 
             TagDto mappedTag = _mapper.Map<Tag,TagDto>(tagToEdit);
             return mappedTag;
-    
         }
 
         public async Task<List<TagDto>> GetAllTagsAsync(){

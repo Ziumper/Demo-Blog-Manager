@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TagModel } from './models/tag.model';
 import { HttpService } from '../core/http.service';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class TagService {
     private readonly tagApiUrl: string;
 
-    constructor(private http: HttpService) {
-        this.tagApiUrl = 'api/tags';
+    constructor(private http: HttpClient) {
+        this.tagApiUrl = 'api/tag';
     }
 
     public getAllTags(): Observable<Array<TagModel>> {

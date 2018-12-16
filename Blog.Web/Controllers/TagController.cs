@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Bll.Dto.Tags;
 using Blog.Bll.Services.Tags;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,8 +21,8 @@ namespace Blog.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddNewTag(string name){
-            var result = await _tagService.AddNewTagAsync(name);
+        public async Task<IActionResult> AddNewTag([FromBody]TagDto tag){
+            var result = await _tagService.AddNewTagAsync(tag);
             return Ok(result);
         }
 
