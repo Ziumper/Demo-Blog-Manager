@@ -57,7 +57,7 @@ namespace Blog.Web.Controllers
 
         // POST: api/Post
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]PostDto value)
+        public async Task<IActionResult> Post([FromBody]PostDtoWithTags value)
         {
             var result = await _postService.AddPostAsync(value);
             return Ok(result);
@@ -67,7 +67,7 @@ namespace Blog.Web.Controllers
         
         // PUT: api/Post/5
         [HttpPut]
-        public async Task<IActionResult> Put([FromBody] PostDto value)
+        public async Task<IActionResult> Put([FromBody] PostDtoWithTags value)
         {
             var result = await _postService.EditPostAsync(value);
             return Ok(result);

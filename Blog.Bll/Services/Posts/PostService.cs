@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.QueryModels;
+using Blog.Bll.Dto.Tags;
 using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Posts;
+using Blog.Dal.Repositories.Tags;
 
 namespace Blog.Bll.Services.Posts
 {
@@ -20,14 +22,19 @@ namespace Blog.Bll.Services.Posts
         private readonly IPostRepository _postRepository;
         private readonly ICommentRepository _commentRepository;
         private readonly IBlogRepository _blogRepository;
+        private readonly ITagRepository _tagRepository;
 
         public PostService(IPostRepository postRepository,
-        IBlogRepository blogRepository, ICommentRepository commentRepository,IMapper mapper)
+        IBlogRepository blogRepository, 
+        ICommentRepository commentRepository,
+        ITagRepository tagRepository,
+        IMapper mapper)
         {
             _commentRepository = commentRepository;
             _postRepository = postRepository;
             _mapper = mapper;
             _blogRepository = blogRepository;
+            _tagRepository = tagRepository;
         }
 
         public PostDto AddPost(PostDto post)
@@ -43,9 +50,9 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
 
-        public async Task<PostDto> AddPostAsync(PostDto post){
-            var mappedPost = _mapper.Map<PostDto,Post>(post);
-        
+        public async Task<PostDto> AddPostAsync(PostDtoWithTags post){
+
+            var mappedPost = await GetPostWithAssaignedTags(post);
             var result = await _postRepository.AddAsync(mappedPost);
             await _postRepository.SaveAsync();
 
@@ -66,7 +73,7 @@ namespace Blog.Bll.Services.Posts
 
             return postViews;
         }
-
+        
         public PostDto DeletePost(int postId)
         {
            
@@ -102,20 +109,25 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
 
-        public async Task<PostDto> EditPostAsync(PostDto postDto)
+        public async Task<PostDto> EditPostAsync(PostDtoWithTags postDto)
         {
-            var query = await _postRepository.FindByAsync(post => post.Id == postDto.Id);
-            var result = query.FirstOrDefault();
-            if(result == null)
+
+            var post = await _postRepository.FindByFirstAsync(p => p.Id == postDto.Id);
+            bool postFound = post != null;
+            if(!postFound)
             {
                 throw new ResourceNotFoundException("Post not found");
             }
-            result.Content = postDto.Content;
-            result.Title = postDto.Title;
 
-            result = _postRepository.Edit(result);
+            post.Content = postDto.Content;
+            post.Title = postDto.Title;
+
+            var entityTags = await GetTagsFromTagPostsList(postDto.PostTags);
+            post = AssignPostTagsToPostEntity(post,entityTags);
+
+            post = _postRepository.Edit(post);
             await _postRepository.SaveAsync();
-            var resultDto = _mapper.Map<Post, PostDto>(result);
+            var resultDto = _mapper.Map<Post, PostDto>(post);
             return resultDto;
         }
             
@@ -174,7 +186,6 @@ namespace Blog.Bll.Services.Posts
            
         }
 
-
         public async Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query)
         {
             if(query.SearchQuery == null) {
@@ -201,5 +212,52 @@ namespace Blog.Bll.Services.Posts
 
             return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
         }
+
+        private async Task<Post> GetPostWithAssaignedTags(PostDtoWithTags post) {
+            
+            List<Tag> entityTags = await GetTagsFromTagPostsList(post.PostTags);
+
+            var mappedPost = _mapper.Map<PostDtoWithTags,Post>(post);
+            mappedPost = AssignPostTagsToPostEntity(mappedPost,entityTags);
+          
+            return mappedPost;
+        }
+
+        private Post AssignPostTagsToPostEntity(Post post,List<Tag> entityTags )
+        {
+              for(var i = 0 ; i < entityTags.Count; i++) {
+                var postTag = new PostTag();
+                var entityTag = entityTags[i];
+                postTag.Post = post;
+                postTag.Tag = entityTag;
+                post.PostTags.Add(postTag);
+            }
+
+            return post;
+        }
+
+        private async Task<List<Tag>> GetTagsFromTagPostsList(List<TagDto> postTags)
+        {
+            List<Tag> entityTags = new List<Tag>();
+
+            for(var i =0; i < postTags.Count; i++)
+            {
+                var myTag = postTags[i];
+                var tagFromDatabase = await _tagRepository.FindByFirstAsync(tag => tag.Name.Equals(myTag));
+                bool tagFound = tagFromDatabase != null;
+                if(tagFound) {
+                    entityTags.Add(tagFromDatabase);
+                }
+                else {
+                    var tagEntity = _mapper.Map<TagDto,Tag>(myTag);
+                    tagEntity = await _tagRepository.AddAsync(tagEntity);     
+                    await _tagRepository.SaveAsync();
+                    entityTags.Add(tagEntity);
+                }
+            }
+
+            return entityTags;
+        }
+
     }
 }
