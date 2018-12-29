@@ -1,9 +1,15 @@
 <div class="container-fluid post-form-container">
         <h1>Post Form</h1>
-        <form name="post-form" (ngSubmit)="submit(model)">
+        <form #postForm="ngForm" name="post-form" (ngSubmit)="submit(model)">
                 <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel" />
+                        <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel"   required/>
+                        <div *ngIf="title.invalid && (title.dirty || title.touched)"
+                        class="alert alert-danger">
+                                <div *ngIf="title?.errors.required">
+                                    Title is required
+                                </div>
+                        </div>
                 </div>
                 <div class="form-group">
                         <label for="shortDescription">Short description (max: 200 characters)</label>
@@ -29,6 +35,6 @@
                                 <input type="text" class="form-control "  name="tagName" placeholder="eg. tag" [(ngModel)]="tagName"/>
                         </div>
                 </div>
-                <button class="btn btn-primary" type="submit">Save</button>
+                <button class="btn btn-primary" [disabled]="(!postForm.form.valid)" type="submit">Save</button>
         </form>
 </div>
