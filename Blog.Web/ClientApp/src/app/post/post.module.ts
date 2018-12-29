@@ -11,7 +11,6 @@ import { PostsListComponent } from './posts-list/posts-list.component';
 import { PostsManagerComponent } from './posts-manager/posts-manager.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgxEditorModule } from 'ngx-editor';
-import { TagAutocompleteComponent } from './post-form/tag-autocomplete/tag-autocomplete.component';
 
 
 @NgModule({
@@ -21,7 +20,6 @@ import { TagAutocompleteComponent } from './post-form/tag-autocomplete/tag-autoc
         PostFormComponent,
         PostSearchComponent,
         PostsManagerComponent,
-        TagAutocompleteComponent,
     ],
     exports: [
         PostsListComponent,

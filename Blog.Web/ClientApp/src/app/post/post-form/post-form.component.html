@@ -15,7 +15,19 @@
                         <app-ngx-editor name="content" minHeight="300px" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="model.content"></app-ngx-editor>
                 </div>
                 <div class="form-group">
-                        <app-tag-autocomplete></app-tag-autocomplete>
+                        <div class="card">
+                                <div class="card-header">Tags list</div>
+                                <div class="card-body">
+                                        <span class="tag" [ngClass]="{'repeated-tag-name': tagName == tag.name}" *ngFor="let tag of model.postTags"> #{{tag.name}} <fa class="tag-delete-icon" (click)="removeTag(tag)" name="times"></fa></span>
+                                </div>
+                        </div>
+                        <div class="input-group mt-3 mb-3 tag-search">
+                                <div class="input-group-prepend">
+                                        <button class="btn btn-outline-secondary" (click)="addTag(tagName)"
+                                        [disabled]="tagName?.length ==  0" type="button">Add tag</button>
+                                </div>
+                                <input type="text" class="form-control "  name="tagName" placeholder="eg. tag" [(ngModel)]="tagName"/>
+                        </div>
                 </div>
                 <button class="btn btn-primary" type="submit">Save</button>
         </form>

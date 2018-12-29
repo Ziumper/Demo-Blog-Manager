@@ -9,4 +9,8 @@ export class PostModel {
     public shortDescription: string;
     public postTags: Array<TagModel>;
     public blogId: number;
+
+    constructor() {
+        this.postTags = new Array<TagModel>();
+    }
 }
