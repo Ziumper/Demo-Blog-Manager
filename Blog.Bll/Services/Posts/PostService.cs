@@ -122,7 +122,7 @@ namespace Blog.Bll.Services.Posts
             post.Content = postDto.Content;
             post.Title = postDto.Title;
 
-            var entityTags = await GetTagsFromTagPostsList(postDto.PostTags);
+            var entityTags = await AddTagsFromPostsList(postDto.PostTags);
             post = AssignPostTagsToPostEntity(post,entityTags);
 
             post = _postRepository.Edit(post);
@@ -215,7 +215,7 @@ namespace Blog.Bll.Services.Posts
 
         private async Task<Post> GetPostWithAssaignedTags(PostDtoWithTags post) {
             
-            List<Tag> entityTags = await GetTagsFromTagPostsList(post.PostTags);
+            List<Tag> entityTags = await AddTagsFromPostsList(post.PostTags);
 
             var mappedPost = _mapper.Map<PostDtoWithTags,Post>(post);
             mappedPost = AssignPostTagsToPostEntity(mappedPost,entityTags);
@@ -236,7 +236,7 @@ namespace Blog.Bll.Services.Posts
             return post;
         }
 
-        private async Task<List<Tag>> GetTagsFromTagPostsList(List<TagDto> postTags)
+        private async Task<List<Tag>> AddTagsFromPostsList(List<TagDto> postTags)
         {
             List<Tag> entityTags = new List<Tag>();
 
