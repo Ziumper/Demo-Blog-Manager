@@ -13,6 +13,7 @@ namespace Blog.Bll.Services.Posts
         PostDto AddPost(PostDto post);
         Task<PostDto> AddPostAsync(PostDto post);
         Task<PostDto> GetPostById(int postId);
+        Task<PostDto> GetPostByIdWithTagsAsync(int postId);
         List<PostDto> GetAllPosts();
         PostDto DeletePost(int postId);
         Task<PostDto> DeletePostAsync(int postId);

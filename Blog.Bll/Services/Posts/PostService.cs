@@ -52,7 +52,12 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDto> AddPostAsync(PostDto post){
 
-            var mappedPost = await GetPostWithAssaignedTags(post);
+            List<Tag> entityTags = await AddTagsFromPostsList(post.PostTags);
+
+            var mappedPost = _mapper.Map<PostDto,Post>(post);
+            mappedPost.PostTags = new List<PostTag>();
+            mappedPost = AssignPostTagsToPostEntity(mappedPost,entityTags);
+
             var result = await _postRepository.AddAsync(mappedPost);
             await _postRepository.SaveAsync();
 
@@ -152,7 +157,7 @@ namespace Blog.Bll.Services.Posts
             
         public async Task<PostDto> GetPostById(int postId)
         {
-            var result = await _postRepository.GetPostByIdWithPostTagsAsync(postId);
+            var result = await _postRepository.FindByFirstAsync(p => p.Id == postId);
             if (result == null)
             {
                 throw new ResourceNotFoundException("Post not found");
@@ -232,23 +237,11 @@ namespace Blog.Bll.Services.Posts
             return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
         }
 
-        private async Task<Post> GetPostWithAssaignedTags(PostDto post) {
-            
-            List<Tag> entityTags = await AddTagsFromPostsList(post.PostTags);
-
-            var mappedPost = _mapper.Map<PostDto,Post>(post);
-            mappedPost = AssignPostTagsToPostEntity(mappedPost,entityTags);
-          
-            return mappedPost;
-        }
-
         private Post AssignPostTagsToPostEntity(Post post,List<Tag> entityTags )
         {
             bool postTagsListInitalized = post.PostTags != null;
-            if(!postTagsListInitalized) {
-                post.PostTags = new List<PostTag>();
-            }
-              for(var i = 0 ; i < entityTags.Count; i++) {
+    
+            for(var i = 0 ; i < entityTags.Count; i++) {
                 var postTag = new PostTag();
                 var entityTag = entityTags[i];
                 postTag.Post = post;
@@ -284,5 +277,16 @@ namespace Blog.Bll.Services.Posts
             return entityTags;
         }
 
+        public async Task<PostDto> GetPostByIdWithTagsAsync(int postId)
+        {
+            var result = await _postRepository.GetPostByIdWithPostTagsAsync(postId);
+            if (result == null)
+            {
+                throw new ResourceNotFoundException("Post not found");
+            } 
+
+            var resultDto = _mapper.Map<Post, PostDto>(result);
+            return resultDto;
+        }
     }
 }

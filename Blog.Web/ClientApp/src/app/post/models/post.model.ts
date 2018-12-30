@@ -1,4 +1,5 @@
 import { TagModel } from '../../tag/models/tag.model';
+import { PostTagModel } from './post-tag.model';
 
 export class PostModel {
     public id: number;
@@ -7,10 +8,10 @@ export class PostModel {
     public modificationDate: Date;
     public content: string;
     public shortDescription: string;
-    public postTags: Array<TagModel>;
+    public postTags: Array<PostTagModel>;
     public blogId: number;
 
     constructor() {
-        this.postTags = new Array<TagModel>();
+        this.postTags = new Array<PostTagModel>();
     }
 }

@@ -46,11 +46,17 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:int}/comments")]
         public async Task<IActionResult> GetPostWithCommentsById(int id)
         {
             PostDto result = null;
             result = await _postService.GetPostWithCommentsByIdAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet("{id:int}/tags")]
+        public async Task<IActionResult> GetPostByIdWithTags(int id) {
+            var result = await _postService.GetPostByIdWithTagsAsync(id);
             return Ok(result);
         }
 
