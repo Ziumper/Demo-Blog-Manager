@@ -11,13 +11,13 @@ namespace Blog.Bll.Services.Posts
     public interface IPostService
     {
         PostDto AddPost(PostDto post);
-        Task<PostDto> AddPostAsync(PostDtoWithTags post);
-        PostDto GetPostById(int postId);
+        Task<PostDto> AddPostAsync(PostDto post);
+        Task<PostDto> GetPostById(int postId);
         List<PostDto> GetAllPosts();
         PostDto DeletePost(int postId);
         Task<PostDto> DeletePostAsync(int postId);
         PostDto EditPost(PostDto postDto);
-        Task<PostDto> EditPostAsync(PostDtoWithTags postDto);
+        Task<PostDto> EditPostAsync(PostDto postDto);
         Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId);
         Task<PostDtoPaged> GetAllPostsPagedAsync(PostQuery searchQuery);
         Task<PostDtoPaged> GetAllPostPagedAsyncByBlogId(PostQuery searchQuery);

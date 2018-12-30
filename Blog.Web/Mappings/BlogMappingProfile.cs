@@ -20,7 +20,7 @@ namespace Blog.Web.Mappings
             CreateMap<BlogEntity,BlogDto>();
             CreateMap<BlogDto,BlogEntity>().ForMember( x => x.Category, opt => opt.Ignore());
             CreateMap<Post,PostDto>().ReverseMap();
-            CreateMap<Post,PostDtoWithTags>().ReverseMap().ForMember(x=> x.PostTags, opt => opt.Ignore());
+            CreateMap<PostTag,PostTagDto>().ReverseMap();
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
             CreateMap<Tag,TagDto>().ReverseMap();

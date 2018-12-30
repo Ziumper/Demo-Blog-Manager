@@ -26,7 +26,7 @@ const routes = [
   { path: 'blog/:blogId', component: BlogComponent },
   { path: 'blog/:blogId/post/:id', component: PostComponent},
   { path: 'tag/:tagId', component: TagComponent},
-  { path: 'post-editor/:postId', component: PostFormComponent},
+  { path: 'blog/:blogId/post-editor/:id', component: PostFormComponent},
   { path: '**', redirectTo: 'home' }
 ];
 

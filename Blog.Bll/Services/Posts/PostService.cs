@@ -50,7 +50,7 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
 
-        public async Task<PostDto> AddPostAsync(PostDtoWithTags post){
+        public async Task<PostDto> AddPostAsync(PostDto post){
 
             var mappedPost = await GetPostWithAssaignedTags(post);
             var result = await _postRepository.AddAsync(mappedPost);
@@ -128,7 +128,7 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
 
-        public async Task<PostDto> EditPostAsync(PostDtoWithTags postDto)
+        public async Task<PostDto> EditPostAsync(PostDto postDto)
         {
 
             var post = await _postRepository.GetPostByIdWithPostTagsAsync(postDto.Id);
@@ -150,9 +150,9 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
             
-        public PostDto GetPostById(int postId)
+        public async Task<PostDto> GetPostById(int postId)
         {
-            var result = _postRepository.FindBy(p => p.Id == postId).FirstOrDefault();
+            var result = await _postRepository.GetPostByIdWithPostTagsAsync(postId);
             if (result == null)
             {
                 throw new ResourceNotFoundException("Post not found");
@@ -232,11 +232,11 @@ namespace Blog.Bll.Services.Posts
             return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
         }
 
-        private async Task<Post> GetPostWithAssaignedTags(PostDtoWithTags post) {
+        private async Task<Post> GetPostWithAssaignedTags(PostDto post) {
             
             List<Tag> entityTags = await AddTagsFromPostsList(post.PostTags);
 
-            var mappedPost = _mapper.Map<PostDtoWithTags,Post>(post);
+            var mappedPost = _mapper.Map<PostDto,Post>(post);
             mappedPost = AssignPostTagsToPostEntity(mappedPost,entityTags);
           
             return mappedPost;
@@ -261,20 +261,20 @@ namespace Blog.Bll.Services.Posts
             return post;
         }
 
-        private async Task<List<Tag>> AddTagsFromPostsList(List<TagDto> postTags)
+        private async Task<List<Tag>> AddTagsFromPostsList(List<PostTagDto> postTags)
         {
             List<Tag> entityTags = new List<Tag>();
 
             for(var i =0; i < postTags.Count; i++)
             {
                 var myTag = postTags[i];
-                var tagFromDatabase = await _tagRepository.FindByFirstAsync(tag => tag.Name.Equals(myTag.Name));
+                var tagFromDatabase = await _tagRepository.FindByFirstAsync(tag => tag.Name.Equals(myTag.Tag.Name));
                 bool tagFound = tagFromDatabase != null;
                 if(tagFound) {
                     entityTags.Add(tagFromDatabase);
                 }
                 else {
-                    var tagEntity = _mapper.Map<TagDto,Tag>(myTag);
+                    var tagEntity = _mapper.Map<TagDto,Tag>(myTag.Tag);
                     tagEntity = await _tagRepository.AddAsync(tagEntity);     
                     await _tagRepository.SaveAsync();
                     entityTags.Add(tagEntity);

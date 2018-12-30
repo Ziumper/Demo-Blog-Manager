@@ -33,7 +33,7 @@
                     <td>{{post.modificationDate | date:'medium'}}</td>
                     <td>
                         <ng-template #tipEditContent>Edit</ng-template>
-                        <a class="action-icon" [routerLink]="['/post-editor/',post.id]" [ngbTooltip]="tipEditContent"><fa name="edit"></fa></a>
+                        <a class="action-icon" [routerLink]="['/blog/',blogId,'post-editor',post.id]" [ngbTooltip]="tipEditContent"><fa name="edit"></fa></a>
                         <ng-template #tipViewContent>Go to post</ng-template>
                         <a class="action-icon" [routerLink]="['/blog/',blogId,'post', post.id]"  [ngbTooltip]="tipViewContent"><fa name="eye"></fa></a>
                         <ng-template #tipDeleteContent>Delete</ng-template>
