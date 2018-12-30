@@ -20,7 +20,7 @@ export class PostFormComponent implements OnInit {
      }
 
     public ngOnInit(): void {
-        this.model.blogId = this.route.snapshot.params['blogId'];
+        this.model.blogId = this.route.parent.snapshot.params['blogId'];
     }
 
     public submit(model: PostModel): void {

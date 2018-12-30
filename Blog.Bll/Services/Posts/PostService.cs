@@ -112,7 +112,7 @@ namespace Blog.Bll.Services.Posts
         public async Task<PostDto> EditPostAsync(PostDtoWithTags postDto)
         {
 
-            var post = await _postRepository.FindByFirstAsync(p => p.Id == postDto.Id);
+            var post = await _postRepository.GetPostByIdWithPostTagsAsync(postDto.Id);
             bool postFound = post != null;
             if(!postFound)
             {
@@ -225,11 +225,17 @@ namespace Blog.Bll.Services.Posts
 
         private Post AssignPostTagsToPostEntity(Post post,List<Tag> entityTags )
         {
+            bool postTagsListInitalized = post.PostTags != null;
+            if(!postTagsListInitalized) {
+                post.PostTags = new List<PostTag>();
+            }
               for(var i = 0 ; i < entityTags.Count; i++) {
                 var postTag = new PostTag();
                 var entityTag = entityTags[i];
                 postTag.Post = post;
+                postTag.PostId = post.Id;
                 postTag.Tag = entityTag;
+                postTag.TagId = entityTag.Id;
                 post.PostTags.Add(postTag);
             }
 
@@ -243,7 +249,7 @@ namespace Blog.Bll.Services.Posts
             for(var i =0; i < postTags.Count; i++)
             {
                 var myTag = postTags[i];
-                var tagFromDatabase = await _tagRepository.FindByFirstAsync(tag => tag.Name.Equals(myTag));
+                var tagFromDatabase = await _tagRepository.FindByFirstAsync(tag => tag.Name.Equals(myTag.Name));
                 bool tagFound = tagFromDatabase != null;
                 if(tagFound) {
                     entityTags.Add(tagFromDatabase);

@@ -96,5 +96,10 @@ namespace Blog.Dal.Repositories.Posts
 
         }
 
+        public async Task<Post> GetPostByIdWithPostTagsAsync(int postId)
+        {
+           var post = await _table.Where(x => x.Id == postId).Include(x => x.PostTags).FirstOrDefaultAsync();
+           return post;
+        }
     }
 }
