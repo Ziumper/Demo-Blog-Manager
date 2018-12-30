@@ -93,6 +93,25 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
 
+        public async Task<PostDto> DeletePostAsync(int postId)
+        {
+            
+            var result = _postRepository.FindBy(p => p.Id == postId).FirstOrDefault();
+            if (result == null)
+            {
+                throw new ResourceNotFoundException("Post not found");
+            } 
+
+            _commentRepository.DeleteManyCommentsByPostId(postId);
+            await _commentRepository.SaveAsync();
+
+            _postRepository.Delete(p => p.Id == postId);
+            await _postRepository.SaveAsync();
+
+            var resultDto = _mapper.Map<Post, PostDto>(result);
+            return resultDto;
+        }
+
         public PostDto EditPost(PostDto postDto)
         {
             var result = _postRepository.FindBy(post => post.Id == postDto.Id).FirstOrDefault();

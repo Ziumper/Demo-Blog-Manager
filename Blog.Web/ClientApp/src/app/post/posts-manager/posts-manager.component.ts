@@ -38,8 +38,9 @@ export class PostsManagerComponent extends PostsListComponent implements OnInit 
     }
 
     public deletePost(id: number) {
-        this.managerPostService.deletePostById(id).subscribe();
-        this.getPosts();
+        this.managerPostService.deletePostById(id).subscribe(response => {
+            this.getPosts();
+        });
     }
 
     public sort(filter: number) {

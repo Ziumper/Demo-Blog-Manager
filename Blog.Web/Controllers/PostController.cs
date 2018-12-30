@@ -77,9 +77,9 @@ namespace Blog.Web.Controllers
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            var result = _postService.DeletePost(id);
+            var result = await _postService.DeletePostAsync(id);
             return Ok(result);
         }
     }
