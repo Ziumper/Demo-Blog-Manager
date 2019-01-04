@@ -56,4 +56,8 @@ export class PostService {
    public deletePostById(id: number): Observable<PostModel> {
       return this.http.delete<PostModel>(this.postApiUrl + '/' + id.toString());
    }
+
+   public getPostsByContentOrTitle(searchString: string): Observable<Array<PostModel>> {
+      return this.http.get<PostModel>(this.postApiUrl + '/' + searchString);
+   }
 }
