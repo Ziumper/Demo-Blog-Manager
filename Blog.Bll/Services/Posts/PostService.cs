@@ -297,5 +297,18 @@ namespace Blog.Bll.Services.Posts
            var resultDto = _mapper.Map<Post,PostDto>(dbResultOne);
            return resultDto;
         }
+
+        public async Task<List<PostDto>> GetPostsByContentOrTitleAsync(string content)
+        {
+            var databaseResult = await _postRepository.FindByAsync(post => post.Content.Contains(content) || post.Title.Contains(content),10);
+
+            var resultDto = new List<PostDto>();
+            foreach(var dbPost in databaseResult)
+            {
+                resultDto.Add(_mapper.Map<Post,PostDto>(dbPost));
+            }
+
+            return resultDto;
+        }
     }
 }

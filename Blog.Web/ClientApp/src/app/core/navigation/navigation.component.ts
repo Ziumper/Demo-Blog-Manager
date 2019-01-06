@@ -39,7 +39,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
         debounceTime(400),
         distinctUntilChanged(),
         switchMap((query: string) => {
+          if (query.length > 0) {
             return this.postService.getPostsByContentOrTitle(query);
+          } else {
+            this.posts = new Array<PostModel>();
+          }
+          return new Observable<any> ();
         })
     );
 }

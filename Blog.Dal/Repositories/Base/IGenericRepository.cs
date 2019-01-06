@@ -14,6 +14,7 @@ namespace Blog.Dal.Repositories.Base
     {
         Task<List<T>> GetAllAsync (Expression<Func<T, bool>> predicate = null);
         Task<List<T>> FindByAsync(Expression<Func<T,bool>> predicate = null);
+        Task<List<T>> FindByAsync(Expression<Func<T,bool>> predicate, int take);
         List<T> GetAll(Expression<Func<T, bool>> predicate = null);
         List<T> FindBy(Expression<Func<T, bool>> predicate);
         T FindByFirst(Expression<Func<T,bool>> predicate);

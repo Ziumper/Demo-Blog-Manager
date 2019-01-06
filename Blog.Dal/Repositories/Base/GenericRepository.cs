@@ -94,6 +94,11 @@ namespace Blog.Dal.Repositories.Base
             return await _table.Where(predicate).ToListAsync();
         }
 
+        public async Task<List<T>> FindByAsync(Expression<Func<T, bool>> predicate,int take)
+        {
+            return await _table.Where(predicate).Take(take).ToListAsync();
+        }
+
         public async Task<T> FindByFirstAsync(Expression<Func<T, bool>> predicate)
         {
             return await _table.Where(predicate).FirstOrDefaultAsync();

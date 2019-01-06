@@ -67,6 +67,12 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{content}")]
+        public async Task<IActionResult> GetPostsByContent(string content)
+        {
+            var result = await _postService.GetPostsByContentOrTitleAsync(content);
+            return Ok(result);
+        }
 
         // POST: api/Post
         [HttpPost]
