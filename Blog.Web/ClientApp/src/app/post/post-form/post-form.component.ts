@@ -45,9 +45,9 @@ export class PostFormComponent implements OnInit {
         tagModel.id = 0;
 
         const postTag = new PostTagModel();
-        postTag.Tag = tagModel;
+        postTag.tag = tagModel;
 
-        const searchTagModel = this.model.postTags.find(element => element.Tag.name === tagName);
+        const searchTagModel = this.model.postTags.find(element => element.tag.name === tagName);
         if (!searchTagModel) {
             this.model.postTags.push(postTag);
             this.tagName = '';
@@ -57,7 +57,7 @@ export class PostFormComponent implements OnInit {
 
     public removeTag(tag: TagModel): void {
         const arrayWithoutRemovedTag = this.model.postTags.filter( element => {
-            return element.Tag !== tag;
+            return element.tag !== tag;
         });
 
         this.model.postTags = arrayWithoutRemovedTag;

@@ -28,7 +28,7 @@ namespace Blog.Dal.Repositories.Posts
 
         public async Task<List<Post>> FindByWithCommentsAsyncWithTags(Expression<Func<Post, bool>> predicate)
         {
-            return await _table.Where(predicate).Include(s => s.Comments).Include(p => p.PostTags).ToListAsync();
+            return await _table.Where(predicate).Include(s => s.Comments).Include(p => p.PostTags).ThenInclude(postTag => postTag.Tag).ToListAsync();
         }
 
 
@@ -38,7 +38,7 @@ namespace Blog.Dal.Repositories.Posts
 
             result = _table.Include(post => post.PostTags).ThenInclude(postTag => postTag.TagId)
             .Where(post => post.PostTags.Where( postTag => tagsId.Contains(postTag.TagId)).FirstOrDefault() != null)
-            .Where(predicate);
+            .Where(predicate).Include(post => post.PostTags).ThenInclude(postTag => postTag.Tag);
 
             var pagedEntity = await GetPaged(result,page,size,filter,order);
 
@@ -98,11 +98,11 @@ namespace Blog.Dal.Repositories.Posts
         public async Task<PagedEntity<Post>> GetPostsPagedWithTagsAsync(int page, int size,int filter, bool order, Expression<Func<Post, bool>> predicate = null)
         {
             if(predicate != null) {
-                IQueryable<Post> query = this._table.Where(predicate).Include(post => post.PostTags);
+                IQueryable<Post> query = this._table.Where(predicate).Include(post => post.PostTags).ThenInclude(posTag => posTag.Tag);
                 var result = await this.GetPaged(query,page,size,filter,order);
                 return result;
             } else {
-                IQueryable<Post> query = this._table.Include(post => post.PostTags);
+                IQueryable<Post> query = this._table.Include(post => post.PostTags).ThenInclude( postTag => postTag.Tag);
                 var result = await this.GetPaged(query,page,size,filter,order);
                 return result;
             }
