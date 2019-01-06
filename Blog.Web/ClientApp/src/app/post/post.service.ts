@@ -58,6 +58,6 @@ export class PostService {
    }
 
    public getPostsByContentOrTitle(searchString: string): Observable<Array<PostModel>> {
-      return this.http.get<PostModel>(this.postApiUrl + '/' + searchString);
+      return this.http.get<Array<PostModel>>(this.postApiUrl + '/' + searchString);
    }
 }

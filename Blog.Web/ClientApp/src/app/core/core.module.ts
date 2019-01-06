@@ -10,6 +10,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostModule } from '../post/post.module';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { RouterModule } from '@angular/router';
         AngularFontAwesomeModule,
         NgbModule,
         PostModule,
-        RouterModule
+        RouterModule,
+        CommonModule
     ],
     providers: [
         HttpService,

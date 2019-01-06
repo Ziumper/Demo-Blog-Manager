@@ -18,15 +18,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   private search: Subscription;
 
-  constructor(private route: Router,private postService: PostService) {
+  constructor(private route: Router, private postService: PostService) {
     this.isCollapsed = true;
     this.posts = new Array<PostModel>();
+    this.searchTerm = new Subject<string>();
   }
 
   public ngOnInit(): void {
     this.search = this.onSearch(this.searchTerm).subscribe(response => {
       this.posts = response;
-    })
+    });
   }
 
   public ngOnDestroy(): void {
@@ -45,7 +46,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
 
 
-  
+
 
 
 }
