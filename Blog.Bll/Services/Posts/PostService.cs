@@ -199,7 +199,7 @@ namespace Blog.Bll.Services.Posts
                 postQuery.SearchQuery = string.Empty;
             }
 
-            var result = await _postRepository.GetAllPagedAsync(
+            var result = await _postRepository.GetPostsPagedWithTagsAsync(
                 postQuery.Page,postQuery.Size,postQuery.Filter,postQuery.Order, 
             p => p.BlogId == postQuery.BlogId && (p.Title.Contains(postQuery.SearchQuery) 
             || p.Content.Contains(postQuery.SearchQuery)
