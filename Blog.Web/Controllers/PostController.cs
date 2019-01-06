@@ -54,6 +54,13 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{blogId:int}/{postId:int}/comments")]
+        public async Task<IActionResult> GetPostsByBlogIdAndPostIdAndWithComments(int blogId, int postId){
+            PostDto result = null;
+            result = await _postService.GetPostByBlogIdAndPostIdAndWithCommentsAsync(blogId,postId);
+            return Ok(result);
+        }
+
         [HttpGet("{id:int}/tags")]
         public async Task<IActionResult> GetPostByIdWithTags(int id) {
             var result = await _postService.GetPostByIdWithTagsAsync(id);

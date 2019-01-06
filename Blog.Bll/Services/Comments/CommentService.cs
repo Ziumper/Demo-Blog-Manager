@@ -80,7 +80,7 @@ namespace Blog.Bll.Services.Comments
         public async Task<List<CommentDto>> AddCommentToPostAsync(CommentCreateDto commentDto)
         {
             var comment = _mapper.Map<CommentCreateDto, Comment>(commentDto);
-            var queryResult = await _postRepository.FindByWithCommentsAsync(x => x.Id == commentDto.PostId);
+            var queryResult = await _postRepository.FindByWithCommentsAsyncWithTags(x => x.Id == commentDto.PostId);
             var postResult = queryResult.FirstOrDefault();
             if (postResult == null)
             {
@@ -111,7 +111,7 @@ namespace Blog.Bll.Services.Comments
 
         public async Task<List<CommentDto>> GetAllCommentsByPostIdAsync(int postId)
         {
-            var postQueryResult = await _postRepository.FindByWithCommentsAsync(p => p.Id == postId);
+            var postQueryResult = await _postRepository.FindByWithCommentsAsyncWithTags(p => p.Id == postId);
             var post = postQueryResult.FirstOrDefault();
             if(post == null) throw new ResourceNotFoundException("Post with id:" + postId+ " not found");
 

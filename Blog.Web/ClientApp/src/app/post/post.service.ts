@@ -41,6 +41,10 @@ export class PostService {
       return this.http.get<PostModel>(this.postApiUrl + '/' + id.toString());
    }
 
+   public getPostByBlogIdAndPostIdAndWithComments(blogId: number, postId: number) {
+      return this.http.get<PostModel>(this.postApiUrl + '/' + blogId + '/' + postId + '/comments' );
+   }
+
    public updatePost(post: PostModel): Observable<PostModel> {
       return this.http.put<PostModel>(this.postApiUrl, post);
    }

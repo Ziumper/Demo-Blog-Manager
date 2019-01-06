@@ -26,9 +26,9 @@ namespace Blog.Dal.Repositories.Posts
             return await posts.ToListAsync();
         }
 
-        public async Task<List<Post>> FindByWithCommentsAsync(Expression<Func<Post, bool>> predicate)
+        public async Task<List<Post>> FindByWithCommentsAsyncWithTags(Expression<Func<Post, bool>> predicate)
         {
-            return await _table.Where(predicate).Include(s => s.Comments).ToListAsync();
+            return await _table.Where(predicate).Include(s => s.Comments).Include(p => p.PostTags).ToListAsync();
         }
 
 

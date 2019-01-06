@@ -18,10 +18,10 @@ export class PostComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    if (id) {
-      // with comments
-      this.postService.getPostById(id).subscribe(response => {
+    const postId = this.route.snapshot.params['id'];
+    const blogId = this.route.snapshot.params['blogId'];
+    if (postId) {
+      this.postService.getPostByBlogIdAndPostIdAndWithComments(blogId, postId).subscribe(response => {
         this.post = response;
       });
     }

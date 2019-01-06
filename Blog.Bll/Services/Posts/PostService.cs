@@ -168,7 +168,7 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId)
         {
-            var awaitResult = await _postRepository.FindByWithCommentsAsync(p => p.Id == postId);
+            var awaitResult = await _postRepository.FindByWithCommentsAsyncWithTags(p => p.Id == postId);
             var result = awaitResult.FirstOrDefault();
             if (result == null)
             {
@@ -287,6 +287,15 @@ namespace Blog.Bll.Services.Posts
 
             var resultDto = _mapper.Map<Post, PostDto>(result);
             return resultDto;
+        }
+
+        public async Task<PostDto> GetPostByBlogIdAndPostIdAndWithCommentsAsync(int blogId, int postId)
+        {
+           var dbResult = await _postRepository.FindByWithCommentsAsyncWithTags(post => post.Id == postId && post.BlogId == post.BlogId);
+        
+           var dbResultOne = dbResult.FirstOrDefault();
+           var resultDto = _mapper.Map<Post,PostDto>(dbResultOne);
+           return resultDto;
         }
     }
 }
