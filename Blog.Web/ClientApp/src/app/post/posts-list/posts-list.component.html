@@ -10,7 +10,7 @@
                 <a [routerLink] ="['post/', post.id]" class="btn btn-primary">Go to post</a>
             </div>
             <div *ngIf="post?.postTags?.length > 0" class="card-footer text-muted">
-                <a *ngFor="let tag of post.postTags;" [routerLink]="['/tag/',tag.id]"> #{{tag?.name}}</a>
+                <a *ngFor="let postTag of post.postTags;" [routerLink]="['/tag/',postTag.tag.id]"> #{{postTag.tag?.name}}</a>
             </div>
         </div>
     </div>
