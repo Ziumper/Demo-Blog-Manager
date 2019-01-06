@@ -11,11 +11,7 @@
             </div>
             <div [hidden]="!(post.postTags.length > 0)" class="card-footer">
                 <div>
-                    <ul>
-                        <li *ngFor="let postTag of post.postTags;" >
-                            <a [routerLink]="['/tag/', postTag.tag.id]">#{{postTag.tag.name}} </a>
-                        </li>
-                    </ul>  
+                    <a *ngFor="let postTag of post.postTags;" [routerLink]="['/tag/', postTag.tag.id]">#{{postTag.tag.name}} </a>
                 </div>
             </div>
         </div>
