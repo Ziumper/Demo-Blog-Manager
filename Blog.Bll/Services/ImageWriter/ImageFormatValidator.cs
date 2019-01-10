@@ -1,16 +1,22 @@
+using System.Linq;
+using System.Text;
+
 namespace Blog.Bll.Services.ImageWriter
 {
+
+    public enum ImageFormat
+    {
+        bmp,
+        jpeg,
+        gif,
+        tiff,
+        png,
+        unknown
+    }
+
     public class ImageFormatValidator {
         
-        public enum ImageFormat
-        {
-            bmp,
-            jpeg,
-            gif,
-            tiff,
-            png,
-            unknown
-        }
+       
 
         // they don't access any variable/member/state ||| which is outside the scope of that method |||, so they can be static as well
         //public static ImageFormat GetImageFormat(byte[] bytes)
