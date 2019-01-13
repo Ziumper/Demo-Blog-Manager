@@ -80,6 +80,25 @@ namespace Blog.Dal.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("Blog.Dal.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Extension");
+
+                    b.Property<DateTime>("ModificationDate");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("Blog.Dal.Models.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -94,6 +113,8 @@ namespace Blog.Dal.Migrations
 
                     b.Property<bool>("IsPublished");
 
+                    b.Property<int?>("MainImageId");
+
                     b.Property<DateTime>("ModificationDate");
 
                     b.Property<string>("ShortDescription");
@@ -103,6 +124,8 @@ namespace Blog.Dal.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BlogId");
+
+                    b.HasIndex("MainImageId");
 
                     b.ToTable("Posts");
                 });
@@ -163,6 +186,10 @@ namespace Blog.Dal.Migrations
                         .WithMany("Posts")
                         .HasForeignKey("BlogId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Blog.Dal.Models.Image", "MainImage")
+                        .WithMany()
+                        .HasForeignKey("MainImageId");
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.PostTag", b =>

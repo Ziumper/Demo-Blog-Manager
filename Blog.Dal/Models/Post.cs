@@ -17,5 +17,6 @@ namespace Blog.Dal.Models
         public BlogEntity Blog { get; set; }
         public List<PostTag> PostTags {get; set;}
         public Boolean IsPublished {get; set;}
+        public Image MainImage {get; set;}
     }
 }
