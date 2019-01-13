@@ -19,7 +19,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-
+using Blog.Bll.Services.ImageWriter;
 
 namespace Blog.Web
 {
@@ -113,6 +113,7 @@ namespace Blog.Web
             services.AddTransient<IBlogRepository, BlogRepository>();
             services.AddTransient<ITagRepository, TagRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IImageWriter,ImplImageWriter>();
         }
     }
 }

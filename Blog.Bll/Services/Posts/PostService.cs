@@ -8,6 +8,7 @@ using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.Dto.Tags;
 using Blog.Bll.Exceptions;
+using Blog.Bll.Services.ImageWriter;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;

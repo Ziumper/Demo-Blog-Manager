@@ -8,6 +8,7 @@ using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.Categories;
 using Blog.Bll.Dto.Comments;
 using Blog.Bll.Dto.Tags;
+using Blog.Bll.Dto.Images;
 
 namespace Blog.Web.Mappings
 {
@@ -24,6 +25,7 @@ namespace Blog.Web.Mappings
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
             CreateMap<Tag,TagDto>().ReverseMap();
+            CreateMap<Image,ImageDto>().ReverseMap();
         }
     }
 
