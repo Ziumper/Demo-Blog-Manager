@@ -24,7 +24,7 @@
                         <div class="card">
                                 <div class="card-header">Tags list</div>
                                 <div class="card-body">
-                                        <span class="tag" [ngClass]="{'repeated-tag-name': tagName == postTag.Tag.name}" *ngFor="let postTag of model.postTags"> #{{postTag.Tag.name}} <fa class="tag-delete-icon" (click)="removeTag(postTag)" name="times"></fa></span>
+                                        <span class="tag" [ngClass]="{'repeated-tag-name': tagName == postTag.tag.name}" *ngFor="let postTag of model.postTags"> #{{postTag.tag.name}} <fa class="tag-delete-icon" (click)="removeTag(postTag)" name="times"></fa></span>
                                 </div>
                         </div>
                         <div class="input-group mt-3 mb-3 tag-search">
