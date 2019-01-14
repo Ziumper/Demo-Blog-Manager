@@ -5,5 +5,6 @@ namespace Blog.Dal.Models {
     public class Image : BaseEntity {
         public string Name {get; set;}
         public string Extension {get; set;}
+        public string Ulr {get; set;}
     }
 }

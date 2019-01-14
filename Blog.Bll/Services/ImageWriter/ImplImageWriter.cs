@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Blog.Bll.Dto.Images;
 using Microsoft.AspNetCore.Http;
 
 namespace Blog.Bll.Services.ImageWriter {
@@ -51,24 +52,28 @@ namespace Blog.Bll.Services.ImageWriter {
         public async Task<string> WriteFile(IFormFile file)
         {
             string fileName;
-            try
-            {
-                var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
-                fileName = Guid.NewGuid().ToString() + extension; //Create a new Name 
-                                                              //for the file due to security reasons.
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
+           
+            var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
+            fileName = Guid.NewGuid().ToString() + extension; //Create a new Name 
+                                                            //for the file due to security reasons.
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", fileName);
 
-                using (var bits = new FileStream(path, FileMode.Create))
-                {
-                    await file.CopyToAsync(bits);
-                }
-            }
-            catch (Exception e)
+            using (var bits = new FileStream(path, FileMode.Create))
             {
-                return e.Message;
+                await file.CopyToAsync(bits);
             }
 
             return fileName;
+        }
+
+        public async Task<ImageUrlDto> UploadImageForPost(IFormFile file,HostString host)
+        {
+            string fileName = await this.UploadImage(file);
+            var result = new ImageUrlDto();
+
+            result.Url =  host.Host + host.Port + fileName;
+
+            return result;
         }
     }
 }

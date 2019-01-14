@@ -18,9 +18,9 @@ namespace Blog.Web.Controllers {
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadImage(IFormFile image,int postId) {
-            
-            return Ok("test");
+        public async Task<IActionResult> UploadImage(IFormFile image) {
+            var result = await _imageWriter.UploadImage(image);
+            return Ok(result);
         }
 
     }
