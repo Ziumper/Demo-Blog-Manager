@@ -94,7 +94,13 @@ namespace Blog.Dal.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("PostId");
+
+                    b.Property<string>("Ulr");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Images");
                 });
@@ -178,6 +184,13 @@ namespace Blog.Dal.Migrations
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Blog.Dal.Models.Image", b =>
+                {
+                    b.HasOne("Blog.Dal.Models.Post")
+                        .WithMany("Images")
+                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Post", b =>

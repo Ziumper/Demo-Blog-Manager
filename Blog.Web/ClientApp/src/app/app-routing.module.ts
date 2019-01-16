@@ -18,7 +18,7 @@ const routes = [
       { path: '', redirectTo: 'blog-options', pathMatch: 'full' },
       { path: 'blog-options', component: BlogFormComponent },
       { path: 'posts-manager', component: PostsManagerComponent},
-      { path: 'post-editor', component: PostFormComponent},
+      { path: 'post-form', component: PostFormComponent},
     ]
   },
   { path: 'category-editor', component: CategoryFormComponent},
@@ -26,7 +26,7 @@ const routes = [
   { path: 'blog/:blogId', component: BlogComponent },
   { path: 'blog/:blogId/post/:id', component: PostComponent},
   { path: 'tag/:tagId', component: TagComponent},
-  { path: 'blog/:blogId/post-editor/:id', component: PostFormComponent},
+  { path: 'blog/:blogId/post-form/:id', component: PostFormComponent},
   { path: '**', redirectTo: 'home' }
 ];
 
