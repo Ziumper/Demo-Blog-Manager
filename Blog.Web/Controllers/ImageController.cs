@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Blog.Bll.Dto.Images;
-using Blog.Bll.Services.ImageWriter;
+using Blog.Bll.Services.Image;
+using Blog.Bll.Services.Image.ImageWriter;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,17 +11,23 @@ namespace Blog.Web.Controllers {
     [Route("api/Image")]
     public class ImageController : Controller {
 
-        private readonly IImageWriter _imageWriter;
+        private readonly IImageService _imageService;
 
-        public ImageController(IImageWriter imageWriter)
+        public ImageController(IImageService imageService)
         {
-            _imageWriter = imageWriter;
+            _imageService = imageService;
         }
 
         [HttpPost("upload")]
         public async Task<IActionResult> UploadImage(IFormFile image) {
-            HostString host = Request.Host;
-            var result = await _imageWriter.UploadImageForPost(image,host);
+            var result = await _imageService.uploadImage(image);
+            return Ok(result);
+        }
+
+        [HttpDelete("delete")]
+        public IActionResult DeleteImage(ImageDto image)
+        {
+            var result = _imageService.DeleteImage(image);
             return Ok(result);
         }
 

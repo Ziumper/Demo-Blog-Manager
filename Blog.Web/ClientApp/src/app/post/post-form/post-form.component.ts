@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../post.service';
 import { TagModel } from 'src/app/tag/models/tag.model';
 import { PostTagModel } from '../models/post-tag.model';
+import { UploadFilesService } from 'src/app/core/uploadFiles.service';
+import { ImageModel } from 'src/app/core/models/image.model';
 
 @Component({
     selector: 'app-post-form',
@@ -13,9 +15,11 @@ import { PostTagModel } from '../models/post-tag.model';
 export class PostFormComponent implements OnInit {
     public model: PostModel;
     public tagName: String;
+    public mainImage: ImageModel;
 
 
-    constructor(private postService: PostService, private route: ActivatedRoute) {
+    constructor(private postService: PostService, private route: ActivatedRoute,
+        private uploadFilesService: UploadFilesService) {
         this.model = new PostModel();
      }
 
@@ -61,6 +65,13 @@ export class PostFormComponent implements OnInit {
         });
 
         this.model.postTags = arrayWithoutRemovedTag;
+    }
+
+    public handleImageUpload(files: FileList): void {
+        const fileToUpload = files.item(0);
+        this.uploadFilesService.postImage(fileToUpload).subscribe(response => {
+            this.mainImage = response;
+        });
     }
 
 

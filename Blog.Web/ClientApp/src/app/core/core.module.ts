@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostModule } from '../post/post.module';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UploadFilesService } from './uploadFiles.service';
 
 @NgModule({
     declarations: [
@@ -35,6 +36,7 @@ import { CommonModule } from '@angular/common';
         LoggerService,
         ToastService,
         LoaderService,
+        UploadFilesService
     ]
 })
 export class CoreModule {
