@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Text;
 
-namespace Blog.Bll.Services.Image.ImageWriter
+namespace Blog.Bll.Services.Images.ImageWriter
 {
     public class ImageFormatValidator : IImageFormatValidator {
         

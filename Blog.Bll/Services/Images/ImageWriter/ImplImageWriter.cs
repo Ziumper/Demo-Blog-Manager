@@ -6,7 +6,7 @@ using Blog.Bll.Exceptions;
 using Microsoft.AspNetCore.Http;
 using FileNotFoundException = Blog.Bll.Exceptions.FileNotFoundException;
 
-namespace Blog.Bll.Services.Image.ImageWriter {
+namespace Blog.Bll.Services.Images.ImageWriter {
     
     public class ImplImageWriter : IImageWriter {
 
@@ -86,7 +86,7 @@ namespace Blog.Bll.Services.Image.ImageWriter {
             return extension;
         }
 
-        public bool DeleteImageFromServer(string imageName) {
+        public bool DeleteImageFileFromServer(string imageName) {
 
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", imageName);
 

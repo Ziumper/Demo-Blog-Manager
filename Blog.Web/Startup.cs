@@ -19,8 +19,9 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Blog.Bll.Services.Image.ImageWriter;
-using Blog.Bll.Services.Image;
+using Blog.Bll.Services.Images.ImageWriter;
+using Blog.Bll.Services.Images;
+using Blog.Dal.Repositories.Images;
 
 namespace Blog.Web
 {
@@ -116,6 +117,7 @@ namespace Blog.Web
             services.AddTransient<IImageWriter,ImplImageWriter>();
             services.AddTransient<IImageFormatValidator,ImageFormatValidator>();
             services.AddTransient<IImageService,ImageService>();
+            services.AddTransient<IImageRepository,ImageRepository>();
         }
     }
 }

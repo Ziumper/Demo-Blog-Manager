@@ -1,4 +1,4 @@
-namespace Blog.Bll.Services.Image.ImageWriter {
+namespace Blog.Bll.Services.Images.ImageWriter {
     public enum ImageFormat
     {
         bmp,

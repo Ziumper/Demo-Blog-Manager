@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Blog.Bll.Dto.Images;
-using Blog.Bll.Services.Image;
-using Blog.Bll.Services.Image.ImageWriter;
+using Blog.Bll.Services.Images;
+using Blog.Bll.Services.Images.ImageWriter;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,14 +20,14 @@ namespace Blog.Web.Controllers {
 
         [HttpPost("upload")]
         public async Task<IActionResult> UploadImage(IFormFile image) {
-            var result = await _imageService.uploadImage(image);
+            var result = await _imageService.UploadImage(image);
             return Ok(result);
         }
 
-        [HttpDelete("delete")]
-        public IActionResult DeleteImage(ImageDto image)
+        [HttpDelete("{id:int}")]
+        public IActionResult DeleteImage(int id)
         {
-            var result = _imageService.DeleteImage(image);
+            var result = _imageService.DeleteImage(id);
             return Ok(result);
         }
 
