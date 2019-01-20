@@ -18,7 +18,7 @@ namespace Blog.Web.Controllers {
             _imageService = imageService;
         }
 
-        [HttpPost("upload")]
+        [HttpPost]
         public async Task<IActionResult> UploadImage(IFormFile image) {
             var result = await _imageService.UploadImage(image);
             return Ok(result);

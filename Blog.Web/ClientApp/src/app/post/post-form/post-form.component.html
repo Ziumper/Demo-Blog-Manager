@@ -38,6 +38,11 @@
                 <div class="form-group">
                         <input (change)="handleImageUpload($event.target.files)"  type="file" name="file" id="file" class="inputfile" />
                         <label class="btn btn-primary" for="file">Choose a file</label>
+                        <div [hidden]="url.length == 0"  class="main-image-container">
+                                <span class="btn btn-primary image-delete-button">Delete</span>
+                                <img class="image" [src]="url"/>    
+                        </div>
+                                           
                 </div>
                 <button class="btn btn-primary" [disabled]="(!postForm.form.valid)" type="submit">Save</button>
         </form>

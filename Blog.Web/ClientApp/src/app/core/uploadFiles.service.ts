@@ -9,7 +9,7 @@ export class UploadFilesService {
     constructor(private http: HttpClient) {
     }
 
-    private imageUploadUrl = 'api/Image/upload';
+    private imageUploadUrl = 'api/Image';
 
     postImage(imageToUpload: File): Observable<ImageModel> {
         return this.http.post<ImageModel>(this.imageUploadUrl, imageToUpload);

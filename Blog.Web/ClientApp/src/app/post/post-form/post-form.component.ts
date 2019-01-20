@@ -16,11 +16,15 @@ export class PostFormComponent implements OnInit {
     public model: PostModel;
     public tagName: String;
     public mainImage: ImageModel;
+    public url: String;
+    private fileToUpload: File;
 
 
     constructor(private postService: PostService, private route: ActivatedRoute,
         private uploadFilesService: UploadFilesService) {
         this.model = new PostModel();
+        this.url = '';
+        this.tagName = '';
      }
 
     public ngOnInit(): void {
@@ -39,7 +43,10 @@ export class PostFormComponent implements OnInit {
             this.model.id = id;
             this.postService.updatePost(model).subscribe();
         } else {
-            this.postService.addPost(model).subscribe();
+            this.uploadFilesService.postImage(this.fileToUpload).subscribe(response => {
+                this.mainImage = response;
+                this.postService.addPost(model).subscribe();
+            });
         }
     }
 
@@ -68,10 +75,14 @@ export class PostFormComponent implements OnInit {
     }
 
     public handleImageUpload(files: FileList): void {
-        const fileToUpload = files.item(0);
-        this.uploadFilesService.postImage(fileToUpload).subscribe(response => {
-            this.mainImage = response;
-        });
+        this.fileToUpload = files.item(0);
+        const fileReader = new FileReader();
+
+        fileReader.onload = (event: any) => {
+            this.url = event.target.result;
+        };
+
+        fileReader.readAsDataURL(this.fileToUpload);
     }
 
 
