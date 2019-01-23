@@ -134,11 +134,18 @@ namespace Blog.Bll.Services.Posts
                 throw new ResourceNotFoundException("Post not found");
             }
 
+            _imageRepository.DeleteMany(result.Images);
+            _imageRepository.Delete(result.MainImage);
 
+            foreach (var image in result.Images)
+            {
+                _imageWriter.DeleteImageFileFromServer(image.Name);
+            }
+
+            _imageWriter.DeleteImageFileFromServer(result.MainImage.Name);
 
             _commentRepository.DeleteManyCommentsByPostId(postId);
-            await _commentRepository.SaveAsync();
-
+            
             _postRepository.Delete(p => p.Id == postId);
             await _postRepository.SaveAsync();
 
