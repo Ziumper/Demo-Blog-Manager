@@ -16,5 +16,7 @@ namespace Blog.Dal.Repositories.Posts
         Task<List<Post>> GetAllPostsAsyncByCategoryId(int categoryId,int takeCount);
         Task<PagedEntity<Post>> GetPostsPagedWithTagsAsync(int page,int size,int filter, bool order, Expression<Func<Post,bool>> predicate);
         Task<Post> GetPostByIdWithPostTagsAsync(int postId);
+
+        Task<Post> GetPostByIdWithImagesAsync(int postId);
     }
 }

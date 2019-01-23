@@ -128,5 +128,11 @@ namespace Blog.Dal.Repositories.Posts
 
             return pagedEntity;
         }
+
+        public async Task<Post> GetPostByIdWithImagesAsync(int postId)
+        {
+            var post = await _table.Include(p => p.Images).Include(p => p.MainImage).Where(p=> p.Id == postId).FirstOrDefaultAsync();
+            return post;
+        }
     }
 }

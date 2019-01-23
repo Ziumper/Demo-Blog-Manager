@@ -8,9 +8,11 @@ using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.Dto.Tags;
 using Blog.Bll.Exceptions;
+using Blog.Bll.Services.Images.ImageWriter;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
+using Blog.Dal.Repositories.Images;
 using Blog.Dal.Repositories.Posts;
 using Blog.Dal.Repositories.Tags;
 
@@ -23,18 +25,24 @@ namespace Blog.Bll.Services.Posts
         private readonly ICommentRepository _commentRepository;
         private readonly IBlogRepository _blogRepository;
         private readonly ITagRepository _tagRepository;
+        private readonly IImageRepository _imageRepository;
+        private readonly IImageWriter _imageWriter;
 
         public PostService(IPostRepository postRepository,
         IBlogRepository blogRepository, 
         ICommentRepository commentRepository,
         ITagRepository tagRepository,
-        IMapper mapper)
+        IMapper mapper,
+        IImageRepository imageRepository,
+        IImageWriter imageWriter)
         {
             _commentRepository = commentRepository;
             _postRepository = postRepository;
             _mapper = mapper;
             _blogRepository = blogRepository;
             _tagRepository = tagRepository;
+            _imageRepository = imageRepository;
+            _imageWriter = imageWriter;
         }
 
         public PostDto AddPost(PostDto post)
@@ -54,7 +62,15 @@ namespace Blog.Bll.Services.Posts
 
             List<Tag> entityTags = await AddTagsFromPostsList(post.PostTags);
 
+            var image = await _imageRepository.FindByFirstAsync(img => img.Id == post.MainImage.Id);
+
+            var images = await GetImagesForPost(post);
+
             var mappedPost = _mapper.Map<PostDto,Post>(post);
+
+            mappedPost.MainImage = image;
+            mappedPost.Images = images;
+
             mappedPost.PostTags = new List<PostTag>();
             mappedPost = AssignPostTagsToPostEntity(mappedPost,entityTags);
 
@@ -66,6 +82,17 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
 
+        private async Task<List<Image>> GetImagesForPost(PostDto post) {
+
+            List<Image> images = new List<Image>();
+            
+            foreach (var imageDto in post.Images) {
+                var imageFromBase = await _imageRepository.FindByFirstAsync(image => image.Id == imageDto.Id);
+                images.Add(imageFromBase);
+            }
+
+            return images;
+        }
         public List<PostDto> GetAllPosts()
         {
            
@@ -101,11 +128,13 @@ namespace Blog.Bll.Services.Posts
         public async Task<PostDto> DeletePostAsync(int postId)
         {
             
-            var result = _postRepository.FindBy(p => p.Id == postId).FirstOrDefault();
+            var result = await _postRepository.GetPostByIdWithImagesAsync(postId);
             if (result == null)
             {
                 throw new ResourceNotFoundException("Post not found");
-            } 
+            }
+
+
 
             _commentRepository.DeleteManyCommentsByPostId(postId);
             await _commentRepository.SaveAsync();
