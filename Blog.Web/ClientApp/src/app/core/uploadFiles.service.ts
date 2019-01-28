@@ -11,8 +11,7 @@ export class UploadFilesService {
 
     private imageUploadUrl = 'api/Image';
 
-    postImage(imageToUpload: File): Observable<ImageModel> {
-        const headers = new HttpHeaders().set('Content-Type', ' multipart/form-data; charset=utf-8; boundary="image boundary"');
-        return this.http.post<ImageModel>(this.imageUploadUrl, imageToUpload, {headers: headers});
+    postImage(form: FormData): Observable<ImageModel> {
+        return this.http.post<ImageModel>(this.imageUploadUrl, form);
     }
 }
