@@ -2,7 +2,7 @@ namespace Blog.Bll.Services.Images.ImageWriter {
     public enum ImageFormat
     {
         bmp,
-        jpeg,
+        jpg,
         gif,
         tiff,
         png,
