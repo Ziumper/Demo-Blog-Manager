@@ -31,6 +31,7 @@ namespace Blog.Bll.Services.Images
             
             image.Name = name;
             image.Extension = extension;
+            image.Ulr = "wwwroot\\images\\" + name; 
 
             var resultImage = await _imageRepository.AddAsync(image);
 
