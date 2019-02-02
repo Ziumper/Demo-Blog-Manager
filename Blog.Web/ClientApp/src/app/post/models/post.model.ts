@@ -12,6 +12,7 @@ export class PostModel {
     public postTags: Array<PostTagModel>;
     public blogId: number;
     public mainImage: ImageModel;
+    public images: Array<ImageModel>;
 
     constructor() {
         this.postTags = new Array<PostTagModel>();
