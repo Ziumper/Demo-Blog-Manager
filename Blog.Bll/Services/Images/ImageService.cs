@@ -49,15 +49,10 @@ namespace Blog.Bll.Services.Images
                 throw new ResourceNotFoundException("Image not found");
             }
 
-            try{
-                _imageWriter.DeleteImageFileFromServer(image.Name);
-            }catch(FileNotFoundException ex) {
-                
-            }finally {
-                image = _imageRepository.Delete(image);
-                await _imageRepository.SaveAsync();
-            }
+            _imageWriter.DeleteImageFileFromServer(image.Name);
             
+            image = _imageRepository.Delete(image);
+            await _imageRepository.SaveAsync();
             ImageDto imageDto = _mapper.Map<Image,ImageDto>(image);
 
             return imageDto; 
