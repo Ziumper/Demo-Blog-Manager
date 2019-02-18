@@ -93,9 +93,7 @@ namespace Blog.Bll.Services.Images.ImageWriter {
            if(System.IO.File.Exists(path))
            {
                System.IO.File.Delete(path);
-           }
-           
-           throw new FileNotFoundException("Image file not found");
+           }else throw new FileNotFoundException("Image file not found");
         }
 
     }

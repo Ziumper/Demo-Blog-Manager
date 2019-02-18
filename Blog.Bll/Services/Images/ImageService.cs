@@ -52,7 +52,7 @@ namespace Blog.Bll.Services.Images
             try{
                 _imageWriter.DeleteImageFileFromServer(image.Name);
             }catch(FileNotFoundException ex) {
-                throw ex;
+                
             }finally {
                 image = _imageRepository.Delete(image);
                 await _imageRepository.SaveAsync();

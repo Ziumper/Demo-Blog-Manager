@@ -28,13 +28,14 @@ namespace Blog.Bll.Services.Posts
         private readonly IImageRepository _imageRepository;
         private readonly IImageWriter _imageWriter;
 
-        public PostService(IPostRepository postRepository,
-        IBlogRepository blogRepository, 
-        ICommentRepository commentRepository,
-        ITagRepository tagRepository,
-        IMapper mapper,
-        IImageRepository imageRepository,
-        IImageWriter imageWriter)
+        public PostService(
+            IPostRepository postRepository,
+            IBlogRepository blogRepository, 
+            ICommentRepository commentRepository,
+            ITagRepository tagRepository,
+            IMapper mapper,
+            IImageRepository imageRepository,
+            IImageWriter imageWriter)
         {
             _commentRepository = commentRepository;
             _postRepository = postRepository;
@@ -171,7 +172,9 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDto> EditPostAsync(PostDto postDto)
         {
-
+            var image = await _imageRepository.FindByFirstAsync(img => img.Id == postDto.MainImage.Id);
+            var images = await GetImagesForPost(postDto);
+            
             var post = await _postRepository.GetPostByIdWithPostTagsAsync(postDto.Id);
             bool postFound = post != null;
             if(!postFound)
@@ -179,8 +182,13 @@ namespace Blog.Bll.Services.Posts
                 throw new ResourceNotFoundException("Post not found");
             }
 
+            
+
             post.Content = postDto.Content;
             post.Title = postDto.Title;
+
+            post.MainImage = image;
+            post.Images = images;
 
             var entityTags = await AddTagsFromPostsList(postDto.PostTags);
             post = AssignPostTagsToPostEntity(post,entityTags);
