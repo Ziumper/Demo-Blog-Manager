@@ -87,7 +87,4 @@ export class PostFormComponent implements OnInit {
         fileReader.readAsDataURL(this.fileToUpload);
     }
 
-
-
-
 }

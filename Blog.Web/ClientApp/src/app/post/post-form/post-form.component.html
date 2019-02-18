@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                         <label for="content">Content</label>
-                        <app-ngx-editor name="content" minHeight="300px" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="model.content"></app-ngx-editor>
+                        <app-ngx-editor imageEndPoint="api/Image" name="content" minHeight="300px" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="model.content"></app-ngx-editor>
                 </div>
                 <div class="form-group">
                         <div class="card">
@@ -34,6 +34,9 @@
                                 </div>
                                 <input type="text" class="form-control "  name="tagName" placeholder="eg. tag" [(ngModel)]="tagName"/>
                         </div>
+                </div>
+                <div>
+                        <label>Image Upload</label>
                 </div>
                 <div class="form-group">
                         <input (change)="handleImageUpload($event.target.files)"  type="file" name="file" id="file" class="inputfile" />
