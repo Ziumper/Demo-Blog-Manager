@@ -96,7 +96,7 @@ namespace Blog.Dal.Migrations
 
                     b.Property<int?>("PostId");
 
-                    b.Property<string>("Ulr");
+                    b.Property<string>("Url");
 
                     b.HasKey("Id");
 
