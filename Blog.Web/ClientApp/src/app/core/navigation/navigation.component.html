@@ -19,12 +19,12 @@
         </li>
       </ul>
       <form class="form-inline">
-          <input  (keyup)="searchTerm.next($event.target.value)"  class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" >
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" >
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
     </div>
 </nav>
-<div class="searching-tips-from-navigation bg-dark" [hidden]='!(posts.length > 0)'>
+<!-- <div class="searching-tips-from-navigation bg-dark" [hidden]='!(posts.length > 0)'>
   <div class="search-tip" *ngFor="let post of posts">
     <div class="row">
       <div class="col-md-12">
@@ -43,4 +43,4 @@
     </div>
     
   </div>
-</div>
+</div> -->
