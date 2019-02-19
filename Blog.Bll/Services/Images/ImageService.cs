@@ -31,7 +31,7 @@ namespace Blog.Bll.Services.Images
             var appBaseUrl = MyHttpContext.AppBaseUrl;
             image.Name = name;
             image.Extension = extension;
-            image.Url = appBaseUrl + "/wwwroot/images/" + name;
+            image.Url = appBaseUrl + "/images/" + name;
 
             var resultImage = await _imageRepository.AddAsync(image);
 
