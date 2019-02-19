@@ -11,7 +11,6 @@ import { HomeComponent } from './home/home.component';
 import { HomeCategoryComponent } from './home/home-category/home-category.component';
 
 // Services
-import { AppInjector } from './core/app-injector.service';
 import { BlogModule } from './blog/blog.module';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -35,8 +34,6 @@ import { RouterModule } from '@angular/router';
 })
 export class AppModule {
   constructor(private injector: Injector) {
-      // Store module's injector in the AppInjector class
-      console.log('Expected #1: storing app injector');
-      AppInjector.setInjector(injector);
+
     }
  }
