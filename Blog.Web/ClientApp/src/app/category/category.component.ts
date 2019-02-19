@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseQueryModel } from '../core/models/base-query.model';
 import { PostListConfig } from '../core/config/post-list.config';
 import { CategoryModel } from './models/category.model';
 import { CategoryService } from './category.service';
 import { ActivatedRoute } from '@angular/router';
+import { PostService } from '../post/post.service';
+import { PostSearchService } from '../post/post-search/post-search.service';
 
 @Component({
     selector: 'app-category',
@@ -15,18 +16,32 @@ export class CategoryComponent extends PostListConfig implements OnInit  {
     public category: CategoryModel;
 
     constructor(private categoryService: CategoryService,
-        private activatedRoute: ActivatedRoute) {
-        super();
+        private activatedRouteCategory: ActivatedRoute,
+        private postServiceCategory: PostService,
+        private postSearchServiceCategory: PostSearchService) {
+        super(postSearchServiceCategory, activatedRouteCategory, postServiceCategory);
     }
 
     public ngOnInit(): void {
-        const categoryId = this.activatedRoute.snapshot.params['categoryId'];
+        const categoryId = this.activatedRouteCategory.snapshot.params['categoryId'];
         this.categoryService.getCategoryById(categoryId)
         .subscribe(response => {
             this.category = response;
         });
+        super.ngOnInit();
      }
 
     public onSearch(searchQuery: string): void {
+    }
+
+    public getPosts(): void {
+        const categoryId = this.activatedRouteCategory.snapshot.params['categoryId'];
+        this.postQueryModel.categoryId = categoryId;
+        this.postServiceCategory.getPostsPagedByCategoryId(this.postQueryModel).subscribe(response => {
+            this.pageSize = response.size;
+            this.posts = response.entities;
+            this.page = response.page;
+            this.collectionSize = response.count;
+        });
     }
 }
