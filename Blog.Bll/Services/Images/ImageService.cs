@@ -28,10 +28,10 @@ namespace Blog.Bll.Services.Images
             var name = await _imageWriter.UploadImage(file);
 
             var image = new Image();
-            
+            var appBaseUrl = MyHttpContext.AppBaseUrl;
             image.Name = name;
             image.Extension = extension;
-            image.Ulr = "wwwroot\\images\\" + name; 
+            image.Url = appBaseUrl + "/wwwroot/images/" + name;
 
             var resultImage = await _imageRepository.AddAsync(image);
 

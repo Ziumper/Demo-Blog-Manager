@@ -44,7 +44,7 @@ export class PostFormComponent implements OnInit {
             this.postService.updatePost(model).subscribe();
         } else {
             const formData = new FormData();
-            formData.append('image', this.fileToUpload);
+            formData.append('file', this.fileToUpload);
             this.uploadFilesService.postImage(formData).subscribe(response => {
                 this.model.mainImage = response;
                 this.postService.addPost(model).subscribe();

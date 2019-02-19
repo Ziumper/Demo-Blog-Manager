@@ -22,6 +22,8 @@ using Microsoft.EntityFrameworkCore;
 using Blog.Bll.Services.Images.ImageWriter;
 using Blog.Bll.Services.Images;
 using Blog.Dal.Repositories.Images;
+using Blog.Bll.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace Blog.Web
 {
@@ -70,7 +72,7 @@ namespace Blog.Web
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-
+            app.UseHttpContext();
             app.UseMvc(routes =>
             {
                   routes.MapRoute(
@@ -104,6 +106,9 @@ namespace Blog.Web
         
         private void ConfiugreDependencyInjection(IServiceCollection services)
         {
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IBlogService, BlogService>();
