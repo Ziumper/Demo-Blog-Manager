@@ -33,7 +33,7 @@ import { RouterModule } from '@angular/router';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private injector: Injector) {
+  constructor() {
 
     }
  }
