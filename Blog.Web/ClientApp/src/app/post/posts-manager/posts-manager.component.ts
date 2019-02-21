@@ -16,8 +16,11 @@ export class PostsManagerComponent extends PostsListComponent implements OnInit 
     constructor(private managerPostService: PostService,
         private managerPostSearchService: PostSearchService,
         private managerActivatedRoute: ActivatedRoute) {
-        super(managerPostService, managerPostSearchService, managerActivatedRoute);
+        super();
         this.blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
+    }
+
+    public ngOnInit(): void {
     }
 
     public getPosts() {

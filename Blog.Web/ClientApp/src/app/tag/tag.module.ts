@@ -26,7 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         FormsModule,
         RouterModule,
         NgbModule,
-        PostModule,
+        PostModule
     ],
     providers: [
         TagService
