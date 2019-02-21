@@ -25,6 +25,16 @@ export class PostsListComponent  {
     public pageSize: number;
     @Input()
     public postQueryModel: PostQueryModel;
+    @Output()
+    public pageChange: EventEmitter<number>;
+
+    constructor() {
+        this.pageChange = new EventEmitter<number>();
+    }
+
+    public onPageChange(number): void {
+        this.pageChange.emit(number);
+    }
 
 }
 

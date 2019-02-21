@@ -13,6 +13,6 @@
                 <a *ngFor="let postTag of post.postTags;" [routerLink]="['/tag/',postTag.tag.id]"> #{{postTag.tag?.name}}</a>
             </div>
         </div>
-    </div>
+    </div> 
     <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" *ngIf="posts.length > 0"
-    [collectionSize]="collectionSize"  [pageSize]="pageSize" [(page)]="this.page" aria-label="Default pagination"></ngb-pagination>
+    [collectionSize]="this.collectionSize"  [pageSize]="this.pageSize" [(page)]="this.page" aria-label="Default pagination"></ngb-pagination>

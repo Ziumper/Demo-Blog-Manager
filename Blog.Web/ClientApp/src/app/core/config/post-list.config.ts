@@ -11,10 +11,9 @@ export class PostListConfig  implements OnInit, OnDestroy {
     public collectionSize: number;
     public page: number;
     public pageSize: number;
+    public postQueryModel: PostQueryModel;
 
     protected postSearch: Subscription;
-
-    protected postQueryModel: PostQueryModel;
 
     constructor(private postSearchService: PostSearchService,
         private activatedRoute: ActivatedRoute,
