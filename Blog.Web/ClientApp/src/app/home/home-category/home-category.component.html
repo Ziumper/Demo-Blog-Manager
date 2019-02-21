@@ -4,7 +4,7 @@
     </div>
     <div class="card-deck">
         <div class="card" *ngFor="let post of category.posts">
-            <img class="card-img-top" [src]="this.post.MainImage" alt="Card image cap">
+            <img class="card-img-top"  [src]="this.post.mainImage.url.length > 0 ? this.post.MainImage : this.defaultImageUrl" alt="Card image cap">
             <div class="card-body">
             <h5 class="card-title">{{post?.title}}</h5>
         <p class="card-text">{{post?.shortDescription}}</p>

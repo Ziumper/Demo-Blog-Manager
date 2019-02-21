@@ -12,6 +12,7 @@ import { PostModule } from '../post/post.module';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UploadFilesService } from './uploadFiles.service';
+import { LocationService } from './location.service';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { UploadFilesService } from './uploadFiles.service';
         LoggerService,
         ToastService,
         LoaderService,
-        UploadFilesService
+        UploadFilesService,
+        LocationService
     ]
 })
 export class CoreModule {
