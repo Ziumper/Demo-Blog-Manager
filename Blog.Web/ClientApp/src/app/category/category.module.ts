@@ -10,14 +10,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PostModule } from '../post/post.module';
 import { CategoriesListComponent } from './categories-list/categories-list.component';
 import { TagModule } from '../tag/tag.module';
-import { CategoryPostsListComponent } from './category-posts-list/category-posts-list.component';
 
 @NgModule({
     declarations: [
         CategoriesListComponent,
         CategoryFormComponent,
-        CategoryComponent,
-        CategoryPostsListComponent,
+        CategoryComponent
     ],
     exports: [
         CategoriesListComponent,
