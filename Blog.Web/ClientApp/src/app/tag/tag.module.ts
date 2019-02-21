@@ -8,23 +8,19 @@ import { RouterModule } from '@angular/router';
 import { PostModule } from '../post/post.module';
 import { TagComponent } from './tag.component';
 import { TagsListComponent } from './tags-list/tags-list.component';
-import { TagPostsListComponent } from './tag-posts-list/tag-posts-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
         TagsListComponent,
         TagFormComponent,
-        TagComponent,
-        TagPostsListComponent,
+        TagComponent
     ],
     exports: [
         TagsListComponent,
         TagFormComponent,
-        TagComponent,
-        TagPostsListComponent,
+        TagComponent
     ],
-
     imports: [
         CommonModule,
         FormsModule,
