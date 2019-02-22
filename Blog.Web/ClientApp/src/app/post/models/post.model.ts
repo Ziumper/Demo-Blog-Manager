@@ -17,4 +17,6 @@ export class PostModel {
     constructor() {
         this.postTags = new Array<PostTagModel>();
     }
+
+
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CategoryWithPostModel } from 'src/app/category/models/categoryWithPosts.model';
 import { CategoryService } from 'src/app/category/category.service';
-import { LocationService } from 'src/app/core/location.service';
 
 @Component({
     selector: 'app-home-category',
@@ -11,13 +10,11 @@ import { LocationService } from 'src/app/core/location.service';
 export class HomeCategoryComponent implements OnInit {
 
     public categories: Array<CategoryWithPostModel>;
-    public defaultImageUrl: string;
+    public test: string;
 
-    constructor(private categoryService: CategoryService,
-        private locationService: LocationService) {
+    constructor(private categoryService: CategoryService) {
         this.categories = new Array<CategoryWithPostModel>();
-        this.defaultImageUrl = this.locationService.getHostingUrl() + '/images/defaultImage.png';
-        console.log(this.defaultImageUrl);
+        this.test = '';
     }
 
     ngOnInit(): void {

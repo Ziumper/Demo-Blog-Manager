@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { UploadFilesService } from './uploadFiles.service';
 import { LocationService } from './location.service';
+import { DefaultImagePipe } from '../pipes/defaultImage.pipe';
 
 @NgModule({
     declarations: [
@@ -38,7 +39,7 @@ import { LocationService } from './location.service';
         ToastService,
         LoaderService,
         UploadFilesService,
-        LocationService
+        LocationService,
     ]
 })
 export class CoreModule {
