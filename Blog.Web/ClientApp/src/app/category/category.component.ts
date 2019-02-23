@@ -18,8 +18,8 @@ export class CategoryComponent extends PostListConfig implements OnInit  {
     constructor(private categoryService: CategoryService,
         private activatedRouteCategory: ActivatedRoute,
         private postServiceCategory: PostService,
-        private postSearchServiceCategory: PostSearchService) {
-        super(postSearchServiceCategory, activatedRouteCategory, postServiceCategory);
+        ) {
+        super( activatedRouteCategory, postServiceCategory);
     }
 
     public ngOnInit(): void {

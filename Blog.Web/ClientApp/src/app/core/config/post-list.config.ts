@@ -6,16 +6,14 @@ import { PostSearchService } from 'src/app/post/post-search/post-search.service'
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/post/post.service';
 
-export class PostListConfig  implements OnInit, OnDestroy {
+export class PostListConfig  implements OnInit {
     public posts: Array<PostModel>;
     public collectionSize: number;
     public page: number;
     public pageSize: number;
     public postQueryModel: PostQueryModel;
 
-    protected postSearch: Subscription;
-
-    constructor(private postSearchService: PostSearchService,
+    constructor(
         private activatedRoute: ActivatedRoute,
         private postService: PostService) {
         this.posts = new Array<PostModel>();
@@ -25,16 +23,7 @@ export class PostListConfig  implements OnInit, OnDestroy {
         this.postQueryModel = new PostQueryModel(this.page, 5, 1, true, '', [0], 0, 0);
     }
 
-
-    public ngOnDestroy(): void {
-        this.postSearch.unsubscribe();
-     }
-
-     public ngOnInit(): void {
-         this.postSearch = this.postSearchService.getMessage().subscribe(query => {
-             this.postQueryModel.searchQuery = query;
-             this.getPosts();
-         });
+    public ngOnInit(): void {
          this.getPosts();
      }
 

@@ -12,9 +12,8 @@ import { PostService } from '../post/post.service';
 export class TagComponent extends PostListConfig implements OnInit {
 
     constructor(private tagActivatedRoute: ActivatedRoute,
-        private postSearchServiceTag: PostSearchService,
         private postServiceTag: PostService) {
-        super(postSearchServiceTag, tagActivatedRoute, postServiceTag);
+        super( tagActivatedRoute, postServiceTag);
     }
 
     public ngOnInit(): void {

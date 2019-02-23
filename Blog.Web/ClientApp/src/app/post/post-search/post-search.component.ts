@@ -2,39 +2,28 @@ import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/cor
 import { Subject, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { PostSearchService } from './post-search.service';
+import { PostService } from '../post.service';
+import { PostListConfig } from 'src/app/core/config/post-list.config';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-post-search',
     templateUrl: './post-search.component.html',
     styleUrls: ['./post-search.component.scss']
 })
-export class PostSearchComponent implements OnInit, OnDestroy {
-    public searchTerm: Subject<string>;
+export class PostSearchComponent extends PostListConfig implements OnInit {
 
-    private search: Subscription;
+    constructor(private searchPostService: PostService,
+        private searchActivatedService: ActivatedRoute ) {
+        super(searchActivatedService, searchPostService);
 
-    constructor(private postSearchService: PostSearchService) {
-        this.searchTerm = new Subject<string>();
      }
 
-    public ngOnInit(): void {
-        this.search = this.onSearch(this.searchTerm).subscribe();
+    public ngOnInit() {
+        const searchQuery = this.searchActivatedService.snapshot.params['searchQuery'];
+        if (searchQuery) {
+            this.postQueryModel.searchQuery = searchQuery;
+        }
+        super.ngOnInit();
     }
-
-    public ngOnDestroy(): void {
-        this.search.unsubscribe();
-    }
-
-    private onSearch(searchTerm: Observable<string>): Observable<any> {
-        return searchTerm.pipe(
-            debounceTime(400),
-            distinctUntilChanged(),
-            switchMap((query: string) => {
-                this.postSearchService.sendMessage(query);
-                return new Observable<any>();
-            })
-        );
-    }
-
-
 }

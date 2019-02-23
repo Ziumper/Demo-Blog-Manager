@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { PostsListComponent } from '../posts-list/posts-list.component';
 import { PostService } from '../post.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostSearchService } from '../post-search/post-search.service';
@@ -17,7 +16,7 @@ export class PostsManagerComponent extends PostListConfig implements OnInit {
     constructor(private managerPostService: PostService,
         private managerPostSearchService: PostSearchService,
         private managerActivatedRoute: ActivatedRoute) {
-        super(managerPostSearchService, managerActivatedRoute, managerPostService);
+        super(managerActivatedRoute, managerPostService);
             this.blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
     }
 

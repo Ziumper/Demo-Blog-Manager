@@ -3,7 +3,6 @@ import { BlogModel } from './models/blog.model';
 import { BlogService } from './blog.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostListConfig } from '../core/config/post-list.config';
-import { PostSearchService } from '../post/post-search/post-search.service';
 import { PostService } from '../post/post.service';
 
 @Component({
@@ -17,9 +16,8 @@ export class BlogComponent extends PostListConfig  implements OnInit {
 
   constructor(private blogService: BlogService,
      private activatedRouteBlog: ActivatedRoute,
-     private postSearchServiceBlog: PostSearchService,
      private postServiceBlog: PostService ) {
-       super(postSearchServiceBlog , activatedRouteBlog, postServiceBlog);
+       super(activatedRouteBlog, postServiceBlog);
        this.blogId = activatedRouteBlog.snapshot.params['blogId'];
   }
 
