@@ -15,7 +15,5 @@ namespace Blog.Bll.Dto.Posts
         public string ShortDescription { get; set; }
         public List<PostTagDto> PostTags {get; set;}
         public ImageDto MainImage {get ; set;}
-
-        public List<ImageDto> Images {get;set;}
     }
 }

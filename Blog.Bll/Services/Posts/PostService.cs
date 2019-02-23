@@ -152,7 +152,6 @@ namespace Blog.Bll.Services.Posts
         public async Task<PostDto> EditPostAsync(PostDto postDto)
         {
             var image = await _imageRepository.FindByFirstAsync(img => img.Id == postDto.MainImage.Id);
-            var images = await GetImagesForPost(postDto);
             
             var post = await _postRepository.GetPostByIdWithPostTagsAsync(postDto.Id);
             bool postFound = post != null;
@@ -167,7 +166,6 @@ namespace Blog.Bll.Services.Posts
             post.Title = postDto.Title;
 
             post.MainImage = image;
-            post.Images = images;
 
             var entityTags = await AddTagsFromPostsList(postDto.PostTags);
             post = AssignPostTagsToPostEntity(post,entityTags);

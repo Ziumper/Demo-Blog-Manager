@@ -131,7 +131,7 @@ namespace Blog.Dal.Repositories.Posts
 
         public async Task<Post> GetPostByIdWithImagesAsync(int postId)
         {
-            var post = await _table.Include(p => p.Images).Include(p => p.MainImage).Where(p=> p.Id == postId).FirstOrDefaultAsync();
+            var post = await _table.Include(p => p.MainImage).Where(p=> p.Id == postId).FirstOrDefaultAsync();
             return post;
         }
     }
