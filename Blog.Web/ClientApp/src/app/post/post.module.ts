@@ -11,6 +11,8 @@ import { PostsListComponent } from './posts-list/posts-list.component';
 import { PostsManagerComponent } from './posts-manager/posts-manager.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgxEditorModule } from 'ngx-editor';
+import { CoreModule } from '../core/core.module';
+
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import { NgxEditorModule } from 'ngx-editor';
         RouterModule,
         AngularFontAwesomeModule,
         NgxEditorModule,
+        CoreModule
     ],
     providers: [
         PostSearchService

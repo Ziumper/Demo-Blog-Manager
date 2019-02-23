@@ -15,7 +15,7 @@ import { BlogModule } from './blog/blog.module';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { DefaultImagePipe } from './pipes/defaultImage.pipe';
+
 
 
 @NgModule({
@@ -23,7 +23,6 @@ import { DefaultImagePipe } from './pipes/defaultImage.pipe';
     AppComponent,
     HomeComponent,
     HomeCategoryComponent,
-    DefaultImagePipe
   ],
   imports: [
     BrowserModule,

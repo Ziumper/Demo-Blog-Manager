@@ -3,7 +3,7 @@
             <div class="card-header">
                 {{post?.title}}
             </div>
-            <img class="card-img-top" [src]="post.mainImage.url" alt="Card image cap">
+            <img class="card-img-top" [src]="post?.mainImage?.url|defaultImage" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">{{post?.title}}</h5>
                 <p class="card-text">{{post?.shortDescription}}</p>
