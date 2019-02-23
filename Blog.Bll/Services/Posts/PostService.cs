@@ -65,12 +65,9 @@ namespace Blog.Bll.Services.Posts
 
             var image = await _imageRepository.FindByFirstAsync(img => img.Id == post.MainImage.Id);
 
-            var images = await GetImagesForPost(post);
-
             var mappedPost = _mapper.Map<PostDto,Post>(post);
 
             mappedPost.MainImage = image;
-            mappedPost.Images = images;
 
             mappedPost.PostTags = new List<PostTag>();
             mappedPost = AssignPostTagsToPostEntity(mappedPost,entityTags);
@@ -83,20 +80,8 @@ namespace Blog.Bll.Services.Posts
             return resultDto;
         }
 
-        private async Task<List<Image>> GetImagesForPost(PostDto post) {
-
-            List<Image> images = new List<Image>();
-            
-            foreach (var imageDto in post.Images) {
-                var imageFromBase = await _imageRepository.FindByFirstAsync(image => image.Id == imageDto.Id);
-                images.Add(imageFromBase);
-            }
-
-            return images;
-        }
         public List<PostDto> GetAllPosts()
         {
-           
             var posts = _postRepository.GetAll();
             List<PostDto> postViews = new List<PostDto>();
             foreach(var post in posts)
@@ -135,13 +120,7 @@ namespace Blog.Bll.Services.Posts
                 throw new ResourceNotFoundException("Post not found");
             }
 
-            _imageRepository.DeleteMany(result.Images);
             _imageRepository.Delete(result.MainImage);
-
-            foreach (var image in result.Images)
-            {
-                _imageWriter.DeleteImageFileFromServer(image.Name);
-            }
 
             _imageWriter.DeleteImageFileFromServer(result.MainImage.Name);
 

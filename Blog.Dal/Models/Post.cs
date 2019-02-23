@@ -18,6 +18,5 @@ namespace Blog.Dal.Models
         public List<PostTag> PostTags {get; set;}
         public Boolean IsPublished {get; set;}
         public Image MainImage {get; set;}
-        public List<Image> Images {get; set;}
     }
 }
