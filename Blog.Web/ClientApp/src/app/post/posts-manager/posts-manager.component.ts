@@ -3,25 +3,24 @@ import { PostsListComponent } from '../posts-list/posts-list.component';
 import { PostService } from '../post.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostSearchService } from '../post-search/post-search.service';
+import { PostListConfig } from 'src/app/core/config/post-list.config';
 
 @Component({
     selector: 'app-posts-manager',
     templateUrl: './posts-manager.component.html',
     styleUrls: ['./posts-manager.component.scss']
 })
-export class PostsManagerComponent extends PostsListComponent implements OnInit {
+export class PostsManagerComponent extends PostListConfig implements OnInit {
 
     public blogId;
 
     constructor(private managerPostService: PostService,
         private managerPostSearchService: PostSearchService,
         private managerActivatedRoute: ActivatedRoute) {
-        super();
-        this.blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
+        super(managerPostSearchService, managerActivatedRoute, managerPostService);
+            this.blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
     }
 
-    public ngOnInit(): void {
-    }
 
     public getPosts() {
         const blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
