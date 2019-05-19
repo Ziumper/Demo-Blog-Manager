@@ -7,9 +7,16 @@ export class PostQueryModel extends BaseQueryModel {
     public blogId: number;
 
     public getParams(): HttpParams {
-        return super.getParams()
-        .set('tagsIds', this.tagsIds.toString())
-        .set('blogId', this.blogId.toString());
+        let params = super.getParams();
+
+        if (this.tagsIds) {
+            params = params.set('tagsIds', this.tagsIds.toString());
+        }
+
+        if (this.blogId) {
+            params = params.set('blogId', this.blogId.toString());
+        }
+        return params;
     }
 
 }
