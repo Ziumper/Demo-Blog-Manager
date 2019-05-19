@@ -23,7 +23,6 @@ namespace Blog.Dal
         public DbSet<Comment> Comments { get; set; }
         public DbSet<BlogEntity> Blogs { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Category> Categories { get; set; }
         public DbSet<Image> Images {get; set;}
     }
 }

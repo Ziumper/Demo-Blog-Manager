@@ -17,9 +17,10 @@ namespace Blog.Dal.Repositories.Blogs
         {
         }
 
-        public async Task<BlogEntity> GetBlogByIdWithCategory(int id) {
-            var blog = await _table.Where(b => b.Id == id).Include(b => b.Category).FirstOrDefaultAsync();
-            return blog;
+        public Task<BlogEntity> GetBlogByIdWithCategory(int id) {
+            throw new NotImplementedException();
+            // var blog = await _table.Where(b => b.Id == id).Include(b => b.Category).FirstOrDefaultAsync();
+            // return blog;
         }
 
         public async Task<BlogEntity> GetBlogByIdWithPostsAndComments(int id)
@@ -31,7 +32,6 @@ namespace Blog.Dal.Repositories.Blogs
         public override IQueryable<BlogEntity> Sort(IQueryable<BlogEntity> blogs, int filter, bool order)
         {
             blogs = base.Sort(blogs, filter, order);
-            blogs = blogs.Include(x => x.Category);
 
             if (order)
             {
@@ -43,7 +43,7 @@ namespace Blog.Dal.Repositories.Blogs
                         }
                     case 4:
                         {
-                            return blogs.OrderByDescending(x => x.Category.Name);
+                            return blogs.OrderByDescending(x => x.IsActive);
                         }
                     case 5:
                         {
@@ -67,7 +67,8 @@ namespace Blog.Dal.Repositories.Blogs
                         }
                     case 4:
                         {
-                            return blogs.OrderBy(x => x.Category.Name);
+                             return blogs.OrderBy(x => x.IsActive);
+                            // return blogs.OrderBy(x => x.Category.Name);
                         }
                     case 5:
                         {
