@@ -104,9 +104,7 @@ namespace Blog.Web
         
         private void ConfiugreDependencyInjection(IServiceCollection services)
         {
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
             services.AddTransient<IPostService, PostService>();
             services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<IBlogService, BlogService>();
