@@ -8,7 +8,7 @@ import { AppRoutingModule } from './/app-routing.module';
 // Components
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { HomeCategoryComponent } from './home/home-category/home-category.component';
+
 
 // Services
 import { BlogModule } from './blog/blog.module';
@@ -22,7 +22,6 @@ import { RouterModule } from '@angular/router';
   declarations: [
     AppComponent,
     HomeComponent,
-    HomeCategoryComponent,
   ],
   imports: [
     BrowserModule,

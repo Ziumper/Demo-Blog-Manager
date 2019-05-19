@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PostListConfig } from '../core/config/post-list.config';
-import { CategoryService } from '../category/category.service';
-import { CategoryWithPostModel } from '../category/models/categoryWithPosts.model';
-import { CategoryModel } from '../category/models/category.model';
 
 @Component({
   selector: 'app-home',
@@ -11,10 +8,10 @@ import { CategoryModel } from '../category/models/category.model';
 })
 export class HomeComponent implements OnInit  {
 
-  public categories: Array<CategoryWithPostModel>;
 
-  constructor(private categoryService: CategoryService) {
-    this.categories = new Array<CategoryWithPostModel>();
+
+  constructor() {
+
   }
 
   public ngOnInit(): void {

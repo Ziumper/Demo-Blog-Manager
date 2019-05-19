@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { PostFormComponent } from './post/post-form/post-form.component';
-import { CategoryFormComponent } from './category/category-form/category-form.component';
 import { TagComponent } from './tag/tag.component';
 import { PostComponent } from './post/post.component';
 import { BlogComponent } from './blog/blog.component';
@@ -21,8 +20,6 @@ const routes = [
       { path: 'post-form', component: PostFormComponent},
     ]
   },
-  { path: 'category-editor', component: CategoryFormComponent},
-  { path: 'category-editor/:id', component: CategoryFormComponent},
   { path: 'blog/:blogId', component: BlogComponent },
   { path: 'blog/:blogId/post/:id', component: PostComponent},
   { path: 'tag/:tagId', component: TagComponent},

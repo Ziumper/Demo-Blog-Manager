@@ -7,7 +7,6 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { BlogService } from './blog.service';
-import { CategoryModule } from '../category/category.module';
 import { PostModule } from '../post/post.module';
 import { TagModule } from '../tag/tag.module';
 import { RouterModule } from '@angular/router';
@@ -30,7 +29,6 @@ import { BlogManagerComponent } from './blog-manager/blog-manager.component';
         FormsModule,
         AngularFontAwesomeModule,
         NgbModule,
-        CategoryModule,
         PostModule,
         TagModule,
         RouterModule,
