@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TagModel } from './models/tag.model';
-import { HttpService } from '../core/http.service';
+import { HttpService } from '../core/services/http.service';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable()

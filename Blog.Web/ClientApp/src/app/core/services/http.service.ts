@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, empty } from 'rxjs';
 import { LoggerService } from './logger.service';
-import { ResponseModel } from './models/response.model';
-import { LoaderService } from './loader/loader.service';
+import { ResponseModel } from '../models/response.model';
+import { LoaderService } from '../loader/loader.service';
 import { tap, catchError } from 'rxjs/operators';
 
 
@@ -106,7 +106,7 @@ export class HttpService  {
             }),
             catchError( (error) => {
                 this.catchErrorResponse(error);
-                return empty();
+                return error;
             })
         );
 
@@ -122,7 +122,7 @@ export class HttpService  {
             }),
             catchError( error => {
                 this.catchSmallErrorResponse(error);
-                return empty();
+                return error;
             })
         );
 

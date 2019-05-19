@@ -14,6 +14,7 @@ export class PostsListComponent implements OnInit {
     public posts: Array<PostModel>;
     public page: number;
     public pageSize: number;
+
     @Input()
     public postQueryModel: PostQueryModel;
 
@@ -27,6 +28,5 @@ export class PostsListComponent implements OnInit {
             this.pageSize = data.size;
         });
     }
-
 }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BlogModel } from './models/blog.model';
 import { Observable } from 'rxjs';
-import { HttpService } from '../core/http.service';
+import { HttpService } from '../core/services/http.service';
 import { BlogPagedModel } from './models/blogs-paged-model';
 import { BaseQueryModel } from '../core/models/base-query.model';
 import { HttpClient } from '@angular/common/http';

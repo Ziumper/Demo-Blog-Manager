@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../post.service';
 import { TagModel } from 'src/app/tag/models/tag.model';
 import { PostTagModel } from '../models/post-tag.model';
-import { UploadFilesService } from 'src/app/core/uploadFiles.service';
+import { UploadFilesService } from 'src/app/core/services/uploadFiles.service';
 import { ImageModel } from 'src/app/core/models/image.model';
 
 @Component({
