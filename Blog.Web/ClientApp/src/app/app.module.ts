@@ -15,7 +15,8 @@ import { BlogModule } from './blog/blog.module';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-
+import { PostModule } from './post/post.module';
+import { TagModule } from './tag/tag.module';
 
 
 @NgModule({
@@ -29,12 +30,14 @@ import { RouterModule } from '@angular/router';
     RouterModule,
     HttpClientModule,
     BlogModule,
-    CoreModule
+    CoreModule,
+    PostModule,
+    TagModule
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor() {
 
-    }
- }
+  }
+}

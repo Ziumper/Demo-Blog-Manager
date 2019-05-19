@@ -2,10 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output, OnDestroy } from '@angu
 import { PostService } from '../post.service';
 import { PostModel } from '../models/post.model';
 import { PostQueryModel } from '../models/post-query.model';
-import { ActivatedRoute } from '@angular/router';
-import { PostSearchService } from '../post-search/post-search.service';
-import { Observable, Subscription } from 'rxjs';
-import { PostListConfig } from 'src/app/core/config/post-list.config';
+import { PostPagedModel } from '../models/post-paged.model';
 
 @Component({
     selector: 'app-posts-list',
@@ -13,27 +10,22 @@ import { PostListConfig } from 'src/app/core/config/post-list.config';
     styleUrls: ['./posts-list.component.scss']
 })
 
-export class PostsListComponent  {
-
-    @Input()
+export class PostsListComponent implements OnInit {
     public posts: Array<PostModel>;
-    @Input()
-    public collectionSize: number;
-    @Input()
     public page: number;
-    @Input()
     public pageSize: number;
     @Input()
     public postQueryModel: PostQueryModel;
-    @Output()
-    public pageChange: EventEmitter<number>;
 
-    constructor() {
-        this.pageChange = new EventEmitter<number>();
+    constructor(private postService: PostService) {
     }
 
-    public onPageChange(number): void {
-        this.pageChange.emit(number);
+    public ngOnInit(): void {
+        this.postService.getPostsPaged(this.postQueryModel).subscribe((data: PostPagedModel) => {
+            this.posts = data.entities;
+            this.page = data.page;
+            this.pageSize = data.size;
+        });
     }
 
 }

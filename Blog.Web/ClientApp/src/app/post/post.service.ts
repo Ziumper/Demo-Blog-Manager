@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../core/http.service';
 import { Observable, throwError } from 'rxjs';
 import { PostPagedModel } from './models/post-paged.model';
 import { PostModel } from './models/post.model';

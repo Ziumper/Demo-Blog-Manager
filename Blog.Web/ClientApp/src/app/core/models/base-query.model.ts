@@ -7,14 +7,6 @@ export class BaseQueryModel {
     public order: boolean;
     public searchQuery: string;
 
-    constructor(page: number, size: number, filter: number, order: boolean, searchQuery: string) {
-        this.page = page;
-        this.size = size;
-        this.filter = filter;
-        this.order = order;
-        this.searchQuery = searchQuery;
-    }
-
     public getParams(): HttpParams {
         const params = new HttpParams()
         .set('page', this.page.toString())

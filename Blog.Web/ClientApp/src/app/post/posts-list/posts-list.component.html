@@ -1,18 +1,17 @@
-<div class="post-container" *ngFor="let post of posts;">    
-        <div class="card">
-            <div class="card-header">
-                {{post?.title}}
-            </div>
-            <img class="card-img-top" [src]="post?.mainImage?.url|defaultImage" alt="Card image cap">
-            <div class="card-body">
-                <h5 class="card-title">{{post?.title}}</h5>
-                <p class="card-text">{{post?.shortDescription}}</p>
-                <a [routerLink] ="['post/', post.id]" class="btn btn-primary">Go to post</a>
-            </div>
-            <div *ngIf="post?.postTags?.length > 0" class="card-footer text-muted">
-                <a *ngFor="let postTag of post.postTags;" [routerLink]="['/tag/',postTag.tag.id]"> #{{postTag.tag?.name}}</a>
-            </div>
+<div class="post-container" *ngFor="let post of posts;">
+    <div class="card">
+        <div class="card-header">
+            {{post?.title}}
         </div>
-    </div> 
-    <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" *ngIf="posts.length > 0"
-    [collectionSize]="this.collectionSize"  [pageSize]="this.pageSize" [(page)]="this.page" aria-label="Default pagination"></ngb-pagination>
+        <img class="card-img-top" [src]="post?.mainImage?.url|defaultImage" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{post?.title}}</h5>
+            <p class="card-text">{{post?.shortDescription}}</p>
+            <a [routerLink]="['post/', post.id]" class="btn btn-primary">Go to post</a>
+        </div>
+        <div *ngIf="post?.postTags?.length > 0" class="card-footer text-muted">
+            <a *ngFor="let postTag of post.postTags;" [routerLink]="['/tag/',postTag.tag.id]">
+                #{{postTag.tag?.name}}</a>
+        </div>
+    </div>
+</div>

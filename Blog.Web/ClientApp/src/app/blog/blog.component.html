@@ -6,17 +6,10 @@
     </div>
     <div class="row">
         <div class="col-md-8 col-xs-12">
-            <app-posts-list (pageChange)="this.onPageChange()" 
-            [collectionSize]="this.collectionSize"
-            [page]="this.page"
-            [pageSize]="this.pageSize"
-            [postQueryModel]="this.postQueryModel"
-            [posts]="this.posts"
-            ></app-posts-list>
+            <app-posts-list [postQueryModel]="this.postQueryModel"></app-posts-list>
         </div>
         <div class="col-md-4 col-xs-12 ">
             <app-tags-list></app-tags-list>
         </div>
     </div>
 </div>
-
