@@ -24,5 +24,6 @@ namespace Blog.Dal
         public DbSet<BlogEntity> Blogs { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Image> Images {get; set;}
+        public DbSet<User> Users {get; set;}
     }
 }
