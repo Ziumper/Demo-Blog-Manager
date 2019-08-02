@@ -9,7 +9,9 @@ using Blog.Dal.Models.Base;
 
 namespace Blog.Dal.Repositories.Base
 {
-    public abstract class GenericRepository<T,W>  : IGenericRepository<T> where T: BaseEntity
+    public abstract class GenericRepository<T,W>  : IGenericRepository<T> 
+        where T: BaseEntity
+        where W: DbContext 
     {
         protected readonly DbContext _context;
         protected readonly DbSet<T> _table;
