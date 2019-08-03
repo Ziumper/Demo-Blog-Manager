@@ -3,13 +3,14 @@ using Blog.Bll.Dto.Blogs;
 using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.QueryModels;
 using Blog.Bll.Services.Blogs;
+using Blog.Web.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Blog")]
-    public class BlogController : Controller
+    public class BlogController : BaseBlogAppController
     {
         private readonly IBlogService _blogService;
 

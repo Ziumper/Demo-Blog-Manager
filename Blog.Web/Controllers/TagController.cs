@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Blog.Bll.Dto.Tags;
 using Blog.Bll.Services.Tags;
+using Blog.Web.Controllers.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,7 +12,7 @@ namespace Blog.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Tag")]
-    public class TagController : Controller
+    public class TagController : BaseBlogAppController
     {
         private readonly ITagService _tagService;
         

@@ -22,6 +22,10 @@ using Blog.Bll.Services.Images;
 using Blog.Dal.Repositories.Images;
 using Blog.Bll.Services;
 using Microsoft.AspNetCore.Http;
+using Blog.Bll.Services.Parsing;
+using Blog.Bll.Services.Users;
+using Blog.Dal.Repositories;
+using Blog.Dal.Repositories.Users;
 
 namespace Blog.Web
 {
@@ -117,6 +121,9 @@ namespace Blog.Web
             services.AddTransient<IImageFormatValidator,ImageFormatValidator>();
             services.AddTransient<IImageService,ImageService>();
             services.AddTransient<IImageRepository,ImageRepository>();
+            services.AddTransient<IParserService, ParserService>();
+            services.AddTransient<IUserService,UserService>();
+            services.AddTransient<IUserRepository,UserRepository>();
         }
     }
 }

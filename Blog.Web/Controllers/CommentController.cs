@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Mvc;
 using Blog.Bll.Services.Comments;
 using Blog.Bll.Dto;
 using Blog.Bll.Dto.Comments;
+using Blog.Web.Controllers.Base;
 
 namespace Blog.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Comment")]
-    public class CommentController : Controller
+    public class CommentController : BaseBlogAppController
     {
         private readonly ICommentService _commentService;
 

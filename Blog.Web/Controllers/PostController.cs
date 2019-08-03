@@ -6,13 +6,14 @@ using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.Exceptions;
 using Blog.Bll.Services.Comments;
 using Blog.Bll.Services.Posts;
+using Blog.Web.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Web.Controllers
 {
     [Produces("application/json")]
     [Route("api/Post")]
-    public class PostController : Controller
+    public class PostController : BaseBlogAppController
     {
         private readonly IPostService _postService;
         
