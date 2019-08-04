@@ -1,4 +1,4 @@
-namespace Blog.Bll.Services.Parsing {
+namespace Blog.Bll.Services.Utility {
 
     public interface IParserService
     {

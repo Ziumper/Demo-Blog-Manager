@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Blog.Bll.Services {
+namespace Blog.Bll.Services.Utility {
     public static class HttpContextExtensions  {
         public static void AddHttpContextAccessor(this IServiceCollection services)
         {

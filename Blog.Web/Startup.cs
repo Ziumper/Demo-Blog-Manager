@@ -22,10 +22,11 @@ using Blog.Bll.Services.Images;
 using Blog.Dal.Repositories.Images;
 using Blog.Bll.Services;
 using Microsoft.AspNetCore.Http;
-using Blog.Bll.Services.Parsing;
 using Blog.Bll.Services.Users;
 using Blog.Dal.Repositories;
 using Blog.Dal.Repositories.Users;
+using Blog.Bll.Services.Utility;
+using Blog.Bll.Services.Emails;
 
 namespace Blog.Web
 {
@@ -124,6 +125,7 @@ namespace Blog.Web
             services.AddTransient<IParserService, ParserService>();
             services.AddTransient<IUserService,UserService>();
             services.AddTransient<IUserRepository,UserRepository>();
+            services.AddTransient<IEmailService, EmailService> ();
         }
     }
 }

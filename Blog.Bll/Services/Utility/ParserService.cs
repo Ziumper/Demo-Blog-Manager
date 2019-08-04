@@ -1,6 +1,6 @@
 using System;
 
-namespace Blog.Bll.Services.Parsing {
+namespace Blog.Bll.Services.Utility {
 
     public class ParserService : IParserService
     {

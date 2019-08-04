@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace Blog.Bll.Services {
+namespace Blog.Bll.Services.Utility {
     public class MyHttpContext {
         
         private static IHttpContextAccessor m_httpContextAccessor;
