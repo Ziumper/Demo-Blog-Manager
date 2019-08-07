@@ -52,7 +52,9 @@ namespace Blog.Web
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            var connection = @"Server=.\SQLExpress;Database=BlogDatabase;Trusted_Connection=True;ConnectRetryCount=0";
+        
+
+            var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<BloggingContext>(options => options.UseSqlServer(connection));
 
             ConfiugreDependencyInjection(services);
