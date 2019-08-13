@@ -13,11 +13,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { PostModule } from './post/post.module';
 import { TagModule } from './tag/tag.module';
+import { NavigationComponent } from './navigation/navigation.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +32,10 @@ import { TagModule } from './tag/tag.module';
     BlogModule,
     CoreModule,
     PostModule,
-    TagModule
+    TagModule,
+    AngularFontAwesomeModule,
+    NgbModule,
+    UserModule
   ],
   bootstrap: [AppComponent]
 })

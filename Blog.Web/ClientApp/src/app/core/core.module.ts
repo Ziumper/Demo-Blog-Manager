@@ -5,7 +5,6 @@ import { HttpService } from './services/http.service';
 import { LoggerService } from './services/logger.service';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LoaderService } from './loader/loader.service';
-import { NavigationComponent } from './navigation/navigation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -19,14 +18,12 @@ import { AlertService } from './services/alert.service';
     declarations: [
         LoaderComponent,
         SmallLoaderComponent,
-        NavigationComponent,
-        DefaultImagePipe
+        DefaultImagePipe,
     ],
     exports: [
         LoaderComponent,
         SmallLoaderComponent,
-        NavigationComponent,
-        DefaultImagePipe
+        DefaultImagePipe,
     ],
     imports: [
         AngularFontAwesomeModule,
