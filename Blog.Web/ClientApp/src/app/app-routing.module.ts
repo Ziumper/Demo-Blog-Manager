@@ -11,6 +11,7 @@ import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
 import { ProfileComponent } from './user/profile/profile.component';
+import { ActivationComponent } from './user/activation/activation.component';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent},
   { path: 'profile', component: ProfileComponent},
+  { path: 'activation', component: ActivationComponent},
   { path: 'blog-manager/:blogId', component: BlogManagerComponent,
     children: [
       { path: '', redirectTo: 'blog-options', pathMatch: 'full' },
