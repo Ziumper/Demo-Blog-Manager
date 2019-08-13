@@ -10,12 +10,14 @@ import { PostsManagerComponent } from './post/posts-manager/posts-manager.compon
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
+import { ProfileComponent } from './user/profile/profile.component';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent},
+  { path: 'profile', component: ProfileComponent},
   { path: 'blog-manager/:blogId', component: BlogManagerComponent,
     children: [
       { path: '', redirectTo: 'blog-options', pathMatch: 'full' },
