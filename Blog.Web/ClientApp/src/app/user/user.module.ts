@@ -4,6 +4,10 @@ import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ActivationComponent } from './activation/activation.component';
+import { UserService } from './user.service';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
     declarations: [
@@ -12,14 +16,20 @@ import { ActivationComponent } from './activation/activation.component';
         ProfileComponent,
         ActivationComponent
     ],
-    imports: [CommonModule],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CoreModule
+    ],
     exports: [
         RegistrationComponent,
         LoginComponent,
         ProfileComponent,
         ActivationComponent
     ],
-    providers: [],
+    providers: [UserService],
 })
 export class UserModule {
 }
