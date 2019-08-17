@@ -96,10 +96,13 @@ namespace Blog.Bll.Services.Users {
            
             var userResult = await _userRepository.AddAsync (user);
 
+            
+
             await _userRepository.SaveAsync ();
 
-            var emailMesssage = GetRegisterEmailMessage(userResult);
-            _emailService.Send(emailMesssage);
+            // TODO catch exception if email send error.
+            //var emailMesssage = GetRegisterEmailMessage(userResult);
+            //_emailService.Send(emailMesssage);
           
             var userWithoutPassword = _mapper.Map<User, UserDtoWithoutPassword> (userResult);
 
