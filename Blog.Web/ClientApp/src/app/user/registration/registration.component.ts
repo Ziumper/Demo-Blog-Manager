@@ -67,9 +67,9 @@ export class RegistrationComponent implements OnInit {
     private repeatedValidatorFn(control: FormControl): ValidatorFn {
         return (c: AbstractControl): { [key: string]: boolean } | null => {
             const originalPassword = control.value;
-            const isRepated = c.value !== originalPassword;
+            const isNotSame = c.value !== originalPassword;
 
-            if (isRepated) {
+            if (isNotSame) {
                 return { 'repeated': true };
             }
 
