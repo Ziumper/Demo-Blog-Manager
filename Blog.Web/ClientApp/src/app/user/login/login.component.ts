@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     submitted = false;
     returnUrl: string;
 
-    get login() { return this.loginForm.get('login'); }
+    get username() { return this.loginForm.get('username'); }
     get password() { return this.loginForm.get('password'); }
 
     constructor(private authenticationService: AuthenticationService,
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
 
         this.loading = true;
 
-        const username = this.login.value;
+        const username = this.username.value;
         const password = this.password.value;
 
         this.authenticationService.login(username, password)
@@ -61,8 +61,8 @@ export class LoginComponent implements OnInit {
                 data => {
                     this.router.navigate([this.returnUrl]);
                 },
-                error => {
-                    this.alertService.error(error);
+                errorData => {
+                    this.alertService.error(errorData.error.message);
                     this.loading = false;
                 });
 

@@ -93,9 +93,9 @@ export class RegistrationComponent implements OnInit {
                     this.alertService.success('Registration successful, check your mail box for activation code', true);
                     this.router.navigate(['/login']);
                 },
-                error => {
+                errorData => {
                     // TODO fix this to be one error
-                    this.alertService.error(error.error.error);
+                    this.alertService.error(errorData.error.message);
                     this.loading = false;
                 });
     }

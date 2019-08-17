@@ -38,7 +38,7 @@ namespace Blog.Bll.Middlewares
             else if (exception is UnauthorizedException) code = HttpStatusCode.Unauthorized;
             else if (exception is BadRequestException) code = HttpStatusCode.BadRequest;
 
-            var result = JsonConvert.SerializeObject(new { error = exception.Message });
+            var result = JsonConvert.SerializeObject (new { message = exception.Message });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);
