@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert.service';
+
+/**
+ * Custom validator example
+ */
 
 @Component({
     selector: 'app-registration',
@@ -20,6 +24,7 @@ export class RegistrationComponent implements OnInit {
     get email() { return this.registerForm.get('email'); }
     get username() { return this.registerForm.get('username'); }
     get password() { return this.registerForm.get('password'); }
+    get repeatedPassword() { return this.registerForm.get('repeatedPassword'); }
 
     private passwordPattern: string;
 
@@ -31,6 +36,14 @@ export class RegistrationComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+        const passwordControl = new FormControl('', [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.pattern(this.passwordPattern)
+        ]);
+
+        const repeatedPasswordControl = new FormControl('', [Validators.required, this.repeatedValidatorFn(passwordControl)]);
+
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
@@ -41,16 +54,28 @@ export class RegistrationComponent implements OnInit {
                     Validators.required
                 ]
             ],
-            password: ['',
-                [
-                    Validators.required,
-                    Validators.minLength(6),
-                    Validators.pattern(this.passwordPattern)
-                ]
-            ]
+            password: passwordControl,
+            repeatedPassword: repeatedPasswordControl
         });
+
     }
 
+/**
+    //  * It is custom validator for checking password repeating
+    //  * @param control FormControl
+    //  */
+    private repeatedValidatorFn(control: FormControl): ValidatorFn {
+        return (c: AbstractControl): { [key: string]: boolean } | null => {
+            const originalPassword = control.value;
+            const isRepated = c.value !== originalPassword;
+
+            if (isRepated) {
+                return { 'repeated': true };
+            }
+
+            return null;
+        };
+    }
 
     public onSubmit() {
         this.submitted = true;
