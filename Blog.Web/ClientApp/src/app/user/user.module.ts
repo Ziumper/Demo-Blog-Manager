@@ -4,10 +4,11 @@ import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ActivationComponent } from './activation/activation.component';
-import { UserService } from './user.service';
+import { UserService } from './services/user.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
+import { AuthenticationService } from './services/authentication.service';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,7 @@ import { CoreModule } from '../core/core.module';
         ProfileComponent,
         ActivationComponent
     ],
-    providers: [UserService],
+    providers: [UserService, AuthenticationService],
 })
 export class UserModule {
 }
