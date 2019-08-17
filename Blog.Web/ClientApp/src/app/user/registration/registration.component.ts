@@ -60,10 +60,10 @@ export class RegistrationComponent implements OnInit {
 
     }
 
-/**
-    //  * It is custom validator for checking password repeating
-    //  * @param control FormControl
-    //  */
+    /**
+      * It is custom validator for checking password repeating
+      * @param control FormControl
+    */
     private repeatedValidatorFn(control: FormControl): ValidatorFn {
         return (c: AbstractControl): { [key: string]: boolean } | null => {
             const originalPassword = control.value;
