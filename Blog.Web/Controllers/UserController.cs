@@ -32,7 +32,7 @@ namespace Blog.Web.Controllers {
             return Ok (user);
         }
 
-       
+        [AllowAnonymous]
         [HttpPost ("register")]
         public async Task<IActionResult> Register ([FromBody] UserDto userParam) {
             UserDtoWithoutPassword user = await _userService.Register (userParam);
