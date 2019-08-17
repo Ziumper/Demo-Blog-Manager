@@ -9,7 +9,7 @@ export class UserService {
 
     private apiUrl: string;
     constructor(private http: HttpClient) {
-        this.apiUrl = 'api/users';
+        this.apiUrl = 'api/user';
     }
 
     getById(id: number) {

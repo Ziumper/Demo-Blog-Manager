@@ -128,6 +128,8 @@ namespace Blog.Web
             services.AddTransient<IUserService,UserService>();
             services.AddTransient<IUserRepository,UserRepository>();
             services.AddTransient<IEmailService, EmailService> ();
+            services.AddTransient<IHashService,HashService> ();
+            services.AddTransient<IEmailConfiguration,EmailConfiguration>();
         }
     }
 }
