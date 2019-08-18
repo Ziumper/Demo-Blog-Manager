@@ -43,9 +43,29 @@ namespace Blog.Bll.Services.Users {
             
         }
 
-        public Task<UserDtoWithoutPassword> ActivateUser(UserDtoActivation activationUserDetails)
+        public async Task<UserDtoWithoutPassword> ActivateUser(UserDtoActivation activationUserDetails)
         {
-            throw new System.NotImplementedException();
+             var user = await _userRepository.FindByFirstAsync (u => u.Id == activationUserDetails.Id);
+            if (user == null) {
+                throw new ResourceNotFoundException ("Activation user not found!");
+            }
+
+            if (user.ActivationCode != activationUserDetails.Code) {
+                throw new BadRequestException ("Wrong activation code!");
+            }
+
+            if(user.IsActive) {
+                throw new BadRequestException("User already activated");
+            }
+
+            user.IsActive = true;
+
+            var resultUser = _userRepository.Edit (user);
+            await _userRepository.SaveAsync ();
+
+            var userWithoutPassword = _mapper.Map<User, UserDtoWithoutPassword> (resultUser);
+
+            return userWithoutPassword;
         }
 
         public async Task<UserDtoWithoutPassword> Authenticate(string username, string password)

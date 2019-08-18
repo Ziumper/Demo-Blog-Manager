@@ -19,7 +19,7 @@ const routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent},
   { path: 'profile', component: ProfileComponent},
-  { path: 'activation', component: ActivationComponent},
+  { path: 'activate/:id/:code', component: ActivationComponent},
   { path: 'blog-manager/:blogId', component: BlogManagerComponent,
     children: [
       { path: '', redirectTo: 'blog-options', pathMatch: 'full' },
