@@ -2,19 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
-import { ProfileComponent } from './profile/profile.component';
+
 import { ActivationComponent } from './activation/activation.component';
 import { UserService } from './services/user.service';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
 import { AuthenticationService } from './services/authentication.service';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
     declarations: [
         RegistrationComponent,
         LoginComponent,
-        ProfileComponent,
+        EditProfileComponent,
         ActivationComponent
     ],
     imports: [
@@ -27,7 +28,7 @@ import { AuthenticationService } from './services/authentication.service';
     exports: [
         RegistrationComponent,
         LoginComponent,
-        ProfileComponent,
+        EditProfileComponent,
         ActivationComponent
     ],
     providers: [UserService, AuthenticationService],

@@ -10,7 +10,7 @@ import { PostsManagerComponent } from './post/posts-manager/posts-manager.compon
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
-import { ProfileComponent } from './user/profile/profile.component';
+import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
 import { ActivationComponent } from './user/activation/activation.component';
 
 const routes = [
@@ -18,7 +18,7 @@ const routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent},
-  { path: 'profile', component: ProfileComponent},
+  { path: 'profile', component: EditProfileComponent},
   { path: 'activate/:id/:code', component: ActivationComponent},
   { path: 'blog-manager/:blogId', component: BlogManagerComponent,
     children: [
