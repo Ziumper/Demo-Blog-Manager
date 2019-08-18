@@ -18,8 +18,8 @@ const routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent},
-  { path: 'profile', component: EditProfileComponent},
-  { path: 'activate/:id/:code', component: ActivationComponent},
+  { path: 'profile/:userId', component: EditProfileComponent},
+  { path: 'activate/:userId/:code', component: ActivationComponent},
   { path: 'blog-manager/:blogId', component: BlogManagerComponent,
     children: [
       { path: '', redirectTo: 'blog-options', pathMatch: 'full' },

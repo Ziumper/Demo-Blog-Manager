@@ -26,7 +26,7 @@ export class ActivationComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.userId = this.activatedRoute.snapshot.params['id'];
+        this.userId = this.activatedRoute.snapshot.params['userId'];
         this.acitviationCode = this.activatedRoute.snapshot.params['code'];
         this.activateAccount();
     }
