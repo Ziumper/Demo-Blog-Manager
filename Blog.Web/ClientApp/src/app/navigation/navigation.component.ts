@@ -12,41 +12,22 @@ import { PostModel } from 'src/app/post/models/post.model';
 })
 export class NavigationComponent implements OnInit, OnDestroy {
 
-  // public searchTerm: Subject<string>;
   public isCollapsed: boolean;
-  // public posts: Array<PostModel>;
+
 
   private search: Subscription;
 
   constructor(private route: Router, private postService: PostService) {
     this.isCollapsed = true;
-    // this.posts = new Array<PostModel>();
-    // this.searchTerm = new Subject<string>();
   }
 
   public ngOnInit(): void {
-    // this.search = this.onSearch(this.searchTerm).subscribe(response => {
-    //   this.posts = response;
-    // });
   }
 
   public ngOnDestroy(): void {
-    // this.search.unsubscribe();
+
   }
 
-  // private onSearch(searchTerm: Observable<string>): Observable<Array<PostModel>> {
-  //   // return searchTerm.pipe(
-  //   //     debounceTime(400),
-  //   //     distinctUntilChanged(),
-  //   //     switchMap((query: string) => {
-  //   //       if (query.length > 0) {
-  //   //         return this.postService.getPostsByContentOrTitle(query);
-  //   //       } else {
-  //   //         this.posts = new Array<PostModel>();
-  //   //       }
-  //   //       return new Observable<any> ();
-  //   //     })
-  //   // );
 }
 
 
