@@ -12,26 +12,25 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { LoginComponent } from './user/login/login.component';
 import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
 import { ActivationComponent } from './user/activation/activation.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent},
-  { path: 'profile/:userId', component: EditProfileComponent},
+  { path: 'profile/:userId', component: EditProfileComponent, canActivate: [AuthGuard] },
   { path: 'activate/:userId/:code', component: ActivationComponent},
-  { path: 'blog-manager/:blogId', component: BlogManagerComponent,
+  { path: 'blog-manager/:blogId', component: BlogManagerComponent, canActivate: [AuthGuard] ,
     children: [
-      { path: '', redirectTo: 'blog-options', pathMatch: 'full' },
-      { path: 'blog-options', component: BlogFormComponent },
-      { path: 'posts-manager', component: PostsManagerComponent},
-      { path: 'post-form', component: PostFormComponent},
+      { path: '', redirectTo: 'blog-options', pathMatch: 'full'  },
+      { path: 'blog-options', component: BlogFormComponent  },
+      { path: 'posts-manager', component: PostsManagerComponent  },
+      { path: 'post-form', component: PostFormComponent },
     ]
   },
   { path: 'blog/:blogId', component: BlogComponent },
   { path: 'blog/:blogId/post/:id', component: PostComponent},
-  { path: 'tag/:tagId', component: TagComponent},
-  { path: 'blog/:blogId/post-form/:id', component: PostFormComponent},
   { path: '**', redirectTo: 'home' }
 ];
 

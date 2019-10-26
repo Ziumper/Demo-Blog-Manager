@@ -13,6 +13,7 @@ import { LocationService } from './services/location.service';
 import { DefaultImagePipe } from './pipes/defaultImage.pipe';
 import { AlertService } from './services/alert.service';
 import { BlogAlertComponent } from './blog-alert/blog-alert.component';
+import { AuthGuard } from './guards/auth.guard';
 
 
 @NgModule({
@@ -20,13 +21,13 @@ import { BlogAlertComponent } from './blog-alert/blog-alert.component';
         LoaderComponent,
         SmallLoaderComponent,
         DefaultImagePipe,
-        BlogAlertComponent
+        BlogAlertComponent,
     ],
     exports: [
         LoaderComponent,
         SmallLoaderComponent,
         DefaultImagePipe,
-        BlogAlertComponent
+        BlogAlertComponent,
     ],
     imports: [
         AngularFontAwesomeModule,
@@ -40,7 +41,8 @@ import { BlogAlertComponent } from './blog-alert/blog-alert.component';
         LoaderService,
         UploadFilesService,
         LocationService,
-        AlertService
+        AlertService,
+        AuthGuard
     ]
 })
 export class CoreModule {
