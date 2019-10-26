@@ -111,7 +111,7 @@ namespace Blog.Bll.Services.Users {
             var user = _mapper.Map<UserDto, User> (userParam);
             user.Username = user.Username.ToLower();   
             user.Email = user.Email.ToLower ();
-            user.IsActive = false;
+            user.IsActive = true;
             user.ActivationCode = _hashService.GetRandomActivationCode ();
            
             var userResult = await _userRepository.AddAsync (user);

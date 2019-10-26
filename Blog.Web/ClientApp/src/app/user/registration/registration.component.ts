@@ -90,7 +90,7 @@ export class RegistrationComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.alertService.success('Registration successful, check your mail box for activation code', true);
+                    this.alertService.success('Registration successful, you can login now', true);
                     this.router.navigate(['/login']);
                 },
                 errorData => {
