@@ -1,7 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a routerLink="home" class="navbar-brand">
-        <span class="d-lg-inline-block nav-app-title"> Blog System </span>
-        <fa class="nav-icon" name="book" size="lg"></fa>
+        <span class="d-lg-inline-block nav-app-title"> Bloging System </span>
     </a>
     <button class="navbar-toggler right" (click)="isCollapsed = !isCollapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -11,33 +10,29 @@
             <li class="nav-item">
                 <a class="nav-link" routerLinkActive="active" routerLink="home">Home </a>
             </li>
-            <li class="nav-item">
+            <li *ngIf="isLogged" class="nav-item">
                 <a class="nav-link" routerLinkActive="active" routerLink="blog">Blog</a>
             </li>
-            <li class="nav-item">
+            <li *ngIf="isLogged" class="nav-item">
                 <a class="nav-link" routerLinkActive="active" routerLink="blog-manager">Blog Manager</a>
             </li>
         </ul>
         <ul class="navbar-nav mt-3 mt-lg-0">
-            <li class="nav-item ">
+            <li *ngIf="!isLogged" class="nav-item ">
                 <a class="nav-link" routerLink="login">
-                    <fa class="nav-icon" name="sign-in" size="lg"></fa> Sign in
+                    <fa class="nav-icon" name="sign-in" size="lg"></fa>
                 </a>
             </li>
-            <li class="nav-item ">
+            <li *ngIf="!isLogged" class="nav-item ">
                 <a class="nav-link" routerLink="register">
-                    <fa class="nav-icon" name="user-plus" size="lg"></fa> Sign up
+                    <fa class="nav-icon" name="user-plus" size="lg"></fa>
                 </a>
             </li>
-            <li class="nav-item ">
+            <li *ngIf="isLogged" class="nav-item ">
                 <a class="nav-link" routerLink="profile">
-                    <fa class="nav-icon" name="user" size="lg"></fa> Profile
+                    <fa class="nav-icon" name="user" size="lg"></fa>
                 </a>
             </li>
         </ul>
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
     </div>
 </nav>

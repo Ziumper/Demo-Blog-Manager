@@ -4,6 +4,7 @@ import { Subject, Observable, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { PostService } from 'src/app/post/post.service';
 import { PostModel } from 'src/app/post/models/post.model';
+import { AuthenticationService } from '../user/services/authentication.service';
 
 @Component({
   selector: 'app-blog-navigation',
@@ -12,20 +13,36 @@ import { PostModel } from 'src/app/post/models/post.model';
 })
 export class NavigationComponent implements OnInit, OnDestroy {
 
+  private loginSubscription: Subscription;
+
   public isCollapsed: boolean;
+  public isLogged: boolean;
 
-
-  private search: Subscription;
-
-  constructor(private route: Router, private postService: PostService) {
+  constructor(private authenticationService: AuthenticationService) {
     this.isCollapsed = true;
+    this.isLogged = false;
   }
 
+  /**
+   * When the component is init the
+   * subscribiton is holded and
+   * code is executed when login status will
+   * change.
+   */
   public ngOnInit(): void {
+    this.loginSubscription = this.authenticationService.getLoginStatus()
+    .subscribe(loginStatus => {
+      this.isLogged = loginStatus;
+    });
   }
 
-  public ngOnDestroy(): void {
 
+  /**
+   * Good practice to unsubscribe if component
+   * is destroyed.
+   */
+  public ngOnDestroy(): void {
+    this.loginSubscription.unsubscribe();
   }
 
 }
