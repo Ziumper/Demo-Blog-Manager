@@ -23,6 +23,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.isLogged = false;
   }
 
+  public logout(): void {
+    this.authenticationService.logout();
+  }
+
   /**
    * When the component is init the
    * subscribiton is holded and

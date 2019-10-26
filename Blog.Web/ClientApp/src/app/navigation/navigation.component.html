@@ -23,6 +23,11 @@
                     <fa class="nav-icon" name="sign-in" size="lg"></fa>
                 </a>
             </li>
+            <li *ngIf="isLogged" class="nav-item ">
+                <a class="nav-link log-out-link" (click)="logout()">
+                    <fa class="nav-icon" name="sign-out" size="lg"></fa>
+                </a>
+            </li>
             <li *ngIf="!isLogged" class="nav-item ">
                 <a class="nav-link" routerLink="register">
                     <fa class="nav-icon" name="user-plus" size="lg"></fa>
