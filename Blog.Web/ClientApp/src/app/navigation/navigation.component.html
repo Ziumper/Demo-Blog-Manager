@@ -6,38 +6,38 @@
     <div [ngbCollapse]="isCollapsed" class="navbar-collapse">
         <ul class="navbar-nav mr-auto mt-3 mt-lg-0">
             <li class="nav-item">
-                <a class="nav-link" routerLink="home">
-                    Home
+                <a class="nav-link" routerLinkActive="active" routerLink="home">
+                    Board
                 </a>
             </li>
             <li *ngIf="isLogged" class="nav-item">
                 <a class="nav-link" routerLinkActive="active" routerLink="blog">Your Blog</a>
             </li>
             <li *ngIf="isLogged" class="nav-item ">
-                <a class="nav-link" routerLink="profile">
+                <a class="nav-link" routerLinkActive="active" routerLink="profile">
                     User Profile
                 </a>
             </li>
             <li *ngIf="isLogged" class="nav-item ">
-                <a class="nav-link" routerLink="profile">
+                <a class="nav-link" routerLinkActive="active" routerLink="profile">
                         Add post
                     </a>
             </li>
         </ul>
         <ul class="navbar-nav mt-3 mt-lg-0">
             <li *ngIf="isLogged" class="nav-item ">
-                <a class="nav-link log-out-link" (click)="logout()">
+                <a class="nav-link log-out-link" routerLinkActive="active" (click)="logout()">
                     Logout
                 </a>
             </li>
             <li *ngIf="!isLogged" class="nav-item ">
-                <a class="nav-link" routerLink="login">
+                <a class="nav-link" routerLinkActive="active" routerLink="login">
                        Login
                     </a>
             </li>
 
             <li *ngIf="!isLogged" class="nav-item ">
-                <a class="nav-link" routerLink="register">
+                <a class="nav-link" routerLinkActive="active" routerLink="register">
                        Register
                     </a>
             </li>
