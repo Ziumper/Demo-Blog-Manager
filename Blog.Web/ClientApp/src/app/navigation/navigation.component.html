@@ -7,14 +7,8 @@
     </button>
     <div [ngbCollapse]="isCollapsed" class="navbar-collapse">
         <ul class="navbar-nav mr-auto mt-3 mt-lg-0">
-            <li class="nav-item">
-                <a class="nav-link" routerLinkActive="active" routerLink="home">Home </a>
-            </li>
             <li *ngIf="isLogged" class="nav-item">
-                <a class="nav-link" routerLinkActive="active" routerLink="blog">Blog</a>
-            </li>
-            <li *ngIf="isLogged" class="nav-item">
-                <a class="nav-link" routerLinkActive="active" routerLink="blog-manager">Blog Manager</a>
+                <a class="nav-link" routerLinkActive="active" routerLink="blog">Your Blog</a>
             </li>
         </ul>
         <ul class="navbar-nav mt-3 mt-lg-0">
