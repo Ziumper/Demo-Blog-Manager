@@ -16,6 +16,7 @@ using Blog.Bll.Services.Emails;
 using Microsoft.AspNetCore.Http;
 using Blog.Bll.Services.Emails.Models;
 using System.Collections.Generic;
+using Blog.Dal.Repositories.Blogs;
 
 namespace Blog.Bll.Services.Users {
 
@@ -27,19 +28,22 @@ namespace Blog.Bll.Services.Users {
         protected readonly AppSettings _appSettings;
         protected readonly IEmailService _emailService;
         protected readonly IHttpContextAccessor _httpContextAccessor;
+        protected readonly IBlogRepository _blogRepository;
 
         public UserService(IHashService hashService,
         IUserRepository userRepository,
         IMapper mapper,
         IOptions<AppSettings> appSettings,
         IEmailService emailService,
-        IHttpContextAccessor htttpContextAccessor) {
+        IHttpContextAccessor htttpContextAccessor,
+        IBlogRepository blogRepository) {
             _hashService = hashService;
             _userRepository = userRepository;
             _mapper = mapper;
             _appSettings = appSettings.Value;
             _emailService = emailService;
             _httpContextAccessor = htttpContextAccessor;
+            _blogRepository = blogRepository;
             
         }
 
@@ -63,9 +67,19 @@ namespace Blog.Bll.Services.Users {
             var resultUser = _userRepository.Edit (user);
             await _userRepository.SaveAsync ();
 
+            await this.CreateBlogForUser(resultUser);
+
             var userWithoutPassword = _mapper.Map<User, UserDtoWithoutPassword> (resultUser);
 
             return userWithoutPassword;
+        }
+
+        //TODO move this method to blog repository
+        private async Task CreateBlogForUser(User user) {
+            BlogEntity blogEntity = new BlogEntity();
+            blogEntity.User = user;
+            await _blogRepository.AddAsync(blogEntity);
+            await _blogRepository.SaveAsync();
         }
 
         public async Task<UserDtoWithoutPassword> Authenticate(string username, string password)
