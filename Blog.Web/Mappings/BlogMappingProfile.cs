@@ -1,13 +1,8 @@
-﻿using System;
-using System.Linq.Expressions;
-using AutoMapper;
-using Blog.Bll.Dto;
+﻿using AutoMapper;
 using Blog.Bll.Dto.Blogs;
 using Blog.Dal.Models;
 using Blog.Bll.Dto.Posts;
-using Blog.Bll.Dto.Categories;
 using Blog.Bll.Dto.Comments;
-using Blog.Bll.Dto.Tags;
 using Blog.Bll.Dto.Images;
 using Blog.Bll.Dto.Users;
 

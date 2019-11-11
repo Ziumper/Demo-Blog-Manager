@@ -1,6 +1,5 @@
 ﻿using Blog.Bll.Dto.Blogs;
 using Blog.Bll.Dto.QueryModels;
-using Blog.Bll.QueryModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,6 +15,6 @@ namespace Blog.Bll.Services.Blogs
         Task<IEnumerable<BlogDto>> GetBlogByTitleAsync(string title);
         Task<BlogDtoPaged> GetAllBlogsPaged(int page, int size);
         Task<BlogDtoPaged> GetAllBlogsPaged(BlogQuery query);
-        Task<BlogDtoPaged> GetAllBlogsPagedByCategory(BlogCategoryQuery searchQuery);
+   
     }
 }

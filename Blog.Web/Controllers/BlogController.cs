@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Blog.Bll.Dto.Blogs;
 using Blog.Bll.Dto.QueryModels;
-using Blog.Bll.QueryModels;
 using Blog.Bll.Services.Blogs;
 using Blog.Web.Controllers.Base;
 using Microsoft.AspNetCore.Mvc;
@@ -34,12 +33,6 @@ namespace Blog.Web.Controllers
         [HttpGet("paged")]
         public async Task<IActionResult> GetAllBlogsPaged( [FromQuery] BlogQuery searchQuery){
             var result = await _blogService.GetAllBlogsPaged(searchQuery);
-            return Ok(result);
-        }
-
-        [HttpGet("paged/category")]
-        public async Task<IActionResult> GetAllBlogsPagedByCategory( [FromQuery] BlogCategoryQuery searchQuery){
-            var result = await _blogService.GetAllBlogsPagedByCategory(searchQuery);
             return Ok(result);
         }
 

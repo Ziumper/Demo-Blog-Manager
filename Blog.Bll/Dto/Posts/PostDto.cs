@@ -13,7 +13,6 @@ namespace Blog.Bll.Dto.Posts
         public string Content { get; set; }
         public int BlogId { get; set; }
         public string ShortDescription { get; set; }
-        public List<PostTagDto> PostTags {get; set;}
         public ImageDto MainImage {get ; set;}
     }
 }

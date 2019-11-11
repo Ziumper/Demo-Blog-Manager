@@ -8,11 +8,9 @@ using Blog.Bll.Dto.Blogs;
 using Blog.Bll.Exceptions;
 using Blog.Bll.Dto.QueryModels;
 using Blog.Dal.Models;
-using Blog.Dal.Models.Base;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Posts;
-using Blog.Bll.QueryModels;
 
 namespace Blog.Bll.Services.Blogs
 {
@@ -101,13 +99,7 @@ namespace Blog.Bll.Services.Blogs
 
             return new BlogDtoPaged(_mapper,result,query.Page,query.Size);
         }
-        
-        public  Task<BlogDtoPaged> GetAllBlogsPagedByCategory(BlogCategoryQuery searchQuery)
-        {
-            throw new NotImplementedException();
-            //var result = await _blogRepository.GetAllPagedAsync(searchQuery.Page,searchQuery.Size,searchQuery.Filter,searchQuery.Order,b  == searchQuery.CategoryId && b.Title.Contains(searchQuery.SearchQuery));
-            //return new BlogDtoPaged(_mapper,result,searchQuery.Page,searchQuery.Size);
-        }
+
 
         public async Task<BlogDto> GetBlogByIdAsync(int id)
         {
