@@ -13,16 +13,12 @@ namespace Blog.Dal
 
         protected override void OnModelCreating(ModelBuilder modelBulider)
         {
-            modelBulider.Entity<PostTag>().HasKey( postTag => new {postTag.PostId, postTag.TagId});
-            modelBulider.Entity<Tag>( tag => {
-                tag.HasIndex(t => t.Name).IsUnique();
-            });
+            
         }
 
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<BlogEntity> Blogs { get; set; }
-        public DbSet<Tag> Tags { get; set; }
         public DbSet<Image> Images {get; set;}
         public DbSet<User> Users {get; set;}
     }

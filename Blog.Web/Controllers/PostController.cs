@@ -34,19 +34,6 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("blog/tags/paged")]
-        public async Task<IActionResult> GetAllPostsPagedByBlogIdAndTagsId([FromQuery] PostQuery query)
-        {
-            var result = await _postService.GetAllPostPagedAsyncByBlogIdAndTagsId(query);
-            return Ok(result);
-        }
-
-        [HttpGet("tags/paged")]
-        public async Task<IActionResult> GetAllPostsPagedByTags([FromQuery] PostQuery query){
-            var result = await _postService.GetAllPostsPagedASyncByTags(query);
-            return Ok(result);
-        }
-
         [HttpGet("{id:int}/comments")]
         public async Task<IActionResult> GetPostWithCommentsById(int id)
         {

@@ -18,30 +18,6 @@ namespace Blog.Dal.Repositories.Posts
 
         }
 
-        public async Task<List<Post>> FindByWithCommentsAsyncWithTags(Expression<Func<Post, bool>> predicate)
-        {
-            return await _table.Where(predicate)
-                .Include(s => s.Comments)
-                .Include(p => p.PostTags)
-                .ThenInclude(postTag => postTag.Tag)
-                .Include(post => post.MainImage)
-                .ToListAsync();
-        }
-
-
-        public async Task<PagedEntity<Post>> GetPostsPagedByTags(int page, int size,int filter, bool order,int[] tagsId, Expression<Func<Post, bool>> predicate)
-        {
-            IQueryable<Post> result = null;
-
-            result = _table.Include(post => post.PostTags).ThenInclude(postTag => postTag.TagId)
-            .Where(post => post.PostTags.Where( postTag => tagsId.Contains(postTag.TagId)).FirstOrDefault() != null)
-            .Where(predicate).Include(post => post.PostTags).ThenInclude(postTag => postTag.Tag).Include(post => post.MainImage);
-
-            var pagedEntity = await GetPaged(result,page,size,filter,order);
-
-            return pagedEntity;
-        }
-
         public override IQueryable<Post> Sort(IQueryable<Post> entites, int filter, bool order)
         {
             entites = base.Sort(entites, filter, order);
@@ -86,26 +62,7 @@ namespace Blog.Dal.Repositories.Posts
 
         }
 
-        public async Task<Post> GetPostByIdWithPostTagsAsync(int postId)
-        {
-           var post = await _table.Where(x => x.Id == postId).Include(x => x.PostTags).Include(x => x.MainImage).FirstOrDefaultAsync();
-           return post;
-        }
-
-        public async Task<PagedEntity<Post>> GetPostsPagedWithTagsAsync(int page, int size,int filter, bool order, Expression<Func<Post, bool>> predicate = null)
-        {
-            if(predicate != null) {
-                IQueryable<Post> query = this._table.Where(predicate).Include(post => post.PostTags).ThenInclude(posTag => posTag.Tag);
-                var result = await this.GetPaged(query,page,size,filter,order);
-                return result;
-            } else {
-                IQueryable<Post> query = this._table.Include(post => post.PostTags).ThenInclude( postTag => postTag.Tag);
-                var result = await this.GetPaged(query,page,size,filter,order);
-                return result;
-            }
-            
-        }
-
+    
         private async Task<PagedEntity<Post>> GetPaged(IQueryable<Post> query,int page, int size,int filter, bool order) {
             
             var skipCount = getSkipCount(page,size);

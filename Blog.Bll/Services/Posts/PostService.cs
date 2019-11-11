@@ -14,7 +14,7 @@ using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Images;
 using Blog.Dal.Repositories.Posts;
-using Blog.Dal.Repositories.Tags;
+
 
 namespace Blog.Bll.Services.Posts
 {
@@ -24,7 +24,7 @@ namespace Blog.Bll.Services.Posts
         private readonly IPostRepository _postRepository;
         private readonly ICommentRepository _commentRepository;
         private readonly IBlogRepository _blogRepository;
-        private readonly ITagRepository _tagRepository;
+
         private readonly IImageRepository _imageRepository;
         private readonly IImageWriter _imageWriter;
 
@@ -32,7 +32,6 @@ namespace Blog.Bll.Services.Posts
             IPostRepository postRepository,
             IBlogRepository blogRepository, 
             ICommentRepository commentRepository,
-            ITagRepository tagRepository,
             IMapper mapper,
             IImageRepository imageRepository,
             IImageWriter imageWriter)
@@ -41,7 +40,6 @@ namespace Blog.Bll.Services.Posts
             _postRepository = postRepository;
             _mapper = mapper;
             _blogRepository = blogRepository;
-            _tagRepository = tagRepository;
             _imageRepository = imageRepository;
             _imageWriter = imageWriter;
         }
@@ -61,20 +59,11 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDto> AddPostAsync(PostDto post){
 
-            List<Tag> entityTags = await AddTagsFromPostsList(post.PostTags);
-
             var image = await _imageRepository.FindByFirstAsync(img => img.Id == post.MainImage.Id);
-
             var mappedPost = _mapper.Map<PostDto,Post>(post);
-
             mappedPost.MainImage = image;
-
-            mappedPost.PostTags = new List<PostTag>();
-            mappedPost = AssignPostTagsToPostEntity(mappedPost,entityTags);
-
             var result = await _postRepository.AddAsync(mappedPost);
             await _postRepository.SaveAsync();
-
             var resultDto = _mapper.Map<Post,PostDto>(result);
 
             return resultDto;
@@ -153,23 +142,17 @@ namespace Blog.Bll.Services.Posts
         {
             var image = await _imageRepository.FindByFirstAsync(img => img.Id == postDto.MainImage.Id);
             
-            var post = await _postRepository.GetPostByIdWithPostTagsAsync(postDto.Id);
+            var post = await _postRepository.GetPostByIdWithImagesAsync(postDto.Id);
             bool postFound = post != null;
             if(!postFound)
             {
                 throw new ResourceNotFoundException("Post not found");
             }
 
-            
-
             post.Content = postDto.Content;
             post.Title = postDto.Title;
 
             post.MainImage = image;
-
-            var entityTags = await AddTagsFromPostsList(postDto.PostTags);
-            post = AssignPostTagsToPostEntity(post,entityTags);
-
             post = _postRepository.Edit(post);
             await _postRepository.SaveAsync();
             var resultDto = _mapper.Map<Post, PostDto>(post);
@@ -185,18 +168,6 @@ namespace Blog.Bll.Services.Posts
             }
 
             return _mapper.Map<Post, PostDto>(result);
-        }
-
-        public async Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId)
-        {
-            var awaitResult = await _postRepository.FindByWithCommentsAsyncWithTags(p => p.Id == postId);
-            var result = awaitResult.FirstOrDefault();
-            if (result == null)
-            {
-                throw new ResourceNotFoundException("Post not found");
-            }
-
-            return _mapper.Map<Post, PostDtoWithComments>(result);
         }
 
         public async Task<PostDtoPaged> GetAllPostsPagedAsync(PostQuery searchQuery)
@@ -220,7 +191,7 @@ namespace Blog.Bll.Services.Posts
                 postQuery.SearchQuery = string.Empty;
             }
 
-            var result = await _postRepository.GetPostsPagedWithTagsAsync(
+            var result = await _postRepository.GetAllPagedAsync(
                 postQuery.Page,postQuery.Size,postQuery.Filter,postQuery.Order, 
             p => p.BlogId == postQuery.BlogId && (p.Title.Contains(postQuery.SearchQuery) 
             || p.Content.Contains(postQuery.SearchQuery)
@@ -229,94 +200,6 @@ namespace Blog.Bll.Services.Posts
 
             return new PostDtoPaged(_mapper,result,postQuery.Page,postQuery.Size);;
            
-        }
-
-        public async Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query)
-        {
-            if(query.SearchQuery == null) {
-                query.SearchQuery = string.Empty;
-            }
-            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.Filter,query.Order,query.TagsIds, 
-            p => (p.Title.Contains(query.SearchQuery) 
-            || p.Content.Contains(query.SearchQuery)
-            || p.ShortDescription.Contains(query.SearchQuery)));
-
-            return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
-        }
-
-        public async Task<PostDtoPaged> GetAllPostPagedAsyncByBlogIdAndTagsId(PostQuery query)
-        {
-             if(query.SearchQuery == null) {
-                query.SearchQuery = string.Empty;
-            }
-
-            var result = await _postRepository.GetPostsPagedByTags(query.Page,query.Size,query.Filter,query.Order,query.TagsIds, 
-            p => p.BlogId == query.BlogId && (p.Title.Contains(query.SearchQuery) 
-            || p.Content.Contains(query.SearchQuery)
-            || p.ShortDescription.Contains(query.SearchQuery)));
-
-            return new PostDtoPaged(_mapper,result,query.Page,query.Size);;
-        }
-
-        private Post AssignPostTagsToPostEntity(Post post,List<Tag> entityTags )
-        {
-            bool postTagsListInitalized = post.PostTags != null;
-    
-            for(var i = 0 ; i < entityTags.Count; i++) {
-                var postTag = new PostTag();
-                var entityTag = entityTags[i];
-                postTag.Post = post;
-                postTag.PostId = post.Id;
-                postTag.Tag = entityTag;
-                postTag.TagId = entityTag.Id;
-                post.PostTags.Add(postTag);
-            }
-
-            return post;
-        }
-
-        private async Task<List<Tag>> AddTagsFromPostsList(List<PostTagDto> postTags)
-        {
-            List<Tag> entityTags = new List<Tag>();
-
-            for(var i =0; i < postTags.Count; i++)
-            {
-                var myTag = postTags[i];
-                var tagFromDatabase = await _tagRepository.FindByFirstAsync(tag => tag.Name.Equals(myTag.Tag.Name));
-                bool tagFound = tagFromDatabase != null;
-                if(tagFound) {
-                    entityTags.Add(tagFromDatabase);
-                }
-                else {
-                    var tagEntity = _mapper.Map<TagDto,Tag>(myTag.Tag);
-                    tagEntity = await _tagRepository.AddAsync(tagEntity);     
-                    await _tagRepository.SaveAsync();
-                    entityTags.Add(tagEntity);
-                }
-            }
-
-            return entityTags;
-        }
-
-        public async Task<PostDto> GetPostByIdWithTagsAsync(int postId)
-        {
-            var result = await _postRepository.GetPostByIdWithPostTagsAsync(postId);
-            if (result == null)
-            {
-                throw new ResourceNotFoundException("Post not found");
-            } 
-
-            var resultDto = _mapper.Map<Post, PostDto>(result);
-            return resultDto;
-        }
-
-        public async Task<PostDto> GetPostByBlogIdAndPostIdAndWithCommentsAsync(int blogId, int postId)
-        {
-           var dbResult = await _postRepository.FindByWithCommentsAsyncWithTags(post => post.Id == postId && post.BlogId == post.BlogId);
-        
-           var dbResultOne = dbResult.FirstOrDefault();
-           var resultDto = _mapper.Map<Post,PostDto>(dbResultOne);
-           return resultDto;
         }
 
         public async Task<List<PostDto>> GetPostsByContentOrTitleAsync(string content)
@@ -330,6 +213,31 @@ namespace Blog.Bll.Services.Posts
             }
 
             return resultDto;
+        }
+
+        public Task<PostDto> GetPostByIdWithTagsAsync(int postId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PostDtoPaged> GetAllPostPagedAsyncByBlogIdAndTagsId(PostQuery query)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PostDto> GetPostByBlogIdAndPostIdAndWithCommentsAsync(int blogId, int postId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

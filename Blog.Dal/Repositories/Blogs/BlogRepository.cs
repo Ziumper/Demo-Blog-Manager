@@ -19,8 +19,6 @@ namespace Blog.Dal.Repositories.Blogs
 
         public Task<BlogEntity> GetBlogByIdWithCategory(int id) {
             throw new NotImplementedException();
-            // var blog = await _table.Where(b => b.Id == id).Include(b => b.Category).FirstOrDefaultAsync();
-            // return blog;
         }
 
         public async Task<BlogEntity> GetBlogByIdWithPostsAndComments(int id)
@@ -41,15 +39,6 @@ namespace Blog.Dal.Repositories.Blogs
                         {
                             return blogs.OrderByDescending(x => x.Title);
                         }
-                    case 4:
-                        {
-                            return blogs.OrderByDescending(x => x.IsActive);
-                        }
-                    case 5:
-                        {
-                            return blogs.OrderByDescending(x => x.IsActive);
-                        }
-
                     default:
                         {
                             return blogs;
@@ -64,15 +53,6 @@ namespace Blog.Dal.Repositories.Blogs
                     case 3:
                         {
                             return blogs.OrderBy(x => x.Title);
-                        }
-                    case 4:
-                        {
-                             return blogs.OrderBy(x => x.IsActive);
-                            // return blogs.OrderBy(x => x.Category.Name);
-                        }
-                    case 5:
-                        {
-                            return blogs.OrderBy(x => x.IsActive);
                         }
                     default:
                         {

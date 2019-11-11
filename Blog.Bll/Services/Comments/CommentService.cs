@@ -80,8 +80,8 @@ namespace Blog.Bll.Services.Comments
         public async Task<List<CommentDto>> AddCommentToPostAsync(CommentCreateDto commentDto)
         {
             var comment = _mapper.Map<CommentCreateDto, Comment>(commentDto);
-            var queryResult = await _postRepository.FindByWithCommentsAsyncWithTags(x => x.Id == commentDto.PostId);
-            var postResult = queryResult.FirstOrDefault();
+            var queryResult = await _postRepository.GetPostByIdWithImagesAsync(commentDto.PostId);
+            var postResult = queryResult;
             if (postResult == null)
             {
                 throw new ResourceNotFoundException("Comment not found");
@@ -111,8 +111,8 @@ namespace Blog.Bll.Services.Comments
 
         public async Task<List<CommentDto>> GetAllCommentsByPostIdAsync(int postId)
         {
-            var postQueryResult = await _postRepository.FindByWithCommentsAsyncWithTags(p => p.Id == postId);
-            var post = postQueryResult.FirstOrDefault();
+            var postQueryResult = await _postRepository.GetPostByIdWithImagesAsync(postId);
+            var post = postQueryResult;
             if(post == null) throw new ResourceNotFoundException("Post with id:" + postId+ " not found");
 
             List<CommentDto> result = new List<CommentDto>();

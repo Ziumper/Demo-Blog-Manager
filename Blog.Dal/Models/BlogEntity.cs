@@ -10,7 +10,6 @@ namespace Blog.Dal.Models
     {
         public string Title { get; set; }
         public List<Post> Posts { get; set; }
-      
-        public Boolean IsActive {get; set;}
+        public User User {get; set;}
     }
 }

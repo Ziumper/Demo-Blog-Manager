@@ -19,10 +19,8 @@ namespace Blog.Web.Mappings
         {
             CreateMap<BlogEntity,BlogDto>();
             CreateMap<Post,PostDto>().ReverseMap();
-            CreateMap<PostTag,PostTagDto>().ReverseMap();
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
-            CreateMap<Tag,TagDto>().ReverseMap();
             CreateMap<Image,ImageDto>().ReverseMap();
             CreateMap<UserDto,User>();
             CreateMap<User,UserDtoWithoutPassword>();
