@@ -22,6 +22,8 @@ export class AlertService {
         });
     }
 
+
+
     success(message: string, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
         this.subject.next({ type: 'success', text: message });
@@ -30,6 +32,11 @@ export class AlertService {
     error(message: string, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
         this.subject.next({ type: 'error', text: message });
+    }
+
+    info(message: string, keepAfterNavigationChange = false) {
+        this.keepAfterNavigationChange = keepAfterNavigationChange;
+        this.subject.next({type: 'info', text: message});
     }
 
     getMessage(): Observable<any> {

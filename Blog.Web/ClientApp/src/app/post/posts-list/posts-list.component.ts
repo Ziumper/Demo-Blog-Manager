@@ -3,6 +3,7 @@ import { PostService } from '../post.service';
 import { PostModel } from '../models/post.model';
 import { PostQueryModel } from '../models/post-query.model';
 import { PostPagedModel } from '../models/post-paged.model';
+import { AlertService } from 'src/app/core/services/alert.service';
 
 @Component({
     selector: 'app-posts-list',
@@ -18,7 +19,12 @@ export class PostsListComponent implements OnInit {
     @Input()
     public postQueryModel: PostQueryModel;
 
-    constructor(private postService: PostService) {
+    @Input()
+    public info: string;
+
+    constructor(
+        private postService: PostService,
+        private alertService: AlertService) {
     }
 
     public ngOnInit(): void {
@@ -26,6 +32,13 @@ export class PostsListComponent implements OnInit {
             this.posts = data.entities;
             this.page = data.page;
             this.pageSize = data.size;
+
+            const isPostsArePresent = this.posts.length > 0;
+            const showInfoMessage = !isPostsArePresent && this.info;
+
+            if (showInfoMessage) {
+                this.alertService.info(this.info);
+            }
         });
     }
 }
