@@ -37,7 +37,7 @@ namespace Blog.Dal
                     ModificationDate = DateTime.Now,
                     FirstName = "Tomasz",
                     LastName = "Komoszeski",
-                    //MistrzTomasz10!
+                    //Password MistrzTomasz10!
                     Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f",
                     IsActive = true,
                     Email = "tomasz.komoszeski@gmail.com",
