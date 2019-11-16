@@ -67,26 +67,17 @@ namespace Blog.Bll.Services.Users {
             var resultUser = _userRepository.Edit (user);
             await _userRepository.SaveAsync ();
 
-            await this.CreateBlogForUser(resultUser);
+            await this._blogRepository.CreateBlogForUser(resultUser);
 
             var userWithoutPassword = _mapper.Map<User, UserDtoWithoutPassword> (resultUser);
 
             return userWithoutPassword;
         }
 
-        //TODO move this method to blog repository
-        private async Task CreateBlogForUser(User user) {
-            BlogEntity blogEntity = new BlogEntity();
-            blogEntity.User = user;
-            await _blogRepository.AddAsync(blogEntity);
-            await _blogRepository.SaveAsync();
-        }
-
         public async Task<UserDtoWithoutPassword> Authenticate(string username, string password)
         {  var hashedPassword = _hashService.GetHash (password);
             var user = await _userRepository.FindByFirstAsync (x => x.Username == username && x.Password == hashedPassword);
 
-            // return null if user not found
             if (user == null)
                 return null;
 

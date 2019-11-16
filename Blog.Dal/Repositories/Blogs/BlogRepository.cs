@@ -17,9 +17,16 @@ namespace Blog.Dal.Repositories.Blogs
         {
         }
 
-        public Task<BlogEntity> GetBlogByIdWithCategory(int id) {
-            throw new NotImplementedException();
+        public async Task<BlogEntity> CreateBlogForUser(User user)
+        {
+            BlogEntity blogEntity = new BlogEntity();
+            blogEntity.User = user;
+            blogEntity = await this.AddAsync(blogEntity);
+            await this.SaveAsync();   
+
+            return blogEntity;
         }
+
 
         public async Task<BlogEntity> GetBlogByIdWithPostsAndComments(int id)
         {
