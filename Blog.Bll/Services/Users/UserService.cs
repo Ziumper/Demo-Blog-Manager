@@ -114,7 +114,7 @@ namespace Blog.Bll.Services.Users {
 
             userParam.Password = _hashService.GetHash (userParam.Password);
             var user = _mapper.Map<UserDto, User> (userParam);
-            user.Username = user.Username.ToLower();   
+            user.Username = user.Username;   
             user.Email = user.Email.ToLower ();
             user.IsActive = true;
             user.ActivationCode = _hashService.GetRandomActivationCode ();
@@ -159,7 +159,7 @@ namespace Blog.Bll.Services.Users {
         }
 
         private async Task<Boolean> IsUserWithThisUserNameIsInDatabase (string username) {
-            var user = await _userRepository.FindByFirstAsync (x => x.Username == username.ToLower ());
+            var user = await _userRepository.FindByFirstAsync (x => x.Username.ToLower() == username.ToLower ());
             if (user != null) {
                 return true;
             }

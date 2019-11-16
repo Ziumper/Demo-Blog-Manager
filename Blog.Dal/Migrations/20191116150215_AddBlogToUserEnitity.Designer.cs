@@ -4,14 +4,16 @@ using Blog.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Blog.Dal.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    partial class BloggingContextModelSnapshot : ModelSnapshot
+    [Migration("20191116150215_AddBlogToUserEnitity")]
+    partial class AddBlogToUserEnitity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,10 +41,6 @@ namespace Blog.Dal.Migrations
                         .IsUnique();
 
                     b.ToTable("Blogs");
-
-                    b.HasData(
-                        new { Id = 1, CreationDate = new DateTime(2019, 11, 16, 16, 57, 31, 152, DateTimeKind.Local), ModificationDate = new DateTime(2019, 11, 16, 16, 57, 31, 152, DateTimeKind.Local), Title = "Programming Blog", UserId = 1 }
-                    );
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Comment", b =>
@@ -145,10 +143,6 @@ namespace Blog.Dal.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new { Id = 1, ActivationCode = "CDN8", CreationDate = new DateTime(2019, 11, 16, 16, 57, 31, 150, DateTimeKind.Local), Email = "tomasz.komoszeski@gmail.com", FirstName = "Tomasz", IsActive = true, LastName = "Komoszeski", ModificationDate = new DateTime(2019, 11, 16, 16, 57, 31, 151, DateTimeKind.Local), Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f" }
-                    );
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.BlogEntity", b =>

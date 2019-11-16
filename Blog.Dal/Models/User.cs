@@ -2,7 +2,6 @@ using Blog.Dal.Models.Base;
 
 namespace Blog.Dal.Models {
     public class User : BaseEntity {
-        
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
@@ -10,5 +9,6 @@ namespace Blog.Dal.Models {
         public string Email {get; set;}
         public bool IsActive {get; set;}
         public string ActivationCode {get; set;}
+        public BlogEntity Blog {get; set;}
     }
 }

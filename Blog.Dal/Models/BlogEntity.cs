@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.Collections.Generic;
 using Blog.Dal.Models.Base;
 
 namespace Blog.Dal.Models
@@ -10,6 +7,7 @@ namespace Blog.Dal.Models
     {
         public string Title { get; set; }
         public List<Post> Posts { get; set; }
+        public int UserId {get; set;}
         public User User {get; set;}
     }
 }
