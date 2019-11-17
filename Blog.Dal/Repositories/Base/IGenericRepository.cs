@@ -27,10 +27,11 @@ namespace Blog.Dal.Repositories.Base
         void DeleteMany(List<T> obj);
         void Save();
         Task SaveAsync();
-        int getSkipCount(int page, int size);
+        int GetSkipCount(int page, int size);
         Task<PagedEntity<T>> GetAllPagedAsync(int page, int size);
         Task<PagedEntity<T>> GetAllPagedAsync(int page,int size,int filter, bool order);
         Task<PagedEntity<T>> GetAllPagedAsync(int page,int size,int filter, bool order,Expression<Func<T,bool>> predicate);
         IQueryable<T> Sort(IQueryable<T> entites , int filter,bool order);
+        Task<T> FindByIdFirstAsync(int id);            
     }
 }

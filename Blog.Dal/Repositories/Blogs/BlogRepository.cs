@@ -13,8 +13,11 @@ namespace Blog.Dal.Repositories.Blogs
 {
     public class BlogRepository : GenericRepository<BlogEntity, BloggingContext>, IBlogRepository
     {
+        private protected int _postsForPage;
+
         public BlogRepository(BloggingContext context) : base(context)
         {
+            _postsForPage = 10;
         }
 
         public async Task<BlogEntity> CreateBlogForUser(User user)
@@ -28,11 +31,18 @@ namespace Blog.Dal.Repositories.Blogs
         }
 
 
-        public async Task<BlogEntity> GetBlogByIdWithPostsAndComments(int id)
+        public Task<BlogEntity> GetBlogByIdWithPostsAndCommentsPaged(int id, int page)
         {
-            var blog = await _table.Where(b => b.Id == id).Include(b => b.Posts.Select(post => post.Comments)).FirstOrDefaultAsync();
+            throw new NotImplementedException();
+        }
+
+        public async Task<BlogEntity> GetBlogByIdWithPostsPaged(int id, int page)
+        {
+            var skipCount = GetSkipCount(page,_postsForPage);
+            var blog = await  _table.Where(b => b.Id == id).Include(b=>b.Posts.Skip(skipCount).Take(_postsForPage)).FirstOrDefaultAsync();
             return blog;
         }
+
 
         public override IQueryable<BlogEntity> Sort(IQueryable<BlogEntity> blogs, int filter, bool order)
         {

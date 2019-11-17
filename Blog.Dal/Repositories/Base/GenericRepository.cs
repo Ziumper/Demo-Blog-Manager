@@ -119,14 +119,14 @@ namespace Blog.Dal.Repositories.Base
             await _context.SaveChangesAsync();
         }
 
-        public int getSkipCount(int page,int size){
+        public int GetSkipCount(int page,int size){
             var skipCount = (page - 1) * size;
             return skipCount;
 
         }
 
         public async Task<PagedEntity<T>> GetAllPagedAsync(int page, int size, int filter, bool order) {
-            var skipCount = getSkipCount(page,size);
+            var skipCount = GetSkipCount(page,size);
             var pagedEntity = new PagedEntity<T>();
 
             var result = _table.AsQueryable();
@@ -141,7 +141,7 @@ namespace Blog.Dal.Repositories.Base
         }
 
         public async Task<PagedEntity<T>> GetAllPagedAsync(int page, int size, int filter, bool order, Expression<Func<T,bool>> predicate) {
-            var skipCount = getSkipCount(page,size);
+            var skipCount = GetSkipCount(page,size);
             var pagedEntity = new PagedEntity<T>();
 
             var result = _table.Where(predicate);
@@ -198,7 +198,7 @@ namespace Blog.Dal.Repositories.Base
 
         public async Task<PagedEntity<T>> GetAllPagedAsync(int page, int size)
         {
-              var skipCount = getSkipCount(page,size);
+              var skipCount = GetSkipCount(page,size);
             var pagedEntity = new PagedEntity<T>();
 
             var result = _table.AsQueryable();
@@ -208,6 +208,13 @@ namespace Blog.Dal.Repositories.Base
 
             return pagedEntity;
 
+        }
+
+        public async Task<T> FindByIdFirstAsync(int id)
+        {
+            var entity = await FindByFirstAsync(t => t.Id == id);
+            return entity;
+            
         }
     }
 }

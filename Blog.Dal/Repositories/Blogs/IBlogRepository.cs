@@ -10,9 +10,7 @@ namespace Blog.Dal.Repositories.Blogs
 {
     public interface IBlogRepository : IGenericRepository<BlogEntity>
     {
-        Task<BlogEntity> GetBlogByIdWithPostsAndComments(int id);
-
         Task<BlogEntity> CreateBlogForUser(User user);
-        
+        Task<BlogEntity> GetBlogByIdWithPostsPaged(int id, int page);
     }
 }

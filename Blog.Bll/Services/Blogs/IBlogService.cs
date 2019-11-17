@@ -15,6 +15,6 @@ namespace Blog.Bll.Services.Blogs
         Task<IEnumerable<BlogDto>> GetBlogByTitleAsync(string title);
         Task<BlogDtoPaged> GetAllBlogsPaged(int page, int size);
         Task<BlogDtoPaged> GetAllBlogsPaged(BlogQuery query);
-   
+        Task<BlogDtoWithPosts> GetBlogByIdAsyncWithPosts(int id, int page);
     }
 }

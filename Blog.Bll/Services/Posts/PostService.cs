@@ -234,9 +234,5 @@ namespace Blog.Bll.Services.Posts
             throw new NotImplementedException();
         }
 
-        public Task<PostDto> GetPostByBlogIdAndPostIdAndWithCommentsAsync(int blogId, int postId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

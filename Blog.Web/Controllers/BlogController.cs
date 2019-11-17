@@ -18,11 +18,6 @@ namespace Blog.Web.Controllers
             _blogService = blogService;
         }
 
-        [HttpGet("test")]
-        public IActionResult GetTest(){
-            return Ok("Test controller");
-        }
-
         [HttpGet("paged/{p:int}/{size:int}")]
         public async Task<IActionResult> GetAllBlogsPaged(int p,int size){
             var result = await _blogService.GetAllBlogsPaged(p,size);
@@ -53,6 +48,12 @@ namespace Blog.Web.Controllers
         public async Task<IActionResult> GetBlogById(int id)
         {
             var result = await _blogService.GetBlogByIdAsync(id);
+            return Ok(result);
+        }
+
+        [HttpGet("{id:int}/posts/{page:int}")]
+        public async Task<IActionResult> GetBlogByIdWithPosts(int id,int page) {
+            var result = await _blogService.GetBlogByIdAsyncWithPosts(id,page);
             return Ok(result);
         }
 
