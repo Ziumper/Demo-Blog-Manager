@@ -13,7 +13,7 @@ namespace Blog.Dal.Repositories.Blogs
 {
     public class BlogRepository : GenericRepository<BlogEntity, BloggingContext>, IBlogRepository
     {
-        private protected int _postsForPage;
+        protected int _postsForPage;
 
         public BlogRepository(BloggingContext context) : base(context)
         {

@@ -65,7 +65,7 @@ namespace Blog.Dal.Repositories.Posts
     
         private async Task<PagedEntity<Post>> GetPaged(IQueryable<Post> query,int page, int size,int filter, bool order) {
             
-            var skipCount = getSkipCount(page,size);
+            var skipCount = GetSkipCount(page,size);
             
             PagedEntity<Post> pagedEntity = new PagedEntity<Post>();
 
