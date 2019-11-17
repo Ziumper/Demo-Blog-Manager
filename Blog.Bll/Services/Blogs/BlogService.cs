@@ -56,7 +56,7 @@ namespace Blog.Bll.Services.Blogs
 
         public async Task<BlogDto> DeleteBlogAsyncById(int id)
         {
-            var blog = await _blogRepository.GetBlogByIdWithPostsAndComments(id);
+            var blog = await _blogRepository.FindByIdFirstAsync(id);
             if(blog == null) throw new ResourceNotFoundException("Blog with Id" + id + " is not found");
 
             var result = _blogRepository.Delete(blog);
@@ -103,9 +103,17 @@ namespace Blog.Bll.Services.Blogs
 
         public async Task<BlogDto> GetBlogByIdAsync(int id)
         {
-            var blog = await _blogRepository.GetBlogByIdWithPostsAndComments(id);
+            var blog = await _blogRepository.FindByFirstAsync( b => b.Id == id);
             if(blog == null) throw new ResourceNotFoundException("Blog with Id " + id + " not found");
             var blogDto = _mapper.Map<BlogEntity,BlogDto>(blog);
+            return blogDto;
+        }
+
+        public async Task<BlogDtoWithPosts> GetBlogByIdAsyncWithPosts(int id, int page)
+        {
+            var blog = await _blogRepository.GetBlogByIdWithPostsPaged(id,page);
+            if(blog == null) throw new ResourceNotFoundException("Blog with Id " + id + " not found");
+            var blogDto = _mapper.Map<BlogEntity,BlogDtoWithPosts>(blog);
             return blogDto;
         }
 
