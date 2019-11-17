@@ -7,21 +7,21 @@
         <ul class="navbar-nav mr-auto mt-3 mt-lg-0">
             <li class="nav-item">
                 <a class="nav-link" routerLinkActive="active" routerLink="home">
-                    Poster
+                    Home
                 </a>
             </li>
             <li *ngIf="isLogged" class="nav-item">
                 <a class="nav-link" routerLinkActive="active" [routerLink]="['blog',userBlogId]">Your Blog</a>
             </li>
             <li *ngIf="isLogged" class="nav-item ">
-                <a class="nav-link" routerLinkActive="active" routerLink="profile">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['profile',userId]">
                     User Profile
                 </a>
             </li>
             <li *ngIf="isLogged" class="nav-item ">
-                <a class="nav-link" routerLinkActive="active" routerLink="profile">
-                        Add post
-                    </a>
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['blog-manager',userBlogId]">
+                        Blog Manager
+                </a>
             </li>
         </ul>
         <ul class="navbar-nav mt-3 mt-lg-0">

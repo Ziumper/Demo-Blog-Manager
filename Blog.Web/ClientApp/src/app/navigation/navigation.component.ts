@@ -18,11 +18,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public isCollapsed: boolean;
   public isLogged: boolean;
   public userBlogId: number;
+  public userId: number;
 
   constructor(private authenticationService: AuthenticationService) {
     this.isCollapsed = true;
     this.isLogged = false;
     this.userBlogId = 0;
+    this.userId = 0;
   }
 
   public logout(): void {
@@ -57,6 +59,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
       const user = this.authenticationService.getUserFromLocalStorage();
       if (user.blogId) {
         this.userBlogId = user.blogId;
+      }
+
+      if (user.id) {
+        this.userId = user.id;
       }
     }
   }
