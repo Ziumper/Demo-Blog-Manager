@@ -17,10 +17,12 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   public isCollapsed: boolean;
   public isLogged: boolean;
+  public userBlogId: number;
 
   constructor(private authenticationService: AuthenticationService) {
     this.isCollapsed = true;
     this.isLogged = false;
+    this.userBlogId = 0;
   }
 
   public logout(): void {
@@ -36,7 +38,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.loginSubscription = this.authenticationService.getLoginStatus()
     .subscribe(loginStatus => {
-      this.isLogged = loginStatus;
+      this.handleLogin(loginStatus);
     });
   }
 
@@ -47,6 +49,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
    */
   public ngOnDestroy(): void {
     this.loginSubscription.unsubscribe();
+  }
+
+  private handleLogin(loginStatus: boolean): void {
+    this.isLogged = loginStatus;
+    if (loginStatus) {
+      const user = this.authenticationService.getUserFromLocalStorage();
+      if (user.blogId) {
+        this.userBlogId = user.blogId;
+      }
+    }
   }
 
 }

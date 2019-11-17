@@ -17,8 +17,15 @@ namespace Blog.Web.Mappings
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
             CreateMap<Image,ImageDto>().ReverseMap();
+        
+            CreateMappingsForUserEntity();
+        }
+
+        private void CreateMappingsForUserEntity() {
             CreateMap<UserDto,User>();
-            CreateMap<User,UserDtoWithoutPassword>();
+            CreateMap<User,UserDtoWithoutPassword>()
+            .ForMember(up => up.BlogId, mappingOption => 
+            mappingOption.MapFrom(u => u.Blog.Id));
         }
     }
 

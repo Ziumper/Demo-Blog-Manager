@@ -7,10 +7,12 @@ import { Subject, Observable } from 'rxjs';
 export class AuthenticationService {
     private apiUrl: string;
     private loginSubject: Subject<boolean>;
+    private currentUser: string;
 
     constructor(private http: HttpClient) {
         this.apiUrl = 'api/user/authenticate';
         this.loginSubject = new Subject<boolean> ();
+        this.currentUser = 'currentUser';
      }
 
 
@@ -21,12 +23,20 @@ export class AuthenticationService {
       * subscription so it is easier to share login status
       */
     isLogged(): boolean {
-        if (localStorage.getItem('currentUser')) {
+        if (localStorage.getItem(this.currentUser)) {
             this.loginSubject.next(true);
             return true;
         }
         this.loginSubject.next(false);
         return false;
+    }
+
+    public getUserFromLocalStorage(): any {
+        const currentUser = localStorage.getItem(this.currentUser);
+        if (currentUser) {
+            const user = JSON.parse(currentUser);
+            return user;
+        }
     }
 
     /**

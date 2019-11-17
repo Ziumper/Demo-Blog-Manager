@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Blog.Bll.Services.Emails.Models;
 using System.Collections.Generic;
 using Blog.Dal.Repositories.Blogs;
+using Blog.Bll.Services.Authentication;
 
 namespace Blog.Bll.Services.Users {
 
@@ -29,6 +30,7 @@ namespace Blog.Bll.Services.Users {
         protected readonly IEmailService _emailService;
         protected readonly IHttpContextAccessor _httpContextAccessor;
         protected readonly IBlogRepository _blogRepository;
+        protected readonly ITokenService _tokenService;
 
         public UserService(IHashService hashService,
         IUserRepository userRepository,
@@ -36,7 +38,9 @@ namespace Blog.Bll.Services.Users {
         IOptions<AppSettings> appSettings,
         IEmailService emailService,
         IHttpContextAccessor htttpContextAccessor,
-        IBlogRepository blogRepository) {
+        IBlogRepository blogRepository,
+        ITokenService tokenService
+        ) {
             _hashService = hashService;
             _userRepository = userRepository;
             _mapper = mapper;
@@ -44,7 +48,7 @@ namespace Blog.Bll.Services.Users {
             _emailService = emailService;
             _httpContextAccessor = htttpContextAccessor;
             _blogRepository = blogRepository;
-            
+            _tokenService = tokenService;
         }
 
         public async Task<UserDtoWithoutPassword> ActivateUser(UserDtoActivation activationUserDetails)
@@ -75,31 +79,19 @@ namespace Blog.Bll.Services.Users {
         }
 
         public async Task<UserDtoWithoutPassword> Authenticate(string username, string password)
-        {  var hashedPassword = _hashService.GetHash (password);
-            var user = await _userRepository.FindByFirstAsync (x => x.Username == username && x.Password == hashedPassword);
+        {  
+            var hashedPassword = _hashService.GetHash (password);
+            var user = await _userRepository.FindByFirstAsyncWithBlog (x => x.Username == username && x.Password == hashedPassword);
 
             if (user == null)
                 return null;
-
             if (!user.IsActive) {
                 throw new BadRequestException ("User not active, activate your account to login");
             }
 
-            // authentication successful so generate jwt token
-            var tokenHandler = new JwtSecurityTokenHandler ();
-            var key = Encoding.ASCII.GetBytes (_appSettings.Secret);
-            var tokenDescriptor = new SecurityTokenDescriptor {
-                Subject = new ClaimsIdentity (new Claim[] {
-                new Claim (ClaimTypes.Name, user.Id.ToString ())
-                }),
-                Expires = DateTime.UtcNow.AddDays (7),
-                SigningCredentials = new SigningCredentials (new SymmetricSecurityKey (key), SecurityAlgorithms.HmacSha256Signature)
-            };
-            var token = tokenHandler.CreateToken (tokenDescriptor);
-
             // remove password before returning
             var userWithoutPassword = _mapper.Map<User, UserDtoWithoutPassword> (user);
-            userWithoutPassword.Token = tokenHandler.WriteToken (token);
+            userWithoutPassword.Token = _tokenService.CreateToken(user);
 
             return userWithoutPassword;
         }
