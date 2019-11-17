@@ -13,13 +13,15 @@ import { PostQueryModel } from '../post/models/post-query.model';
 export class BlogComponent  implements OnInit {
   public blog: BlogModel;
   public postQueryModel: PostQueryModel;
-
   private blogId: number;
 
   constructor(private blogService: BlogService,
      private activatedRoute: ActivatedRoute,
      private postService: PostService ) {
        this.blogId = activatedRoute.snapshot.params['blogId'];
+
+       this.postQueryModel = new PostQueryModel();
+       this.postQueryModel.blogId = this.blogId;
   }
 
   public ngOnInit(): void {

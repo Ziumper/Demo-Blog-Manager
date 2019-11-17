@@ -121,8 +121,12 @@ namespace Blog.Dal.Repositories.Base
 
         public int GetSkipCount(int page,int size){
             var skipCount = (page - 1) * size;
-            return skipCount;
 
+            if(skipCount < 0) {
+                skipCount = 0;
+            }
+
+            return skipCount;
         }
 
         public async Task<PagedEntity<T>> GetAllPagedAsync(int page, int size, int filter, bool order) {
