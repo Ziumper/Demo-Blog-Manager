@@ -169,5 +169,12 @@ namespace Blog.Bll.Services.Users {
             _emailService.Send (emailMessage);
         }
 
+        public async Task<UserDtoEdit> GetUserById(int id)
+        {
+            var user = await _userRepository.FindByIdFirstAsync(id);
+            UserDtoEdit userDto =_mapper.Map<User,UserDtoEdit>(user);
+
+            return userDto;
+        }
     }
 }

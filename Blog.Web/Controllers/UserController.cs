@@ -39,10 +39,10 @@ namespace Blog.Web.Controllers {
             return Ok (user);
         }
 
-        [AllowAnonymous]
-        [HttpGet("test")]
-        public IActionResult Test() {
-            return Ok("test");
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetUserById(int id) {
+            var user = await _userService.GetUserById(id);
+            return Ok (user);
         }
 
         [AllowAnonymous]

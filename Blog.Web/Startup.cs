@@ -57,6 +57,7 @@ namespace Blog.Web {
             // configurator.AddEmailDependencyInjection(configurationEmailObj);
             services.Configure<AppSettings> (appSettingsSection);
             var appSettings = appSettingsSection.Get<AppSettings> ();
+            
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {
@@ -84,7 +85,7 @@ namespace Blog.Web {
                 // app.UseExceptionHandler("/Error");
                 // app.UseHsts();
             }
-
+            app.UseAuthentication();
             app.UseMiddleware (typeof (ErrorHandlingMiddleware));
             //app.UseHttpsRedirection();
             app.UseStaticFiles ();
@@ -115,6 +116,8 @@ namespace Blog.Web {
                     spa.UseAngularCliServer (npmScript: "start");
                 }
             });
+
+           
         }
 
         private void ConfiugreDependencyInjection (IServiceCollection services) {

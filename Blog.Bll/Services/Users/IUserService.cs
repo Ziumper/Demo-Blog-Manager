@@ -9,5 +9,6 @@ namespace Blog.Bll.Services.Users {
         Task<UserDtoWithoutPassword> Authenticate(string username, string password);
         Task<UserDtoWithoutPassword> ActivateUser(UserDtoActivation activationUserDetails);
         Task ResendActivationCode(string useremail);
+        Task<UserDtoEdit> GetUserById(int id);
     }
 }

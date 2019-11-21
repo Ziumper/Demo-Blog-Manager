@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../services/user.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-edit-profile',
@@ -15,7 +17,9 @@ export class EditProfileComponent implements OnInit {
     get email() { return this.userForm.get('email'); }
     get username() { return this.userForm.get('username'); }
 
-    constructor(private formBuilder: FormBuilder) { }
+    constructor(private formBuilder: FormBuilder,
+        private userSerivce: UserService,
+        private activatedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
         this.userForm = this.formBuilder.group({
@@ -28,6 +32,11 @@ export class EditProfileComponent implements OnInit {
                     Validators.required
                 ]
             ],
+        });
+
+        const userId = this.activatedRoute.snapshot.params['userId'];
+        this.userSerivce.getById(userId).subscribe(data => {
+            this.userForm.setValue(data);
         });
     }
 }

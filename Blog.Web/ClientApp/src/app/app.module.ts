@@ -9,7 +9,7 @@ import { HomeComponent } from './home/home.component';
 // Services
 import { BlogModule } from './blog/blog.module';
 import { CoreModule } from './core/core.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { PostModule } from './post/post.module';
 import { TagModule } from './tag/tag.module';
@@ -17,6 +17,8 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserModule } from './user/user.module';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,11 @@ import { UserModule } from './user/user.module';
     NgbModule,
     UserModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ]
 })
 export class AppModule {
   constructor() {

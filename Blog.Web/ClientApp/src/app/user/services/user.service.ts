@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { ActivationModel } from '../models/activation.model';
+import { Observable } from 'rxjs';
 
 
 @Injectable()
@@ -12,8 +13,8 @@ export class UserService {
         this.apiUrl = 'api/user';
     }
 
-    getById(id: number) {
-        return this.http.get(this.apiUrl + '/' + id);
+    getById(id: number): Observable<User> {
+        return this.http.get<User>(this.apiUrl + '/' + id);
     }
 
     register(user: User) {

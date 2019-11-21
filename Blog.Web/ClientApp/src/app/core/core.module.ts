@@ -16,6 +16,7 @@ import { BlogAlertComponent } from './blog-alert/blog-alert.component';
 import { AuthGuard } from './guards/auth.guard';
 
 
+
 @NgModule({
     declarations: [
         LoaderComponent,
@@ -42,7 +43,7 @@ import { AuthGuard } from './guards/auth.guard';
         UploadFilesService,
         LocationService,
         AlertService,
-        AuthGuard
+        AuthGuard,
     ]
 })
 export class CoreModule {

@@ -26,6 +26,7 @@ namespace Blog.Web.Mappings
             CreateMap<User,UserDtoWithoutPassword>()
             .ForMember(up => up.BlogId, mappingOption => 
             mappingOption.MapFrom(u => u.Blog.Id));
+            CreateMap<User,UserDtoEdit>();
         }
     }
 
