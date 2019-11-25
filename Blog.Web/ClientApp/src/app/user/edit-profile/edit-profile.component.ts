@@ -10,12 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditProfileComponent implements OnInit {
 
-    userForm: FormGroup;
-
-    get firstName() { return this.userForm.get('firstName'); }
-    get lastName() { return this.userForm.get('lastName'); }
-    get email() { return this.userForm.get('email'); }
-    get username() { return this.userForm.get('username'); }
+    public userForm: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
         private userSerivce: UserService,
