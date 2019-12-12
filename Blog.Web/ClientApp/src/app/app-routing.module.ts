@@ -10,16 +10,16 @@ import { PostsManagerComponent } from './post/posts-manager/posts-manager.compon
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { LoginComponent } from './user/login/login.component';
-import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
 import { ActivationComponent } from './user/activation/activation.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { ProfileComponent } from './user/profile/profile.component';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent},
-  { path: 'profile/:userId', component: EditProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'activate/:userId/:code', component: ActivationComponent},
   { path: 'blog-manager/:blogId', component: BlogManagerComponent, canActivate: [AuthGuard] ,
     children: [
