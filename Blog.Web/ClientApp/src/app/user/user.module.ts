@@ -11,13 +11,15 @@ import { CoreModule } from '../core/core.module';
 import { AuthenticationService } from './services/authentication.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PasswordValidatorService } from './services/password-validator';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
     declarations: [
         RegistrationComponent,
         LoginComponent,
         EditProfileComponent,
-        ActivationComponent
+        ActivationComponent,
+        ProfileComponent,
     ],
     imports: [
         CommonModule,
@@ -30,7 +32,8 @@ import { PasswordValidatorService } from './services/password-validator';
         RegistrationComponent,
         LoginComponent,
         EditProfileComponent,
-        ActivationComponent
+        ActivationComponent,
+        ProfileComponent,
     ],
     providers: [UserService, AuthenticationService, PasswordValidatorService],
 })
