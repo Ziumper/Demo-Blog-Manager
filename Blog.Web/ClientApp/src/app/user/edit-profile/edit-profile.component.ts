@@ -34,6 +34,7 @@ export class EditProfileComponent implements OnInit {
 
         const userId = this.activatedRoute.snapshot.params['userId'];
         this.userSerivce.getById(userId).subscribe(data => {
+            data.password = '';
             this.userForm.setValue(data);
         });
     }

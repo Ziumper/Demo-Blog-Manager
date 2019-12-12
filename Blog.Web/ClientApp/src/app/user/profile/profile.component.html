@@ -6,7 +6,7 @@
             <p class="card-text"><b>Email:</b> {{user.email}}</p>
             <p class="card-text"><b>Firstname:</b> {{user.firstName}}</p>
             <p class="card-text"><b>Lastname: </b> {{user.lastName}}</p>
-            <a href="#" class="card-link">Edit profile</a>
+            <a [routerLink]="['/edit-profile',userId]" class="card-link">Edit profile</a>
             <a href="#" class="card-link">Change password</a>
             <a href="#" class="card-link">Delete account</a>
         </div>
