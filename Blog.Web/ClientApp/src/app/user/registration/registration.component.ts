@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, Valid
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert.service';
+import { PasswordValidatorService } from '../services/password-validator';
 
 /**
  * Custom validator example
@@ -31,18 +32,15 @@ export class RegistrationComponent implements OnInit {
     constructor(private userService: UserService,
         private router: Router,
         private alertService: AlertService,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private passwordValidatorSerivce: PasswordValidatorService) {
         this.passwordPattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$';
     }
 
     public ngOnInit(): void {
-        const passwordControl = new FormControl('', [
-            Validators.required,
-            Validators.minLength(6),
-            Validators.pattern(this.passwordPattern)
-        ]);
+        const passwordControl = this.passwordValidatorSerivce.createPasswordControl();
 
-        const repeatedPasswordControl = new FormControl('', [Validators.required, this.repeatedValidatorFn(passwordControl)]);
+        const repeatedPasswordControl = this.passwordValidatorSerivce.createRepeatedPasswordControl(passwordControl);
 
         this.registerForm = this.formBuilder.group({
             firstName: ['', Validators.required],
@@ -58,23 +56,6 @@ export class RegistrationComponent implements OnInit {
             repeatedPassword: repeatedPasswordControl
         });
 
-    }
-
-    /**
-      * It is custom validator for checking password repeating
-      * @param control FormControl
-    */
-    private repeatedValidatorFn(control: FormControl): ValidatorFn {
-        return (c: AbstractControl): { [key: string]: boolean } | null => {
-            const originalPassword = control.value;
-            const isNotSame = c.value !== originalPassword;
-
-            if (isNotSame) {
-                return { 'repeated': true };
-            }
-
-            return null;
-        };
     }
 
     public onSubmit() {

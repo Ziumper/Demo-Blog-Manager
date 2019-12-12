@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from '../core/core.module';
 import { AuthenticationService } from './services/authentication.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
+import { PasswordValidatorService } from './services/password-validator';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
         EditProfileComponent,
         ActivationComponent
     ],
-    providers: [UserService, AuthenticationService],
+    providers: [UserService, AuthenticationService, PasswordValidatorService],
 })
 export class UserModule {
 }
