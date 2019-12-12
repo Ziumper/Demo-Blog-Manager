@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class EditProfileComponent implements OnInit {
 
     public userForm: FormGroup;
-    
+
     constructor(private formBuilder: FormBuilder,
         private userSerivce: UserService,
         private activatedRoute: ActivatedRoute) { }

@@ -1,12 +1,12 @@
-import { Injectable } from "@angular/core";
-import { Validators, FormControl, ValidatorFn, AbstractControl } from "@angular/forms";
+import { Injectable } from '@angular/core';
+import { Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 
 @Injectable()
 export class PasswordValidatorService {
 
     private passwordPattern: string;
 
-    constructor(){ 
+    constructor() {
         this.passwordPattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$';
     }
 
@@ -19,10 +19,10 @@ export class PasswordValidatorService {
         return passwordControl;
     }
 
-    public createRepeatedPasswordControl(passwordControl : FormControl) {
-       const repeatedPasswordControl = new FormControl('', 
+    public createRepeatedPasswordControl(passwordControl: FormControl) {
+       const repeatedPasswordControl = new FormControl('',
        [
-           Validators.required, 
+           Validators.required,
            this.repeatedValidatorFn(passwordControl)
         ]);
 
@@ -47,6 +47,6 @@ export class PasswordValidatorService {
 }
 
 
-    
+
 
 }
