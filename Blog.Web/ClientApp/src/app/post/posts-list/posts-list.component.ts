@@ -19,9 +19,6 @@ export class PostsListComponent implements OnInit {
     @Input()
     public postQueryModel: PostQueryModel;
 
-    @Input()
-    public info: string;
-
     constructor(
         private postService: PostService,
         private alertService: AlertService) {
@@ -32,13 +29,6 @@ export class PostsListComponent implements OnInit {
             this.posts = data.entities;
             this.page = data.page;
             this.pageSize = data.size;
-
-            const isPostsArePresent = this.posts.length > 0;
-            const showInfoMessage = !isPostsArePresent && this.info;
-
-            if (showInfoMessage) {
-                this.alertService.info(this.info);
-            }
         });
     }
 }
