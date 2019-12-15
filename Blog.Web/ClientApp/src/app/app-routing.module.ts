@@ -14,6 +14,7 @@ import { ActivationComponent } from './user/activation/activation.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { ProfileComponent } from './user/profile/profile.component';
 import { EditProfileComponent } from './user/edit-profile/edit-profile.component';
+import { IsTheSameUserLoggedGuard } from './core/guards/isTheSameUserLogged.guard';
 
 const routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,7 +22,7 @@ const routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'login', component: LoginComponent},
   { path: 'profile/:userId', component: ProfileComponent, canActivate: [AuthGuard] },
-  { path: 'edit-profile/:userId', component: EditProfileComponent, canActivate: [AuthGuard] },
+  { path: 'edit-profile/:userId', component: EditProfileComponent, canActivate: [IsTheSameUserLoggedGuard] },
   { path: 'activate/:userId/:code', component: ActivationComponent},
   { path: 'blog-manager/:blogId', component: BlogManagerComponent, canActivate: [AuthGuard] ,
     children: [

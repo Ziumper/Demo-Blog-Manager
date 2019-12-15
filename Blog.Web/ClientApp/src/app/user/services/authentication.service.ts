@@ -39,6 +39,18 @@ export class AuthenticationService {
         }
     }
 
+    public getUserIdFromLocalStorage(): Number {
+        const currentUser = this.getUserFromLocalStorage();
+        if (currentUser) {
+            if (currentUser.id) {
+                const userId = Number(currentUser.id);
+                return userId;
+            }
+        }
+
+        return 0;
+    }
+
     /**
      * Return of observable to where we can
      * subscribe and check is user are logged,

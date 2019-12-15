@@ -14,7 +14,7 @@ import { DefaultImagePipe } from './pipes/defaultImage.pipe';
 import { AlertService } from './services/alert.service';
 import { BlogAlertComponent } from './blog-alert/blog-alert.component';
 import { AuthGuard } from './guards/auth.guard';
-
+import { IsTheSameUserLoggedGuard } from './guards/isTheSameUserLogged.guard';
 
 
 @NgModule({
@@ -44,6 +44,7 @@ import { AuthGuard } from './guards/auth.guard';
         LocationService,
         AlertService,
         AuthGuard,
+        IsTheSameUserLoggedGuard,
     ]
 })
 export class CoreModule {
