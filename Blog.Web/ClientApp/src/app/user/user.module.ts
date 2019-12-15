@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RegistrationComponent } from './registration/registration.component';
 import { LoginComponent } from './login/login.component';
-
 import { ActivationComponent } from './activation/activation.component';
 import { UserService } from './services/user.service';
 import { RouterModule } from '@angular/router';
@@ -12,6 +11,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PasswordValidatorService } from './services/password-validator';
 import { ProfileComponent } from './profile/profile.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +20,7 @@ import { ProfileComponent } from './profile/profile.component';
         EditProfileComponent,
         ActivationComponent,
         ProfileComponent,
+        ChangePasswordComponent,
     ],
     imports: [
         CommonModule,
@@ -34,6 +35,7 @@ import { ProfileComponent } from './profile/profile.component';
         EditProfileComponent,
         ActivationComponent,
         ProfileComponent,
+        ChangePasswordComponent,
     ],
     providers: [UserService, AuthenticationService, PasswordValidatorService],
 })

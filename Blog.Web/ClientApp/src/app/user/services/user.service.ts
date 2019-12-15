@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user.model';
 import { ActivationModel } from '../models/activation.model';
 import { Observable } from 'rxjs';
+import { ChangePassword } from '../models/changePassword.model';
 
 
 @Injectable()
@@ -15,6 +16,10 @@ export class UserService {
 
     getById(id: number): Observable<User> {
         return this.http.get<User>(this.apiUrl + '/' + id);
+    }
+
+    changePassword(changePassword: ChangePassword) {
+        return this.http.post(this.apiUrl + '/changePassword', changePassword);
     }
 
     register(user: User) {

@@ -34,7 +34,6 @@ export class RegistrationComponent implements OnInit {
         private alertService: AlertService,
         private formBuilder: FormBuilder,
         private passwordValidatorSerivce: PasswordValidatorService) {
-        this.passwordPattern = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$';
     }
 
     public ngOnInit(): void {

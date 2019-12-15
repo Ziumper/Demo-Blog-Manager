@@ -33,9 +33,7 @@ export class LoginComponent implements OnInit {
             password: ['', Validators.required]
         });
 
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-
+       this.handleReturnToPageAfterLogin();
     }
 
     public onSubmit() {
@@ -62,5 +60,10 @@ export class LoginComponent implements OnInit {
                     this.loading = false;
                 });
 
+    }
+
+    private handleReturnToPageAfterLogin() {
+         // get return url from route parameters or default to '/'
+         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 }
