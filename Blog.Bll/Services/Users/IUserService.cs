@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Blog.Bll.Dto.Users;
 
@@ -12,5 +13,6 @@ namespace Blog.Bll.Services.Users {
         Task<UserDtoEdit> GetUserById(int id);
         Task EditProfile(UserDtoEdit userDtoEdit);
         Task ChangePassword(UserDtoChangePassword changePasswordDto);
+        int GetUserIdFromClaims(ClaimsPrincipal claimPrincipal);
     }
 }

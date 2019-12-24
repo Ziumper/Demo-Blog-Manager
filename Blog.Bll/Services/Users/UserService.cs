@@ -186,5 +186,10 @@ namespace Blog.Bll.Services.Users {
         {
             throw new NotImplementedException();
         }
+
+        public int GetUserIdFromClaims(ClaimsPrincipal claimPrincipal)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
