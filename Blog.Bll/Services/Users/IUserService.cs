@@ -10,5 +10,7 @@ namespace Blog.Bll.Services.Users {
         Task<UserDtoWithoutPassword> ActivateUser(UserDtoActivation activationUserDetails);
         Task ResendActivationCode(string useremail);
         Task<UserDtoEdit> GetUserById(int id);
+        Task EditProfile(UserDtoEdit userDtoEdit);
+        Task ChangePassword(UserDtoChangePassword changePasswordDto);
     }
 }

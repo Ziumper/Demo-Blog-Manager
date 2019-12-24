@@ -51,5 +51,18 @@ namespace Blog.Web.Controllers {
             await _userService.ActivateUser (activationUserDetails);
             return Ok ();
         }
+
+        [HttpPost("edit-profile")]
+        public async Task<IActionResult> EditProfile([FromBody] UserDtoEdit userDtoEdit) {
+            await _userService.EditProfile(userDtoEdit);
+            return Ok();
+        }
+
+        [HttpPost("edit-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] UserDtoChangePassword userDtoChangePassword) {
+            await _userService.ChangePassword(userDtoChangePassword);
+            return Ok();
+        }
+
     }
 }

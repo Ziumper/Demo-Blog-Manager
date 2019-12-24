@@ -176,5 +176,15 @@ namespace Blog.Bll.Services.Users {
 
             return userDto;
         }
+
+        public Task EditProfile(UserDtoEdit userDtoEdit)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task ChangePassword(UserDtoChangePassword changePasswordDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
