@@ -114,7 +114,6 @@ namespace Blog.Web {
         private void ConfiugreDependencyInjection (IServiceCollection services) {
             //Singletons
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor> ();
-           
             
             //Transients
             services.AddTransient<IPostService, PostService> ();
@@ -141,9 +140,8 @@ namespace Blog.Web {
         }
 
         private void AddAuthentication(IServiceCollection services,AppSettings appSettings) {
-            
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-             services.AddAuthentication(x =>
+            services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
