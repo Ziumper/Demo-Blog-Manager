@@ -26,7 +26,8 @@ namespace Blog.Dal
 
         private void SetupRelations(ModelBuilder modelBuilder) {
             modelBuilder.Entity<User>().HasOne( u => u.Blog).WithOne(b => b.User)
-            .HasForeignKey<BlogEntity>(b => b.UserId);
+            .HasPrincipalKey<BlogEntity>(b => b.UserId).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<User>().HasKey( c => new {c.Id, c.Username});
         }
 
         private void CreateSeedData(ModelBuilder modelBuilder) {
