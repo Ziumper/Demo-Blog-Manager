@@ -16,9 +16,11 @@ namespace Blog.Web.Controllers {
     public class UserController : BaseBlogAppController {
 
         private IUserService _userService;
+        protected IParserService _parserService;
 
-        public UserController (IUserService userService) {
+        public UserController (IUserService userService, IParserService parserService) {
             _userService = userService;
+            _parserService = parserService;
         }
 
         [AllowAnonymous]
@@ -54,7 +56,6 @@ namespace Blog.Web.Controllers {
 
         [HttpPost("edit-profile")]
         public async Task<IActionResult> EditProfile([FromBody] UserDtoEdit userDtoEdit) {
-            string userId = this.User.FindFirst(ClaimTypes.Name)?.Value;
             await _userService.EditProfile(userDtoEdit);
             return Ok();
         }
