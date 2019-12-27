@@ -159,6 +159,8 @@ namespace Blog.Web {
             });
         }
 
-        
+        private void AddAuthorization(IServiceCollection services) {
+
+        }
     }
 }
