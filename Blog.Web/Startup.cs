@@ -52,9 +52,7 @@ namespace Blog.Web {
 
             SetupDatabaseConnection(services);
             ConfiugreDependencyInjection (services);
-            
-            
-                        
+            SetupEmailConfiguration(services);
             AddAuthentication(services,appSettings);
         }
 
@@ -136,7 +134,7 @@ namespace Blog.Web {
             services.AddTransient<ITokenService,TokenService>();
         }
 
-        private void AddEmailDependencyInjection(IServiceCollection services) {
+        private void SetupEmailConfiguration(IServiceCollection services) {
             EmailConfiguration configurationEmailObj = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
             services.AddSingleton<IEmailConfiguration> (configurationEmailObj);
             services.AddTransient<IEmailService, EmailService> ();
