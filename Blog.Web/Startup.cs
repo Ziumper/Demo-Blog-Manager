@@ -4,6 +4,7 @@ using Blog.Bll.Dto.App;
 using Blog.Bll.Middlewares;
 using Blog.Bll.Services;
 using Blog.Bll.Services.Authentication;
+using Blog.Bll.Services.Authorization;
 using Blog.Bll.Services.Blogs;
 using Blog.Bll.Services.Comments;
 using Blog.Bll.Services.Emails;
@@ -160,7 +161,10 @@ namespace Blog.Web {
         }
 
         private void AddAuthorization(IServiceCollection services) {
-
+            services.AddAuthorization(options => {
+                options.AddPolicy("EditPolicy", policy =>
+                policy.Requirements.Add(new SameUserRequirement()));
+            });
         }
     }
 }
