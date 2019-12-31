@@ -8,7 +8,11 @@ namespace Blog.Bll.Services.Authorization {
     {
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, SameUserRequierement requirement, User resource)
         {
-            throw new System.NotImplementedException();
+            if(context.User.Identity?.Name == resource.Username) {
+                context.Succeed(requirement);
+            }
+
+            return Task.CompletedTask;
         }
     }
 }
