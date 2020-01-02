@@ -192,10 +192,6 @@ namespace Blog.Bll.Services.Users {
             throw new NotImplementedException();
         }
 
-        public int GetUserIdFromClaims(ClaimsPrincipal claimPrincipal)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task DeleteUserById(int id)
         {
