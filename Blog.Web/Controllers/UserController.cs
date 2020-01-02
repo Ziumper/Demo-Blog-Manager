@@ -81,7 +81,17 @@ namespace Blog.Web.Controllers {
             }
 
             return Forbid();
-            
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteUserById(int id) {
+            var authorizationResult = await GetAuthorizationResult(id);
+            if(authorizationResult.Succeeded) {
+                await _userService.DeleteUserById(id);
+                return Ok();
+            }
+
+            return Forbid();
         }
 
         private async Task<AuthorizationResult> GetAuthorizationResult(int id) {

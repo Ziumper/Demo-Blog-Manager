@@ -14,5 +14,6 @@ namespace Blog.Bll.Services.Users {
         Task EditProfile(UserDtoEdit userDtoEdit);
         Task ChangePassword(UserDtoChangePassword changePasswordDto);
         int GetUserIdFromClaims(ClaimsPrincipal claimPrincipal);
+        Task DeleteUserById(int id);
     }
 }

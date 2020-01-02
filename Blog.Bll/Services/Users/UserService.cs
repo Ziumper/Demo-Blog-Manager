@@ -196,5 +196,14 @@ namespace Blog.Bll.Services.Users {
         {
             throw new NotImplementedException();
         }
+
+        public async Task DeleteUserById(int id)
+        {
+            var user = await _userRepository.FindByIdFirstAsync(id);
+            if(user == null) {
+                throw new ResourceNotFoundException("User with id: " + id + " not found");
+            }
+            _userRepository.Delete(user);
+        }
     }
 }
