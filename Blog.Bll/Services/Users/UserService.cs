@@ -182,16 +182,27 @@ namespace Blog.Bll.Services.Users {
             return userDto;
         }
 
-        public Task EditProfile(UserDtoEdit userDtoEdit)
+        public async Task EditProfile(UserDtoEdit userDtoEdit)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.FindByIdFirstAsync(userDtoEdit.Id);
+            
+            if(user == null) {
+                throw new ResourceNotFoundException("User with id: " + userDtoEdit.Id + " not found");
+            }    
+
+            user.LastName = userDtoEdit.LastName;
+            user.FirstName = userDtoEdit.FirstName;
+            user.ModificationDate = DateTime.Now;
+            
+             _userRepository.Edit(user);
+
+             await _userRepository.SaveAsync();
         }
 
         public Task ChangePassword(UserDtoChangePassword changePasswordDto)
         {
             throw new NotImplementedException();
         }
-
 
         public async Task DeleteUserById(int id)
         {
