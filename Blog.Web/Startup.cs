@@ -162,8 +162,8 @@ namespace Blog.Web {
 
         private void AddAuthorization(IServiceCollection services) {
             services.AddAuthorization(options => {
-                options.AddPolicy("EditPolicy", policy =>
-                policy.Requirements.Add(new SameUserRequirement()));
+                options.AddPolicy("EditUserPolicy", policy =>
+                policy.Requirements.Add(new AuthorUserRequirement()));
             });
         }
     }
