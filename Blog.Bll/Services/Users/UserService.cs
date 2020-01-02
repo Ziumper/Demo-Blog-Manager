@@ -172,6 +172,11 @@ namespace Blog.Bll.Services.Users {
         public async Task<UserDtoEdit> GetUserById(int id)
         {
             var user = await _userRepository.FindByIdFirstAsync(id);
+
+            if(user == null) {
+                throw new ResourceNotFoundException("User with that id not found");
+            }
+            
             UserDtoEdit userDto =_mapper.Map<User,UserDtoEdit>(user);
 
             return userDto;

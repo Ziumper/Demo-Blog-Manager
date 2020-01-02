@@ -17,10 +17,14 @@ namespace Blog.Web.Controllers {
 
         private IUserService _userService;
         protected IParserService _parserService;
+        protected IAuthorizationService _authorizationService;
 
-        public UserController (IUserService userService, IParserService parserService) {
+        public UserController (IUserService userService, 
+        IParserService parserService,
+        IAuthorizationService authorizationService) {
             _userService = userService;
             _parserService = parserService;
+            _authorizationService = authorizationService;
         }
 
         [AllowAnonymous]
@@ -56,8 +60,18 @@ namespace Blog.Web.Controllers {
 
         [HttpPost("edit-profile")]
         public async Task<IActionResult> EditProfile([FromBody] UserDtoEdit userDtoEdit) {
-            await _userService.EditProfile(userDtoEdit);
-            return Ok();
+            
+            //get current user to check if availiable
+            UserDtoEdit user = await _userService.GetUserById(userDtoEdit.Id);
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User,user.Username,"EditUserPolicy");
+            
+            if(authorizationResult.Succeeded) {
+                await _userService.EditProfile(userDtoEdit);
+                return Ok();
+            }
+
+            return Forbid();
         }
 
         [HttpPost("edit-password")]
