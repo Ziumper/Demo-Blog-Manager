@@ -199,9 +199,39 @@ namespace Blog.Bll.Services.Users {
              await _userRepository.SaveAsync();
         }
 
-        public Task ChangePassword(UserDtoChangePassword changePasswordDto)
+        public async Task ChangePassword(UserDtoChangePassword changePasswordDto)
         {
-            throw new NotImplementedException();
+            var user = await _userRepository.FindByIdFirstAsync(changePasswordDto.Id);
+            
+            if(user == null) {
+                throw new ResourceNotFoundException("User with id: " + changePasswordDto.Id + " not found");
+            }
+
+            if(IsPasswordsAreTheSameFromForm(changePasswordDto)) {
+                throw new BadRequestException("Passwords are not identical");
+            }
+            
+
+            user = ChangePasswordForUser(user,changePasswordDto.OldPassword,changePasswordDto.Password);
+
+            _userRepository.Edit(user);
+
+            await _userRepository.SaveAsync();
+        }
+
+        private bool IsPasswordsAreTheSameFromForm(UserDtoChangePassword changePasswordDto){
+            return changePasswordDto.Password == changePasswordDto.RepeatedPassword;
+        }
+
+        private User ChangePasswordForUser(User user,string oldPassword, string newPassword) {
+            var oldPasswordHashed = _hashService.GetHash (oldPassword);
+
+            var isUserHaveTheSamePassword = oldPasswordHashed == user.Password;
+            if(isUserHaveTheSamePassword) {
+                user.Password = _hashService.GetHash(newPassword);
+            }
+
+            return user;
         }
 
         public async Task DeleteUserById(int id)
