@@ -21,6 +21,7 @@ using Blog.Dal.Repositories.Images;
 using Blog.Dal.Repositories.Posts;
 using Blog.Dal.Repositories.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -113,6 +114,7 @@ namespace Blog.Web {
         }
 
         private void ConfiugreDependencyInjection (IServiceCollection services) {
+
             //Singletons
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor> ();
             
@@ -165,6 +167,8 @@ namespace Blog.Web {
                 options.AddPolicy("EditUserPolicy", policy =>
                 policy.Requirements.Add(new AuthorUserRequirement()));
             });
+
+            services.AddSingleton<IAuthorizationHandler, UserAuthorizationHandler>();
         }
     }
 }
