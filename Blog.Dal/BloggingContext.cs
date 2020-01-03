@@ -42,7 +42,8 @@ namespace Blog.Dal
                     IsActive = true,
                     Email = "tomasz.komoszeski@gmail.com",
                     ActivationCode = "CDN8",
-                    Username = "Tomasz"
+                    Username = "Tomasz",
+                    Role = "Administrator"
                 });
 
             modelBuilder.Entity<BlogEntity>().HasData(

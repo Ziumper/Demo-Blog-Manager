@@ -41,7 +41,7 @@ namespace Blog.Dal.Migrations
                     b.ToTable("Blogs");
 
                     b.HasData(
-                        new { Id = 1, CreationDate = new DateTime(2020, 1, 3, 17, 16, 12, 394, DateTimeKind.Local), ModificationDate = new DateTime(2020, 1, 3, 17, 16, 12, 394, DateTimeKind.Local), Title = "Programming Blog", UserId = 1 }
+                        new { Id = 1, CreationDate = new DateTime(2020, 1, 3, 19, 25, 37, 574, DateTimeKind.Local), ModificationDate = new DateTime(2020, 1, 3, 19, 25, 37, 574, DateTimeKind.Local), Title = "Programming Blog", UserId = 1 }
                     );
                 });
 
@@ -145,6 +145,8 @@ namespace Blog.Dal.Migrations
 
                     b.Property<string>("Password");
 
+                    b.Property<string>("Role");
+
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
@@ -152,7 +154,7 @@ namespace Blog.Dal.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, ActivationCode = "CDN8", CreationDate = new DateTime(2020, 1, 3, 17, 16, 12, 390, DateTimeKind.Local), Email = "tomasz.komoszeski@gmail.com", FirstName = "Tomasz", IsActive = true, LastName = "Komoszeski", ModificationDate = new DateTime(2020, 1, 3, 17, 16, 12, 393, DateTimeKind.Local), Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f", Username = "Tomasz" }
+                        new { Id = 1, ActivationCode = "CDN8", CreationDate = new DateTime(2020, 1, 3, 19, 25, 37, 570, DateTimeKind.Local), Email = "tomasz.komoszeski@gmail.com", FirstName = "Tomasz", IsActive = true, LastName = "Komoszeski", ModificationDate = new DateTime(2020, 1, 3, 19, 25, 37, 572, DateTimeKind.Local), Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f", Role = "Administrator", Username = "Tomasz" }
                     );
                 });
 
