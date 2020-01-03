@@ -241,6 +241,29 @@ namespace Blog.Bll.Services.Users {
                 throw new ResourceNotFoundException("User with id: " + id + " not found");
             }
             _userRepository.Delete(user);
+            await  _userRepository.SaveAsync();
+        }
+
+        public async Task ChangeUsername(UserDtoChangeUsername userDto)
+        {
+            var user = await _userRepository.FindByIdFirstAsync(userDto.Id);
+            if(user == null) {
+                throw new ResourceNotFoundException("User with id " + userDto.Id + " not found");
+            }
+
+            if(user.Username == userDto.Username) {
+                throw new BadRequestException("Username is exacly the same as previous one, please proivde different one");
+            }
+
+           var userWithNewUsername = await _userRepository.FindByFirstAsync(u => u.Username == userDto.Username);
+           if(userWithNewUsername != null) {
+               throw new BadRequestException("There is already username with this name, please proviee different one");
+           }
+
+           user.Username = userDto.Username;
+
+           _userRepository.Edit(user);
+           await _userRepository.SaveAsync();
         }
     }
 }

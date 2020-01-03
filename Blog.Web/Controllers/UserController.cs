@@ -102,5 +102,16 @@ namespace Blog.Web.Controllers {
             return authorizationResult;
         }
 
+        [HttpPut("change-username")]
+        public async Task<IActionResult> ChangeUsername([FromBody] UserDtoChangeUsername userDto) {
+             var authorizationResult = await GetAuthorizationResult(userDto.Id);
+            if(authorizationResult.Succeeded) {
+                await _userService.ChangeUsername(userDto);
+                return Ok();
+            }
+            
+            return Forbid();
+        }
+
     }
 }
