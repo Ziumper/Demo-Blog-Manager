@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.Dal.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    [Migration("20190223102630_DeleteImages")]
-    partial class DeleteImages
+    [Migration("20200103161612_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,38 +27,24 @@ namespace Blog.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId");
-
                     b.Property<DateTime>("CreationDate");
-
-                    b.Property<bool>("IsActive");
 
                     b.Property<DateTime>("ModificationDate");
 
                     b.Property<string>("Title");
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Blogs");
-                });
 
-            modelBuilder.Entity("Blog.Dal.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDate");
-
-                    b.Property<DateTime>("ModificationDate");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
+                    b.HasData(
+                        new { Id = 1, CreationDate = new DateTime(2020, 1, 3, 17, 16, 12, 394, DateTimeKind.Local), ModificationDate = new DateTime(2020, 1, 3, 17, 16, 12, 394, DateTimeKind.Local), Title = "Programming Blog", UserId = 1 }
+                    );
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Comment", b =>
@@ -109,6 +95,8 @@ namespace Blog.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BlogEntityId");
+
                     b.Property<int>("BlogId");
 
                     b.Property<string>("Content");
@@ -127,52 +115,54 @@ namespace Blog.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlogId");
+                    b.HasIndex("BlogEntityId");
+
+                    b.HasIndex("BlogId")
+                        .IsUnique();
 
                     b.HasIndex("MainImageId");
 
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Blog.Dal.Models.PostTag", b =>
-                {
-                    b.Property<int>("PostId");
-
-                    b.Property<int>("TagId");
-
-                    b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("PostTag");
-                });
-
-            modelBuilder.Entity("Blog.Dal.Models.Tag", b =>
+            modelBuilder.Entity("Blog.Dal.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ActivationCode");
+
                     b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("LastName");
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
+                    b.ToTable("Users");
 
-                    b.ToTable("Tags");
+                    b.HasData(
+                        new { Id = 1, ActivationCode = "CDN8", CreationDate = new DateTime(2020, 1, 3, 17, 16, 12, 390, DateTimeKind.Local), Email = "tomasz.komoszeski@gmail.com", FirstName = "Tomasz", IsActive = true, LastName = "Komoszeski", ModificationDate = new DateTime(2020, 1, 3, 17, 16, 12, 393, DateTimeKind.Local), Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f", Username = "Tomasz" }
+                    );
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.BlogEntity", b =>
                 {
-                    b.HasOne("Blog.Dal.Models.Category", "Category")
-                        .WithMany("Blogs")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("Blog.Dal.Models.User", "User")
+                        .WithOne("Blog")
+                        .HasForeignKey("Blog.Dal.Models.BlogEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -186,27 +176,18 @@ namespace Blog.Dal.Migrations
 
             modelBuilder.Entity("Blog.Dal.Models.Post", b =>
                 {
-                    b.HasOne("Blog.Dal.Models.BlogEntity", "Blog")
+                    b.HasOne("Blog.Dal.Models.BlogEntity")
                         .WithMany("Posts")
-                        .HasForeignKey("BlogId")
+                        .HasForeignKey("BlogEntityId");
+
+                    b.HasOne("Blog.Dal.Models.BlogEntity", "Blog")
+                        .WithOne()
+                        .HasForeignKey("Blog.Dal.Models.Post", "BlogId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Blog.Dal.Models.Image", "MainImage")
                         .WithMany()
                         .HasForeignKey("MainImageId");
-                });
-
-            modelBuilder.Entity("Blog.Dal.Models.PostTag", b =>
-                {
-                    b.HasOne("Blog.Dal.Models.Post", "Post")
-                        .WithMany("PostTags")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Blog.Dal.Models.Tag", "Tag")
-                        .WithMany("PostTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -25,9 +25,8 @@ namespace Blog.Dal
         public DbSet<User> Users {get; set;}
 
         private void SetupRelations(ModelBuilder modelBuilder) {
-            modelBuilder.Entity<User>().HasOne( u => u.Blog).WithOne(b => b.User)
-            .HasPrincipalKey<BlogEntity>(b => b.UserId).OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<User>().HasKey( c => new {c.Id, c.Username});
+            modelBuilder.Entity<User>().HasOne( u => u.Blog).WithOne(b => b.User).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Post>().HasOne(p => p.Blog).WithOne().OnDelete(DeleteBehavior.Cascade);
         }
 
         private void CreateSeedData(ModelBuilder modelBuilder) {
@@ -53,6 +52,7 @@ namespace Blog.Dal
                     ModificationDate = DateTime.Now,
                     Title = "Programming Blog",
                     UserId = 1
+
                 }
             );
         }

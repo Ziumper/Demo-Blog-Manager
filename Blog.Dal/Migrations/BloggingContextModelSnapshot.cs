@@ -35,10 +35,13 @@ namespace Blog.Dal.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
                     b.ToTable("Blogs");
 
                     b.HasData(
-                        new { Id = 1, CreationDate = new DateTime(2019, 12, 27, 19, 41, 36, 746, DateTimeKind.Local), ModificationDate = new DateTime(2019, 12, 27, 19, 41, 36, 746, DateTimeKind.Local), Title = "Programming Blog", UserId = 1 }
+                        new { Id = 1, CreationDate = new DateTime(2020, 1, 3, 17, 16, 12, 394, DateTimeKind.Local), ModificationDate = new DateTime(2020, 1, 3, 17, 16, 12, 394, DateTimeKind.Local), Title = "Programming Blog", UserId = 1 }
                     );
                 });
 
@@ -90,6 +93,8 @@ namespace Blog.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BlogEntityId");
+
                     b.Property<int>("BlogId");
 
                     b.Property<string>("Content");
@@ -108,7 +113,10 @@ namespace Blog.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlogId");
+                    b.HasIndex("BlogEntityId");
+
+                    b.HasIndex("BlogId")
+                        .IsUnique();
 
                     b.HasIndex("MainImageId");
 
@@ -117,9 +125,9 @@ namespace Blog.Dal.Migrations
 
             modelBuilder.Entity("Blog.Dal.Models.User", b =>
                 {
-                    b.Property<int>("Id");
-
-                    b.Property<string>("Username");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ActivationCode");
 
@@ -137,16 +145,23 @@ namespace Blog.Dal.Migrations
 
                     b.Property<string>("Password");
 
-                    b.HasKey("Id", "Username");
+                    b.Property<string>("Username");
 
-                    b.HasIndex("Id")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 0, Username = "Tomasz", ActivationCode = "CDN8", CreationDate = new DateTime(2019, 12, 27, 19, 41, 36, 743, DateTimeKind.Local), Email = "tomasz.komoszeski@gmail.com", FirstName = "Tomasz", IsActive = true, LastName = "Komoszeski", ModificationDate = new DateTime(2019, 12, 27, 19, 41, 36, 745, DateTimeKind.Local), Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f" }
+                        new { Id = 1, ActivationCode = "CDN8", CreationDate = new DateTime(2020, 1, 3, 17, 16, 12, 390, DateTimeKind.Local), Email = "tomasz.komoszeski@gmail.com", FirstName = "Tomasz", IsActive = true, LastName = "Komoszeski", ModificationDate = new DateTime(2020, 1, 3, 17, 16, 12, 393, DateTimeKind.Local), Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f", Username = "Tomasz" }
                     );
+                });
+
+            modelBuilder.Entity("Blog.Dal.Models.BlogEntity", b =>
+                {
+                    b.HasOne("Blog.Dal.Models.User", "User")
+                        .WithOne("Blog")
+                        .HasForeignKey("Blog.Dal.Models.BlogEntity", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Comment", b =>
@@ -159,23 +174,18 @@ namespace Blog.Dal.Migrations
 
             modelBuilder.Entity("Blog.Dal.Models.Post", b =>
                 {
-                    b.HasOne("Blog.Dal.Models.BlogEntity", "Blog")
+                    b.HasOne("Blog.Dal.Models.BlogEntity")
                         .WithMany("Posts")
-                        .HasForeignKey("BlogId")
+                        .HasForeignKey("BlogEntityId");
+
+                    b.HasOne("Blog.Dal.Models.BlogEntity", "Blog")
+                        .WithOne()
+                        .HasForeignKey("Blog.Dal.Models.Post", "BlogId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Blog.Dal.Models.Image", "MainImage")
                         .WithMany()
                         .HasForeignKey("MainImageId");
-                });
-
-            modelBuilder.Entity("Blog.Dal.Models.User", b =>
-                {
-                    b.HasOne("Blog.Dal.Models.BlogEntity", "Blog")
-                        .WithOne("User")
-                        .HasForeignKey("Blog.Dal.Models.User", "Id")
-                        .HasPrincipalKey("Blog.Dal.Models.BlogEntity", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }
