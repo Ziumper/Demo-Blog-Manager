@@ -110,10 +110,8 @@ namespace Blog.Bll.Services.Users {
             user.Email = user.Email.ToLower ();
             user.IsActive = true;
             user.ActivationCode = _hashService.GetRandomActivationCode ();
-           
+            user.Role = "Normal";
             var userResult = await _userRepository.AddAsync (user);
-
-            
 
             await _userRepository.SaveAsync ();
 

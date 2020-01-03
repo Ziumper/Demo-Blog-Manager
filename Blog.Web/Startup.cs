@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using Blog.Bll.Dto.App;
@@ -166,6 +167,7 @@ namespace Blog.Web {
             services.AddAuthorization(options => {
                 options.AddPolicy("EditUserPolicy", policy =>
                 policy.Requirements.Add(new AuthorUserRequirement()));
+                options.AddPolicy("Administrators", policy=> policy.RequireClaim(ClaimTypes.Role,"Administrator"));
             });
 
             services.AddSingleton<IAuthorizationHandler, UserAuthorizationHandler>();
