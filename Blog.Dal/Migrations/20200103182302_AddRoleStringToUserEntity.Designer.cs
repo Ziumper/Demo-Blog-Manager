@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.Dal.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    [Migration("20181216163856_UniqueTag")]
-    partial class UniqueTag
+    [Migration("20200103182302_AddRoleStringToUserEntity")]
+    partial class AddRoleStringToUserEntity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,38 +27,24 @@ namespace Blog.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CategoryId");
-
                     b.Property<DateTime>("CreationDate");
-
-                    b.Property<bool>("IsActive");
 
                     b.Property<DateTime>("ModificationDate");
 
                     b.Property<string>("Title");
 
+                    b.Property<int>("UserId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Blogs");
-                });
 
-            modelBuilder.Entity("Blog.Dal.Models.Category", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreationDate");
-
-                    b.Property<DateTime>("ModificationDate");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Categories");
+                    b.HasData(
+                        new { Id = 1, CreationDate = new DateTime(2020, 1, 3, 19, 23, 2, 69, DateTimeKind.Local), ModificationDate = new DateTime(2020, 1, 3, 19, 23, 2, 69, DateTimeKind.Local), Title = "Programming Blog", UserId = 1 }
+                    );
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.Comment", b =>
@@ -82,11 +68,34 @@ namespace Blog.Dal.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("Blog.Dal.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Extension");
+
+                    b.Property<DateTime>("ModificationDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Url");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
+                });
+
             modelBuilder.Entity("Blog.Dal.Models.Post", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("BlogEntityId");
 
                     b.Property<int>("BlogId");
 
@@ -96,6 +105,8 @@ namespace Blog.Dal.Migrations
 
                     b.Property<bool>("IsPublished");
 
+                    b.Property<int?>("MainImageId");
+
                     b.Property<DateTime>("ModificationDate");
 
                     b.Property<string>("ShortDescription");
@@ -104,50 +115,56 @@ namespace Blog.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlogId");
+                    b.HasIndex("BlogEntityId");
+
+                    b.HasIndex("BlogId")
+                        .IsUnique();
+
+                    b.HasIndex("MainImageId");
 
                     b.ToTable("Posts");
                 });
 
-            modelBuilder.Entity("Blog.Dal.Models.PostTag", b =>
-                {
-                    b.Property<int>("PostId");
-
-                    b.Property<int>("TagId");
-
-                    b.HasKey("PostId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("PostTag");
-                });
-
-            modelBuilder.Entity("Blog.Dal.Models.Tag", b =>
+            modelBuilder.Entity("Blog.Dal.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ActivationCode");
+
                     b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<string>("LastName");
 
                     b.Property<DateTime>("ModificationDate");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Password");
+
+                    b.Property<string>("Role");
+
+                    b.Property<string>("Username");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
+                    b.ToTable("Users");
 
-                    b.ToTable("Tags");
+                    b.HasData(
+                        new { Id = 1, ActivationCode = "CDN8", CreationDate = new DateTime(2020, 1, 3, 19, 23, 2, 65, DateTimeKind.Local), Email = "tomasz.komoszeski@gmail.com", FirstName = "Tomasz", IsActive = true, LastName = "Komoszeski", ModificationDate = new DateTime(2020, 1, 3, 19, 23, 2, 67, DateTimeKind.Local), Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f", Username = "Tomasz" }
+                    );
                 });
 
             modelBuilder.Entity("Blog.Dal.Models.BlogEntity", b =>
                 {
-                    b.HasOne("Blog.Dal.Models.Category", "Category")
-                        .WithMany("Blogs")
-                        .HasForeignKey("CategoryId")
+                    b.HasOne("Blog.Dal.Models.User", "User")
+                        .WithOne("Blog")
+                        .HasForeignKey("Blog.Dal.Models.BlogEntity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -161,23 +178,18 @@ namespace Blog.Dal.Migrations
 
             modelBuilder.Entity("Blog.Dal.Models.Post", b =>
                 {
-                    b.HasOne("Blog.Dal.Models.BlogEntity", "Blog")
+                    b.HasOne("Blog.Dal.Models.BlogEntity")
                         .WithMany("Posts")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                        .HasForeignKey("BlogEntityId");
 
-            modelBuilder.Entity("Blog.Dal.Models.PostTag", b =>
-                {
-                    b.HasOne("Blog.Dal.Models.Post", "Post")
-                        .WithMany("PostTags")
-                        .HasForeignKey("PostId")
+                    b.HasOne("Blog.Dal.Models.BlogEntity", "Blog")
+                        .WithOne()
+                        .HasForeignKey("Blog.Dal.Models.Post", "BlogId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Blog.Dal.Models.Tag", "Tag")
-                        .WithMany("PostTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Blog.Dal.Models.Image", "MainImage")
+                        .WithMany()
+                        .HasForeignKey("MainImageId");
                 });
 #pragma warning restore 612, 618
         }

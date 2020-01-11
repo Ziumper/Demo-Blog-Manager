@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Blog.Bll.Dto.Users;
 
@@ -10,5 +11,9 @@ namespace Blog.Bll.Services.Users {
         Task<UserDtoWithoutPassword> ActivateUser(UserDtoActivation activationUserDetails);
         Task ResendActivationCode(string useremail);
         Task<UserDtoEdit> GetUserById(int id);
+        Task EditProfile(UserDtoEdit userDtoEdit);
+        Task ChangePassword(UserDtoChangePassword changePasswordDto);
+        Task DeleteUserById(int id);
+        Task ChangeUsername(UserDtoChangeUsername userDto);
     }
 }

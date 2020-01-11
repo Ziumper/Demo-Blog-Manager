@@ -110,10 +110,8 @@ namespace Blog.Bll.Services.Users {
             user.Email = user.Email.ToLower ();
             user.IsActive = true;
             user.ActivationCode = _hashService.GetRandomActivationCode ();
-           
+            user.Role = "Normal";
             var userResult = await _userRepository.AddAsync (user);
-
-            
 
             await _userRepository.SaveAsync ();
 
@@ -172,9 +170,98 @@ namespace Blog.Bll.Services.Users {
         public async Task<UserDtoEdit> GetUserById(int id)
         {
             var user = await _userRepository.FindByIdFirstAsync(id);
+
+            if(user == null) {
+                throw new ResourceNotFoundException("User with that id not found");
+            }
+            
             UserDtoEdit userDto =_mapper.Map<User,UserDtoEdit>(user);
 
             return userDto;
+        }
+
+        public async Task EditProfile(UserDtoEdit userDtoEdit)
+        {
+            var user = await _userRepository.FindByIdFirstAsync(userDtoEdit.Id);
+            
+            if(user == null) {
+                throw new ResourceNotFoundException("User with id: " + userDtoEdit.Id + " not found");
+            }    
+
+            user.LastName = userDtoEdit.LastName;
+            user.FirstName = userDtoEdit.FirstName;
+            user.ModificationDate = DateTime.Now;
+            
+             _userRepository.Edit(user);
+
+             await _userRepository.SaveAsync();
+        }
+
+        public async Task ChangePassword(UserDtoChangePassword changePasswordDto)
+        {
+            var user = await _userRepository.FindByIdFirstAsync(changePasswordDto.Id);
+            
+            if(user == null) {
+                throw new ResourceNotFoundException("User with id: " + changePasswordDto.Id + " not found");
+            }
+
+            if(IsPasswordsAreTheSameFromForm(changePasswordDto)) {
+                throw new BadRequestException("Passwords are not identical");
+            }
+            
+
+            user = ChangePasswordForUser(user,changePasswordDto.OldPassword,changePasswordDto.Password);
+
+            _userRepository.Edit(user);
+
+            await _userRepository.SaveAsync();
+        }
+
+        private bool IsPasswordsAreTheSameFromForm(UserDtoChangePassword changePasswordDto){
+            return changePasswordDto.Password == changePasswordDto.RepeatedPassword;
+        }
+
+        private User ChangePasswordForUser(User user,string oldPassword, string newPassword) {
+            var oldPasswordHashed = _hashService.GetHash (oldPassword);
+
+            var isUserHaveTheSamePassword = oldPasswordHashed == user.Password;
+            if(isUserHaveTheSamePassword) {
+                user.Password = _hashService.GetHash(newPassword);
+            }
+
+            return user;
+        }
+
+        public async Task DeleteUserById(int id)
+        {
+            var user = await _userRepository.FindByIdFirstAsync(id);
+            if(user == null) {
+                throw new ResourceNotFoundException("User with id: " + id + " not found");
+            }
+            _userRepository.Delete(user);
+            await  _userRepository.SaveAsync();
+        }
+
+        public async Task ChangeUsername(UserDtoChangeUsername userDto)
+        {
+            var user = await _userRepository.FindByIdFirstAsync(userDto.Id);
+            if(user == null) {
+                throw new ResourceNotFoundException("User with id " + userDto.Id + " not found");
+            }
+
+            if(user.Username == userDto.Username) {
+                throw new BadRequestException("Username is exacly the same as previous one, please proivde different one");
+            }
+
+           var userWithNewUsername = await _userRepository.FindByFirstAsync(u => u.Username == userDto.Username);
+           if(userWithNewUsername != null) {
+               throw new BadRequestException("There is already username with this name, please proviee different one");
+           }
+
+           user.Username = userDto.Username;
+
+           _userRepository.Edit(user);
+           await _userRepository.SaveAsync();
         }
     }
 }

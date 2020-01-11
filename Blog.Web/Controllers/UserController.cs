@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Blog.Bll.Dto.Users;
 using Blog.Bll.Services.Users;
@@ -15,10 +16,15 @@ namespace Blog.Web.Controllers {
 
         private IUserService _userService;
         protected IParserService _parserService;
+        protected IAuthorizationService _authorizationService;
 
-        public UserController (IUserService userService, IParserService parserService) {
+        public UserController (
+        IUserService userService, 
+        IParserService parserService,
+        IAuthorizationService authorizationService) {
             _userService = userService;
             _parserService = parserService;
+            _authorizationService = authorizationService;
         }
 
         [AllowAnonymous]
@@ -51,5 +57,61 @@ namespace Blog.Web.Controllers {
             await _userService.ActivateUser (activationUserDetails);
             return Ok ();
         }
+
+        [HttpPost("edit-profile")]
+        public async Task<IActionResult> EditProfile([FromBody] UserDtoEdit userDtoEdit)
+        {
+            var authorizationResult = await GetAuthorizationResult(userDtoEdit.Id);
+
+            if (authorizationResult.Succeeded)
+            {
+                await _userService.EditProfile(userDtoEdit);
+                return Ok();
+            }
+            return Forbid();
+        }
+
+        [HttpPost("edit-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] UserDtoChangePassword userDtoChangePassword) {
+            var authorizationResult = await GetAuthorizationResult(userDtoChangePassword.Id);
+            if(authorizationResult.Succeeded) {
+                await _userService.ChangePassword(userDtoChangePassword);
+                return Ok();
+            }
+
+            return Forbid();
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteUserById(int id) {
+            var authorizationResult = await GetAuthorizationResult(id);
+            if(authorizationResult.Succeeded) {
+                await _userService.DeleteUserById(id);
+                return Ok();
+            }
+
+            return Forbid();
+        }
+
+        private async Task<AuthorizationResult> GetAuthorizationResult(int id) {
+            //get current user to check if availiable
+            UserDtoEdit user = await _userService.GetUserById(id);
+
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User,user.Username,"EditUserPolicy");
+            
+            return authorizationResult;
+        }
+
+        [HttpPut("change-username")]
+        public async Task<IActionResult> ChangeUsername([FromBody] UserDtoChangeUsername userDto) {
+             var authorizationResult = await GetAuthorizationResult(userDto.Id);
+            if(authorizationResult.Succeeded) {
+                await _userService.ChangeUsername(userDto);
+                return Ok();
+            }
+            
+            return Forbid();
+        }
+
     }
 }

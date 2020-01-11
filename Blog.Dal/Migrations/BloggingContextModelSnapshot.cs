@@ -41,7 +41,7 @@ namespace Blog.Dal.Migrations
                     b.ToTable("Blogs");
 
                     b.HasData(
-                        new { Id = 1, CreationDate = new DateTime(2019, 11, 16, 17, 18, 33, 785, DateTimeKind.Local), ModificationDate = new DateTime(2019, 11, 16, 17, 18, 33, 785, DateTimeKind.Local), Title = "Programming Blog", UserId = 1 }
+                        new { Id = 1, CreationDate = new DateTime(2020, 1, 3, 19, 25, 37, 574, DateTimeKind.Local), ModificationDate = new DateTime(2020, 1, 3, 19, 25, 37, 574, DateTimeKind.Local), Title = "Programming Blog", UserId = 1 }
                     );
                 });
 
@@ -93,6 +93,8 @@ namespace Blog.Dal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("BlogEntityId");
+
                     b.Property<int>("BlogId");
 
                     b.Property<string>("Content");
@@ -111,7 +113,10 @@ namespace Blog.Dal.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlogId");
+                    b.HasIndex("BlogEntityId");
+
+                    b.HasIndex("BlogId")
+                        .IsUnique();
 
                     b.HasIndex("MainImageId");
 
@@ -140,6 +145,8 @@ namespace Blog.Dal.Migrations
 
                     b.Property<string>("Password");
 
+                    b.Property<string>("Role");
+
                     b.Property<string>("Username");
 
                     b.HasKey("Id");
@@ -147,7 +154,7 @@ namespace Blog.Dal.Migrations
                     b.ToTable("Users");
 
                     b.HasData(
-                        new { Id = 1, ActivationCode = "CDN8", CreationDate = new DateTime(2019, 11, 16, 17, 18, 33, 783, DateTimeKind.Local), Email = "tomasz.komoszeski@gmail.com", FirstName = "Tomasz", IsActive = true, LastName = "Komoszeski", ModificationDate = new DateTime(2019, 11, 16, 17, 18, 33, 784, DateTimeKind.Local), Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f", Username = "Tomasz" }
+                        new { Id = 1, ActivationCode = "CDN8", CreationDate = new DateTime(2020, 1, 3, 19, 25, 37, 570, DateTimeKind.Local), Email = "tomasz.komoszeski@gmail.com", FirstName = "Tomasz", IsActive = true, LastName = "Komoszeski", ModificationDate = new DateTime(2020, 1, 3, 19, 25, 37, 572, DateTimeKind.Local), Password = "d9d420ec1652e5a5a826432a363c45bc2622aaf6725188c8a4c826bf68a5675f", Role = "Administrator", Username = "Tomasz" }
                     );
                 });
 
@@ -169,9 +176,13 @@ namespace Blog.Dal.Migrations
 
             modelBuilder.Entity("Blog.Dal.Models.Post", b =>
                 {
-                    b.HasOne("Blog.Dal.Models.BlogEntity", "Blog")
+                    b.HasOne("Blog.Dal.Models.BlogEntity")
                         .WithMany("Posts")
-                        .HasForeignKey("BlogId")
+                        .HasForeignKey("BlogEntityId");
+
+                    b.HasOne("Blog.Dal.Models.BlogEntity", "Blog")
+                        .WithOne()
+                        .HasForeignKey("Blog.Dal.Models.Post", "BlogId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Blog.Dal.Models.Image", "MainImage")

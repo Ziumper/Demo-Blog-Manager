@@ -1,9 +1,11 @@
+using System.Security.Claims;
 using System.Text;
 using AutoMapper;
 using Blog.Bll.Dto.App;
 using Blog.Bll.Middlewares;
 using Blog.Bll.Services;
 using Blog.Bll.Services.Authentication;
+using Blog.Bll.Services.Authorization;
 using Blog.Bll.Services.Blogs;
 using Blog.Bll.Services.Comments;
 using Blog.Bll.Services.Emails;
@@ -20,6 +22,7 @@ using Blog.Dal.Repositories.Images;
 using Blog.Dal.Repositories.Posts;
 using Blog.Dal.Repositories.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,33 +51,12 @@ namespace Blog.Web {
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            var connection = Configuration.GetConnectionString ("DefaultConnection");
-            services.AddDbContext<BloggingContext> (options => options.UseSqlServer (connection));
+            AppSettings appSettings = GetAppSettings(services);
 
+            SetupDatabaseConnection(services);
             ConfiugreDependencyInjection (services);
-            var appSettingsSection = Configuration.GetSection ("AppSettings");
-            //  var configurationEmailObj = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
-            // configurator.AddEmailDependencyInjection(configurationEmailObj);
-            services.Configure<AppSettings> (appSettingsSection);
-            var appSettings = appSettingsSection.Get<AppSettings> ();
-            
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(x =>
-                {
-                    x.RequireHttpsMetadata = false;
-                    x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(key),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-            });
+            SetupEmailConfiguration(services);
+            AddAuthentication(services,appSettings);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,8 +102,24 @@ namespace Blog.Web {
            
         }
 
+        private AppSettings GetAppSettings(IServiceCollection services) {
+            IConfigurationSection appSettingsSection = Configuration.GetSection ("AppSettings");
+            services.Configure<AppSettings> (appSettingsSection);
+            AppSettings appSettings = appSettingsSection.Get<AppSettings> ();
+            return appSettings;
+        }
+
+        private void SetupDatabaseConnection(IServiceCollection services) {
+            var connection = Configuration.GetConnectionString ("DefaultConnection");
+            services.AddDbContext<BloggingContext> (options => options.UseSqlServer (connection));
+        }
+
         private void ConfiugreDependencyInjection (IServiceCollection services) {
+
+            //Singletons
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor> ();
+            
+            //Transients
             services.AddTransient<IPostService, PostService> ();
             services.AddTransient<ICommentService, CommentService> ();
             services.AddTransient<IBlogService, BlogService> ();
@@ -135,10 +133,44 @@ namespace Blog.Web {
             services.AddTransient<IParserService, ParserService> ();
             services.AddTransient<IUserService, UserService> ();
             services.AddTransient<IUserRepository, UserRepository> ();
-            services.AddTransient<IEmailService, EmailService> ();
             services.AddTransient<IHashService, HashService> ();
-            services.AddTransient<IEmailConfiguration, EmailConfiguration> ();
             services.AddTransient<ITokenService,TokenService>();
+        }
+
+        private void SetupEmailConfiguration(IServiceCollection services) {
+            EmailConfiguration configurationEmailObj = Configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+            services.AddSingleton<IEmailConfiguration> (configurationEmailObj);
+            services.AddTransient<IEmailService, EmailService> ();
+        }
+
+        private void AddAuthentication(IServiceCollection services,AppSettings appSettings) {
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+            });
+        }
+
+        private void AddAuthorization(IServiceCollection services) {
+            services.AddAuthorization(options => {
+                options.AddPolicy("EditUserPolicy", policy =>
+                policy.Requirements.Add(new AuthorUserRequirement()));
+                options.AddPolicy("Administrators", policy=> policy.RequireClaim(ClaimTypes.Role,"Administrator"));
+            });
+
+            services.AddSingleton<IAuthorizationHandler, UserAuthorizationHandler>();
         }
     }
 }
