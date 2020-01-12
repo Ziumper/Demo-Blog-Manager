@@ -100,7 +100,7 @@ namespace Blog.Bll.Services.Users {
             if (await IsUserWithThisUserNameIsInDatabase (userParam.Username)) {
                 throw new BadRequestException ("There is a user with this username!");
             }
-            if (await IsUserWithThisUserNameIsInDatabase (userParam.Email)) {
+            if (await IsUserWithThisEmailIsInDatabase (userParam.Email)) {
                 throw new BadRequestException ("There is a user with this email!");
             }
 
@@ -136,6 +136,15 @@ namespace Blog.Bll.Services.Users {
         private async Task<Boolean> IsUserWithThisUserNameIsInDatabase (string username) {
             var user = await _userRepository.FindByFirstAsync (x => x.Username.ToLower() == username.ToLower ());
             if (user != null) {
+                return true;
+            }
+
+            return false;
+        }
+
+        private async Task<Boolean> IsUserWithThisEmailIsInDatabase(string email) {
+            var user = await _userRepository.FindByFirstAsync(x=> x.Email.ToLower() == email.ToLower());
+            if(user != null) {
                 return true;
             }
 
@@ -191,10 +200,27 @@ namespace Blog.Bll.Services.Users {
             user.LastName = userDtoEdit.LastName;
             user.FirstName = userDtoEdit.FirstName;
             user.ModificationDate = DateTime.Now;
-            
-             _userRepository.Edit(user);
 
-             await _userRepository.SaveAsync();
+            if(await IsUserWithThisEmailIsInDatabase(userDtoEdit.Email)) {
+                throw new BadRequestException ("There is a user with this email!");
+            }
+
+            user.Email = userDtoEdit.Email;
+
+            if(user.Username == userDtoEdit.Username) {
+                throw new BadRequestException("Username is exacly the same as previous one, please proivde different one");
+            }
+
+            var userWithNewUsername = await _userRepository.FindByFirstAsync(u => u.Username == userDtoEdit.Username);
+            if(userWithNewUsername != null) {
+               throw new BadRequestException("There is already username with this name, please proviee different one");
+            }
+            
+            user.Username = userDtoEdit.Username;
+            
+            _userRepository.Edit(user);
+
+            await _userRepository.SaveAsync();
         }
 
         public async Task ChangePassword(UserDtoChangePassword changePasswordDto)
@@ -239,26 +265,5 @@ namespace Blog.Bll.Services.Users {
             await  _userRepository.SaveAsync();
         }
 
-        public async Task ChangeUsername(UserDtoChangeUsername userDto)
-        {
-            var user = await _userRepository.FindByIdFirstAsync(userDto.Id);
-            if(user == null) {
-                throw new ResourceNotFoundException("User with id " + userDto.Id + " not found");
-            }
-
-            if(user.Username == userDto.Username) {
-                throw new BadRequestException("Username is exacly the same as previous one, please proivde different one");
-            }
-
-           var userWithNewUsername = await _userRepository.FindByFirstAsync(u => u.Username == userDto.Username);
-           if(userWithNewUsername != null) {
-               throw new BadRequestException("There is already username with this name, please proviee different one");
-           }
-
-           user.Username = userDto.Username;
-
-           _userRepository.Edit(user);
-           await _userRepository.SaveAsync();
-        }
     }
 }

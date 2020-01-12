@@ -3,17 +3,17 @@
         <div class="form-group">
             <label for="title">Blog Title</label>
             <div>
-                <input type="text" class="form-control form-control-sm" id="title" name="title" [(ngModel)]="model.title" required/>        
+                <input type="text" class="form-control form-control-sm" id="title" name="title" [(ngModel)]="model.title" required/>
             </div>
         </div>
         <div class="form-group">
             <label for="category">Category</label>
             <div>
-                    <select class="form-control form-control-sm" id="category" name="category" [(ngModel)]="model.category" required>
+                <!-- <select class="form-control form-control-sm" id="category" name="category" [(ngModel)]="model.category" required>
                         <option *ngFor="let category of categories" [ngValue]="model.category">{{category.name}}</option>
-                    </select>
+                    </select> -->
             </div>
-            
+
         </div>
         <button class="btn btn-primary" type="submit">Save</button>
     </form>

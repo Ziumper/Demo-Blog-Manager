@@ -17,7 +17,9 @@ export class EditProfileComponent implements OnInit {
         private activatedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
+        const userId = this.activatedRoute.snapshot.params['userId'];
         this.userForm = this.formBuilder.group({
+            id: [userId],
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
@@ -27,14 +29,9 @@ export class EditProfileComponent implements OnInit {
                     Validators.required
                 ]
             ],
-            password: ['',
-                Validators.required
-            ]
         });
 
-        const userId = this.activatedRoute.snapshot.params['userId'];
         this.userSerivce.getById(userId).subscribe(data => {
-            data.password = '';
             this.userForm.setValue(data);
         });
     }
