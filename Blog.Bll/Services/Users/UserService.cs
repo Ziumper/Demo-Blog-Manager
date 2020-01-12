@@ -205,10 +205,7 @@ namespace Blog.Bll.Services.Users {
                 throw new ResourceNotFoundException("User with id: " + changePasswordDto.Id + " not found");
             }
 
-            if(IsPasswordsAreTheSameFromForm(changePasswordDto)) {
-                throw new BadRequestException("Passwords are not identical");
-            }
-            
+            ValidatePasswordsAreTheSameFromForm(changePasswordDto.Password,changePasswordDto.RepeatedPassword);
 
             user = ChangePasswordForUser(user,changePasswordDto.OldPassword,changePasswordDto.Password);
 
@@ -217,8 +214,8 @@ namespace Blog.Bll.Services.Users {
             await _userRepository.SaveAsync();
         }
 
-        private bool IsPasswordsAreTheSameFromForm(UserDtoChangePassword changePasswordDto){
-            return changePasswordDto.Password == changePasswordDto.RepeatedPassword;
+        private void ValidatePasswordsAreTheSameFromForm(string passwordOriginal,string passwordRepeated ){
+            if(passwordOriginal != passwordRepeated) throw new BadRequestException("Passwords are not identical");
         }
 
         private User ChangePasswordForUser(User user,string oldPassword, string newPassword) {
