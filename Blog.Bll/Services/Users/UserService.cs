@@ -115,9 +115,9 @@ namespace Blog.Bll.Services.Users {
 
             await _userRepository.SaveAsync ();
 
-            // TODO catch exception if email send error.
-            //var emailMesssage = GetRegisterEmailMessage(userResult);
-            //_emailService.Send(emailMesssage);
+            
+            var emailMesssage = GetRegisterEmailMessage(userResult);
+            _emailService.Send(emailMesssage);
           
             var userWithoutPassword = _mapper.Map<User, UserDtoWithoutPassword> (userResult);
 

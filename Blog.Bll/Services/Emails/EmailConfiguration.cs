@@ -10,5 +10,6 @@ namespace Blog.Bll.Services.Emails {
         public int PopPort { get; set; }
         public string PopUsername { get; set; }
         public string PopPassword { get; set; }
+        public bool SendingEmail {get;set;}
     }
 }

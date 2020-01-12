@@ -43,5 +43,10 @@ namespace Blog.Bll.Services.Emails {
                 emailClient.Disconnect (true);
             }
         }
+
+        public bool ShouldSendingEmail()
+        {
+            return this._emailConfiguration.SendingEmail;
+        }
     }
 }
