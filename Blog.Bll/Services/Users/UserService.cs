@@ -201,23 +201,27 @@ namespace Blog.Bll.Services.Users {
             user.FirstName = userDtoEdit.FirstName;
             user.ModificationDate = DateTime.Now;
 
-            if(await IsUserWithThisEmailIsInDatabase(userDtoEdit.Email)) {
-                throw new BadRequestException ("There is a user with this email!");
+            if(user.Email != userDtoEdit.Email) {
+                if(await IsUserWithThisEmailIsInDatabase(userDtoEdit.Email)) {
+                    throw new BadRequestException ("There is a user with this email!");
+                }
             }
 
             user.Email = userDtoEdit.Email;
 
-            if(user.Username == userDtoEdit.Username) {
-                throw new BadRequestException("Username is exacly the same as previous one, please proivde different one");
+            if(user.Username != userDtoEdit.Username) {
+                if(user.Username == userDtoEdit.Username) {
+                    throw new BadRequestException("Username is exacly the same as previous one, please proivde different one");
+                }
+
+                var userWithNewUsername = await _userRepository.FindByFirstAsync(u => u.Username == userDtoEdit.Username);
+                if(userWithNewUsername != null) {
+                throw new BadRequestException("There is already username with this name, please proviee different one");
+                }
+                
+                user.Username = userDtoEdit.Username;
             }
 
-            var userWithNewUsername = await _userRepository.FindByFirstAsync(u => u.Username == userDtoEdit.Username);
-            if(userWithNewUsername != null) {
-               throw new BadRequestException("There is already username with this name, please proviee different one");
-            }
-            
-            user.Username = userDtoEdit.Username;
-            
             _userRepository.Edit(user);
 
             await _userRepository.SaveAsync();
