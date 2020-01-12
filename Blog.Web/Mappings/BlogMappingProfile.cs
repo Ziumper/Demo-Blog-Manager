@@ -17,7 +17,6 @@ namespace Blog.Web.Mappings
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
             CreateMap<Image,ImageDto>().ReverseMap();
-        
             CreateMappingsForUserEntity();
         }
 
