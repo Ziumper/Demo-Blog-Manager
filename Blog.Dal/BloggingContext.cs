@@ -27,6 +27,7 @@ namespace Blog.Dal
         private void SetupRelations(ModelBuilder modelBuilder) {
             modelBuilder.Entity<User>().HasOne( u => u.Blog).WithOne(b => b.User).IsRequired().OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<BlogEntity>().HasMany( b => b.Posts).WithOne(p => p.Blog).IsRequired().OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Post>().HasMany( b=> b.Comments).WithOne(p=>p.Post).IsRequired().OnDelete(DeleteBehavior.Cascade);
         }
 
         private void CreateSeedData(ModelBuilder modelBuilder) {
