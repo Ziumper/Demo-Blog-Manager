@@ -57,6 +57,7 @@ namespace Blog.Web {
             ConfiugreDependencyInjection (services);
             SetupEmailConfiguration(services);
             AddAuthentication(services,appSettings);
+            AddAuthorization(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

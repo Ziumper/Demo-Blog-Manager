@@ -58,7 +58,7 @@ namespace Blog.Web.Controllers {
             return Ok ();
         }
 
-        [HttpPost("edit-profile")]
+        [HttpPut("update")]
         public async Task<IActionResult> EditProfile([FromBody] UserDtoEdit userDtoEdit)
         {
             var authorizationResult = await GetAuthorizationResult(userDtoEdit.Id);
