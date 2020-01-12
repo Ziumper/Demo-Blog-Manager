@@ -108,46 +108,31 @@ namespace Blog.Bll.Services.Users {
             var user = _mapper.Map<UserDto, User> (userParam);
             user.Username = user.Username;   
             user.Email = user.Email.ToLower ();
-            user.IsActive = true;
             user.ActivationCode = _hashService.GetRandomActivationCode ();
+            
+            if(_emailService.ShouldSendingEmail()) {
+                user.IsActive = false;
+            } else {
+                //if not sending email we don't need any activation
+                user.IsActive = true;                
+            }
+            
             user.Role = "Normal";
             var userResult = await _userRepository.AddAsync (user);
 
             await _userRepository.SaveAsync ();
 
+            if(_emailService.ShouldSendingEmail()) {
+                var emailMesssage = _emailService.GetRegisterEmailMessage(userResult);
+                _emailService.Send(emailMesssage);
+            } 
             
-            var emailMesssage = GetRegisterEmailMessage(userResult);
-            _emailService.Send(emailMesssage);
-          
             var userWithoutPassword = _mapper.Map<User, UserDtoWithoutPassword> (userResult);
 
             return userWithoutPassword;
         }
 
-        private EmailMessage GetRegisterEmailMessage (User user) {
-            EmailMessage emailMesssage = new EmailMessage ();
-            emailMesssage.FromAddresses = new List<EmailAddress> ();
-            emailMesssage.ToAddresses = new List<EmailAddress> ();
-
-            EmailAddress emailAddres = new EmailAddress ();
-            emailAddres.Address = "demom@email.com";
-            emailAddres.Name = "demo bot";
-            emailMesssage.FromAddresses.Add (emailAddres);
-
-            EmailAddress userEmailAddres = new EmailAddress ();
-            userEmailAddres.Name = user.FirstName + " " + user.LastName;
-            userEmailAddres.Address = user.Email;
-            emailMesssage.ToAddresses.Add (userEmailAddres);
-
-            emailMesssage.Subject = "Activation code";
-
-            var host = $"{_httpContextAccessor.HttpContext.Request.Scheme}://{_httpContextAccessor.HttpContext.Request.Host}";
-
-            emailMesssage.Content = "Please go to " + host + "/activation/" + user.Id + " and a activate your account<br/> Here is your activation code: <b>" + user.ActivationCode + "</b>";
-
-            return emailMesssage;
-        }
-
+        
         private async Task<Boolean> IsUserWithThisUserNameIsInDatabase (string username) {
             var user = await _userRepository.FindByFirstAsync (x => x.Username.ToLower() == username.ToLower ());
             if (user != null) {
@@ -159,11 +144,26 @@ namespace Blog.Bll.Services.Users {
 
 
         public async Task ResendActivationCode (string userEmail) {
+
+            if(!_emailService.ShouldSendingEmail()) {
+                throw new BadRequestException("Sending emails are not avialalbe, to turn on sedning mails please, set sending mails option in configuration");
+            }
+
             var user = await _userRepository.FindByFirstAsync (u => u.Email == userEmail.ToLower ());
             if (user == null) {
                 throw new ResourceNotFoundException ("User with that email not found");
             }
-            var emailMessage = GetRegisterEmailMessage (user);
+
+            if(user.IsActive) {
+                throw new BadRequestException ("User already activated!");
+            }
+
+            user.ActivationCode = _hashService.GetRandomActivationCode();
+
+            await _userRepository.SaveAsync();
+
+            
+            var emailMessage = _emailService.GetRegisterEmailMessage (user);
             _emailService.Send (emailMessage);
         }
 
