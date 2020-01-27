@@ -19,11 +19,21 @@ export class ChangePasswordComponent implements OnInit {
         private passwordValidatorSerivce: PasswordValidatorService) { }
 
     public passwordForm: FormGroup;
+    public submitted: boolean;
+
+    get password() { return this.passwordForm.get('password'); }
+    get newPassword() { return this.passwordForm.get('newPassword'); }
+    get repeatedNewPassword() { return this.passwordForm.get('repeatedNewPassword'); }
 
     public ngOnInit(): void {
         const passwordControl = this.passwordValidatorSerivce.createPasswordControl();
         const repeatedNewPasswordControl = this.passwordValidatorSerivce.createRepeatedPasswordControl(passwordControl);
+        const userId = this.activatedRoute.snapshot.params['userId'];
+        
+        this.submitted = false;
+
         this.passwordForm = this.formBuilder.group({
+            id: [userId],
             password: ['', Validators.required],
             newPassword: passwordControl,
             repeatedNewPassword: repeatedNewPasswordControl
@@ -31,6 +41,8 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     public onSubmit(): void {
+        this.submitted = true; 
+        
         if (this.passwordForm.invalid) {
             return;
         }

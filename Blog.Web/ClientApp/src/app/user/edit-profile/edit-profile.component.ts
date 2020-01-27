@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert.service';
 
+//TODO write tests for checking validation messages and email , username validators 
+
 @Component({
     selector: 'app-edit-profile',
     templateUrl: './edit-profile.component.html',

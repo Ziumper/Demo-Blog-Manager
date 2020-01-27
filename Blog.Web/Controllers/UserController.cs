@@ -71,7 +71,7 @@ namespace Blog.Web.Controllers {
             return Forbid();
         }
 
-        [HttpPost("edit-password")]
+        [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword([FromBody] UserDtoChangePassword userDtoChangePassword) {
             var authorizationResult = await GetAuthorizationResult(userDtoChangePassword.Id);
             if(authorizationResult.Succeeded) {
