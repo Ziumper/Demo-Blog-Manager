@@ -20,7 +20,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public userBlogId: number;
   public userId: number;
 
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+    private router: Router) {
     this.isCollapsed = true;
     this.isLogged = false;
     this.userBlogId = 0;
@@ -29,6 +30,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   public logout(): void {
     this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 
   /**
