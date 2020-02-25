@@ -29,7 +29,6 @@ export class ChangePasswordComponent implements OnInit {
         const passwordControl = this.passwordValidatorSerivce.createPasswordControl();
         const repeatedNewPasswordControl = this.passwordValidatorSerivce.createRepeatedPasswordControl(passwordControl);
         const userId = this.activatedRoute.snapshot.params['userId'];
-        
         this.submitted = false;
 
         this.passwordForm = this.formBuilder.group({
@@ -41,8 +40,7 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     public onSubmit(): void {
-        this.submitted = true; 
-        
+        this.submitted = true;
         if (this.passwordForm.invalid) {
             return;
         }

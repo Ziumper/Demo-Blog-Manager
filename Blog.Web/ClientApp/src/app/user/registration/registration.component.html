@@ -1,58 +1,62 @@
 <div class="container">
-    <h5 class="form-title-centered">Register</h5>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
-            <label for="firstName">First Name</label>
-            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && firstName.errors }" />
-            <div *ngIf="submitted && firstName.errors" class="invalid-feedback">
-                <div *ngIf="firstName.getError('required')">First Name is required.</div>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="form-title-centered card-title">Register</h5>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && firstName.errors }" />
+                    <div *ngIf="submitted && firstName.errors" class="invalid-feedback">
+                        <div *ngIf="firstName.getError('required')">First Name is required.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && lastName.errors }" />
+                    <div *ngIf="submitted && lastName.errors" class="invalid-feedback">
+                        <div *ngIf="lastName.getError('required')">Last Name is required.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="username">E-mail</label>
+                    <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && email.errors }" />
+                    <div *ngIf="submitted && email.errors" class="invalid-feedback">
+                        <div *ngIf="email.getError('required')">E-mail is required.</div>
+                        <div *ngIf="email.getError('email')">Please provide valid email format.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && username.errors }" />
+                    <div *ngIf="submitted && username.errors" class="invalid-feedback">
+                        <div *ngIf="username.getError('minlength')">Username must be at least 3 characters.</div>
+                        <div *ngIf="username.getError('required')">Username is required.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && password.errors }" />
+                    <div *ngIf="submitted && password.errors" class="invalid-feedback">
+                        <div *ngIf="password.getError('required')">Password is required.</div>
+                        <div *ngIf="password.getError('minlength')">Password must be at least 6 characters.</div>
+                        <div *ngIf="password.getError('pattern')">Password must have lower case letters, upper case letters, numbers and special characters.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="repeatedPassword">Repeated Password</label>
+                    <input type="password" formControlName="repeatedPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && repeatedPassword.errors }" />
+                    <div *ngIf="submitted && repeatedPassword.errors" class="invalid-feedback">
+                        <div *ngIf="repeatedPassword.getError('required')">You have to repeate password to register.</div>
+                        <div *ngIf="repeatedPassword.getError('repeated')">Passowrd is not the same.</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button [disabled]="loading" class="btn btn-primary">Register</button>
+                    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                    />
+                    <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="lastName">Last Name</label>
-            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && lastName.errors }" />
-            <div *ngIf="submitted && lastName.errors" class="invalid-feedback">
-                <div *ngIf="lastName.getError('required')">Last Name is required.</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="username">E-mail</label>
-            <input type="email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && email.errors }" />
-            <div *ngIf="submitted && email.errors" class="invalid-feedback">
-                <div *ngIf="email.getError('required')">E-mail is required.</div>
-                <div *ngIf="email.getError('email')">Please provide valid email format.</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && username.errors }" />
-            <div *ngIf="submitted && username.errors" class="invalid-feedback">
-                <div *ngIf="username.getError('minlength')">Username must be at least 3 characters.</div>
-                <div *ngIf="username.getError('required')">Username is required.</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && password.errors }" />
-            <div *ngIf="submitted && password.errors" class="invalid-feedback">
-                <div *ngIf="password.getError('required')">Password is required.</div>
-                <div *ngIf="password.getError('minlength')">Password must be at least 6 characters.</div>
-                <div *ngIf="password.getError('pattern')">Password must have lower case letters, upper case letters, numbers and special characters.</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="repeatedPassword">Repeated Password</label>
-            <input type="password" formControlName="repeatedPassword" class="form-control" [ngClass]="{ 'is-invalid': submitted && repeatedPassword.errors }" />
-            <div *ngIf="submitted && repeatedPassword.errors" class="invalid-feedback">
-                <div *ngIf="repeatedPassword.getError('required')">You have to repeate password to register.</div>
-                <div *ngIf="repeatedPassword.getError('repeated')">Passowrd is not the same.</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Register</button>
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-            />
-            <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
-        </div>
-    </form>
+    </div>
 </div>
