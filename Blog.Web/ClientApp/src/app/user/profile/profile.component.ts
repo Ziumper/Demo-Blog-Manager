@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { AuthenticationService } from '../services/authentication.service';
 import { Subscription } from 'rxjs';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { AlertService } from 'src/app/core/services/alert.service';
 
 @Component({
     selector: 'app-user-profile',
@@ -24,7 +25,9 @@ export class ProfileComponent implements OnInit {
     constructor( private userSerivce: UserService,
         private activatedRoute: ActivatedRoute,
         private authenticationService: AuthenticationService,
-        private modalService: NgbModal) {
+        private modalService: NgbModal,
+        private alertService: AlertService,
+        private router: Router) {
             this.user = new User();
             this.userId = this.getUserIdFromParams();
             this.showEditFunctions = false;
@@ -75,18 +78,18 @@ export class ProfileComponent implements OnInit {
       this.modal.close();
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-
     public deleteAccount() {
         const userId = Number(this.activatedRoute.snapshot.params['userId']);
-        this.userSerivce.delete(userId);
+        console.log('test');
+        this.userSerivce.delete(userId).subscribe(
+            data => {
+                this.alertService.success('Account deleted succesfully', true);
+                this.authenticationService.logout();
+                this.router.navigate(['/login']);
+            },
+            errorData => {
+                // TODO fix this to be one error
+                this.alertService.error(errorData.error.message);
+            });
      }
 }
