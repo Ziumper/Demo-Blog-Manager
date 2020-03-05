@@ -30,7 +30,6 @@ export class NavigationComponent implements OnInit, OnDestroy {
 
   public logout(): void {
     this.authenticationService.logout();
-    this.router.navigate(['/login']);
   }
 
   /**

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
@@ -9,7 +10,8 @@ export class AuthenticationService {
     private loginSubject: Subject<boolean>;
     private currentUser: string;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,
+        private router: Router) {
         this.apiUrl = 'api/user/authenticate';
         this.loginSubject = new Subject<boolean> ();
         this.currentUser = 'currentUser';
@@ -77,5 +79,6 @@ export class AuthenticationService {
     logout() {
         localStorage.removeItem('currentUser');
         this.isLogged();
+        this.router.navigate(['/home']);
     }
 }

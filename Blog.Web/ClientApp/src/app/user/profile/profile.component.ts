@@ -85,7 +85,6 @@ export class ProfileComponent implements OnInit {
             data => {
                 this.alertService.success('Account deleted succesfully', true);
                 this.authenticationService.logout();
-                this.router.navigate(['/login']);
             },
             errorData => {
                 // TODO fix this to be one error
