@@ -2,5 +2,8 @@
 
 Blog management application in .net core and angular
 
-docker-compose build
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+To run docker images use:
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+
+To stop
+docker-compose stop
