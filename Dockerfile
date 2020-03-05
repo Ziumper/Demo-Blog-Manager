@@ -6,9 +6,7 @@ RUN apt-get install -y nodejs
 
 COPY . /app
 
-WORKDIR /app/Blog.Web/ClientApp
-RUN npm rebuild node-sass 
-
+#Restore .net dependencies and build 
 WORKDIR /app/Blog.Web
 RUN ["dotnet", "restore"]
 RUN ["dotnet", "build"]
