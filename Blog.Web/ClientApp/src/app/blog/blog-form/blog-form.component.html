@@ -1,19 +1,11 @@
 <div class="container-fluid blog-form-container">
-    <form name="blog-form" (ngSubmit)="submit(model)">
+    <form name="blog-form" [formGroup]="blogForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
-            <label for="title">Blog Title</label>
-            <div>
-                <input type="text" class="form-control form-control-sm" id="title" name="title" [(ngModel)]="model.title" required/>
+            <label for="title">Title</label>
+            <input type="text" class="form-control" formControlName="title" [ngClass]="{ 'is-invalid': submitted && title.errors }">
+            <div *ngIf="submitted && title.errors" class="invalid-feedback">
+                <div *ngIf="title.getError('required')">Title is required.</div>
             </div>
-        </div>
-        <div class="form-group">
-            <label for="category">Category</label>
-            <div>
-                <!-- <select class="form-control form-control-sm" id="category" name="category" [(ngModel)]="model.category" required>
-                        <option *ngFor="let category of categories" [ngValue]="model.category">{{category.name}}</option>
-                    </select> -->
-            </div>
-
         </div>
         <button class="btn btn-primary" type="submit">Save</button>
     </form>
