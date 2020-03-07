@@ -8,6 +8,8 @@ using Blog.Bll.Services.Comments;
 using Blog.Bll.Dto;
 using Blog.Bll.Dto.Comments;
 using Blog.Web.Controllers.Base;
+using Microsoft.AspNetCore.Authorization;
+using Blog.Bll.Services.Users;
 
 namespace Blog.Web.Controllers
 {
@@ -15,9 +17,11 @@ namespace Blog.Web.Controllers
     [Route("api/Comment")]
     public class CommentController : BaseBlogAppController
     {
-        private readonly ICommentService _commentService;
+        protected readonly ICommentService _commentService;
 
-        public CommentController(ICommentService commentService)
+        public CommentController(ICommentService commentService,
+        IAuthorizationService authorizationService, 
+        IUserService userService) : base(userService,authorizationService)
         {
             _commentService = commentService;
         }

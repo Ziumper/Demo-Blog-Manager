@@ -2,7 +2,9 @@ using System.Threading.Tasks;
 using Blog.Bll.Dto.Images;
 using Blog.Bll.Services.Images;
 using Blog.Bll.Services.Images.ImageWriter;
+using Blog.Bll.Services.Users;
 using Blog.Web.Controllers.Base;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +16,9 @@ namespace Blog.Web.Controllers {
 
         private readonly IImageService _imageService;
 
-        public ImageController(IImageService imageService)
+        public ImageController(IImageService imageService,
+        IUserService userService, 
+        IAuthorizationService authorizationService) : base (userService,authorizationService)
         {
             _imageService = imageService;
         }

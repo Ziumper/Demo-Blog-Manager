@@ -13,18 +13,13 @@ namespace Blog.Web.Controllers {
     [ApiController]
     [Route ("api/[controller]")]
     public class UserController : BaseBlogAppController {
-
-        private IUserService _userService;
         protected IParserService _parserService;
-        protected IAuthorizationService _authorizationService;
 
         public UserController (
         IUserService userService, 
         IParserService parserService,
-        IAuthorizationService authorizationService) {
-            _userService = userService;
+        IAuthorizationService authorizationService) : base(userService,authorizationService) {
             _parserService = parserService;
-            _authorizationService = authorizationService;
         }
 
         [AllowAnonymous]

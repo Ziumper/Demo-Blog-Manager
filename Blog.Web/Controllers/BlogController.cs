@@ -2,18 +2,24 @@
 using Blog.Bll.Dto.Blogs;
 using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.Services.Blogs;
+using Blog.Bll.Services.Users;
 using Blog.Web.Controllers.Base;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Blog.Web.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/Blog")]
+    [ApiController]
+    [Authorize]
+    [Route("api/[controller]")]
     public class BlogController : BaseBlogAppController
     {
         private readonly IBlogService _blogService;
 
-        public BlogController(IBlogService blogService)
+        public BlogController(
+            IBlogService blogService,
+            IAuthorizationService authorizationService,
+            IUserService userService) : base(userService,authorizationService)
         {
             _blogService = blogService;
         }
