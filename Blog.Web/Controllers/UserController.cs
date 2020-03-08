@@ -87,15 +87,5 @@ namespace Blog.Web.Controllers {
 
             return Forbid();
         }
-
-        private async Task<AuthorizationResult> GetAuthorizationResult(int id) {
-            //get current user to check if availiable
-            UserDtoEdit user = await _userService.GetUserById(id);
-
-            var authorizationResult = await _authorizationService.AuthorizeAsync(User,user.Username,"EditUserPolicy");
-            
-            return authorizationResult;
-        }
-
     }
 }
