@@ -9,7 +9,7 @@ COPY . /app
 #Restore .net dependencies and build 
 WORKDIR /app/Blog.Web
 RUN ["dotnet", "restore"]
-RUN ["dotnet", "build"]
+RUN ["dotnet", "build","-c", "debug"]
 
 EXPOSE 80/tcp
 
