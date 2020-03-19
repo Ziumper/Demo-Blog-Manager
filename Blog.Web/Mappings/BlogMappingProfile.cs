@@ -12,7 +12,8 @@ namespace Blog.Web.Mappings
     {
         public BlogMappingProfile()
         {
-            CreateMap<BlogEntity,BlogDto>();
+            CreateMap<BlogEntity,BlogDto>().ForMember(b => b.UserId, 
+            option => option.MapFrom(be => be.User.Id));
             CreateMap<Post,PostDto>().ReverseMap();
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();

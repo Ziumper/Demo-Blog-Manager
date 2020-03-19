@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk
+FROM microsoft/dotnet:2.1-sdk as debug
 
 #Install node
 RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
