@@ -27,3 +27,26 @@ To update the C# code inside docker container first stop the containers and then
 ```bash
 docker-compose stop && docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
 ```
+
+## Debug
+
+Example launch.json file in vsc code
+
+```json
+{
+        "name": ".NET Core Docker Attach",
+        "type": "coreclr",
+        "request": "attach",
+        "processId": "${command:pickRemoteProcess}",
+        "sourceFileMap": {
+            "/app": "${workspaceFolder}"
+        },
+        "pipeTransport": {
+            "pipeProgram": "docker",
+            "pipeArgs": [ "exec", "-i", "blog_web_1" ],
+            "debuggerPath": "./vsdbg/vsdbg",
+            "pipeCwd": "${workspaceRoot}",
+            "quoteArgs": false
+        },
+}
+```
