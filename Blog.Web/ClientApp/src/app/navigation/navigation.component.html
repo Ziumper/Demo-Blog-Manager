@@ -14,17 +14,17 @@
                 <a class="nav-link" routerLinkActive="active" [routerLink]="['blog',userBlogId]">Blog</a>
             </li>
             <li *ngIf="isLogged" class="nav-item ">
-                <a class="nav-link" routerLinkActive="active" [routerLink]="['profile',userId]">
-                    Profile
-                </a>
-            </li>
-            <li *ngIf="isLogged" class="nav-item ">
                 <a class="nav-link" routerLinkActive="active" [routerLink]="['blog-manager',userBlogId]">
                         Blog Manager
                 </a>
             </li>
         </ul>
         <ul class="navbar-nav mt-3 mt-lg-0">
+            <li *ngIf="isLogged" class="nav-item ">
+                <a class="nav-link" routerLinkActive="active" [routerLink]="['profile',userId]">
+                    Profile
+                </a>
+            </li>
             <li *ngIf="isLogged" class="nav-item ">
                 <a class="nav-link log-out-link" routerLinkActive="active" (click)="logout()">
                     Logout

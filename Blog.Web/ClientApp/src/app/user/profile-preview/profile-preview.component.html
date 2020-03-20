@@ -1,0 +1,31 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Delete confirmation</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+            <p>Are sure you want to delete your account?</p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-outline-dark" (click)="closeModal()" type="button">Cancel</button>
+        <button type="button" class="btn btn-outline-dark" (click)="deleteAccount()">Delete</button>
+    </div>
+</ng-template>
+<div class="container">
+    <h1 class="text-center">User profile</h1>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><b>Username:</b> {{user.username}}</h5>
+            <p class="card-text"><b>Email:</b> {{user.email}}</p>
+            <p class="card-text"><b>Firstname:</b> {{user.firstName}}</p>
+            <p class="card-text"><b>Lastname: </b> {{user.lastName}}</p>
+            <a *ngIf="showEditFunctions" [routerLink]="['/edit-profile',user.id]" class="card-link">Edit profile</a>
+            <a *ngIf="showEditFunctions" [routerLink]="['/change-password',user.id]" class="card-link">Change password</a>
+            <a *ngIf="showEditFunctions" href="#" (click)="$event.preventDefault();open(content)" class="card-link">Delete account</a>
+        </div>
+    </div>    
+</div>

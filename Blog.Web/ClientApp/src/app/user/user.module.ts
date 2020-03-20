@@ -12,6 +12,7 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { PasswordValidatorService } from './services/password-validator';
 import { ProfileComponent } from './profile/profile.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ProfilePreviewComponent } from './profile-preview/profile-preview.component';
 
 @NgModule({
     declarations: [
@@ -21,6 +22,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
         ActivationComponent,
         ProfileComponent,
         ChangePasswordComponent,
+        ProfilePreviewComponent
     ],
     imports: [
         CommonModule,
