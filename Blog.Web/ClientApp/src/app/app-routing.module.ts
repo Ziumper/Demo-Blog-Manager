@@ -35,7 +35,8 @@ const routes = [
   { path: 'activate/:userId/:code', component: ActivationComponent},
   { path: 'blog-manager/:blogId', component: BlogManagerComponent, canActivate: [AuthGuard] ,
     children: [
-      { path: '', redirectTo: 'blog-options', pathMatch: 'full'  },
+      { path: '', redirectTo: 'blog', pathMatch: 'full'  },
+      { path: 'blog', component: BlogComponent },
       { path: 'blog-options', component: BlogFormComponent  },
       { path: 'posts-manager', component: PostsManagerComponent  },
       { path: 'post-form', component: PostFormComponent },
