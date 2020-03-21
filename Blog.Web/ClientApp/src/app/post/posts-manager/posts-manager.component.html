@@ -48,6 +48,6 @@
                 </tr>
             </tbody>
         </table>
-        <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" *ngIf="posts.length > 0"
+        <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" *ngIf="posts?.length > 0"
                 [collectionSize]="collectionSize"  [pageSize]="pageSize" [(page)]="this.page" aria-label="Default pagination"></ngb-pagination>
 </div>

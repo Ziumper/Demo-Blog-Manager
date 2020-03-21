@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from '../post.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostSearchService } from '../post-search/post-search.service';
+import { PostQueryModel } from '../models/post-query.model';
 
 
 @Component({
@@ -10,12 +11,15 @@ import { PostSearchService } from '../post-search/post-search.service';
     styleUrls: ['./posts-manager.component.scss']
 })
 export class PostsManagerComponent implements OnInit {
+
     public blogId;
+    public postQueryModel: PostQueryModel;
 
     constructor(private managerPostService: PostService,
         private managerPostSearchService: PostSearchService,
         private managerActivatedRoute: ActivatedRoute) {
         this.blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
+        this.postQueryModel = new PostQueryModel();
     }
 
     public ngOnInit(): void {
