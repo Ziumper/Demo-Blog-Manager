@@ -51,6 +51,9 @@ export class ProfilePreviewComponent implements OnInit {
 
     public getUserIdFromParams(): number {
         let userId = this.activatedRoute.parent.snapshot.params['userId'];
+        if (!userId) {
+            userId = this.activatedRoute.snapshot.params['userId'];
+        }
         userId = Number(userId);
         return userId;
      }
