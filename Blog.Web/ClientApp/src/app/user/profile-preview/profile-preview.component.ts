@@ -14,20 +14,14 @@ import { AlertService } from 'src/app/core/services/alert.service';
 })
 export class ProfilePreviewComponent implements OnInit {
 
-    private closeResult: string;
     private userId;
-    private loginSubscription: Subscription;
-
     public user: User;
     public showEditFunctions: boolean;
-    public modal: NgbModalRef;
 
-    constructor( private userSerivce: UserService,
+    constructor(private userSerivce: UserService,
         private activatedRoute: ActivatedRoute,
         private authenticationService: AuthenticationService,
-        private modalService: NgbModal,
-        private alertService: AlertService,
-        private router: Router) {
+        private alertService: AlertService) {
             this.user = new User();
             this.userId = this.getUserIdFromParams();
             this.showEditFunctions = false;
@@ -40,7 +34,7 @@ export class ProfilePreviewComponent implements OnInit {
             }
         );
 
-        this.loginSubscription = this.authenticationService.getLoginStatus()
+        this.authenticationService.getLoginStatus()
         .subscribe(loginStatus => {
             this.handleLogin(loginStatus);
         });
@@ -56,7 +50,7 @@ export class ProfilePreviewComponent implements OnInit {
     }
 
     public getUserIdFromParams(): number {
-        let userId = this.activatedRoute.snapshot.params['userId'];
+        let userId = this.activatedRoute.parent.snapshot.params['userId'];
         userId = Number(userId);
         return userId;
      }
@@ -70,13 +64,6 @@ export class ProfilePreviewComponent implements OnInit {
         return false;
      }
 
- public open(content) {
-    this.modal = this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
-  }
-
-  public closeModal() {
-      this.modal.close();
-  }
 
     public deleteAccount() {
         const userId = Number(this.activatedRoute.snapshot.params['userId']);

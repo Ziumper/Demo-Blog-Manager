@@ -1,3 +1,20 @@
+<ng-template #content let-modal>
+        <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Delete confirmation</h4>
+                <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+                <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+                <div class="form-group">
+                <p>Are sure you want to delete your account?</p>
+                </div>
+        </div>
+        <div class="modal-footer">
+                <button class="btn btn-outline-dark" (click)="closeModal()" type="button">Cancel</button>
+                <button type="button" class="btn btn-outline-dark" (click)="deleteAccount()">Delete</button>
+        </div>
+</ng-template>
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -9,10 +26,10 @@
                                 <a routerLink='edit-profile' routerLinkActive="active"  class="nav-link">Edit profile</a>
                         </li>
                         <li class="nav-item">
-                                <a routerLink='post-form' routerLinkActive="active" class="nav-link">Change password</a>
+                                <a routerLink='change-password' routerLinkActive="active" class="nav-link">Change password</a>
                         </li>
                         <li class="nav-item">
-                            <a routerLink='post-form' routerLinkActive="active" class="nav-link">Delete account</a>
+                                <a href="#" (click)="$event.preventDefault();open(content)" class="nav-link">Delete account</a>
                         </li>
                 </ul>
         </div>

@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { AlertService } from 'src/app/core/services/alert.service';
 
-//TODO write tests for checking validation messages and email , username validators 
 
 @Component({
     selector: 'app-edit-profile',
@@ -29,7 +28,7 @@ export class EditProfileComponent implements OnInit {
 
     public ngOnInit(): void {
         this.submitted = false;
-        const userId = this.activatedRoute.snapshot.params['userId'];
+        const userId = this.activatedRoute.parent.snapshot.params['userId'];
         this.userForm = this.formBuilder.group({
             id: [userId],
             firstName: ['', Validators.required],

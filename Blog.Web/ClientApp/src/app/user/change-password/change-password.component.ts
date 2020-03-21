@@ -28,7 +28,7 @@ export class ChangePasswordComponent implements OnInit {
     public ngOnInit(): void {
         const passwordControl = this.passwordValidatorSerivce.createPasswordControl();
         const repeatedNewPasswordControl = this.passwordValidatorSerivce.createRepeatedPasswordControl(passwordControl);
-        const userId = this.activatedRoute.snapshot.params['userId'];
+        const userId = this.activatedRoute.parent.snapshot.params['userId'];
         this.submitted = false;
 
         this.passwordForm = this.formBuilder.group({
@@ -48,7 +48,7 @@ export class ChangePasswordComponent implements OnInit {
         this.userSerivce.changePassword(this.passwordForm.value).subscribe(
             data => {
                 this.alertService.success('Change password successful, you can login now with your new password', true);
-                const userId = Number(this.activatedRoute.snapshot.paramMap.get('userId'));
+                const userId = Number(this.activatedRoute.parent.snapshot.paramMap.get('userId'));
                 this.router.navigate(['profile', userId]);
             },
             errorData => {
