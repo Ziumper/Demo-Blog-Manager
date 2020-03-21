@@ -32,7 +32,6 @@ export class BlogFormComponent implements OnInit {
             modificationDate: []
         });
 
-      
         if (id) {
             this.blogService.getBlogById(id).subscribe(response => {
                 this.blogForm.setValue(response);
@@ -42,11 +41,6 @@ export class BlogFormComponent implements OnInit {
 
     public onSubmit(): void {
         this.submitted = true;
-        const id = this.routed.snapshot.params['blogId'];
-        if (id) {
-            this.blogService.updateBlog(this.blogForm.value).subscribe();
-        } else {
-            this.blogService.addBlog(this.blogForm.value).subscribe();
-        }
+        this.blogService.updateBlog(this.blogForm.value).subscribe();
     }
 }

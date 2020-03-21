@@ -12,12 +12,13 @@ namespace Blog.Web.Mappings
     {
         public BlogMappingProfile()
         {
-            CreateMap<BlogEntity,BlogDto>().ForMember(b => b.UserId, 
-            option => option.MapFrom(be => be.User.Id));
+            CreateMap<BlogEntity,BlogDto>();
             CreateMap<Post,PostDto>().ReverseMap();
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
             CreateMap<Image,ImageDto>().ReverseMap();
+            CreateMap<BlogDto,BlogEntity>()
+                .ForMember(b => b.Posts,opt => opt.Ignore());
             CreateMappingsForUserEntity();
         }
 
