@@ -25,29 +25,33 @@
                     <fa [hidden]="postQueryModel.order || postQueryModel.filter != 2" name="arrow-down"></fa>
                     <span>Modification Date</span>
 
-                    </th>
+                </th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
-            <tbody>
-                <tr *ngFor="let post of posts">
-                    <th>{{post.id}}</th>
-                    <td>{{post.title}}</td>
-                    <td>{{post.creationDate | date:'medium'}}</td>
-                    <td>{{post.modificationDate | date:'medium'}}</td>
-                    <td>
-                        <ng-template #tipEditContent>Edit</ng-template>
-                        <a class="action-icon" [routerLink]="['/blog/',blogId,'post-editor',post.id]" [ngbTooltip]="tipEditContent"><fa name="edit"></fa></a>
-                        <ng-template #tipViewContent>Go to post</ng-template>
-                        <a class="action-icon" [routerLink]="['/blog/',blogId,'post', post.id]"  [ngbTooltip]="tipViewContent"><fa name="eye"></fa></a>
-                        <ng-template #tipDeleteContent>Delete</ng-template>
-                        <fa  class="action-icon" (click)="deletePost(post.id)" [ngbTooltip]="tipDeleteContent" name="trash"></fa>
-                        <ng-template #tipPublishContent>Publish</ng-template>
-                        <fa class="action-icon" (click)="publishPost()" [ngbTooltip]="tipPublishContent" name="bullhorn"></fa>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" *ngIf="posts?.length > 0"
-                [collectionSize]="collectionSize"  [pageSize]="pageSize" [(page)]="this.page" aria-label="Default pagination"></ngb-pagination>
+        <tbody>
+            <tr *ngFor="let post of postsPagedModel.entities">
+                <th>{{post.id}}</th>
+                <td>{{post.title}}</td>
+                <td>{{post.creationDate | date:'medium'}}</td>
+                <td>{{post.modificationDate | date:'medium'}}</td>
+                <td>
+                    <ng-template #tipEditContent>Edit</ng-template>
+                    <a class="action-icon" [routerLink]="['/blog/',blogId,'post-editor',post.id]" [ngbTooltip]="tipEditContent">
+                        <fa name="edit"></fa>
+                    </a>
+                    <ng-template #tipViewContent>Go to post</ng-template>
+                    <a class="action-icon" [routerLink]="['/blog/',blogId,'post', post.id]" [ngbTooltip]="tipViewContent">
+                        <fa name="eye"></fa>
+                    </a>
+                    <ng-template #tipDeleteContent>Delete</ng-template>
+                    <fa class="action-icon" (click)="deletePost(post.id)" [ngbTooltip]="tipDeleteContent" name="trash"></fa>
+                    <ng-template #tipPublishContent>Publish</ng-template>
+                    <fa class="action-icon" (click)="publishPost()" [ngbTooltip]="tipPublishContent" name="bullhorn"></fa>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" *ngIf="this.postsPagedModel.entities?.length > 0" [collectionSize]="this.postsPagedModel.count" [pageSize]="this.postsPagedModel.size" [(page)]="postsPagedModel.page"
+        aria-label="Default pagination"></ngb-pagination>
 </div>

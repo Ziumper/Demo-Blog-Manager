@@ -3,6 +3,7 @@ import { PostService } from '../post.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostSearchService } from '../post-search/post-search.service';
 import { PostQueryModel } from '../models/post-query.model';
+import { PostPagedModel } from '../models/post-paged.model';
 
 
 @Component({
@@ -14,12 +15,14 @@ export class PostsManagerComponent implements OnInit {
 
     public blogId;
     public postQueryModel: PostQueryModel;
+    public postsPagedModel: PostPagedModel;
 
     constructor(private managerPostService: PostService,
         private managerPostSearchService: PostSearchService,
         private managerActivatedRoute: ActivatedRoute) {
         this.blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
         this.postQueryModel = new PostQueryModel();
+        this.postsPagedModel = new PostPagedModel();
     }
 
     public ngOnInit(): void {
@@ -27,16 +30,17 @@ export class PostsManagerComponent implements OnInit {
     }
 
     public getPosts() {
-        // const blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
-        // if (blogId) {
-        //     this.postQueryModel.blogId = blogId;
-        //     this.managerPostService.getPostsPaged(this.postQueryModel).subscribe( response => {
-        //         this.posts = response.entities;
-        //         this.page = response.page;
-        //         this.collectionSize = response.count;
-        //         this.pageSize = response.size;
-        //     });
-        // }
+        const blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
+        if (blogId) {
+            this.postQueryModel.blogId = blogId;
+            this.managerPostService.getPostsPagedByBlogId(this.postQueryModel).subscribe( response => {
+               this.postsPagedModel = response;
+            });
+        }
+    }
+
+    public onPageChange($event) {
+        console.log($event);
     }
 
     public publishPost() {
