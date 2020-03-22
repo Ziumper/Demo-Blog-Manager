@@ -7,6 +7,6 @@ namespace Blog.Bll.Dto.Blogs
     public class BlogDto  : BaseDto
     {
         public string Title { get; set; }
-        public int UserId {get;set;}
+
     }
 }
