@@ -10,5 +10,4 @@ services:
         volumes:
             - ./Blog.Web/ClientApp/src/app:/app/Blog.Web/ClientApp/src/app
             - ./vsdbg:/app/vsdbg
-        #entrypoint: tail -f /dev/null #make docker container running
  
