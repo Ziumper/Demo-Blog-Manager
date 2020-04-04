@@ -1,26 +1,25 @@
 <div class="container">
-        <div class="card">
-                <div class="card-header">
-                        <ul class="nav nav-pills card-header-pills">
-                                <li class="nav-item">
-                                        <a routerLink='blog' routerLinkActive="active" class="nav-link">Blog Preview</a>
-                                </li>
-                                <li class="nav-item">
-                                        <a routerLink='blog-options' routerLinkActive="active" class="nav-link">Blog
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-pills card-header-pills">
+                <li class="nav-item">
+                    <a routerLink='blog' routerLinkActive="active" class="nav-link">Blog Preview</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink='blog-options' routerLinkActive="active" class="nav-link">Blog
                                                 Options</a>
-                                </li>
-                                <li class="nav-item">
-                                        <a routerLink='posts-manager' routerLinkActive="active" class="nav-link">Posts</a>
-                                </li>
-                                <li class="nav-item">
-                                        <a routerLink='post-form' routerLinkActive="active" class="nav-link">Add new
-                                                post</a>
-                                </li>
-                        </ul>
-                </div>
-                <div class="card-body">
-                        <router-outlet></router-outlet>
-                </div>
-
+                </li>
+                <li class="nav-item">
+                    <a routerLink='posts-manager' routerLinkActive="active" class="nav-link">Posts</a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink='post-form' routerLinkActive="active" class="nav-link">Post Form</a>
+                </li>
+            </ul>
         </div>
+        <div class="card-body">
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
 </div>
