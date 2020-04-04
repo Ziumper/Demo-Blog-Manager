@@ -20,6 +20,7 @@ export class BlogComponent implements OnInit {
     private postService: PostService) {
     this.postQueryModel = new PostQueryModel();
     this.postQueryModel.blogId = this.blogId;
+    this.postQueryModel.order = true;
   }
 
   public ngOnInit(): void {
