@@ -12,7 +12,6 @@ import { CoreModule } from './core/core.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { PostModule } from './post/post.module';
-import { TagModule } from './tag/tag.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -34,7 +33,6 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
     BlogModule,
     CoreModule,
     PostModule,
-    TagModule,
     AngularFontAwesomeModule,
     NgbModule,
     UserModule

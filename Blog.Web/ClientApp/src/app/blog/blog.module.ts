@@ -8,7 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { BlogService } from './blog.service';
 import { PostModule } from '../post/post.module';
-import { TagModule } from '../tag/tag.module';
 import { RouterModule } from '@angular/router';
 import { BlogManagerComponent } from './blog-manager/blog-manager.component';
 
@@ -31,7 +30,6 @@ import { BlogManagerComponent } from './blog-manager/blog-manager.component';
         AngularFontAwesomeModule,
         NgbModule,
         PostModule,
-        TagModule,
         RouterModule,
     ],
     providers: [
