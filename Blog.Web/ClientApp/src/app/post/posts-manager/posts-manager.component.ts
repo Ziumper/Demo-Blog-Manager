@@ -54,17 +54,17 @@ export class PostsManagerComponent implements OnInit {
     }
 
     public sort(filter: number) {
-        // this.checkOrder(filter);
-        // this.postQueryModel.filter = filter;
-        // this.getPosts();
+        this.checkOrder(filter);
+        this.postQueryModel.filter = filter;
+        this.getPosts();
     }
 
     private checkOrder(filter: number): void {
-        // if (this.postQueryModel.filter === filter) {
-        //     this.postQueryModel.order = !this.postQueryModel.order;
-        // } else {
-        //     this.postQueryModel.order = false;
-        // }
+        if (this.postQueryModel.filter === filter) {
+            this.postQueryModel.order = !this.postQueryModel.order;
+        } else {
+            this.postQueryModel.order = false;
+        }
     }
 
 }
