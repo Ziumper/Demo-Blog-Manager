@@ -7,11 +7,9 @@ using AutoMapper;
 using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.Exceptions;
-using Blog.Bll.Services.Images.ImageWriter;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
-using Blog.Dal.Repositories.Images;
 using Blog.Dal.Repositories.Posts;
 
 
@@ -24,23 +22,17 @@ namespace Blog.Bll.Services.Posts
         private readonly ICommentRepository _commentRepository;
         private readonly IBlogRepository _blogRepository;
 
-        private readonly IImageRepository _imageRepository;
-        private readonly IImageWriter _imageWriter;
 
         public PostService(
             IPostRepository postRepository,
             IBlogRepository blogRepository, 
             ICommentRepository commentRepository,
-            IMapper mapper,
-            IImageRepository imageRepository,
-            IImageWriter imageWriter)
+            IMapper mapper)
         {
             _commentRepository = commentRepository;
             _postRepository = postRepository;
             _mapper = mapper;
             _blogRepository = blogRepository;
-            _imageRepository = imageRepository;
-            _imageWriter = imageWriter;
         }
 
         public PostDto AddPost(PostDto post)
@@ -58,7 +50,6 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDto> AddPostAsync(PostDto post){
 
-            var image = await _imageRepository.FindByFirstAsync(img => img.Id == post.MainImage.Id);
             var mappedPost = _mapper.Map<PostDto,Post>(post);
             var result = await _postRepository.AddAsync(mappedPost);
             await _postRepository.SaveAsync();

@@ -3,7 +3,6 @@ using Blog.Bll.Dto.Blogs;
 using Blog.Dal.Models;
 using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.Comments;
-using Blog.Bll.Dto.Images;
 using Blog.Bll.Dto.Users;
 
 namespace Blog.Web.Mappings
@@ -16,7 +15,6 @@ namespace Blog.Web.Mappings
             CreateMap<Post,PostDto>().ReverseMap();
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
-            CreateMap<Image,ImageDto>().ReverseMap();
             CreateMap<BlogDto,BlogEntity>()
                 .ForMember(b => b.Posts,opt => opt.Ignore());
             CreateMappingsForUserEntity();

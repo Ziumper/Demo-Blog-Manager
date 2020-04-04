@@ -2,10 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { PostModel } from '../models/post.model';
 import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../post.service';
-import { TagModel } from 'src/app/tag/models/tag.model';
-import { PostTagModel } from '../models/post-tag.model';
-import { UploadFilesService } from 'src/app/core/services/uploadFiles.service';
-import { ImageModel } from 'src/app/core/models/image.model';
+
 
 @Component({
     selector: 'app-post-form',

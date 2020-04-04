@@ -19,6 +19,5 @@ namespace Blog.Dal.Models
         public int BlogId { get; set; }
 
         public Boolean IsPublished {get; set;}
-        // public Image MainImage {get; set;}
     }
 }
