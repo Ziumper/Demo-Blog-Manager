@@ -45,19 +45,18 @@ namespace Blog.Web.Controllers
             result = await _postService.GetPostWithCommentsByIdAsync(id);
             return Ok(result);
         }
-        
-        [HttpGet("{content}")]
-        public async Task<IActionResult> GetPostsByContent(string content)
-        {
-            var result = await _postService.GetPostsByContentOrTitleAsync(content);
-            return Ok(result);
-        }
 
         // POST: api/Post
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]PostDto value)
         {
             var result = await _postService.AddPostAsync(value);
+            return Ok(result);
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> Get(int id) {
+            var result = await _postService.GetPostById(id);
             return Ok(result);
         }
 
