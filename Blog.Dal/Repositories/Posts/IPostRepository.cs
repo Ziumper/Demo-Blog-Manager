@@ -11,6 +11,6 @@ namespace Blog.Dal.Repositories.Posts
 {
     public interface IPostRepository : IGenericRepository<Post> 
     {
-        Task<Post> GetPostByIdWithImagesAsync(int postId);
+
     }
 }

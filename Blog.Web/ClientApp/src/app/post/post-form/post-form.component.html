@@ -1,52 +1,24 @@
 <div class="container-fluid post-form-container">
-        <h1>Post Form</h1>
-        <form #postForm="ngForm" name="post-form" (ngSubmit)="submit(model)">
-                <div class="form-group">
-                        <label for="title">Title</label>
-                        <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel"   required/>
-                        <div *ngIf="title.invalid && (title.dirty || title.touched)"
-                        class="alert alert-danger">
-                                <div *ngIf="title?.errors.required">
-                                    Title is required
-                                </div>
-                        </div>
+    <h1>Post Form</h1>
+    <form #postForm="ngForm" name="post-form" (ngSubmit)="submit(model)">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel" required/>
+            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="alert alert-danger">
+                <div *ngIf="title?.errors.required">
+                    Title is required
                 </div>
-                <div class="form-group">
-                        <label for="shortDescription">Short description (max: 200 characters)</label>
-                        <textarea maxlength="200" type="text" class="form-control" name="shortDescription" [(ngModel)]="model.shortDescription" #shortDescription="ngModel"></textarea>
-                        <label>Characters counter: {{ (model?.shortDescription?.length ) ? model.shortDescription.length : 0 }}</label>
-                </div>
-                <div class="form-group">
-                        <label for="content">Content</label>
-                        <app-ngx-editor imageEndPoint="api/Image" name="content" minHeight="300px" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="model.content"></app-ngx-editor>
-                </div>
-                <div class="form-group">
-                        <div class="card">
-                                <div class="card-header">Tags list</div>
-                                <div class="card-body">
-                                        <span class="tag" [ngClass]="{'repeated-tag-name': tagName == postTag.tag.name}" *ngFor="let postTag of model.postTags"> #{{postTag.tag.name}} <fa class="tag-delete-icon" (click)="removeTag(postTag)" name="times"></fa></span>
-                                </div>
-                        </div>
-                        <div class="input-group mt-3 mb-3 tag-search">
-                                <div class="input-group-prepend">
-                                        <button class="btn btn-outline-secondary" (click)="addTag(tagName)"
-                                        [disabled]="tagName?.length ==  0" type="button">Add tag</button>
-                                </div>
-                                <input type="text" class="form-control "  name="tagName" placeholder="eg. tag" [(ngModel)]="tagName"/>
-                        </div>
-                </div>
-                <div>
-                        <label>Image Upload</label>
-                </div>
-                <div class="form-group">
-                        <input (change)="handleImageUpload($event.target.files)"  type="file" name="file" id="file" class="inputfile" />
-                        <label class="btn btn-primary" for="file">Choose a file</label>
-                        <div [hidden]="url.length == 0"  class="main-image-container">
-                                <span class="btn btn-primary image-delete-button">Delete</span>
-                                <img class="image" [src]="url"/>    
-                        </div>
-                                           
-                </div>
-                <button class="btn btn-primary" [disabled]="(!postForm.form.valid)" type="submit">Save</button>
-        </form>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="shortDescription">Short description (max: 200 characters)</label>
+            <textarea maxlength="200" type="text" class="form-control" name="shortDescription" [(ngModel)]="model.shortDescription" #shortDescription="ngModel"></textarea>
+            <label>Characters counter: {{ (model?.shortDescription?.length ) ? model.shortDescription.length : 0 }}</label>
+        </div>
+        <div class="form-group">
+            <label for="content">Content</label>
+            <app-ngx-editor imageEndPoint="api/Image" name="content" minHeight="300px" [placeholder]="'Enter text here...'" [spellcheck]="true" [(ngModel)]="model.content"></app-ngx-editor>
+        </div>
+        <button class="btn btn-primary" [disabled]="(!postForm.form.valid)" type="submit">Save</button>
+    </form>
 </div>

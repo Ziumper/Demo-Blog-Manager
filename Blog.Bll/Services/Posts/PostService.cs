@@ -60,7 +60,6 @@ namespace Blog.Bll.Services.Posts
 
             var image = await _imageRepository.FindByFirstAsync(img => img.Id == post.MainImage.Id);
             var mappedPost = _mapper.Map<PostDto,Post>(post);
-            mappedPost.MainImage = image;
             var result = await _postRepository.AddAsync(mappedPost);
             await _postRepository.SaveAsync();
             var resultDto = _mapper.Map<Post,PostDto>(result);
@@ -101,19 +100,12 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDto> DeletePostAsync(int postId)
         {
-            
-            var result = await _postRepository.GetPostByIdWithImagesAsync(postId);
+            var result = await _postRepository.FindByIdFirstAsync(postId);
             if (result == null)
             {
                 throw new ResourceNotFoundException("Post not found");
             }
 
-            _imageRepository.Delete(result.MainImage);
-
-            _imageWriter.DeleteImageFileFromServer(result.MainImage.Name);
-
-            _commentRepository.DeleteManyCommentsByPostId(postId);
-            
             _postRepository.Delete(p => p.Id == postId);
             await _postRepository.SaveAsync();
 
@@ -139,10 +131,9 @@ namespace Blog.Bll.Services.Posts
 
         public async Task<PostDto> EditPostAsync(PostDto postDto)
         {
-            var image = await _imageRepository.FindByFirstAsync(img => img.Id == postDto.MainImage.Id);
-            
-            var post = await _postRepository.GetPostByIdWithImagesAsync(postDto.Id);
+            var post = await _postRepository.FindByIdFirstAsync(postDto.Id);
             bool postFound = post != null;
+            
             if(!postFound)
             {
                 throw new ResourceNotFoundException("Post not found");
@@ -151,7 +142,6 @@ namespace Blog.Bll.Services.Posts
             post.Content = postDto.Content;
             post.Title = postDto.Title;
 
-            post.MainImage = image;
             post = _postRepository.Edit(post);
             await _postRepository.SaveAsync();
             var resultDto = _mapper.Map<Post, PostDto>(post);

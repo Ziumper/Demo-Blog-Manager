@@ -21,8 +21,15 @@ namespace Blog.Dal
         public DbSet<Post> Posts { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<BlogEntity> Blogs { get; set; }
-        public DbSet<Image> Images {get; set;}
         public DbSet<User> Users {get; set;}
+        
+        /**
+        * TODO Add images
+        * 
+        *    public DbSet<Image> Images {get; set;}
+        *
+        */
+        
 
         private void SetupRelations(ModelBuilder modelBuilder) {
             modelBuilder.Entity<User>().HasOne( u => u.Blog).WithOne(b => b.User).IsRequired().OnDelete(DeleteBehavior.Cascade);

@@ -12,10 +12,13 @@ namespace Blog.Dal.Models
         public string Content { get; set; }
         public string ShortDescription { get; set; }
         public List<Comment> Comments { get; set; }
-        public int BlogId { get; set; }
+
         [ForeignKey("BlogId")]
         public BlogEntity Blog { get; set; }
+
+        public int BlogId { get; set; }
+
         public Boolean IsPublished {get; set;}
-        public Image MainImage {get; set;}
+        // public Image MainImage {get; set;}
     }
 }
