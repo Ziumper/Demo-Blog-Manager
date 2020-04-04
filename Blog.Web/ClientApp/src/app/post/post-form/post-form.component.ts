@@ -23,7 +23,7 @@ export class PostFormComponent implements OnInit {
 
     public ngOnInit(): void {
         this.model.blogId = this.route.parent.snapshot.params['blogId'];
-        const postId = this.route.snapshot.params['id'];
+        const postId = this.route.snapshot.params['postId'];
         if (postId) {
             this.postService.getPostById(postId).subscribe( response => {
                 this.model = response;

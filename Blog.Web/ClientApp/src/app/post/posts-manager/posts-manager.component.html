@@ -37,17 +37,15 @@
                 <td>{{post.modificationDate | date:'medium'}}</td>
                 <td>
                     <ng-template #tipEditContent>Edit</ng-template>
-                    <a class="action-icon" [routerLink]="['/blog/',blogId,'post-editor',post.id]" [ngbTooltip]="tipEditContent">
+                    <a class="action-icon" [routerLink]="['/','blog-manager',blogId,'post-form',post.id]" [ngbTooltip]="tipEditContent">
                         <fa name="edit"></fa>
                     </a>
                     <ng-template #tipViewContent>Go to post</ng-template>
-                    <a class="action-icon" [routerLink]="['/blog/',blogId,'post', post.id]" [ngbTooltip]="tipViewContent">
+                    <a class="action-icon" [routerLink]="['/','/blog-manager', blogId, 'post', post.id]" [ngbTooltip]="tipViewContent">
                         <fa name="eye"></fa>
                     </a>
                     <ng-template #tipDeleteContent>Delete</ng-template>
                     <fa class="action-icon" (click)="deletePost(post.id)" [ngbTooltip]="tipDeleteContent" name="trash"></fa>
-                    <ng-template #tipPublishContent>Publish</ng-template>
-                    <fa class="action-icon" (click)="publishPost()" [ngbTooltip]="tipPublishContent" name="bullhorn"></fa>
                 </td>
             </tr>
         </tbody>

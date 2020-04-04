@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { PostFormComponent } from './post/post-form/post-form.component';
-import { TagComponent } from './tag/tag.component';
 import { PostComponent } from './post/post.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogManagerComponent } from './blog/blog-manager/blog-manager.component';
@@ -40,6 +39,7 @@ const routes = [
       { path: 'blog-options', component: BlogFormComponent  },
       { path: 'posts-manager', component: PostsManagerComponent  },
       { path: 'post-form', component: PostFormComponent },
+      { path: 'post-form/:postId', component: PostFormComponent },
     ]
   },
   { path: 'blog/:blogId', component: BlogComponent },

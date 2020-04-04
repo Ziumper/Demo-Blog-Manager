@@ -18,7 +18,6 @@ export class PostsManagerComponent implements OnInit {
     public postsPagedModel: PostPagedModel;
 
     constructor(private managerPostService: PostService,
-        private managerPostSearchService: PostSearchService,
         private managerActivatedRoute: ActivatedRoute) {
         this.blogId = this.managerActivatedRoute.parent.snapshot.params['blogId'];
         this.postQueryModel = new PostQueryModel();
@@ -41,10 +40,6 @@ export class PostsManagerComponent implements OnInit {
 
     public onPageChange($event) {
         console.log($event);
-    }
-
-    public publishPost() {
-        console.log('Pusblish post');
     }
 
     public deletePost(id: number) {
