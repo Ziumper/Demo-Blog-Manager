@@ -17,7 +17,5 @@ namespace Blog.Dal.Models
         public BlogEntity Blog { get; set; }
 
         public int BlogId { get; set; }
-
-        public Boolean IsPublished {get; set;}
     }
 }
