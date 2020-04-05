@@ -39,7 +39,10 @@ export class PostsManagerComponent implements OnInit {
     }
 
     public onPageChange($event) {
-        console.log($event);
+        this.postQueryModel.page = $event;
+        this.managerPostService.getPostsPagedByBlogId(this.postQueryModel).subscribe(response => {
+            this.postsPagedModel = response;
+        });
     }
 
     public deletePost(id: number) {
