@@ -16,8 +16,7 @@ export class BlogComponent implements OnInit {
   private blogId: number;
 
   constructor(private blogService: BlogService,
-    private activatedRoute: ActivatedRoute,
-    private postService: PostService) {
+    private activatedRoute: ActivatedRoute) {
     this.postQueryModel = new PostQueryModel();
     this.postQueryModel.blogId = this.blogId;
     this.postQueryModel.order = true;

@@ -3,4 +3,8 @@ import { PostModel } from './post.model';
 
 export class PostPagedModel extends BasePagedModel<PostModel> {
 
+
+    public getPosts() {
+        return this.entities;
+    }
 }

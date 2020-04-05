@@ -19,14 +19,25 @@ export class PostsListComponent implements OnInit {
     @Input()
     public postQueryModel: PostQueryModel;
 
-    constructor(private postService: PostService) {}
+    public postsPagedModel: PostPagedModel;
+
+    constructor(private postService: PostService) {
+        this.postsPagedModel = new PostPagedModel();
+    }
 
     public ngOnInit(): void {
+       this.getPosts();
+    }
+
+    public onPageChange($event) {
+        this.postQueryModel.page = $event;
+        this.getPosts();
+    }
+
+    private getPosts(): void {
         this.postService.getPostsPaged(this.postQueryModel).subscribe((data: PostPagedModel) => {
-            this.posts = data.entities;
-            this.page = data.page;
-            this.pageSize = data.size;
-        });
+            this.postsPagedModel = data;
+         });
     }
 }
 
