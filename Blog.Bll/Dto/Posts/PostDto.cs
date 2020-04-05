@@ -9,6 +9,5 @@ namespace Blog.Bll.Dto.Posts
         public string Content { get; set; }
         public int BlogId { get; set; }
         public string ShortDescription { get; set; }
-        public string Author {get; set;}
     }
 }

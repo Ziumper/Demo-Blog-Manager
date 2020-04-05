@@ -25,5 +25,7 @@ namespace Blog.Bll.Services.Posts
         Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query);
         Task<PostDtoPaged> GetAllPostPagedAsyncByBlogIdAndTagsId(PostQuery query);
         Task<List<PostDto>> GetPostsByContentOrTitleAsync(string content);
+
+        Task<PostDtoPagedWithAuthor> GetAllPostsPagedAsyncWithAuthor(PostQuery searchQuery);
     }
 }

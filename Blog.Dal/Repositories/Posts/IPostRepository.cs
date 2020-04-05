@@ -17,7 +17,7 @@ namespace Blog.Dal.Repositories.Posts
             int size,
             int filter, 
             bool order,
-            Expression<Func<PostWithAuthor,bool>> predicate
+            Expression<Func<Post,bool>> predicate
         );
     }
 }

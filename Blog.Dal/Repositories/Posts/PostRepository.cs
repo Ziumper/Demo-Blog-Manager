@@ -27,27 +27,25 @@ namespace Blog.Dal.Repositories.Posts
             _postSortable = postSortable;
         }
 
-        public async Task<PagedEntity<PostWithAuthor>> GetAllPagedPostsAsyncWithAuthor(int page, int size, int filter, bool order, Expression<Func<PostWithAuthor, bool>> predicate)
+        public async Task<PagedEntity<PostWithAuthor>> GetAllPagedPostsAsyncWithAuthor(int page, int size, int filter, bool order, Expression<Func<Post, bool>> predicate)
         {
             var skipCount = GetSkipCount(page,size);
             var pagedEntity = new PagedEntity<PostWithAuthor>();
 
-            var result = _table.Join
+            var result = _table.Include(p => p.Blog).Where(predicate).Join
             (
                 _context.Users,
-                post => post.BlogId,
-                user => user.Blog.Id,
+                post => post.Blog.UserId,
+                user => user.Id,
                 (post,user) => new PostWithAuthor(post,user)
-            ).Where(predicate);
+            );
 
-           var sorted = _sortablePostWithAutor.Sort(result,filter,order);
+            result = _sortablePostWithAutor.Sort(result,filter,order);
              
-            pagedEntity.Count = await result.CountAsync(); 
+            pagedEntity.Count = await result.CountAsync();
 
-            var enitites =  await  result.Skip(skipCount).Take(size).ToListAsync();
-
+            var enitites =  await result.Skip(skipCount).Take(size).ToListAsync();
             pagedEntity.Entities = enitites;
-           
             return pagedEntity;
         }
 

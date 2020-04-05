@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Blog.Web.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Post")]
+    [Route("api/post")]
     public class PostController : BaseBlogAppController
     {
         private readonly IPostService _postService;
@@ -28,7 +28,7 @@ namespace Blog.Web.Controllers
 
         [HttpGet("paged")]
         public async Task<IActionResult> GetAllPostsPaged([FromQuery] PostQuery query){
-            var result = await _postService.GetAllPostsPagedAsync(query);
+            var result = await _postService.GetAllPostsPagedAsyncWithAuthor(query);
             return Ok(result);
         }
 

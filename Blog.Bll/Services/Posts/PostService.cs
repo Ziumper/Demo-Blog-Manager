@@ -215,5 +215,19 @@ namespace Blog.Bll.Services.Posts
             throw new NotImplementedException();
         }
 
+        public async Task<PostDtoPagedWithAuthor> GetAllPostsPagedAsyncWithAuthor(PostQuery searchQuery)
+        {
+             if(searchQuery.SearchQuery == null) {
+                searchQuery.SearchQuery = string.Empty;
+            }
+
+            var result = await _postRepository.GetAllPagedPostsAsyncWithAuthor(
+                searchQuery.Page,searchQuery.Size,searchQuery.Filter,searchQuery.Order,
+            x=> x.Title.Contains(searchQuery.SearchQuery) 
+            || x.Content.Contains(searchQuery.SearchQuery) 
+            || x.ShortDescription.Contains(searchQuery.SearchQuery));
+
+            return new PostDtoPagedWithAuthor(_mapper,result,searchQuery.Page,searchQuery.Size);
+        }
     }
 }

@@ -4,6 +4,7 @@ using Blog.Dal.Models;
 using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.Comments;
 using Blog.Bll.Dto.Users;
+using Blog.Dal.Models.Posts;
 
 namespace Blog.Web.Mappings
 {
@@ -12,9 +13,8 @@ namespace Blog.Web.Mappings
         public BlogMappingProfile()
         {
             CreateMap<BlogEntity,BlogDto>();
-            CreateMap<Post,PostDto>()
-                .ForMember(p => p.Author, opt => opt.Ignore())
-                .ReverseMap();
+            CreateMap<Post,PostDto>().ReverseMap();
+            CreateMap<PostWithAuthor,PostDtoWithAuthor>().ReverseMap();
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
             CreateMap<BlogDto,BlogEntity>()

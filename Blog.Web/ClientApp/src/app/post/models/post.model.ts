@@ -5,4 +5,5 @@ export class PostModel extends BaseModel {
     public content: string;
     public shortDescription: string;
     public blogId: number;
+    public author: string;
 }

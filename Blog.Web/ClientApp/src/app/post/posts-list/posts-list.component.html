@@ -4,13 +4,13 @@
     <div class="card">
         <div class="card-header">
             <div>{{post?.title}}</div>
-            <p class="card-text"><small class="text-muted">{{post?.creationDate | date:'medium'}}</small></p>
+            <p class="card-text"><small><a [routerLink]="['/','blog',post.blogId]">{{post?.author}}</a></small> <small class="text-muted"> {{post?.creationDate | date:'medium'}}</small></p>
         </div>
         <div class="card-body">
             <p class="card-text">{{post?.shortDescription}}</p>
         </div>
         <div class="card-footer">
-            <a [routerLink]="['post/', post.id]" class="btn btn-primary">Go to post</a>
+            <a [routerLink]="['/','blog',post.blogId,'post', post.id]" class="btn btn-primary">Go to post</a>
         </div>
     </div>
 </div>
