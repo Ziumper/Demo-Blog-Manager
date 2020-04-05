@@ -1,5 +1,6 @@
 ﻿using Blog.Dal.Models;
 using Blog.Dal.Models.Base;
+using Blog.Dal.Models.Posts;
 using Blog.Dal.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,71 +12,50 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Posts
 {
-    public class PostRepository : GenericRepository<Post, BloggingContext>, IPostRepository
+    public class PostRepository : GenericRepository<Post, BloggingContext>, 
+        IPostRepository
     {
-        public PostRepository(BloggingContext context) : base(context)
-        {
 
+        protected IPostWithAuthorSortable _sortablePostWithAutor;
+        protected IPostSortable _postSortable;
+
+        public PostRepository(BloggingContext context, 
+        IPostWithAuthorSortable sortablePostWithAuthor,
+        IPostSortable postSortable) : base(context)
+        {
+            _sortablePostWithAutor = sortablePostWithAuthor;
+            _postSortable = postSortable;
         }
 
-        public override IQueryable<Post> Sort(IQueryable<Post> entites, int filter, bool order)
+        public async Task<PagedEntity<PostWithAuthor>> GetAllPagedPostsAsyncWithAuthor(int page, int size, int filter, bool order, Expression<Func<PostWithAuthor, bool>> predicate)
         {
-            entites = base.Sort(entites, filter, order);
-            if (order)
-            {
-                switch (filter)
-                {
-                    case 3:
-                        {
-                            return entites.OrderByDescending(x => x.Title);
-                        }
-                    case 4:
-                        {
-                            return entites.OrderByDescending(x => x.Content);
-                        }
-                    default:
-                        {
-                            return entites;
-                        }
-                }
-            }
-            else
-            {
-                switch (filter)
-                {
-                    case 3:
-                        {
-                            return entites.OrderBy(x => x.Title);
-                        }
-
-                    case 4:
-                        {
-                            return entites.OrderBy(x => x.Content);
-                        }
-
-                    default:
-                        {
-                            return entites;
-                        }
-                }
-            }
-
-        }
-
-    
-        private async Task<PagedEntity<Post>> GetPaged(IQueryable<Post> query,int page, int size,int filter, bool order) {
-            
             var skipCount = GetSkipCount(page,size);
-            
-            PagedEntity<Post> pagedEntity = new PagedEntity<Post>();
+            var pagedEntity = new PagedEntity<PostWithAuthor>();
 
-            query = Sort(query,filter,order);
+            var result = _table.Join
+            (
+                _context.Users,
+                post => post.BlogId,
+                user => user.Blog.Id,
+                (post,user) => new PostWithAuthor(post,user)
+            ).Where(predicate);
 
-            pagedEntity.Count = await query.CountAsync();
+           var sorted = _sortablePostWithAutor.Sort(result,filter,order);
+             
+            pagedEntity.Count = await result.CountAsync(); 
 
-            pagedEntity.Entities = await query.Skip(skipCount).Take(size).ToListAsync();
+            var enitites =  await  result.Skip(skipCount).Take(size).ToListAsync();
 
+            pagedEntity.Entities = enitites;
+           
             return pagedEntity;
         }
+
+        public override IQueryable<Post> Sort(IQueryable<Post> entites, int filter, bool order) {
+            return _postSortable.Sort(entites,filter,order);
+        }
+
+
+       
     }
 }

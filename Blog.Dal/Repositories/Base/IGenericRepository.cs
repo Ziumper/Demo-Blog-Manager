@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Base
 {
-    public interface IGenericRepository<T> where T: BaseEntity
+    public interface IGenericRepository<T> : ISortable<T> where T: BaseEntity
     {
         Task<List<T>> GetAllAsync (Expression<Func<T, bool>> predicate = null);
         Task<List<T>> FindByAsync(Expression<Func<T,bool>> predicate = null);
@@ -31,7 +31,6 @@ namespace Blog.Dal.Repositories.Base
         Task<PagedEntity<T>> GetAllPagedAsync(int page, int size);
         Task<PagedEntity<T>> GetAllPagedAsync(int page,int size,int filter, bool order);
         Task<PagedEntity<T>> GetAllPagedAsync(int page,int size,int filter, bool order,Expression<Func<T,bool>> predicate);
-        IQueryable<T> Sort(IQueryable<T> entites , int filter,bool order);
         Task<T> FindByIdFirstAsync(int id);            
     }
 }

@@ -12,7 +12,9 @@ namespace Blog.Web.Mappings
         public BlogMappingProfile()
         {
             CreateMap<BlogEntity,BlogDto>();
-            CreateMap<Post,PostDto>().ReverseMap();
+            CreateMap<Post,PostDto>()
+                .ForMember(p => p.Author, opt => opt.Ignore())
+                .ReverseMap();
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
             CreateMap<BlogDto,BlogEntity>()

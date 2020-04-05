@@ -13,6 +13,7 @@ using Blog.Bll.Services.Users;
 using Blog.Bll.Services.Utility;
 using Blog.Dal;
 using Blog.Dal.Repositories;
+using Blog.Dal.Repositories.Base;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Posts;
@@ -128,6 +129,8 @@ namespace Blog.Web {
             services.AddTransient<IUserRepository, UserRepository> ();
             services.AddTransient<IHashService, HashService> ();
             services.AddTransient<ITokenService,TokenService>();
+            services.AddTransient<IPostSortable, PostSortable>();
+            services.AddTransient<IPostWithAuthorSortable, PostWithAutorSortable> ();
         }
 
         private void SetupEmailConfiguration(IServiceCollection services) {

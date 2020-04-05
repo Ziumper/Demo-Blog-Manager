@@ -9,14 +9,14 @@ using Blog.Dal.Models.Base;
 
 namespace Blog.Dal.Repositories.Base
 {
-    public abstract class GenericRepository<T,W>  : IGenericRepository<T> 
+    public abstract class GenericRepository<T,W> : Sortable<T>,IGenericRepository<T>
         where T: BaseEntity
-        where W: DbContext 
+        where W: DbContext
     {
-        protected readonly DbContext _context;
+        protected readonly W _context;
         protected readonly DbSet<T> _table;
 
-        protected GenericRepository(DbContext context)
+        protected GenericRepository(W context)
         {
             _context = context;
             _table = context.Set<T>();
@@ -158,48 +158,7 @@ namespace Blog.Dal.Repositories.Base
             return pagedEntity;
 
         }
-
-        public virtual IQueryable<T> Sort(IQueryable<T> entites, int filter, bool order)
-        {
-            if(order)
-            {
-                switch (filter)
-                {
-                    case 0 : {
-                         return entites.OrderByDescending(x=> x.Id);
-                    }                    
-                    case 1 : {   
-                        return entites.OrderByDescending(x => x.CreationDate);
-                    }
-                    case 2: {
-                        return entites.OrderByDescending(x => x.ModificationDate);
-                    }
-                    
-                    default: {
-                        return entites;
-                    }
-                }
-               
-            }else {
-                switch (filter)
-                {
-                    case 0 : {
-                         return entites.OrderBy(x=> x.Id);
-                    }                    
-                    case 1 : {   
-                        return entites.OrderBy(x => x.CreationDate);
-                    }
-                    case 2 : {
-                        return entites.OrderBy( x => x.ModificationDate);
-                    }
-                    
-                    default: {
-                        return entites;
-                    }
-                }
-            }
-        }
-
+        
         public async Task<PagedEntity<T>> GetAllPagedAsync(int page, int size)
         {
               var skipCount = GetSkipCount(page,size);
@@ -220,5 +179,6 @@ namespace Blog.Dal.Repositories.Base
             return entity;
             
         }
+
     }
 }
