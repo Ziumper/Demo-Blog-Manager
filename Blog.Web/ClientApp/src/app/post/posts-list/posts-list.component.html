@@ -1,5 +1,3 @@
-<ngb-pagination (pageChange)="onPageChange($event)" class="d-flex justify-content-center" *ngIf="this.postsPagedModel.entities?.length > 0" [collectionSize]="this.postsPagedModel.count" [pageSize]="this.postsPagedModel.size" [(page)]="postsPagedModel.page"
-    aria-label="Default pagination"></ngb-pagination>
 <div class="post-container" *ngFor="let post of this.postsPagedModel.entities">
     <div class="card">
         <div class="card-header">

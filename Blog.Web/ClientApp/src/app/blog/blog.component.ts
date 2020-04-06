@@ -17,22 +17,23 @@ export class BlogComponent implements OnInit {
 
   constructor(private blogService: BlogService,
     private activatedRoute: ActivatedRoute) {
-    this.postQueryModel = new PostQueryModel();
+  this.postQueryModel = new PostQueryModel();
     this.postQueryModel.blogId = this.blogId;
     this.postQueryModel.order = true;
   }
 
   public ngOnInit(): void {
     this.getBlogIdFromParams();
+
     this.blogService.getBlogById(this.blogId).subscribe(response => {
       this.blog = response;
     });
   }
 
   private getBlogIdFromParams() {
-    this.blogId = this.activatedRoute.snapshot.parent.params['blogId'];
+    this.blogId = this.activatedRoute.snapshot.params['blogId'];
     if (!this.blogId) {
-      this.blogId = this.activatedRoute.parent.snapshot.params['blogId'];
+      this.blogId = this.activatedRoute.snapshot.parent.params['blogId'];
     }
   }
 

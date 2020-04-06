@@ -51,6 +51,7 @@ namespace Blog.Web.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetBlogById(int id)
         {
             var result = await _blogService.GetBlogByIdAsync(id);
