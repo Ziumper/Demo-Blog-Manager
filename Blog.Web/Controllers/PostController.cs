@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.QueryModels;
-using Blog.Bll.Exceptions;
-using Blog.Bll.Services.Comments;
 using Blog.Bll.Services.Posts;
 using Blog.Bll.Services.Users;
 using Blog.Web.Controllers.Base;
@@ -39,10 +35,10 @@ namespace Blog.Web.Controllers
         }
 
         [HttpGet("{id:int}/comments")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetPostWithCommentsById(int id)
         {
-            PostDto result = null;
-            result = await _postService.GetPostWithCommentsByIdAsync(id);
+            var result = await _postService.GetPostWithCommentsByIdAsync(id);
             return Ok(result);
         }
 

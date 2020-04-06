@@ -8,6 +8,7 @@ using Blog.Bll.Dto.Posts;
 using Blog.Bll.Dto.QueryModels;
 using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
+using Blog.Dal.Models.Posts;
 using Blog.Dal.Repositories.Blogs;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Posts;
@@ -200,9 +201,11 @@ namespace Blog.Bll.Services.Posts
             throw new NotImplementedException();
         }
 
-        public Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId)
+        public async Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId)
         {
-            throw new NotImplementedException();
+            var postWithComments = await _postRepository.GetPostWithCommentsAsync(postId);
+            var result = _mapper.Map<PostWithComments,PostDtoWithComments>(postWithComments);
+            return result;
         }
 
         public Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query)

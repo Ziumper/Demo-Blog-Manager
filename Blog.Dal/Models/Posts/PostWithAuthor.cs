@@ -19,9 +19,11 @@ namespace Blog.Dal.Models.Posts {
             this.Id = this.post.Id;
             this.Title = this.post.Title;
             this.ShortDescription = this.post.ShortDescription;
+            this.AuthorId = user.Id;
         }
 
         public string Author {get; set;}
+        public int AuthorId {get; set;}
     }
 
 }

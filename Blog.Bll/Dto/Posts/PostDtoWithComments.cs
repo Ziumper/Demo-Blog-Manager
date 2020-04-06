@@ -5,7 +5,7 @@ using Blog.Bll.Dto.Comments;
 
 namespace Blog.Bll.Dto.Posts
 {
-    public class PostDtoWithComments : PostDto
+    public class PostDtoWithComments : PostDtoWithAuthor
     {
         public List<CommentDto> Comments { get; set; }
     }

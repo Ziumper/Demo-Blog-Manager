@@ -49,6 +49,19 @@ namespace Blog.Dal.Repositories.Posts
             return pagedEntity;
         }
 
+        public async Task<PostWithComments> GetPostWithCommentsAsync(int postId)
+        {
+            var result = await _table.Where(post => post.Id == postId).Include(post =>post.Comments).
+                Join(
+                    _context.Users,
+                    post => post.Blog.UserId,
+                    user => user.Id,
+                    (post,user)=> new PostWithComments(post,user)
+                )
+                .FirstOrDefaultAsync();
+            return result;
+        }
+
         public override IQueryable<Post> Sort(IQueryable<Post> entites, int filter, bool order) {
             return _postSortable.Sort(entites,filter,order);
         }

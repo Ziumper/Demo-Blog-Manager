@@ -4,6 +4,7 @@ import { PostPagedModel } from './models/post-paged.model';
 import { PostModel } from './models/post.model';
 import { PostQueryModel } from './models/post-query.model';
 import { HttpClient } from '@angular/common/http';
+import { PostWithComments } from './models/post-with-comments.model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +41,8 @@ export class PostService {
       return this.http.get<PostModel>(this.postApiUrl + '/' + id.toString());
    }
 
-   public getPostByBlogIdAndPostIdAndWithComments(blogId: number, postId: number) {
-      return this.http.get<PostModel>(this.postApiUrl + '/' + blogId + '/' + postId + '/comments' );
+   public getPostByBlogIdAndPostIdAndWithComments(postId: number) {
+      return this.http.get<PostWithComments>(this.postApiUrl + '/' + postId + '/comments' );
    }
 
    public updatePost(post: PostModel): Observable<PostModel> {

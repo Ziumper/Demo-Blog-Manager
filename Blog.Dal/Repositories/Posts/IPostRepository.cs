@@ -19,5 +19,7 @@ namespace Blog.Dal.Repositories.Posts
             bool order,
             Expression<Func<Post,bool>> predicate
         );
+
+        Task<PostWithComments> GetPostWithCommentsAsync(int postId);
     }
 }
