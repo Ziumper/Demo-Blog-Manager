@@ -19,7 +19,7 @@ namespace Blog.Bll.Services.Posts
         Task<PostDto> DeletePostAsync(int postId);
         PostDto EditPost(PostDto postDto);
         Task<PostDto> EditPostAsync(PostDto postDto);
-        Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId);
+        Task<PostDtoWithAuthor> GetPostWithAuthorById(int postId);
         Task<PostDtoPaged> GetAllPostsPagedAsync(PostQuery searchQuery);
         Task<PostDtoPaged> GetAllPostPagedAsyncByBlogId(PostQuery searchQuery);
         Task<PostDtoPaged> GetAllPostsPagedASyncByTags(PostQuery query);

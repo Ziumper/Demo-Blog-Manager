@@ -41,8 +41,8 @@ export class PostService {
       return this.http.get<PostModel>(this.postApiUrl + '/' + id.toString());
    }
 
-   public getPostByBlogIdAndPostIdAndWithComments(postId: number) {
-      return this.http.get<PostWithComments>(this.postApiUrl + '/' + postId + '/comments' );
+   public getPostByIdWithAuthor(postId: number) {
+      return this.http.get<PostWithComments>(this.postApiUrl + '/' + postId + '/author' );
    }
 
    public updatePost(post: PostModel): Observable<PostModel> {

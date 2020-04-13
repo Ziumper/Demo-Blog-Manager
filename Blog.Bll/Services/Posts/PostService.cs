@@ -201,10 +201,10 @@ namespace Blog.Bll.Services.Posts
             throw new NotImplementedException();
         }
 
-        public async Task<PostDtoWithComments> GetPostWithCommentsByIdAsync(int postId)
+        public async Task<PostDtoWithAuthor> GetPostWithAuthorById(int postId)
         {
-            var postWithComments = await _postRepository.GetPostWithCommentsAsync(postId);
-            var result = _mapper.Map<PostWithComments,PostDtoWithComments>(postWithComments);
+            var postWithComments = await _postRepository.GetPostWithAuhtor(postId);
+            var result = _mapper.Map<PostWithAuthor,PostDtoWithAuthor>(postWithComments);
             return result;
         }
 

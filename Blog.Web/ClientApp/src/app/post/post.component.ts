@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from './post.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostModel } from './models/post.model';
-import { PostWithComments } from './models/post-with-comments.model';
 
 @Component({
   selector: 'app-post',
@@ -11,11 +10,11 @@ import { PostWithComments } from './models/post-with-comments.model';
 })
 export class PostComponent implements OnInit {
 
-  public post: PostWithComments;
+  public post: PostModel;
 
   constructor(private postService: PostService,
     private route: ActivatedRoute) {
-      this.post = new PostWithComments();
+      this.post = new PostModel();
   }
 
   public ngOnInit(): void {
@@ -25,7 +24,7 @@ export class PostComponent implements OnInit {
   private getPost(): void {
     const postId = this.route.snapshot.params['id'];
     if (postId) {
-      this.postService.getPostByBlogIdAndPostIdAndWithComments(postId).subscribe(response => {
+      this.postService.getPostByIdWithAuthor(postId).subscribe(response => {
         this.post = response;
       });
     }

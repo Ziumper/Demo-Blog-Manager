@@ -34,11 +34,11 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{id:int}/comments")]
+        [HttpGet("{id:int}/author")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetPostWithCommentsById(int id)
+        public async Task<IActionResult> GetPostWithAuthor(int id)
         {
-            var result = await _postService.GetPostWithCommentsByIdAsync(id);
+            var result = await _postService.GetPostWithAuthorById(id);
             return Ok(result);
         }
 

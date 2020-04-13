@@ -20,6 +20,6 @@ namespace Blog.Dal.Repositories.Posts
             Expression<Func<Post,bool>> predicate
         );
 
-        Task<PostWithComments> GetPostWithCommentsAsync(int postId);
+        Task<PostWithAuthor> GetPostWithAuhtor(int postId);
     }
 }

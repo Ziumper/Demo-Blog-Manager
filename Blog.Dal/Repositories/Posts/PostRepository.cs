@@ -49,7 +49,7 @@ namespace Blog.Dal.Repositories.Posts
             return pagedEntity;
         }
 
-        public async Task<PostWithComments> GetPostWithCommentsAsync(int postId)
+        public async Task<PostWithAuthor> GetPostWithAuhtor(int postId)
         {
             var result = await _table
             .Where(post => post.Id == postId)
@@ -59,9 +59,9 @@ namespace Blog.Dal.Repositories.Posts
                 _context.Users,
                 post => post.Blog.UserId,
                 user => user.Id,
-                (post,user)=> new PostWithComments(post,user)
+                (post,user)=> new PostWithAuthor(post,user)
             ).FirstOrDefaultAsync();
-            
+
             return result;
         }
 
