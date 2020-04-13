@@ -15,7 +15,9 @@ namespace Blog.Web.Mappings
             CreateMap<BlogEntity,BlogDto>();
             CreateMap<Post,PostDto>().ReverseMap();
             CreateMap<PostWithAuthor,PostDtoWithAuthor>().ReverseMap();
-            CreateMap<PostWithComments,PostDtoWithComments>().ReverseMap();
+            CreateMap<PostWithComments,PostDtoWithComments>()
+            .ForMember(post => post.BlogTitle, opt => opt.MapFrom(post => post.Blog.Title))
+            .ReverseMap();
             CreateMap<Post,PostDtoWithComments>().ReverseMap();
             CreateMap<Comment,CommentDto>().ReverseMap();
             CreateMap<BlogDto,BlogEntity>()

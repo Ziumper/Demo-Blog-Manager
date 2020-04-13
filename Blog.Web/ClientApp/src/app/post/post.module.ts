@@ -12,6 +12,7 @@ import { PostsManagerComponent } from './posts-manager/posts-manager.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgxEditorModule } from 'ngx-editor';
 import { CoreModule } from '../core/core.module';
+import { CommentModule } from './comment/comment.module';
 
 
 
@@ -32,6 +33,7 @@ import { CoreModule } from '../core/core.module';
     ],
     imports: [
         FormsModule,
+        CommentModule,
         CommonModule,
         NgbModule,
         RouterModule,

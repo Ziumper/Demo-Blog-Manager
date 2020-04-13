@@ -7,6 +7,7 @@ namespace Blog.Bll.Dto.Posts
 {
     public class PostDtoWithComments : PostDtoWithAuthor
     {
+        public string BlogTitle { get; set;}
         public List<CommentDto> Comments { get; set; }
     }
 }

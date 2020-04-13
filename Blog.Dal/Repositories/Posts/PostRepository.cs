@@ -51,14 +51,17 @@ namespace Blog.Dal.Repositories.Posts
 
         public async Task<PostWithComments> GetPostWithCommentsAsync(int postId)
         {
-            var result = await _table.Where(post => post.Id == postId).Include(post =>post.Comments).
-                Join(
-                    _context.Users,
-                    post => post.Blog.UserId,
-                    user => user.Id,
-                    (post,user)=> new PostWithComments(post,user)
-                )
-                .FirstOrDefaultAsync();
+            var result = await _table
+            .Where(post => post.Id == postId)
+            .Include(post => post.Blog)
+            .Include(post =>post.Comments)
+            .Join(
+                _context.Users,
+                post => post.Blog.UserId,
+                user => user.Id,
+                (post,user)=> new PostWithComments(post,user)
+            ).FirstOrDefaultAsync();
+            
             return result;
         }
 
