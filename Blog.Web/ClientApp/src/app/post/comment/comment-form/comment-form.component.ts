@@ -22,7 +22,7 @@ export class CommentFormComponent implements OnInit {
   }
 
   public submit(): void {
-    this.commentService.addPost(this.comment).subscribe(response => {
+    this.commentService.addComment(this.comment).subscribe(response => {
         this.alertService.success('Comment succesfully added');
     });
   }
