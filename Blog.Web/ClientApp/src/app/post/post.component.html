@@ -6,7 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div>{{post?.title}}</div>
+                    <h2>{{post?.title}}</h2>
+                    <hr class="seperator"/>
                     <p class="card-text"><small><a [routerLink]="['/','blog',post.blogId]">{{post?.author}}</a></small> <small class="text-muted"> {{post?.creationDate | date:'medium'}}</small></p>
                 </div>
                 <div [innerHTML]="post?.content" class="card-body">
