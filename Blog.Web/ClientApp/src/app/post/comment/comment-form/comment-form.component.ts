@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { CommentService } from '../comment.service';
+import { CommentModel } from '../models/comment.model';
+import { ActivatedRoute } from '@angular/router';
+import { AlertService } from 'src/app/core/services/alert.service';
 
 @Component({
   selector: 'app-comment-form',
@@ -7,11 +11,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommentFormComponent implements OnInit {
 
-  public comment: Comment;
+  public comment: CommentModel;
 
-  constructor() { }
+  constructor(private commentService: CommentService, private route: ActivatedRoute,
+    private alertService: AlertService) {}
 
   public ngOnInit(): void {
+    this.comment = new CommentModel();
+    this.comment.postId = this.route.snapshot.params['id'];
+  }
+
+  public submit(): void {
+    this.commentService.addPost(this.comment).subscribe(response => {
+        this.alertService.success('Comment succesfully added');
+    });
   }
 
 }

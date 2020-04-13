@@ -35,7 +35,6 @@ namespace Blog.Web.Controllers
         }
 
         [HttpPost]
-        [Route("addComment")]
         public async Task<IActionResult> AddComment([FromBody]CommentCreateDto value)
         {
             var result = await _commentService.AddCommentToPostAsync(value);
