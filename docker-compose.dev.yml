@@ -6,7 +6,6 @@ services:
             target: debug
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
-            - DOTNET_USE_POLLING_FILE_WATCHER=1
         volumes:
             - ./Blog.Web/ClientApp/src/app:/app/Blog.Web/ClientApp/src/app
             - ./vsdbg:/app/vsdbg
