@@ -2,11 +2,9 @@ version: "3.4"
 
 services:
     web:
-        build:
-            target: debug
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
         volumes:
             - ./Blog.Web/ClientApp/src/app:/app/Blog.Web/ClientApp/src/app
             - ./vsdbg:/app/vsdbg
-       # entrypoint: tail -f /dev/null #make docker container running
+        entrypoint: tail -f /dev/null #make container running
