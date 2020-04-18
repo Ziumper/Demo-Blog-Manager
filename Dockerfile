@@ -15,5 +15,5 @@ EXPOSE 80/tcp
 
 WORKDIR /app
 
-RUN chmod +x entrypoint.sh
-CMD /bin/bash entrypoint.sh
+RUN chmod +x scripts/entrypoint.sh
+CMD /bin/bash scripts/entrypoint.sh
