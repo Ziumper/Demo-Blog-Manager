@@ -2,12 +2,12 @@
 
 Blog management application in .net core and angular 2. Application is manged in docker. Currently only dev version.
 
-## Run
+## Build and run
 
-To run application go to application folder and run this in your terminal
+To build and run dev version use this script:
 
 ```bash
-bash runDev.sh
+bash scripts/dev.sh
 ```
 
 Application should be avialibale on this addres
