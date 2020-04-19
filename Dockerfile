@@ -14,3 +14,4 @@ RUN ["dotnet", "build"]
 EXPOSE 80/tcp
 
 WORKDIR /app
+RUN chmod +x scripts/kill.sh

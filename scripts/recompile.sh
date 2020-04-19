@@ -1,5 +1,5 @@
 echo "Killing dotnet process"
-docker exec -ti blog_web_1 sh -c "kill $(ps aux | grep 'Blog.Web.dll' | awk '{print $2}')"
+docker exec -ti blog_web_1 sh -c "bash scripts/kill.sh"
 #Copy 
 echo "copy files"
 # docker cp ./Blog.Bll/Dto blog_web_1:/app/Blog.Bll/Dto
