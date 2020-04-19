@@ -20,6 +20,13 @@ To stop
 docker-compose stop
 ```
 
+## Run 
+
+To run builded containers
+```bash
+docker-compose start
+```
+
 ## Update
 
 To update the C# code inside docker container first stop the containers and then rebuild to copy new code.
