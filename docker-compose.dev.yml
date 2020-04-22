@@ -5,6 +5,20 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Development
         volumes:
+            - ./Blog.Bll/Dto:/app/Blog.Bll/Dto
+            - ./Blog.Bll/Exceptions:/app/Blog.Bll/Exceptions
+            - ./Blog.Bll/Middlewares:/app/Blog.Bll/Middlewares
+            - ./Blog.Bll/Services:/app/Blog.Bll/Services
+            - ./Blog.Dal/Migrations:/app/Blog.Dal/Migrations
+            - ./Blog.Dal/Models:/app/Blog.Dal/Models
+            - ./Blog.Dal/Repositories:/app/Blog.Dal/Repositories
+            - ./Blog.Dal/BloggingContext.cs:/app/Blog.Dal/BloggingContext.cs
+            - ./Blog.Dal/DesignTimeDbContextFactory.cs:/app/Blog.Dal/DesignTimeDbContextFactory.cs
+            - ./Blog.Web/Controllers:/app/Blog.Web/Controllers
+            - ./Blog.Web/Mappings:/app/Blog.Web/Mappings
             - ./Blog.Web/ClientApp/src/app:/app/Blog.Web/ClientApp/src/app
+            - ./Blog.Web/ClientApp/src/app:/app/Blog.Web/ClientApp/src/app
+            - ./Blog.Web/Program.cs:/app/Blog.Web/Program.cs
+            - ./Blog.Web/Startup.cs:/app/Blog.Web/Startup.cs
             - ./vsdbg:/app/vsdbg
         entrypoint: tail -f /dev/null #make container running
