@@ -14,15 +14,17 @@ Application should be avialibale on this addres
 
 <http://localhost:8000>
 
-To stop
+## Stop
+
+It is stoping only application inside container not container itself.
 
 ```bash
-docker-compose stop
+bash scripts/stop.sh
 ```
 
 ## Update
 
-To update the C# code inside docker container first stop the containers and then rebuild to copy new code.
+To recompile just use:
 
 ```bash
 bash scripts/recompile.sh
