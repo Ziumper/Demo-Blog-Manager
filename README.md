@@ -2,22 +2,24 @@
 
 Blog management application in .net core and angular 2. Application is manged in docker. Currently only dev version.
 
-## Build and run
+## Setup
 
 To build and run dev version use this script:
 
 ```bash
-bash scripts/dev.sh
+bash scripts/setup.sh
 ```
 
 Application should be avialibale on this addres
 
 <http://localhost:8000>
 
-To stop
+## Stop
+
+It is stoping only application inside container not container itself.
 
 ```bash
-docker-compose stop
+bash scripts/stop.sh
 ```
 
 ## Run 
@@ -29,10 +31,10 @@ docker-compose start
 
 ## Update
 
-To update the C# code inside docker container first stop the containers and then rebuild to copy new code.
+To recompile just use:
 
 ```bash
-In progress
+bash scripts/recompile.sh
 ```
 
 ## Debug
