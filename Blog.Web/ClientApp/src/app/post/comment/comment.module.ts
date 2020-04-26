@@ -4,6 +4,7 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
 import { CommentService } from './comment.service';
 import { FormsModule } from '@angular/forms';
 import { CommentsListComponent } from './comments-list/comments-list.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import { CommentsListComponent } from './comments-list/comments-list.component';
         CommentsListComponent
     ],
     imports: [
-        FormsModule
+        FormsModule,
+        CommonModule
     ],
     exports: [
         CommentFormComponent,

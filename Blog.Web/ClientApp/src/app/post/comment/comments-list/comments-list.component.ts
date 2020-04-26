@@ -10,6 +10,7 @@ import { CommentModel } from '../models/comment.model';
   styleUrls: ['./comments-list.component.scss']
 })
 export class CommentsListComponent implements OnInit {
+
     public comments: Array<CommentModel>;
 
     private postId: number;
@@ -19,13 +20,14 @@ export class CommentsListComponent implements OnInit {
     public ngOnInit(): void {
         this.comments = new Array<CommentModel>();
         this.postId = this.route.snapshot.params['id'];
+        this.getComments();
     }
 
-  public submit(): void {
-      this.commentService.getCommentsByPostId(this.postId).subscribe(response => {
+    private getComments(): void {
+        this.commentService.getCommentsByPostId(this.postId).subscribe(response => {
           this.comments = response;
       });
-  }
+    }
 
 
 }
