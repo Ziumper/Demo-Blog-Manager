@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Blog.Dal.Repositories.Comments
 
@@ -22,6 +23,11 @@ namespace Blog.Dal.Repositories.Comments
             {
                 _table.Remove(c);
             }
+        }
+
+        public async Task<List<Comment>> GetCommentsByPostId(int postId,int take, int skip)
+        {
+            return await this._table.Take(take).Skip(skip).Where(comment => comment.PostId == postId).ToListAsync();
         }
     }
 }

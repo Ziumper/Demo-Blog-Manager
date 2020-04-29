@@ -1,6 +1,10 @@
-<app-comment-form></app-comment-form>
-<div class="container" *ngFor="let comment of comments">
-    <p>{{ comment.content }}</p>
+<div>
+    <app-comment-form></app-comment-form>
+</div>
+
+
+<div class="mt-5" *ngFor="let comment of comments">
+    <app-comment [comment]="comment"></app-comment>
 </div>
 
    

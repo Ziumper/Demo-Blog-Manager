@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Blog.Bll.Dto.Base;
 
 namespace Blog.Bll.Dto.Comments
 {
-    public class CommentDto
+    public class CommentDto : BaseDto
     {
-        public int CommentId { get; set; }
         public string Content { get; set; }
-        public DateTime Date { get; set; }
 
     }
 }

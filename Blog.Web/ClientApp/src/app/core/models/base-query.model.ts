@@ -1,6 +1,7 @@
 import { HttpParams } from '@angular/common/http';
+import { Paramsable } from './paramsable.interface';
 
-export class BaseQueryModel {
+export class BaseQueryModel implements Paramsable {
     public page: number;
     public size: number;
     public filter: number;

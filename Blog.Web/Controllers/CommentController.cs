@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Blog.Bll.Services.Comments;
-using Blog.Bll.Dto;
 using Blog.Bll.Dto.Comments;
 using Blog.Web.Controllers.Base;
 using Microsoft.AspNetCore.Authorization;
@@ -41,12 +36,13 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
-        [HttpGet("commentsByPostId/{postId}")]
-        public async Task<IActionResult> GetAllByPostId(int postId)
+        [HttpGet("comments")]
+        public async Task<IActionResult> GetCommentsList([FromQuery] CommentsQueryDto query)
         {
-            var result = await _commentService.GetAllCommentsByPostIdAsync(postId);
+            var result = await _commentService.GetComments(query);
             return Ok(result);
         }
+
         // PUT: api/Comment/5
         [HttpPut("{id}")]
         public IActionResult Put([FromBody]CommentDto value)

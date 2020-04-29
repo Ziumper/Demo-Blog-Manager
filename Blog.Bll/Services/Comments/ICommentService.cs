@@ -11,7 +11,7 @@ namespace Blog.Bll.Services.Comments
     {
         Task<CommentDto> DeleteComment(int commentId);
         CommentDto EditComment(CommentDto commentDto);
-        Task<List<CommentDto>> GetAllCommentsByPostIdAsync(int postId);
+        Task<List<CommentDto>> GetComments(CommentsQueryDto query);
         CommentDto GetCommentById(int id);
         Task<List<CommentDto>> AddCommentToPostAsync(CommentCreateDto commentDto);
     }

@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
-using Blog.Bll.Dto;
 using Blog.Bll.Dto.Comments;
 using Blog.Bll.Exceptions;
 using Blog.Dal.Models;
 using Blog.Dal.Repositories.Comments;
 using Blog.Dal.Repositories.Posts;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,7 +43,7 @@ namespace Blog.Bll.Services.Comments
 
         public CommentDto EditComment(CommentDto commentDto)
         {
-            var result = _commentRepository.FindBy(c => c.Id == commentDto.CommentId).FirstOrDefault();
+            var result = _commentRepository.FindBy(c => c.Id == commentDto.Id).FirstOrDefault();
             if(result == null)
             {
                 throw new ResourceNotFoundException("Comment not found");
@@ -61,7 +59,6 @@ namespace Blog.Bll.Services.Comments
 
             return resutlDto;
         }
-
 
         public CommentDto GetCommentById(int id)
         {
@@ -109,19 +106,10 @@ namespace Blog.Bll.Services.Comments
             return commentsDto;
         }
 
-        public async Task<List<CommentDto>> GetAllCommentsByPostIdAsync(int postId)
+        public async Task<List<CommentDto>> GetComments(CommentsQueryDto query)
         {
-            var postQueryResult = await _postRepository.FindByIdFirstAsync(postId);
-            var post = postQueryResult;
-            if(post == null) throw new ResourceNotFoundException("Post with id:" + postId+ " not found");
-
-            List<CommentDto> result = new List<CommentDto>();
-            foreach(var comment in  post.Comments)
-            {
-                result.Add(_mapper.Map<Comment,CommentDto>(comment));
-            }
-
-            return result;
+            var comments = await this._commentRepository.GetCommentsByPostId(query.PostId,query.Take,query.Skip);
+            return _mapper.Map<List<Comment>,List<CommentDto>>(comments);
         }
     }
 }
