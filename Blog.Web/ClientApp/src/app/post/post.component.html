@@ -13,6 +13,11 @@
                 <div [innerHTML]="post?.content" class="card-body">
                 </div>
                 <div class="card-footer">
+                    <div *ngIf="post?.commentsCount > 0">
+                        <small>Comments: {{post?.commentsCount}}</small>
+                        <hr/>
+                    </div>
+                    
                     <app-comments-list></app-comments-list>
                 </div>
             </div>

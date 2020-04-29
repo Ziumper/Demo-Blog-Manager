@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PostService } from './post.service';
 import { ActivatedRoute } from '@angular/router';
 import { PostModel } from './models/post.model';
-import { CommentService } from './comment/comment.service';
+import { BlogService } from '../blog/blog.service';
 
 @Component({
   selector: 'app-post',

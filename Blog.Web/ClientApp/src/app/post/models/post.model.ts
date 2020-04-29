@@ -7,4 +7,5 @@ export class PostModel extends BaseModel {
     public blogId: number;
     public author: string;
     public blogTitle: string;
+    public commentsCount: number;
 }

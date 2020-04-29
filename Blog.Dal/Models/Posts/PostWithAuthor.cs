@@ -20,10 +20,12 @@ namespace Blog.Dal.Models.Posts {
             this.Title = this.post.Title;
             this.ShortDescription = this.post.ShortDescription;
             this.AuthorId = user.Id;
+            this.CommentsCount = this.post.Comments.Count;
         }
 
         public string Author {get; set;}
         public int AuthorId {get; set;}
+        public int CommentsCount {get; set;}
     }
 
 }

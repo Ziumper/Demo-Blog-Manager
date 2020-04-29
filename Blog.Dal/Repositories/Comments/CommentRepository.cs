@@ -27,7 +27,7 @@ namespace Blog.Dal.Repositories.Comments
 
         public async Task<List<Comment>> GetCommentsByPostId(int postId,int take, int skip)
         {
-            return await this._table.Take(take).Skip(skip).Where(comment => comment.PostId == postId).ToListAsync();
+            return await this._table.Where(comment => comment.PostId == postId).OrderByDescending(comment => comment.CreationDate).Take(take).Skip(skip).ToListAsync();
         }
     }
 }
