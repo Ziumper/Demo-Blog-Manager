@@ -1,4 +1,8 @@
 <div class="card">
+  <div class="card-header">
+    <small><a href="#">Guest</a></small>
+    <small class="ml-2">{{comment?.creationDate | date:'medium'}}</small>
+  </div>
   <div class="card-body">
     {{comment.content}}
   </div>
