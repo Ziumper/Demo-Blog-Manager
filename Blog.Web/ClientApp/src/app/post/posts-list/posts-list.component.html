@@ -1,14 +1,25 @@
 <div class="post-container" *ngFor="let post of this.postsPagedModel.entities">
     <div class="card">
         <div class="card-header">
-            <div>{{post?.title}}</div>
-            <p class="card-text"><small><a [routerLink]="['/','blog',post.blogId]">{{post?.author}}</a></small> <small class="text-muted"> {{post?.creationDate | date:'medium'}}</small></p>
+            <div>
+                <span>
+                    {{post?.title}}
+                </span>
+            </div>         
+            <p class="card-text"><small><a [routerLink]="['/','blog',post.blogId]">{{post?.author}}</a></small> <small class="text-muted"> {{post?.creationDate | date:'medium'}}</small>
+                <span *ngIf="post?.commentsCount > 0" class="mb-3">
+                    <small><fa class="ml-2 action-icon" name="comments"></fa>{{post?.commentsCount}}</small>
+                </span>
+            </p>
         </div>
         <div class="card-body">
             <p class="card-text">{{post?.shortDescription}}</p>
         </div>
         <div class="card-footer">
-            <a [routerLink]="['/','blog',post.blogId,'post', post.id]" class="btn btn-primary">Go to post</a>
+         
+            <div>
+                <a [routerLink]="['/','blog',post.blogId,'post', post.id]" class="btn btn-primary">Go to post</a>
+            </div>
         </div>
     </div>
 </div>
