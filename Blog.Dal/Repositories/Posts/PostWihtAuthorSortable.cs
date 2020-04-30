@@ -4,7 +4,7 @@ using Blog.Dal.Models.Posts;
 namespace Blog.Dal.Repositories.Posts {
 
 
-    public class PostWithAutorSortable : BasePostSortable<PostWithAuthor>, IPostWithAuthorSortable
+    public class PostWithAuthorSortable : BasePostSortable<PostWithAuthor>, IPostWithAuthorSortable
     {
         public override IQueryable<PostWithAuthor> Sort
             (

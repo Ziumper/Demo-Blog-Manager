@@ -31,20 +31,20 @@ namespace Blog.Dal.Repositories.Posts
         {
             var skipCount = GetSkipCount(page,size);
             var pagedEntity = new PagedEntity<PostWithAuthor>();
+            
+            var result = _table.Where(predicate);
+    
+            result = _postSortable.Sort(result,filter,order).Skip(skipCount).Take(size);
 
-            var result = _table.Include(p => p.Blog).Where(predicate).Join
-            (
+            var joinedResult = result.Include(post => post.Comments).Join(
                 _context.Users,
                 post => post.Blog.UserId,
                 user => user.Id,
                 (post,user) => new PostWithAuthor(post,user)
             );
 
-            result = _sortablePostWithAutor.Sort(result,filter,order);
-             
-            pagedEntity.Count = await result.CountAsync();
-
-            var enitites =  await result.Skip(skipCount).Take(size).ToListAsync();
+            pagedEntity.Count = await result.CountAsync();         
+            var enitites =  await joinedResult.ToListAsync();
             pagedEntity.Entities = enitites;
             return pagedEntity;
         }

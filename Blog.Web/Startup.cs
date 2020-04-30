@@ -130,7 +130,7 @@ namespace Blog.Web {
             services.AddTransient<IHashService, HashService> ();
             services.AddTransient<ITokenService,TokenService>();
             services.AddTransient<IPostSortable, PostSortable>();
-            services.AddTransient<IPostWithAuthorSortable, PostWithAutorSortable> ();
+            services.AddTransient<IPostWithAuthorSortable, PostWithAuthorSortable> ();
         }
 
         private void SetupEmailConfiguration(IServiceCollection services) {
