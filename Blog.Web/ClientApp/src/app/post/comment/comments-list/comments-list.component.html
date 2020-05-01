@@ -1,11 +1,7 @@
 <div>
-    <app-comment-form></app-comment-form>
+    <app-comment-form (submited)="this.onCommentFormSubmit($event)"></app-comment-form>
     <hr/>
 </div>
-
-
 <div class="mt-4" *ngFor="let comment of comments">
     <app-comment [comment]="comment"></app-comment>
 </div>
-
-   

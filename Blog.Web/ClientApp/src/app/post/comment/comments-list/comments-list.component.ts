@@ -32,5 +32,11 @@ export class CommentsListComponent implements OnInit {
       });
     }
 
+    public onCommentFormSubmit(submited: boolean): void {
+      if (submited) {
+        this.getComments();
+      }
+    }
+
 
 }
