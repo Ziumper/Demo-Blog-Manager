@@ -29,6 +29,11 @@ namespace Blog.Web.Controllers
             return Ok(result);
         }
 
+        [HttpGet("count/{postId}")]
+        public IActionResult GetCommentsCount(int postId) {
+            return Ok(_commentService.GetCountCommentsByPostId(postId));
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddComment([FromBody]CommentCreateDto value)
         {

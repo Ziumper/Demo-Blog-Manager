@@ -23,5 +23,9 @@ export class CommentService {
         return this.http.get<Array<CommentModel>>(this.commentApiUrl + '/comments?', {params: params});
     }
 
+    public getCommentsCount(): Observable<number> {
+        return this.http.get<number>(this.commentApiUrl);
+    }
+
 
 }

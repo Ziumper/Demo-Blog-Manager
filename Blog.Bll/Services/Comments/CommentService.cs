@@ -111,5 +111,10 @@ namespace Blog.Bll.Services.Comments
             var comments = await this._commentRepository.GetCommentsByPostId(query.PostId,query.Take,query.Skip);
             return _mapper.Map<List<Comment>,List<CommentDto>>(comments);
         }
+
+        public async Task<int> GetCountCommentsByPostId(int postId)
+        {
+            return await this._commentRepository.GetCommentsCountByPostId(postId);
+        }
     }
 }

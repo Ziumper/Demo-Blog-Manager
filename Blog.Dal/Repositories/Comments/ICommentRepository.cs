@@ -11,5 +11,6 @@ namespace Blog.Dal.Repositories.Comments
     {
         void DeleteManyCommentsByPostId(int postId);
         Task<List<Comment>> GetCommentsByPostId(int postId,int skip,int take);
+        Task<int> GetCommentsCountByPostId(int postId);
     }
 }

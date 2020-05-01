@@ -29,5 +29,10 @@ namespace Blog.Dal.Repositories.Comments
         {
             return await this._table.Where(comment => comment.PostId == postId).OrderByDescending(comment => comment.CreationDate).Take(take).Skip(skip).ToListAsync();
         }
+
+        public async Task<int> GetCommentsCountByPostId(int postId)
+        {
+            return await this._table.Where(comment => comment.PostId == postId).CountAsync();
+        }
     }
 }

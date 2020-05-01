@@ -14,5 +14,6 @@ namespace Blog.Bll.Services.Comments
         Task<List<CommentDto>> GetComments(CommentsQueryDto query);
         CommentDto GetCommentById(int id);
         Task<List<CommentDto>> AddCommentToPostAsync(CommentCreateDto commentDto);
+        Task<int> GetCountCommentsByPostId(int postId);
     }
 }
