@@ -30,6 +30,8 @@ export class CommentFormComponent implements OnInit {
     this.commentService.addComment(this.comment).subscribe(response => {
         this.alertService.success('Comment succesfully added');
         this.submited.emit(true);
+        this.commentService.emitCommentForm();
+        this.comment = new CommentModel();
     });
   }
 

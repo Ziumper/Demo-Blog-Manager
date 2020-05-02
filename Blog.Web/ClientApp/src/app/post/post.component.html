@@ -13,9 +13,9 @@
                 <div [innerHTML]="post?.content" class="card-body">
                 </div>
                 <div class="card-footer">
-                    <div *ngIf="post?.commentsCount > 0">
+                    <div *ngIf="commentsCount > 0">
                         <fa class="mr-2 action-icon" name="comments"></fa>
-                        <small>Comments: {{post?.commentsCount}}</small>
+                        <small>Comments: {{commentsCount}}</small>
                     </div>
                     <app-comments-list></app-comments-list>
                 </div>

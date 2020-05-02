@@ -30,8 +30,9 @@ namespace Blog.Web.Controllers
         }
 
         [HttpGet("count/{postId}")]
-        public IActionResult GetCommentsCount(int postId) {
-            return Ok(_commentService.GetCountCommentsByPostId(postId));
+        public async Task<IActionResult> GetCommentsCount(int postId) {
+            var result = await _commentService.GetCountCommentsByPostId(postId);
+            return Ok(result);
         }
 
         [HttpPost]
