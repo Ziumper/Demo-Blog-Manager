@@ -24,9 +24,9 @@ bash scripts/stop.sh
 
 ## Run 
 
-To run builded containers
+To run builded containers but stopped containers
 ```bash
-docker-compose start
+bash scripts/start.sh
 ```
 
 ## Update
