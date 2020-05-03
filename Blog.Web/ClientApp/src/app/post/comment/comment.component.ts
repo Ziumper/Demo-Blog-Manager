@@ -18,7 +18,7 @@ export class CommentComponent implements OnInit {
     this.isEdit = false;
   }
 
-  public edit() {
+  public edit(): void {
     this.isEdit = true;
   }
 
@@ -26,6 +26,9 @@ export class CommentComponent implements OnInit {
     if (value) {
       this.isEdit = false;
     }
+  }
+
+  public deleteComment(): void {
   }
 
 }

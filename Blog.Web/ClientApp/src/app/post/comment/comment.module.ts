@@ -5,6 +5,8 @@ import { CommentService } from './comment.service';
 import { FormsModule } from '@angular/forms';
 import { CommentsListComponent } from './comments-list/comments-list.component';
 import { CommonModule } from '@angular/common';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -14,7 +16,9 @@ import { CommonModule } from '@angular/common';
     ],
     imports: [
         FormsModule,
-        CommonModule
+        CommonModule,
+        AngularFontAwesomeModule,
+        NgbModule
     ],
     exports: [
         CommentFormComponent,

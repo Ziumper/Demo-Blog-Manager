@@ -1,8 +1,15 @@
 <div *ngIf="!isEdit" class="card">
-  <div class="card-header">
-    <small><a href="#">Guest</a></small>
-    <small class="ml-2">{{comment?.creationDate | date:'medium'}}</small>
-    <button (click)="edit()">Edit</button>
+  <div class="card-header d-flex justify-content-between">
+    <span>
+      <small><a href="#">Guest</a></small>
+      <small class="ml-2">{{comment?.creationDate | date:'medium'}}</small>
+    </span>
+    <span>
+      <small>
+        <a class="action-icon" ngbTooltip="Edit comment" (click)="edit()"><fa name="edit"></fa></a>
+        <a class="action-icon" ngbTooltip="Delete comment" (click)="deleteComment()"><fa name="trash"></fa></a>
+      </small>
+    </span>
   </div>
   <div class="card-body">
     {{comment.content}}
