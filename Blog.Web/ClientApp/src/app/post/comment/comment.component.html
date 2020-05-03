@@ -9,5 +9,5 @@
   </div>
 </div>
 <div *ngIf="isEdit" class="mt-3">
-  <app-comment-form></app-comment-form>
+  <app-comment-form (editEnd)="onEditEnd($event)" [isEdit]="isEdit" [commentModel]="comment"></app-comment-form>
 </div>

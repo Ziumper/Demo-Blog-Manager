@@ -22,4 +22,10 @@ export class CommentComponent implements OnInit {
     this.isEdit = true;
   }
 
+  public onEditEnd(value: boolean) {
+    if (value) {
+      this.isEdit = false;
+    }
+  }
+
 }

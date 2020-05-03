@@ -22,9 +22,13 @@ export class CommentFormComponent implements OnInit {
   @Input()
   public commentModel: CommentModel;
 
+  @Output()
+  public editEnd: EventEmitter<boolean>;
+
   constructor(private commentService: CommentService, private route: ActivatedRoute,
     private alertService: AlertService) {
         this.submited = new EventEmitter<boolean> ();
+        this.editEnd = new EventEmitter<boolean> ();
     }
 
   public ngOnInit(): void {
@@ -48,6 +52,10 @@ export class CommentFormComponent implements OnInit {
         this.comment = new CommentModel();
       });
     }
+  }
+
+  public close(): void {
+    this.editEnd.next(true);
   }
 
 }
