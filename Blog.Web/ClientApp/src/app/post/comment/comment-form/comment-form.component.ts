@@ -38,7 +38,7 @@ export class CommentFormComponent implements OnInit {
   }
 
   public submit(): void {
-    if(this.isEdit) {
+    if (this.isEdit) {
 
     } else {
       this.commentService.addComment(this.comment).subscribe(response => {
