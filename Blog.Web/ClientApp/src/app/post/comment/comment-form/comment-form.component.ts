@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { CommentService } from '../comment.service';
 import { CommentModel } from '../models/comment.model';
 import { ActivatedRoute } from '@angular/router';
@@ -16,23 +16,38 @@ export class CommentFormComponent implements OnInit {
   @Output()
   public submited: EventEmitter<boolean>;
 
+  @Input()
+  public isEdit: boolean;
+
+  @Input()
+  public commentModel: CommentModel;
+
   constructor(private commentService: CommentService, private route: ActivatedRoute,
     private alertService: AlertService) {
         this.submited = new EventEmitter<boolean> ();
     }
 
   public ngOnInit(): void {
-    this.comment = new CommentModel();
+    if (this.isEdit && this.commentModel) {
+      this.comment = this.commentModel;
+    } else {
+      this.comment = new CommentModel();
+    }
+
     this.comment.postId = this.route.snapshot.params['id'];
   }
 
   public submit(): void {
-    this.commentService.addComment(this.comment).subscribe(response => {
+    if(this.isEdit) {
+
+    } else {
+      this.commentService.addComment(this.comment).subscribe(response => {
         this.alertService.success('Comment succesfully added');
         this.submited.emit(true);
         this.commentService.emitCommentForm();
         this.comment = new CommentModel();
-    });
+      });
+    }
   }
 
 }
