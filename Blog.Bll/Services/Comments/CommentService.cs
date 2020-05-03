@@ -41,7 +41,7 @@ namespace Blog.Bll.Services.Comments
             return resultDto;
         }
 
-        public CommentDto EditComment(CommentDto commentDto)
+        public async Task<CommentDto> EditComment(CommentDto commentDto)
         {
             var result = _commentRepository.FindBy(c => c.Id == commentDto.Id).FirstOrDefault();
             if(result == null)
@@ -53,7 +53,7 @@ namespace Blog.Bll.Services.Comments
 
             result.SetModificationTime();
 
-            _commentRepository.Save();
+            await _commentRepository.SaveAsync();
 
             var resutlDto = _mapper.Map<Comment, CommentDto>(result);
 

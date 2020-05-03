@@ -50,10 +50,10 @@ namespace Blog.Web.Controllers
         }
 
         // PUT: api/Comment/5
-        [HttpPut("{id}")]
-        public IActionResult Put([FromBody]CommentDto value)
+        [HttpPut]
+        public async Task<IActionResult> Put([FromBody]CommentDto value)
         {
-            var result = _commentService.EditComment(value);
+            var result = await _commentService.EditComment(value);
             return Ok(result);
         }
         
