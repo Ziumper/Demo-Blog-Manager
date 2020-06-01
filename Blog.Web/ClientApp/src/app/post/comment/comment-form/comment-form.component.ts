@@ -42,7 +42,7 @@ export class CommentFormComponent implements OnInit {
       this.comment = new CommentModel();
     }
 
-    this.comment.postId = this.route.snapshot.params['id'];
+    this.setPostIdToCommentId();
   }
 
   public submit(): void {
@@ -57,13 +57,18 @@ export class CommentFormComponent implements OnInit {
         this.alertService.success('Comment succesfully added');
         this.submited.emit(true);
         this.commentService.emitCommentForm();
-        this.comment = new CommentModel();
+        this.comment.content = '';
       });
     }
   }
 
   public close(): void {
     this.editEnd.next(true);
+  }
+
+
+  private setPostIdToCommentId(): void {
+    this.comment.postId = this.route.snapshot.params['id'];
   }
 
 }
