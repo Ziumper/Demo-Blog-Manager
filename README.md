@@ -1,6 +1,6 @@
 # Blog
 
-Blog management application in .net core and angular 2. Application is manged in docker. Currently only dev version.
+Demo Blog management application in .net core and angular 2. Application is manged in docker. Currently only dev version.
 
 ## Setup
 
