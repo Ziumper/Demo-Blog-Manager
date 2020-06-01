@@ -16,8 +16,7 @@ services:
             - ./Blog.Dal/DesignTimeDbContextFactory.cs:/app/Blog.Dal/DesignTimeDbContextFactory.cs
             - ./Blog.Web/Controllers:/app/Blog.Web/Controllers
             - ./Blog.Web/Mappings:/app/Blog.Web/Mappings
-            - ./Blog.Web/ClientApp/src/app:/app/Blog.Web/ClientApp/src/app
-            - ./Blog.Web/ClientApp/src/app:/app/Blog.Web/ClientApp/src/app
+            - ./Blog.Web/ClientApp/src:/app/Blog.Web/ClientApp/src
             - ./Blog.Web/Program.cs:/app/Blog.Web/Program.cs
             - ./Blog.Web/Startup.cs:/app/Blog.Web/Startup.cs
             - ./vsdbg:/app/vsdbg

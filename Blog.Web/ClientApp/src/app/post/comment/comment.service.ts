@@ -21,6 +21,10 @@ export class CommentService {
         return this.http.post<CommentModel>(this.commentApiUrl, comment);
     }
 
+    public editComments(comment: CommentModel): Observable<CommentModel> {
+        return this.http.put<CommentModel>(this.commentApiUrl, comment);
+    }
+
     public getComments(query: CommentsQuery): Observable<Array<CommentModel>> {
         const params = query.getParams();
         return this.http.get<Array<CommentModel>>(this.commentApiUrl + '/comments?', {params: params});

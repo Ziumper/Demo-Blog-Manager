@@ -1,8 +1,18 @@
 <form #commentForm="ngForm" name="comment-form" (ngSubmit)="submit()" class="mt-3">
     <div class="form-group">
-        <label for="comment-text">Comment content</label>
+        <label [ngClass]="{'d-flex justify-content-between': isEdit}" for="comment-text">
+            <small>Comment content</small>
+            <small>
+                <a class="action-icon" ngbTooltip="Close edit" (click)="close()" *ngIf="isEdit">
+                    <fa name="times"></fa>
+                  </a>
+            </small>
+        </label>
         <textarea type="text" placeholder="Write something interesting..." class="form-control" name="content" 
         [(ngModel)]="comment.content" #content="ngModel"></textarea>
     </div>
-    <button class="btn btn-primary" type="submit">Add comment</button>
+    <button class="btn btn-primary" type="submit">
+        <span *ngIf="!isEdit">Add comment</span>
+        <span *ngIf="isEdit">Update commment</span>
+    </button>
 </form>

@@ -1,9 +1,18 @@
-<div class="card">
-  <div class="card-header">
-    <small><a href="#">Guest</a></small>
-    <small class="ml-2">{{comment?.creationDate | date:'medium'}}</small>
-  </div>
-  <div class="card-body">
-    {{comment.content}}
-  </div>
+<div *ngIf="!isEdit" class="card">
+    <div class="card-header d-flex justify-content-between">
+        <span>
+        <small><a href="#">Guest</a></small>
+        <small class="ml-2">{{comment?.creationDate | date:'medium'}}</small>
+      </span>
+        <span>
+        <a class="action-icon" ngbTooltip="Edit comment" (click)="edit()"><fa name="edit"></fa></a>
+        <a class="action-icon" ngbTooltip="Delete comment" (click)="deleteComment()"><fa name="trash"></fa></a>
+      </span>
+    </div>
+    <div class="card-body">
+        {{comment.content}}
+    </div>
+</div>
+<div *ngIf="isEdit" class="mt-3">
+    <app-comment-form (editEnd)="onEditEnd($event)" [isEdit]="isEdit" [commentModel]="comment"></app-comment-form>
 </div>
