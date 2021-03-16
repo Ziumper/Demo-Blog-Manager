@@ -1,6 +1,7 @@
 version: "3.4"
 services:
     web:
+        image: "microsoft/dotnet:2.1-sdk"
         container_name: "blog_web_1"
         build: .
         ports:
