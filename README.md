@@ -4,10 +4,20 @@ Demo Blog management application in .net core and angular 2. Application is mang
 
 ## Setup
 
-To build and run dev version use this script:
+To build and run dev version on OS Mac/Linux use this script. 
 
 ```bash
 bash scripts/setup.sh
+```
+There could be some problems with compile or connection durring setup like, just ingore it, 
+the database will setup properly in some time.
+```log
+ System.Data.SqlClient.SqlException (0x80131904): Login failed for user 'sa'.
+```
+
+On windows use powershell
+```
+.scripts/setup.cmd
 ```
 
 Application should be avialibale on this addres
@@ -58,4 +68,18 @@ Example launch.json file in vsc code
             "quoteArgs": false
         },
 }
+```
+
+
+## Wsl2 Min configuration for Windows 10
+Check the configuration link: https://docs.microsoft.com/en-us/windows/wsl/wsl-config#configure-global-options-with-wslconfig
+
+```bash
+notepad "$env:USERPROFILE/.wslconfig"
+```
+
+```
+[wsl2]
+memory=4GB
+processors=2
 ```
